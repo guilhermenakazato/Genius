@@ -10,46 +10,44 @@ class PrazerGenius extends StatelessWidget {
         navegarSabeIniciacao(context);
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Container(
-          child: Stack(
-            children: [
-              Transform.translate(
-                offset: Offset(40, 80),
-                child: TypewriterAnimatedTextKit(
-                  onTap: () {
-                    navegarSabeIniciacao(context);
-                  },
-                  speed: Duration(milliseconds: 70),
-                  text: [
-                    "Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas."
-                        .toUpperCase()
-                  ],
-                  textStyle: TextStyle(
-                    color: const Color(0xffab84e5),
-                    fontSize: 23,
-                    height: 2.2,
-                    letterSpacing: 2,
-                    fontFamily: "Gotham",
-                    fontWeight: FontWeight.w900,
+        backgroundColor: const Color(0xff000000),
+        body: Stack(
+          children: [
+            Transform.translate(
+              offset: Offset(40, 80),
+              child: TypewriterAnimatedTextKit(
+                onTap: () {
+                  navegarSabeIniciacao(context);
+                },
+                speed: Duration(milliseconds: 70),
+                text: [
+                  "Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas."
+                      .toUpperCase()
+                ],
+                textStyle: TextStyle(
+                  color: const Color(0xffab84e5),
+                  fontSize: 23,
+                  height: 2.2,
+                  letterSpacing: 2,
+                  fontFamily: "Gotham",
+                  fontWeight: FontWeight.w900,
+                ),
+                totalRepeatCount: 1,
+              ),
+            ),
+            Transform.translate(
+              offset: Offset(-20, 300),
+              child: Container(
+                width: 350.0,
+                height: 400.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: const AssetImage('assets/homem-sentado.png'),
                   ),
-                  totalRepeatCount: 1,
                 ),
               ),
-              Transform.translate(
-                offset: Offset(-20, 300),
-                child: Container(
-                  width: 350.0,
-                  height: 400.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: const AssetImage('assets/homem-sentado.png'),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

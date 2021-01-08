@@ -1,4 +1,5 @@
 import "package:Genius/components/button.dart";
+import 'package:Genius/utils/navigator_util.dart';
 import 'package:flutter/cupertino.dart';
 
 class ButtonRow extends StatelessWidget {
@@ -7,16 +8,22 @@ class ButtonRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavigatorUtil navigator = NavigatorUtil();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Button(
           text: "Sim",
-          widget: simScreen,
+          onClick: () {
+            navigator.navigate(context, simScreen);
+          },
         ),
         Button(
           text: "Não",
-          widget: naoScreen,
+          onClick: () {
+            navigator.navigate(context, naoScreen);
+          },
         ),
       ],
     );
