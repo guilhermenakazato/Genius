@@ -2,19 +2,26 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   final String text;
-  final Widget widget;
-  const Button({Key key, this.text, this.widget}) : super(key: key);
+  final Function onClick;
+  final double width;
+  final double height;
+
+  const Button(
+      {Key key,
+      @required this.text,
+      @required this.onClick,
+      this.width = 95,
+      this.height = 45})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 95,
-      height: 45,
+      width: width,
+      height: height,
       child: FlatButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return widget;
-          }));
+          onClick();
         },
         splashColor: const Color.fromARGB(200, 171, 132, 229),
         shape: RoundedRectangleBorder(

@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Genius',
       theme: ThemeData(
         primaryColor: const Color(0xffab84e5),
+        
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Gotham", 
       ),
