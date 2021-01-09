@@ -5,6 +5,8 @@ import 'package:Genius/models/auth.dart';
 import 'package:Genius/models/token.dart';
 import 'package:Genius/utils/navigator_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'main/tela_principal.dart';
 
@@ -24,8 +26,26 @@ class _LoginState extends State<Login> {
 }
 
 class _LoginStateBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ProgressHUD(
+      borderColor: const Color(0xffab84e5),
+      indicatorWidget: SpinKitPouringHourglass(
+        color: const Color(0xffab84e5),
+      ),
+      child: Builder(
+        builder: (context) => _LoginStateContent(context),
+      ),
+    );
+  }
+}
+
+class _LoginStateContent extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final BuildContext progressContext;
+
+  _LoginStateContent(this.progressContext);
 
   @override
   Widget build(BuildContext context) {
@@ -93,16 +113,27 @@ class _LoginStateBody extends StatelessWidget {
     final String senha = _passwordController.text;
     final LoginWebClient _webClient = LoginWebClient();
     final NavigatorUtil navigator = NavigatorUtil();
+    final progress = ProgressHUD.of(context);
 
-    // TODO: isso aqui provavelmente vai dar erro; capturar exceções
+    // talvez tenham mais exceções, mas por enquanto é isso
     if (email.contains(" ") || senha.contains(" ")) {
       showSnackBar("Preencha os campos acima sem espaços em branco!", context);
     } else if (email.isEmpty || senha.isEmpty) {
       showSnackBar("Preencha os campos acima!", context);
     } else {
-      Token token = await _webClient.login(Auth(email, senha));
-      bool logged = await _webClient.logged(token.token);
+      progress.show();
 
+      // Faz login e pega um token 
+      Token token = await _webClient.login(Auth(email, senha)).catchError((e) {
+        progress.dismiss();
+        showSnackBar(e.message, context);
+      }, test: (e) => e is HttpException);
+
+      // Passa o token pra API
+      bool logged = await _webClient.logged(token.token);
+      progress.dismiss();
+
+      // Entra na tela principal
       if (logged) {
         navigator.navigate(context, TelaPrincipal());
       }

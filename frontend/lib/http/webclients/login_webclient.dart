@@ -17,9 +17,12 @@ class LoginWebClient {
     }
 
     print(response.statusCode);
-    // TODO: especificar erros pq eu sei sim
-    throw HttpException("Unknown Error");
+    throw HttpException(_statusCodeResponses[response.statusCode]);
   }
+
+  static final Map<int, String> _statusCodeResponses = {
+    400: "Erro ao realizar o login! Verifique os campos preenchidos.",
+  };
 
   Future<bool> logged(String token) async {
     final Response response = await client
@@ -29,8 +32,8 @@ class LoginWebClient {
       return true;
     }
 
+    // acho meio difícil acontecer algum erro aqui mas por segurança vou deixar isso
     print(response.statusCode);
-    // TODO: dps eu especifico isso
     throw HttpException("Unknown Error");
   }
 }
