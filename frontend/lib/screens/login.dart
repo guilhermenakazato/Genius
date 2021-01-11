@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Genius/components/button.dart';
 import 'package:Genius/components/input.dart';
 import 'package:Genius/http/webclients/login_webclient.dart';
@@ -123,11 +125,18 @@ class _LoginStateContent extends StatelessWidget {
     } else {
       progress.show();
 
-      // Faz login e pega um token 
+      // Faz login e pega um token
       Token token = await _webClient.login(Auth(email, senha)).catchError((e) {
         progress.dismiss();
         showSnackBar(e.message, context);
-      }, test: (e) => e is HttpException);
+      }, test: (e) => e is HttpException).catchError((e) {
+        progress.dismiss();
+        showSnackBar(
+            "Erro: o tempo para fazer login excedeu o esperado.", context);
+      }, test: (e) => e is TimeoutException).catchError((e) {
+        progress.dismiss();
+        showSnackBar("Erro desconhecido.", context);
+      });
 
       // Passa o token pra API
       bool logged = await _webClient.logged(token.token);
