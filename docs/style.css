@@ -1,0 +1,87 @@
+@font-face {
+    font-family: "Gotham Bold";
+    src: url("./fonts/gotham-bold.otf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Gotham Bold";
+}
+
+body {
+    background-color: black;
+    color: #EEE5D6;
+}
+
+button {
+    margin-top: 10px;
+    width: 50vw;
+    font-size: 15px;
+    color: #EEE5D6;
+    outline: none;
+    display: inline-block;
+    background-color: transparent;
+    border: 2px solid #EEE5D6;
+    padding: 15px;
+    border-radius: 30px;    
+    opacity: 0;
+    transition: opacity 2s, color 0.25s, background-color 0.25s;
+}
+
+button#b2 {
+    transition: opacity 4s, color 0.25s, background-color 0.25s;
+}
+button#b3 {
+    transition: opacity 6s, color 0.25s, background-color 0.25s;
+}
+
+button:hover, button#b2:hover, button#b3:hover {
+    color: black;
+    background-color: #EEE5D6;
+}
+
+h2 {
+    padding: 10px;
+    text-align: center;
+}
+
+.options {
+    text-align: center;
+}
+
+/*Alinhando verticalmente a div*/
+.outer {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+  
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+  
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90vw;
+    /*whatever width you want*/
+}
+
+p#sobre {
+      font-size: 20px;
+      text-align: justify;
+      padding: 50px;
+}
+
+h2#sobre-title {
+      margin: -20px;
+}
+
+.mostrar {
+    opacity: 1;
+}
