@@ -7,12 +7,24 @@
     margin: 0;
     padding: 0;
     font-family: "Gotham Bold";
+    scroll-behavior: smooth;
+    color: #EEE5D6;
+
+}
+
+a:link {
+    text-decoration: none;
 }
 
 body {
     background-color: black;
-    color: #EEE5D6;
 }
+
+p {
+    text-align: justify;
+}
+
+/*Página de sobre*/
 
 button {
     margin-top: 10px;
@@ -24,7 +36,7 @@ button {
     background-color: transparent;
     border: 2px solid #EEE5D6;
     padding: 15px;
-    border-radius: 30px;    
+    border-radius: 30px;
     opacity: 0;
     transition: opacity 2s, color 0.25s, background-color 0.25s;
 }
@@ -32,6 +44,7 @@ button {
 button#b2 {
     transition: opacity 4s, color 0.25s, background-color 0.25s;
 }
+
 button#b3 {
     transition: opacity 6s, color 0.25s, background-color 0.25s;
 }
@@ -51,6 +64,7 @@ h2 {
 }
 
 /*Alinhando verticalmente a div*/
+
 .outer {
     display: table;
     position: absolute;
@@ -59,29 +73,77 @@ h2 {
     height: 100%;
     width: 100%;
 }
-  
+
 .middle {
     display: table-cell;
     vertical-align: middle;
 }
-  
+
 .inner {
     margin-left: auto;
     margin-right: auto;
     width: 90vw;
-    /*whatever width you want*/
 }
 
+/*Página sobre*/
+
 p#sobre {
-      font-size: 20px;
-      text-align: justify;
-      padding: 50px;
+    font-size: 20px;
+    padding: 50px;
 }
 
 h2#sobre-title {
-      margin: -20px;
+    margin: -20px;
 }
 
+/*Efeito de fade*/
 .mostrar {
     opacity: 1;
+}
+
+/*Página de classes*/
+.doc {
+    padding: 20px;     
+}
+
+.doc h2 {
+    text-align: start;
+    padding: 0 0 10px 0;
+}
+
+div + div h2 {
+    margin-top: 20px;
+}
+
+.glow {
+    transition: 0.25s;
+}
+
+.glow:hover {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #EEE5D6, 0 0 40px #EEE5D6, 0 0 50px #EEE5D6, 0 0 60px #EEE5D6, 0 0 70px #EEE5D6;
+}
+
+ul {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+div.divisao-um, div.divisao-dois {
+    width: 46vw;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.classes-frontend, div.classes-backend {
+    margin-bottom: 10px;
+}
+
+div.descricao-classes div h3 {
+    margin-bottom: 10px;
+}
+
+div h2 {
+    margin-bottom: 10px;
+    display: inline-block;
+    border-bottom: 5px solid #EEE5D6;
 }

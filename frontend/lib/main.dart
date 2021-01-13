@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:Genius/screens/bem_vindo.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Genius());
 }
 
-class MyApp extends StatelessWidget {
+class Genius extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
