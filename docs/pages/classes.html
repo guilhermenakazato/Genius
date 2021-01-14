@@ -5,11 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentação do Genius</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
-<body>
+
+<body id="classes">
+    <a href="#">
+        <button class="float-button" onclick="window.scrollTo(0,0);">
+            <i class="fa fa-arrow-up my-float"></i>
+        </button>
+    </a>
+
     <div class="doc">
         <div class="organização">
-            <h2>Organização</h2>
+            <h2 id="organizacao">Organização</h2>
             <p>
                 A organização do projeto Genius é feito em duas pastas: <a href="#backend"><span class="glow">backend</span></a> 
                 e <a href="#frontend"><span class="glow">frontend</span></a>. 
@@ -17,10 +25,15 @@
                 e a <span class="glow">assets</span> (onde todas as fotos são configuradas),
                 enquanto que na backend as pastas mais importantes são <span class="glow">start</span> 
                 (onde as rotas são configuradas), <span class="glow">database</span> (onde o banco de dados SQL é configurado) 
-                e <span class="glow">app</span> (onde as ações executadas em cada rota são configuradas). 
+                e <span class="glow">app</span> (onde as ações executadas em cada rota são configuradas).
             </p>
+            <p>É importante ressaltar
+                que dentro da pasta lib há 5 pastas importantes: components, http, models, screens e utils. Na components, são 
+                armazenados componentes reutilizáveis; na http, são colocados códigos referentes às requisições HTTP dentro do app Flutter;
+                na models, são guardados os models, classes que representam uma tabela de dados; na screens, estão todos os códigos referentes às
+                telas do Genius e, por fim, na utils, são colocados métodos que podem vir a ser úteis durante o desenvolvimento.</p>
         </div>
-    
+
         <div class="classes">
             <h2>Classes</h2>
             <div class="classes-backend">
@@ -80,48 +93,178 @@
         
         <div class="descricao-classes">
             <div class="backend">
-                <h2 class="glow" id="backend">Backend</h3>
+                <h2 id="backend">Backend</h3>
 
-                <h3 id="auth-controller">AuthController</h3>
-                <h3 id="projetos-controller">ProjetosController</h3>
-                <h3 id="usuarios-controller">UsuariosController</h3>
-                <h3 id="projeto">Projeto</h3>
-                <h3 id="usuario">Usuario</h3>
-                <h3 id="projeto-view">ProjetoView</h3>
-                <h3 id="usuario-view">UsuarioView</h3>
-                <h3 id="usuarios-schema">UsuariosSchema</h3>
-                <h3 id="api-tokens">ApiTokens</h3>
-                <h3 id="projetos">Projetos</h3>
-                <h3 id="routes">Routes</h3>
+                <div>
+                    <h3 id="auth-controller">Classe: AuthController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\AuthController.ts</h4> 
+                    <p>Classe responsável por receber as requisições referentes à autenticação do usuário.</p>
+
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>login:</li>
+                        <li>token:</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="projetos-controller">Classe: ProjetosController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\ProjetosController.ts</h4> 
+                    <p>Classe responsável por receber as requisições referentes aos projetos.</p>
+
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>create:</li>
+                        <li>index:</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 id="usuarios-controller">Classe: UsuariosController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\UsuariosController.ts</h4> 
+                    <p>Classe responsável por receber as requisições referentes aos usuários.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>index:</li>
+                        <li>create:</li>
+                        <li>get:</li>
+                        <li>getId:</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="projeto">Classe: Projeto</h3>
+                    <h4>Caminho: backend\app\Models\Projeto.ts</h4> 
+                    <p>Classe responsável por representar os campos do banco de dados referentes à tabela de projetos.</p>
+                    
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>a</li>
+                        <li>a</li>
+                        <li>a</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="usuario">Classe: Usuario</h3>
+                    <h4>Caminho: backend\app\Models\Usuario.ts</h4> 
+                    <p>Classe responsável por representar os campos do banco de dados referentes à tabela de usuários.</p>
+                    
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>a</li>
+                        <li>a</li>
+                        <li>a</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="projeto-view">Classe: ProjetoView</h3>
+                    <h4>Caminho: backend\app\Views\ProjetoView.ts</h4> 
+                    <p>Classe responsável por definir quais dados da tabela de projetos serão retornados.</p>
+                    
+                    <h3>O que a classe retorna:</h3>
+                    <ul>
+                        <li>a</li>
+                        <li>a</li>
+                        <li>a</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="usuario-view">Classe: UsuarioView</h3>
+                    <h4>Caminho: backend\app\Views\UsuarioView.ts</h4> 
+                    <p>Classe responsável por definir quais dados da tabela de usuários serão retornados.</p>
+                    
+                    <h3>O que a classe retorna:</h3>
+                    <ul>
+                        <li>a</li>
+                        <li>a</li>
+                        <li>a</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="usuarios-schema">Classe: UsuariosSchema</h3>
+                    <h4>Caminho: backend\database\migrations\1587988332388_usuarios.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "usuarios".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>a</li>
+                        <li>a</li>
+                        <li>a</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="api-tokens">Classe: ApiTokens</h3>
+                    <h4>Caminho: backend\database\migrations\1592489784670_api_tokens.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "api_tokens".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>a</li>
+                        <li>a</li>
+                        <li>a</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="projetos">Classe: Projetos</h3>
+                    <h4>Caminho: backend\database\migrations\1603330401993_projetos.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "projetos".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>a</li>
+                        <li>a</li>
+                        <li>a</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="routes">Classe: Routes</h3>
+                    <h4>Caminho: backend\start\routes.ts</h4> 
+                    <p>Arquivo responsável por definir as rotas de requisição HTTP.</p>
+                    
+                    <h3>Rotas:</h3>
+                    <ul>
+                        <li>a</li>
+                        <li>a</li>
+                        <li>a</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="frontend">
-                <h2 class="glow" id="frontend">Frontend</h2>
+                <h2 id="frontend">Frontend</h2>
                 
-                <h3 id="button-row">ButtonRow</h3>
-                <h3 id="button">Button</h3>
-                <h3 id="input">Input</h3>
-                <h3 id="logging-interceptors">LoggingInterceptors</h3>
-                <h3 id="login-web-client">LoginWebClient</h3>
-                <h3 id="web-client">WebClient</h3>
-                <h3 id="auth">Auth</h3>
-                <h3 id="token">Token</h3>
-                <h3 id="user">User</h3>
-                <h3 id="config">Config</h3>
-                <h3 id="feed">Feed</h3>
-                <h3 id="perfil">Perfil</h3>
-                <h3 id="pesquisa">Pesquisa</h3>
-                <h3 id="sobre">Sobre</h3>
-                <h3 id="tela-principal">TelaPrincipal</h3>
-                <h3 id="bem-vindo">BemVindo</h3>
-                <h3 id="cadastro">Cadastro</h3>
-                <h3 id="iniciacao-cientifica">IniciacaoCientifica</h3>
-                <h3 id="login">Login</h3>
-                <h3 id="pergunta-usuario">PerguntaUsuario</h3>
-                <h3 id="prazer-genius">PrazerGenius</h3>
-                <h3 id="sabe-iniciacao">SabeIniciacao</h3>
-                <h3 id="navigator-util">NavigatorUtil</h3>
-                <h3 id="genius">Genius</h3>
+                <h3 id="button-row">Classe: ButtonRow</h3>
+                <h3 id="button">Classe: Button</h3>
+                <h3 id="input">Classe: Input</h3>
+                <h3 id="logging-interceptors">Classe: LoggingInterceptors</h3>
+                <h3 id="login-web-client">Classe: LoginWebClient</h3>
+                <h3 id="web-client">Classe: WebClient</h3>
+                <h3 id="auth">Classe: Auth</h3>
+                <h3 id="token">Classe: Token</h3>
+                <h3 id="user">Classe: User</h3>
+                <h3 id="config">Classe: Config</h3>
+                <h3 id="feed">Classe: Feed</h3>
+                <h3 id="perfil">Classe: Perfil</h3>
+                <h3 id="pesquisa">Classe: Pesquisa</h3>
+                <h3 id="sobre">Classe: Sobre</h3>
+                <h3 id="tela-principal">Classe: TelaPrincipal</h3>
+                <h3 id="bem-vindo">Classe: BemVindo</h3>
+                <h3 id="cadastro">Classe: Cadastro</h3>
+                <h3 id="iniciacao-cientifica">Classe: IniciacaoCientifica</h3>
+                <h3 id="login">Classe: Login</h3>
+                <h3 id="pergunta-usuario">Classe: PerguntaUsuario</h3>
+                <h3 id="prazer-genius">Classe: PrazerGenius</h3>
+                <h3 id="sabe-iniciacao">Classe: SabeIniciacao</h3>
+                <h3 id="navigator-util">Classe: NavigatorUtil</h3>
+                <h3 id="genius">Classe: Genius</h3>
             </div>
         </div>
     </div>
