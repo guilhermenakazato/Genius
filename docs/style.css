@@ -38,21 +38,25 @@ button {
     padding: 15px;
     border-radius: 30px;
     opacity: 0;
-    transition: opacity 2s, color 0.25s, background-color 0.25s;
+    transition: opacity 2s, color 0.25s, background-color 0.25s, font-size 0.25s;
 }
 
 button#b2 {
-    transition: opacity 4s, color 0.25s, background-color 0.25s;
+    transition: opacity 4s, color 0.25s, background-color 0.25s, font-size 0.25s;
 }
 
 button#b3 {
-    transition: opacity 6s, color 0.25s, background-color 0.25s;
+    transition: opacity 6s, color 0.25s, background-color 0.25s, font-size 0.25s;
 }
 
-button:hover, button#b2:hover, button#b3:hover {
+button:hover {
     color: black;
     background-color: #EEE5D6;
 }
+
+button:active{
+    font-size: 13px;
+} 
 
 h2 {
     padding: 10px;
@@ -126,6 +130,7 @@ div + div h2 {
 ul {
     margin-top: 10px;
     margin-left: 30px;
+    margin-bottom: 20px;
 }
 
 div.divisao-um, div.divisao-dois {
@@ -138,12 +143,62 @@ div.classes-frontend, div.classes-backend {
     margin-bottom: 10px;
 }
 
-div.descricao-classes div h3 {
+div.descricao-classes div h4 {
     margin-bottom: 10px;
 }
 
-div h2 {
+div.doc h2 {
     margin-bottom: 10px;
     display: inline-block;
     border-bottom: 5px solid #EEE5D6;
+}
+
+@media only screen and (max-width: 400px) {
+    h2#sobre-title {
+        margin: 0px;
+    }
+}
+
+div.doc p {
+    margin-bottom: 20px;
+}
+
+div.doc p::first-letter {
+    margin-left: 10px;
+}
+
+a.float-button {
+    position: fixed;
+    text-align: center;
+    background-color: transparent;
+    bottom: 20px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 2px solid #EEE5D6;
+    transition: 0.3s;
+}
+
+a.float-button:hover {
+    background-color: #EEE5D6;
+    color: white;
+}
+
+button.float-button {
+    position: fixed;
+    bottom: 1.5vw;
+    right: 1.5vw;
+
+    width: 55px;
+    height: 55px;
+    opacity: 1;
+}
+
+a button.float-button:hover i{
+    color: black;
+}
+
+.my-float {
+    margin-bottom: 4px;
 }

@@ -32,4 +32,4 @@ Route.post("/login", AuthController.login);
 Route.post("/token", AuthController.token);
 
 Route.post("/projeto", ProjetosController.create)
-Route.get("projetos", ProjetosController.index)
+Route.get("/projetos", ProjetosController.index)

@@ -45,9 +45,9 @@ function sobre() {
             + "com o auxílio do framework Flutter, desenvolvido pela Google, sendo construído "
             + "por dois estudantes do Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso do Sul, "
             + "Gabriela Prado e Guilherme Nakazato, orientados pelo professor Sidney Sousa. Esse aplicativo tem como objetivo levar a Ciência nacional "
-            + "para todos os brasileiros. Sendo assim, essa página/documentação foi criada para ajudar no entendimento dos códigos "
+            + "para todos os brasileiros. Sendo assim, essa página foi criada para ajudar no entendimento dos códigos "
             + "construídos durante a produção do Genius.").pauseFor(1000).start()
-        
+
         typewriter.changeCursor(" ");
     }, 1200);
 }
