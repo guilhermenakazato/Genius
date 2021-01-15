@@ -51,3 +51,16 @@ function sobre() {
         typewriter.changeCursor(" ");
     }, 1200);
 }
+
+function glowStyle(element){
+    let idElement = element.getAttribute("href");
+    idElement = idElement.replace("#", "");
+    console.log(idElement)
+
+    const text = document.getElementById(idElement);
+    text.classList.toggle("glow-text")
+
+    setTimeout(() => {
+        text.classList.toggle("glow-text");
+    }, 2000);
+}
