@@ -12,12 +12,8 @@
 
 }
 
-a:link {
-    text-decoration: none;
-}
-
 body {
-    background-color: black;
+    background-color: #000000;
 }
 
 p {
@@ -25,7 +21,6 @@ p {
 }
 
 /*Página de sobre*/
-
 button {
     margin-top: 10px;
     width: 50vw;
@@ -124,6 +119,10 @@ div + div h2 {
 }
 
 .glow:hover {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #EEE5D6, 0 0 40px #EEE5D6, 0 0 50px #EEE5D6, 0 0 60px #EEE5D6, 0 0 70px #EEE5D6;
+}
+
+.glow-text {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #EEE5D6, 0 0 40px #EEE5D6, 0 0 50px #EEE5D6, 0 0 60px #EEE5D6, 0 0 70px #EEE5D6;
 }
 
