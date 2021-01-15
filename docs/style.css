@@ -20,6 +20,21 @@ p {
     text-align: justify;
 }
 
+h2 {
+    padding: 10px;
+    text-align: center;
+}
+
+h4 {
+    word-wrap: break-word; 
+}
+
+ul {
+    margin-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
 /*Página de sobre*/
 button {
     margin-top: 10px;
@@ -52,11 +67,6 @@ button:hover {
 button:active{
     font-size: 13px;
 } 
-
-h2 {
-    padding: 10px;
-    text-align: center;
-}
 
 .options {
     text-align: center;
@@ -122,14 +132,9 @@ div + div h2 {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #EEE5D6, 0 0 40px #EEE5D6, 0 0 50px #EEE5D6, 0 0 60px #EEE5D6, 0 0 70px #EEE5D6;
 }
 
+/*glow-text é usado no script*/
 .glow-text {
     text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #EEE5D6, 0 0 40px #EEE5D6, 0 0 50px #EEE5D6, 0 0 60px #EEE5D6, 0 0 70px #EEE5D6;
-}
-
-ul {
-    margin-top: 10px;
-    margin-left: 30px;
-    margin-bottom: 20px;
 }
 
 div.divisao-um, div.divisao-dois {
@@ -150,12 +155,6 @@ div.doc h2 {
     margin-bottom: 10px;
     display: inline-block;
     border-bottom: 5px solid #EEE5D6;
-}
-
-@media only screen and (max-width: 400px) {
-    h2#sobre-title {
-        margin: 0px;
-    }
 }
 
 div.doc p {
@@ -200,4 +199,37 @@ a button.float-button:hover i{
 
 .my-float {
     margin-bottom: 4px;
+}
+
+#backend, #frontend {
+    margin-left: 10px;
+}
+
+div.frontend, div.backend {
+    border: 2px solid #EEE5D6;
+    border-radius: 20px;
+    margin-bottom: 40px;
+}
+
+div.frontend div, div.backend div {
+    padding: 20px;
+}
+
+div.frontend div:nth-child(odd), div.backend div:nth-child(even) {
+    background-color: #101010;
+}
+
+div.frontend div:nth-child(even), div.backend div:nth-child(odd) {
+    background-color: #181818;
+}
+
+div.frontend div:last-child, div.backend div:last-child {
+    border-radius: 0 0 20px 20px;
+}
+
+/*Caso especial da tela de sobre*/
+@media only screen and (max-width: 400px) {
+    h2#sobre-title {
+        margin: 0px;
+    }
 }

@@ -55,7 +55,6 @@ function sobre() {
 function glowStyle(element){
     let idElement = element.getAttribute("href");
     idElement = idElement.replace("#", "");
-    console.log(idElement)
 
     const text = document.getElementById(idElement);
     text.classList.toggle("glow-text")
