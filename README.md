@@ -2,10 +2,10 @@
 O Genius é o resultado esperado de um projeto (TCC) a ser apresentado no final do curso Técnico Integrado de Informática, do Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso do Sul, Campus Aquidauana, tendo o objetivo de divulgar toda a ciência brasileira de uma forma acessível.
 
 # 👋 Tabela de conteúdos 
-* [Pré-requisitos](#-pré-requisitos)
-* [Tecnologias utilizadas](#-tecnologias-utilizadas) 
+* [Pré-requisitos](#%EF%B8%8F-pré-requisitos)
+* [Tecnologias utilizadas](#%EF%B8%8F-tecnologias-utilizadas) 
 * [Instalação](#-instalação)
-    * [Backend](-#backend)
+    * [Backend](#%EF%B8%8F-backend)
     * [Frontend](#-frontend)
 * [Licença](#-licença)
 
