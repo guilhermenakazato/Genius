@@ -44,7 +44,7 @@ ou, caso queira uma versão com mais performance,
 flutter run --release
 ```
 
-Feito isso, o aplicativo estará totalmente disponível para uso no seu dispositivo móvel.
+Feito isso, o aplicativo estará totalmente disponível para uso no seu dispositivo móvel. Caso queira entender melhor o funcionamento do Genius, veja a pasta [docs](./docs) para informações mais detalhadas sobre todas as classes e métodos presentes.
 
 # 📄 Licença 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais informações sobre ela.
