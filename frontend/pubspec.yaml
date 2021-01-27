@@ -29,6 +29,8 @@ dependencies:
   http:
   flutter_progress_hud: ^1.0.3
   flutter_spinkit: "^4.1.2"
+  get_storage:
+  path_provider: ^1.6.27
 
   # rezando pra Gabi não odiar esse aqui <3
   curved_navigation_bar: ^0.3.7

@@ -109,13 +109,15 @@ class _LoginStateContent extends StatelessWidget {
     );
   }
 
+  //TODO: documentar?
   void handleLogin(BuildContext context) async {
-    // Só pra não ter q escrever td a variável dnv
+    verifyInput(context);
+  }
+
+  //TODO: documentar
+  void verifyInput(BuildContext context) {
     final String email = _emailController.text;
     final String senha = _passwordController.text;
-    final LoginWebClient _webClient = LoginWebClient();
-    final NavigatorUtil navigator = NavigatorUtil();
-    final progress = ProgressHUD.of(context);
 
     // talvez tenham mais exceções, mas por enquanto é isso
     if (email.contains(" ") || senha.contains(" ")) {
@@ -123,29 +125,44 @@ class _LoginStateContent extends StatelessWidget {
     } else if (email.isEmpty || senha.isEmpty) {
       showSnackBar("Preencha os campos acima!", context);
     } else {
-      progress.show();
+      authenticate(email, senha, context);
+    }
+  }
 
-      // Faz login e pega um token
-      Token token = await _webClient.login(Auth(email, senha)).catchError((e) {
-        progress.dismiss();
-        showSnackBar(e.message, context);
-      }, test: (e) => e is HttpException).catchError((e) {
-        progress.dismiss();
-        showSnackBar(
-            "Erro: o tempo para fazer login excedeu o esperado.", context);
-      }, test: (e) => e is TimeoutException).catchError((e) {
-        progress.dismiss();
-        showSnackBar("Erro desconhecido.", context);
-      });
+  //TODO: documentar
+  void authenticate(String email, String senha, BuildContext context) async {
+    final LoginWebClient _webClient = LoginWebClient();
+    final progress = ProgressHUD.of(context);
 
-      // Passa o token pra API
-      bool logged = await _webClient.logged(token.token);
+    progress.show();
+
+    // Faz login e pega um token
+    Token token = await _webClient.login(Auth(email, senha)).catchError((e) {
       progress.dismiss();
+      showSnackBar(e.message, context);
+    }, test: (e) => e is HttpException).catchError((e) {
+      progress.dismiss();
+      showSnackBar(
+          "Erro: o tempo para fazer login excedeu o esperado.", context);
+    }, test: (e) => e is TimeoutException).catchError((e) {
+      progress.dismiss();
+      showSnackBar("Erro desconhecido.", context);
+    });
 
-      // Entra na tela principal
-      if (logged) {
-        navigator.navigate(context, TelaPrincipal());
-      }
+    // Passa o token pra API
+    bool logged = await _webClient.logged(token.token);
+    progress.dismiss();
+
+    enter(logged, context);
+  }
+
+  //TODO: documentar
+  void enter(bool logged, BuildContext context) {
+    final NavigatorUtil navigator = NavigatorUtil();
+
+    // Entra na tela principal
+    if (logged) {
+      navigator.navigateAndRemove(context, TelaPrincipal());
     }
   }
 

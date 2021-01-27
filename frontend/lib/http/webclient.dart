@@ -6,4 +6,6 @@ import 'interceptors/logging_interceptors.dart';
 final Client client = HttpClientWithInterceptor.build(
     interceptors: [LoggingInterceptor()], requestTimeout: Duration(seconds: 10));
 
-final String baseUrl = "http://192.168.1.9:3333";
+
+// No lugar de 192.168.1.13, vai o IPv4 da máquina
+final String baseUrl = "http://192.168.1.13:3333";
