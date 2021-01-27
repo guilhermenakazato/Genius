@@ -5,15 +5,21 @@ import 'package:Genius/models/auth.dart';
 import 'package:Genius/models/token.dart';
 import 'package:http/http.dart';
 
+import "package:Genius/utils/local_store.dart";
+
 class LoginWebClient {
   Future<Token> login(Auth auth) async {
     final String authJson = jsonEncode(auth.toJson());
+    final LocalStore localStore = LocalStore();
 
     final Response response = await client.post(baseUrl + "/login",
         headers: {"Content-Type": "application/json"}, body: authJson);
 
     if (response.statusCode == 200) {
-      return Token.fromJson(jsonDecode(response.body));
+      Token token = Token.fromJson(jsonDecode(response.body));
+      localStore.store(token.token);
+
+      return token;
     }
 
     print(response.statusCode);

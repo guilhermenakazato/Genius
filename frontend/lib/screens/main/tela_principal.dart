@@ -23,7 +23,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         color: const Color(0xFF3D3B8E),
         backgroundColor: Colors.black,
 
-        // TODO: se algum dia eu precisar alinhar td isso, provavelmente vai ser com align
         items: <Widget>[
           Align(child: Icon(Icons.emoji_objects, size: 24, color: Colors.white)),
           Icon(Icons.person, size: 24, color: Colors.white),

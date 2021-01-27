@@ -6,4 +6,10 @@ class NavigatorUtil {
       return widget;
     }));
   }
+
+  // TODO: documentar
+  void navigateAndRemove(BuildContext context, Widget widget) {
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => widget), (route) => false);
+  }
 }
