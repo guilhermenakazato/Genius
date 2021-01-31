@@ -10,7 +10,6 @@ void main() async {
 }
 
 class Genius extends StatelessWidget {
-  // This widget is the root of your application.
   final LocalStore localStore = LocalStore();
 
   @override
@@ -22,7 +21,7 @@ class Genius extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Gotham",
       ),
-      home: localStore.getFromStorage() == "none" ? BemVindo() : TelaPrincipal(),
+      home: localStore.getFromStorage() == "none" ? BemVindo() : TelaPrincipal(), 
     );
   }
 }

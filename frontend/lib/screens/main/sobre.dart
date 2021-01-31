@@ -54,7 +54,9 @@ class Sobre extends StatelessWidget {
           Equipe(nome: "Gabriela Prado"),
           Equipe(nome: "Guilherme Nakazato"),
           Equipe(nome: "Sidney Sousa"),
-          Padding(padding: const EdgeInsets.only(bottom: 32),),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 32),
+          ),
         ],
       ),
     );
