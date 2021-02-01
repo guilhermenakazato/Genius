@@ -1,7 +1,5 @@
-// TODO: documentar
 import 'package:flutter/material.dart';
 
-// TODO: documentar
 class ListTileTitle extends StatelessWidget {
   final String text;
 

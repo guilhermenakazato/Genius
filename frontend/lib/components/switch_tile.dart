@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: documentar
 class SwitchTile extends StatefulWidget {
   final IconData icon;
   final String text;
@@ -14,7 +13,6 @@ class SwitchTile extends StatefulWidget {
   _SwitchTileState createState() => _SwitchTileState();
 }
 
-// TODO: documentar
 class _SwitchTileState extends State<SwitchTile> {
   bool _isSwitched = false;
 
