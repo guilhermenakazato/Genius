@@ -63,6 +63,9 @@
                         <li class="glow"><a onclick="glowStyle(this)" href="#button-row">ButtonRow</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#button">Button</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#input">Input</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#list-tile-title">ListTileTitle</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#mod-list-tile">ModListTile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#switch-tile">SwitchTile</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#logging-interceptors">LoggingInterceptors</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#login-web-client">LoginWebClient</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#web-client">WebClient</a></li>
@@ -71,9 +74,9 @@
                         <li class="glow"><a onclick="glowStyle(this)" href="#user">User</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#config">Config</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#feed">Feed</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#perfil">Perfil</a></li>
                     </div>
                     <div class="divisao-dois">
+                        <li class="glow"><a onclick="glowStyle(this)" href="#perfil">Perfil</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#pesquisa">Pesquisa</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#sobre">Sobre</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#tela-principal">TelaPrincipal</a></li>
@@ -84,6 +87,7 @@
                         <li class="glow"><a onclick="glowStyle(this)" href="#pergunta-usuario">PerguntaUsuario</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#prazer-genius">PrazerGenius</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#sabe-iniciacao">SabeIniciacao</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#local-store">LocalStore</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#navigator-util">NavigatorUtil</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#genius">Genius</a></li>
                     </div>
@@ -259,7 +263,6 @@
 
             <div class="frontend">
                 <h2 id="frontend">Frontend</h2>
-
                 <div>
                     <h3 id="button-row">Classe: ButtonRow</h3>
                     <h4>Caminho: frontend\lib\components\button_row.dart</h4> 
@@ -310,6 +313,56 @@
                         <li>obscure: recebe um valor boolean que determina se o texto deve ser oculto ou não.</li>
                         <li>controller: recebe um Controller que controla todo o texto inserido no Input.</li>
                         <li>_selected: variável local e privada da classe que determina se o Input foi clicado ou não.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="list-tile-title">Classe: ListTileTitle</h3>
+                    <h4>Caminho: frontend\lib\components\list_tile_title.dart</h4> 
+                    <p>Classe responsável por disponibilizar um título para os Widgets ListTile.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>build: constrói um Widget (ListTileTitle) que disponibiliza um texto que serve como título.</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>text: recebe o texto a ser utilizado como título.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="mod-list-tile">Classe: ModListTile</h3>
+                    <h4>Caminho: frontend\lib\components\mod_list_tile.dart</h4> 
+                    <p>Classe responsável por modificar os Widgets ListTile e mostrá-los.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>build: constrói um Widget (ModListTile).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>text: recebe o texto a ser utilizado como título do ListTile.</li>
+                        <li>icon: recebe o ícone a ser utilizado no ListTile.</li>
+                        <li>function: recebe uma função que é executada assim que o ListTile é clicado.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="switch-tile">Classe: SwitchTile</h3>
+                    <h4>Caminho: frontend\lib\components\switch_tile.dart</h4> 
+                    <p>Classe responsável por disponibilizar um Widget ListTile com Switch.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createState: constrói um Widget de acordo com o State retornado (SwitchTile).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>text: recebe o texto a ser utilizado como título do SwitchTile.</li>
+                        <li>icon: recebe o ícone a ser utilizado no SwitchTile.</li>
+                        <li>function: recebe uma função que é executada assim que o SwitchTile é clicado.</li>
+                        <li>_isSwitched: serve para indicar se o Switch está ativo ou não.</li>
                     </ul>
                 </div>
                 <div>
@@ -503,8 +556,10 @@
                     <h3>Métodos da classe:</h3>
                     <ul>
                         <li>createState: constrói um Widget de acordo com o State retornado (Login)</li>
-                        <li>build: constrói um Widget (Cadastro).</li>
                         <li>showSnackBar: recebe uma variável do tipo texto e o contexto e imprime o texto em uma SnackBar.</li>
+                        <li>verifyInput: recebe o contexto e verifica se os campos email e senha estão vazios. Se não estiverem, autentica o usuário.</li>
+                        <li>authenticate: recebe os valores dos campos email e senha e o contexto e os envia para o backend para receber um token. Com o token, autentica o usuário.</li>
+                        <li>enter: recebe uma variável do tipo booleano e verifica se  o usuário já está autenticado. Se estiver, o redireciona para a tela principal do aplicativo.</li>
                     </ul>
                     
                     <h3>Sub-classes importantes:</h3>
@@ -562,6 +617,18 @@
                     </ul>
                 </div>
                 <div>
+                    <h3 id="local-store">Classe: LocalStore</h3>
+                    <h4>Caminho: frontend\lib\utils\local_store.dart</h4> 
+                    <p>Classe responsável por gerenciar o armazenamento do token, para redirecionar o usuário direto para a tela principal do aplicativo.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>store: método responsável por armazenar o token no momento que o usuário faz o login, permitindo o redirecionamento.</li>
+                        <li>removeFromStorage: método responsável por remover o token do armazenamento no momento que o usuário faz o logout, bloqueando o redirecionamento.</li>
+                        <li>getFromStorage: método responsável por buscar o token do armazenamento, para checar se o usuário deve ser redirecionado ou não.</li>
+                    </ul>
+                </div>
+                <div>
                     <h3 id="navigator-util">Classe: NavigatorUtil</h3>
                     <h4>Caminho: frontend\lib\utils\navigator_util.dart</h4> 
                     <p>Classe responsável por navegar entre páginas.</p>
@@ -569,6 +636,8 @@
                     <h3>Métodos da classe:</h3>
                     <ul>
                         <li>navigate: recebe um Widget e muda a tela para esse Widget.</li>
+                        <li>navigateAndRemove: recebe um Widget e muda a tela para esse Widget, sendo utilizado no momento em que o usuário realiza o logout e o login.
+                            Além disso, remove todas as telas do histórico de navegação, impedindo que o usuário retorne sem ter logado ou deslogado.</li>
                     </ul>
                 </div>
                 <div>

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: documentar
 class ModListTile extends StatelessWidget {
   final String text;
   final IconData icon;

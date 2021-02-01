@@ -109,12 +109,10 @@ class _LoginStateContent extends StatelessWidget {
     );
   }
 
-  //TODO: documentar?
-  void handleLogin(BuildContext context) async {
+  void handleLogin(BuildContext context) {
     verifyInput(context);
   }
 
-  //TODO: documentar
   void verifyInput(BuildContext context) {
     final String email = _emailController.text;
     final String senha = _passwordController.text;
@@ -129,7 +127,6 @@ class _LoginStateContent extends StatelessWidget {
     }
   }
 
-  //TODO: documentar
   void authenticate(String email, String senha, BuildContext context) async {
     final LoginWebClient _webClient = LoginWebClient();
     final progress = ProgressHUD.of(context);
@@ -156,7 +153,6 @@ class _LoginStateContent extends StatelessWidget {
     enter(logged, context);
   }
 
-  //TODO: documentar
   void enter(bool logged, BuildContext context) {
     final NavigatorUtil navigator = NavigatorUtil();
 

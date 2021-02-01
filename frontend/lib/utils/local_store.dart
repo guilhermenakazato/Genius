@@ -1,20 +1,18 @@
 import 'package:get_storage/get_storage.dart';
 
 class LocalStore {
-  final box = GetStorage();
+  // inicializando o storage
+  final _box = GetStorage();
 
-  // TODO: documentar
   void store(String token) {
-    box.write("token", token);
+    _box.write("token", token);
   }
 
-  // TODO: documentar
   void removeFromStorage() {
-    box.remove("token");
+    _box.remove("token");
   }
 
-  // TODO: documentar
   String getFromStorage() {
-    return box.read("token") ?? "none";
+    return _box.read("token") ?? "none";
   }
 }
