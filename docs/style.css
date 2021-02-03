@@ -3,17 +3,22 @@
     src: url("./fonts/gotham-bold.otf");
 }
 
+:root { 
+    --principal: #EEE5D6;
+    --secundaria: #101010;
+    --terciaria: #181818;
+}
+
 * {
     margin: 0;
     padding: 0;
     font-family: "Gotham Bold";
     scroll-behavior: smooth;
-    color: #EEE5D6;
-
+    color: var(--principal);
 }
 
 body {
-    background-color: #000000;
+    background-color: black;
 }
 
 p {
@@ -40,11 +45,11 @@ button {
     margin-top: 10px;
     width: 50vw;
     font-size: 15px;
-    color: #EEE5D6;
+    color: var(--principal);
     outline: none;
     display: inline-block;
     background-color: transparent;
-    border: 2px solid #EEE5D6;
+    border: 2px solid var(--principal);
     padding: 15px;
     border-radius: 30px;
     opacity: 0;
@@ -61,7 +66,7 @@ button#b3 {
 
 button:hover {
     color: black;
-    background-color: #EEE5D6;
+    background-color: var(--principal);
 }
 
 button:active{
@@ -73,7 +78,6 @@ button:active{
 }
 
 /*Alinhando verticalmente a div*/
-
 .outer {
     display: table;
     position: absolute;
@@ -129,12 +133,12 @@ div + div h2 {
 }
 
 .glow:hover {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #EEE5D6, 0 0 40px #EEE5D6, 0 0 50px #EEE5D6, 0 0 60px #EEE5D6, 0 0 70px #EEE5D6;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--principal), 0 0 40px var(--principal), 0 0 50px var(--principal), 0 0 60px var(--principal), 0 0 70px var(--principal);
 }
 
 /*glow-text é usado no script*/
 .glow-text {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #EEE5D6, 0 0 40px #EEE5D6, 0 0 50px #EEE5D6, 0 0 60px #EEE5D6, 0 0 70px #EEE5D6;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--principal), 0 0 40px var(--principal), 0 0 50px var(--principal), 0 0 60px var(--principal), 0 0 70px var(--principal);
 }
 
 div.divisao-um, div.divisao-dois {
@@ -154,7 +158,7 @@ div.descricao-classes div h4 {
 div.doc h2 {
     margin-bottom: 10px;
     display: inline-block;
-    border-bottom: 5px solid #EEE5D6;
+    border-bottom: 5px solid var(--principal);
 }
 
 div.doc p {
@@ -174,13 +178,12 @@ a.float-button {
     width: 50px;
     height: 50px;
     border-radius: 50px;
-    border: 2px solid #EEE5D6;
+    border: 2px solid var(--principal);
     transition: 0.3s;
 }
 
 a.float-button:hover {
-    background-color: #EEE5D6;
-    color: white;
+    background-color: var(--principal);
 }
 
 button.float-button {
@@ -206,7 +209,7 @@ a button.float-button:hover i{
 }
 
 div.frontend, div.backend {
-    border: 2px solid #EEE5D6;
+    border: 2px solid var(--principal);
     border-radius: 20px;
     margin-bottom: 40px;
 }
@@ -216,11 +219,11 @@ div.frontend div, div.backend div {
 }
 
 div.frontend div:nth-child(odd), div.backend div:nth-child(even) {
-    background-color: #101010;
+    background-color: var(--secundaria);
 }
 
 div.frontend div:nth-child(even), div.backend div:nth-child(odd) {
-    background-color: #181818;
+    background-color: var(--terciaria);
 }
 
 div.frontend div:last-child, div.backend div:last-child {

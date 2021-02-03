@@ -29,7 +29,7 @@ class SabeIniciacao extends StatelessWidget {
               child: Text(
                 "Você sabe o que é\niniciação científica?".toUpperCase(),
                 style: TextStyle(
-                  color: const Color(0xffab84e5),
+                  color: Theme.of(context).primaryColor,
                   fontFamily: 'Gotham',
                   fontWeight: FontWeight.w900,
                   fontSize: 21,

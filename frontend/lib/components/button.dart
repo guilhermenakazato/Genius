@@ -27,14 +27,14 @@ class Button extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
           side: BorderSide(
-            color: const Color(0xffab84e5),
+            color: Theme.of(context).primaryColor,
             width: 3,
           ),
         ),
         child: Text(
           text.toUpperCase(),
           style: TextStyle(
-            color: const Color(0xffab84e5),
+            color: Theme.of(context).primaryColor,
             fontWeight: FontWeight.w900,
             fontSize: 18,
           ),

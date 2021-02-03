@@ -31,9 +31,9 @@ class _LoginStateBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProgressHUD(
-      borderColor: const Color(0xffab84e5),
+      borderColor: Theme.of(context).primaryColor,
       indicatorWidget: SpinKitPouringHourglass(
-        color: const Color(0xffab84e5),
+        color: Theme.of(context).primaryColor,
       ),
       child: Builder(
         builder: (context) => _LoginStateContent(context),
@@ -64,7 +64,7 @@ class _LoginStateContent extends StatelessWidget {
                   child: Text(
                     "Login".toUpperCase(),
                     style: TextStyle(
-                      color: const Color(0xffab84e5),
+                      color: Theme.of(context).primaryColor,
                       fontSize: 20,
                       letterSpacing: 7,
                       fontWeight: FontWeight.w900,
@@ -79,7 +79,7 @@ class _LoginStateContent extends StatelessWidget {
               child: Container(
                 width: 250,
                 child: Divider(
-                  color: const Color(0xffab84e5),
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),

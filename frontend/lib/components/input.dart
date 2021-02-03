@@ -26,8 +26,8 @@ class InputState extends State<Input> {
         padding: const EdgeInsets.fromLTRB(16.0, 16, 16, 4),
         child: FocusScope(
           child: Focus(
-            onFocusChange: (focus){
-              setState((){
+            onFocusChange: (focus) {
+              setState(() {
                 _selected = !_selected;
               });
             },
@@ -36,7 +36,7 @@ class InputState extends State<Input> {
               obscureText: widget.obscure,
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
-              cursorColor: const Color(0xffab84e5),
+              cursorColor: Theme.of(context).primaryColor,
               decoration: InputDecoration(
                 hintText: widget.hint.toUpperCase(),
                 border: InputBorder.none,
@@ -45,15 +45,15 @@ class InputState extends State<Input> {
                   fontWeight: FontWeight.w900,
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: const Color(0xffab84e5),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: const Color(0xffab84e5),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor,
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(30),
