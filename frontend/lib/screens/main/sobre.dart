@@ -12,7 +12,7 @@ class Sobre extends StatelessWidget {
             child: Text(
               "Sobre o App",
               style: TextStyle(
-                color: const Color(0xffab84e5),
+                color: Theme.of(context).primaryColor,
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
               ),
@@ -27,7 +27,7 @@ class Sobre extends StatelessWidget {
                   "A ciência vale a pena.",
               textAlign: TextAlign.justify,
               style: TextStyle(
-                color: const Color(0xffab84e5),
+                color: Theme.of(context).primaryColor,
                 fontSize: 24,
                 height: 1.3,
                 fontWeight: FontWeight.w900,
@@ -37,7 +37,7 @@ class Sobre extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             child: Divider(
-              color: const Color(0xffab84e5),
+              color: Theme.of(context).primaryColor,
             ),
           ),
           Padding(
@@ -45,7 +45,7 @@ class Sobre extends StatelessWidget {
             child: Text(
               "Equipe",
               style: TextStyle(
-                color: const Color(0xffab84e5),
+                color: Theme.of(context).primaryColor,
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
               ),
@@ -74,7 +74,7 @@ class Equipe extends StatelessWidget {
       child: Text(
         nome,
         style: TextStyle(
-          color: const Color(0xffab84e5),
+          color: Theme.of(context).primaryColor,
           fontSize: 24,
           fontWeight: FontWeight.w900,
         ),

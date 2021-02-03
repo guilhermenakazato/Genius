@@ -40,7 +40,7 @@ class BemVindo extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Gotham',
                     fontSize: 60,
-                    color: const Color(0xffab84e5),
+                    color: Theme.of(context).primaryColor,
                     letterSpacing: 12,
                     fontWeight: FontWeight.w900,
                     height: 1.0,

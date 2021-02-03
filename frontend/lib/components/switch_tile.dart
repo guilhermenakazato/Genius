@@ -29,21 +29,21 @@ class _SwitchTileState extends State<SwitchTile> {
           title: Text(
             widget.text,
             style: TextStyle(
-              color: const Color(0xffab84e5),
+              color: Theme.of(context).primaryColor,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
           ),
           secondary: Icon(
             widget.icon,
-            color: const Color(0xffab84e5),
+            color: Theme.of(context).primaryColor,
           ),
           onChanged: (bool value) {
             setState(() {
               _isSwitched = value;
             });
           },
-          activeColor: const Color(0xffab84e5),
+          activeColor: Theme.of(context).primaryColor,
         ),
       ),
     );

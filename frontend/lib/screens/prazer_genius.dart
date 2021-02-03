@@ -25,7 +25,7 @@ class PrazerGenius extends StatelessWidget {
                       .toUpperCase()
                 ],
                 textStyle: TextStyle(
-                  color: const Color(0xffab84e5),
+                  color: Theme.of(context).primaryColor,
                   fontSize: 23,
                   height: 2.2,
                   letterSpacing: 2,

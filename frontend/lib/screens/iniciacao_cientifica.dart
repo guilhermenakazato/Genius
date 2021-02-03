@@ -18,7 +18,7 @@ class IniciacaoCientifica extends StatelessWidget {
                   "e realizar descobertas.".toUpperCase()
             ],
             textStyle: TextStyle(
-              color: const Color(0xffab84e5),
+              color: Theme.of(context).primaryColor,
               fontSize: 18,
               fontWeight: FontWeight.w900,
               height: 1.5,

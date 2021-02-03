@@ -42,7 +42,7 @@ class PerguntaUsuario extends StatelessWidget {
             child: Text(
               "VOCÊ JÁ É USUÁRIO\nDO GENIUS?",
               style: TextStyle(
-                color: const Color(0xffab84e5),
+                color: Theme.of(context).primaryColor,
                 fontSize: 23,
                 letterSpacing: 3.5,
                 fontWeight: FontWeight.bold,
