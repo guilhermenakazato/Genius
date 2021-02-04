@@ -32,11 +32,13 @@ npm i
 Terminada a instalação das dependências, é necessário rodar o backend para que o frontend consiga utilizar dos dados disponíveis. 
 ```
 node ace serve --watch
+cd ..
 ```
 
 # 📱 Frontend
 Com o backend rodando, será necessário apenas rodar o aplicativo no seu dispositivo móvel. Note que o mesmo deve estar previamente configurado.
 ```
+cd frontend
 flutter run
 ```
 ou, caso queira uma versão com mais performance,  
