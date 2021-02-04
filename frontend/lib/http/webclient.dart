@@ -8,4 +8,4 @@ final Client client = HttpClientWithInterceptor.build(
 
 
 // No lugar de 192.168.1.13, vai o IPv4 da máquina
-final String baseUrl = "http://192.168.1.13:3333";
+final String baseUrl = "http://192.168.0.111:3333";
