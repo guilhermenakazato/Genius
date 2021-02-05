@@ -62,24 +62,14 @@ class _LoginStateContent extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   child: Text(
-                    "Login".toUpperCase(),
+                    "Login",
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
-                      fontSize: 20,
-                      letterSpacing: 7,
+                      fontSize: 60,
                       fontWeight: FontWeight.w900,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                ),
-              ),
-            ),
-            Transform.translate(
-              offset: Offset(0, -10),
-              child: Container(
-                width: 250,
-                child: Divider(
-                  color: Theme.of(context).primaryColor,
                 ),
               ),
             ),
@@ -144,6 +134,7 @@ class _LoginStateContent extends StatelessWidget {
     }, test: (e) => e is TimeoutException).catchError((e) {
       progress.dismiss();
       showSnackBar("Erro desconhecido.", context);
+      debugPrint(e.toString());
     });
 
     // Passa o token pra API

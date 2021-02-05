@@ -27,14 +27,12 @@ class SabeIniciacao extends StatelessWidget {
             ),
             Center(
               child: Text(
-                "Você sabe o que é\niniciação científica?".toUpperCase(),
+                "Você sabe o que é\niniciação científica?",
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontFamily: 'Gotham',
                   fontWeight: FontWeight.w900,
-                  fontSize: 21,
-                  height: 1.3,
-                  letterSpacing: 3,
+                  fontSize: 28,
                 ),
                 textAlign: TextAlign.center,
               ),

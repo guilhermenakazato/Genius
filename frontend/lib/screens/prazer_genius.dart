@@ -22,13 +22,11 @@ class PrazerGenius extends StatelessWidget {
                 speed: Duration(milliseconds: 70),
                 text: [
                   "Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas."
-                      .toUpperCase()
                 ],
                 textStyle: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 23,
-                  height: 2.2,
-                  letterSpacing: 2,
+                  fontSize: 32,
+                  height: 2,
                   fontFamily: "Gotham",
                   fontWeight: FontWeight.w900,
                 ),

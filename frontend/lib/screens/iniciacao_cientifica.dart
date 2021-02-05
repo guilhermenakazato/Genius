@@ -10,19 +10,18 @@ class IniciacaoCientifica extends StatelessWidget {
         body: Center(
           child: TypewriterAnimatedTextKit(
             text: [
-              "Iniciação científica\n".toUpperCase() +
-                  "é uma forma de colaboração\n".toUpperCase() +
-                  "com a ciência através da\n".toUpperCase() +
-                  "pesquisa. O objetivo é\n".toUpperCase() +
-                  "atualizar o que já existe\n".toUpperCase() +
-                  "e realizar descobertas.".toUpperCase()
+              "Iniciação científica\n" +
+                  "é uma forma de colaboração\n" +
+                  "com a ciência através da\n" +
+                  "pesquisa. O objetivo é\n" +
+                  "atualizar o que já existe\n" +
+                  "e realizar descobertas."
             ],
             textStyle: TextStyle(
               color: Theme.of(context).primaryColor,
-              fontSize: 18,
+              fontSize: 24,
               fontWeight: FontWeight.w900,
-              height: 1.5,
-              letterSpacing: 1,
+              height: 1.2
             ),
             textAlign: TextAlign.center,
             speed: Duration(milliseconds: 70),
