@@ -32,7 +32,7 @@ class Button extends StatelessWidget {
           ),
         ),
         child: Text(
-          text.toUpperCase(),
+          text,
           style: TextStyle(
             color: Theme.of(context).primaryColor,
             fontWeight: FontWeight.w900,

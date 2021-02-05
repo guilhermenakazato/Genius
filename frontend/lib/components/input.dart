@@ -38,7 +38,7 @@ class InputState extends State<Input> {
               textAlign: TextAlign.center,
               cursorColor: Theme.of(context).primaryColor,
               decoration: InputDecoration(
-                hintText: widget.hint.toUpperCase(),
+                hintText: widget.hint,
                 border: InputBorder.none,
                 hintStyle: TextStyle(
                   color: Color.fromARGB(200, 171, 132, 229),

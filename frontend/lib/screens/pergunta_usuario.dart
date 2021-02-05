@@ -40,18 +40,17 @@ class PerguntaUsuario extends StatelessWidget {
           ),
           Center(
             child: Text(
-              "VOCÊ JÁ É USUÁRIO\nDO GENIUS?",
+              "Você já é usuário\ndo Genius?",
               style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontSize: 23,
-                letterSpacing: 3.5,
+                color:  Theme.of(context).primaryColor,
+                fontSize: 32,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
           ),
           Transform.translate(
-            offset: Offset(0, 380),
+            offset: Offset(0, 390),
             child: ButtonRow(
               simScreen: Login(),
               naoScreen: PrazerGenius(),

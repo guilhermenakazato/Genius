@@ -36,12 +36,12 @@ class BemVindo extends StatelessWidget {
               child: SizedBox(
                 width: 410.0,
                 child: Text(
-                  'BEM\nVINDO!',
+                  'Bem\nVindo!',
                   style: TextStyle(
                     fontFamily: 'Gotham',
-                    fontSize: 60,
+                    fontSize: 70,
+                    letterSpacing: 1.5,
                     color: Theme.of(context).primaryColor,
-                    letterSpacing: 12,
                     fontWeight: FontWeight.w900,
                     height: 1.0,
                   ),
