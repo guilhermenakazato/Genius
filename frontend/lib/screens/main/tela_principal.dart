@@ -1,8 +1,8 @@
-import 'package:Genius/screens/main/config.dart';
-import 'package:Genius/screens/main/feed.dart';
-import 'package:Genius/screens/main/perfil.dart';
-import 'package:Genius/screens/main/pesquisa.dart';
-import 'package:Genius/screens/main/sobre.dart';
+import 'package:genius/screens/main/config.dart';
+import 'package:genius/screens/main/feed.dart';
+import 'package:genius/screens/main/perfil.dart';
+import 'package:genius/screens/main/pesquisa.dart';
+import 'package:genius/screens/main/sobre.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class TelaPrincipal extends StatefulWidget {
 }
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
-  int pageNumber = 0;
+  int pageNumber = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
         height: 48,
         color: const Color(0xFF3D3B8E),
         backgroundColor: Colors.black,
-
         items: <Widget>[
-          Align(child: Icon(Icons.emoji_objects, size: 24, color: Colors.white)),
+          Icon(Icons.emoji_objects, size: 24, color: Colors.white),
           Icon(Icons.person, size: 24, color: Colors.white),
           Icon(Icons.psychology, size: 24, color: Colors.white),
           Icon(Icons.search, size: 24, color: Colors.white),

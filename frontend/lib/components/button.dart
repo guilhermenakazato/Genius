@@ -19,13 +19,15 @@ class Button extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      child: FlatButton(
+      child: OutlinedButton(
         onPressed: () {
           onClick();
         },
-        splashColor: const Color.fromARGB(200, 171, 132, 229),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50),
+        style: TextButton.styleFrom(
+          primary: Theme.of(context).primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
           side: BorderSide(
             color: Theme.of(context).primaryColor,
             width: 3,

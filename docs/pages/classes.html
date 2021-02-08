@@ -60,8 +60,11 @@
                 <p>Já na pasta frontend, temos as seguintes classes:</p>
                 <ul>
                     <div class="divisao-um">
+                        <li class="glow"><a onclick="glowStyle(this)" href="#borderless-button">BorderlessButton</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#borderless-input">BorderlessInput</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#button-row">ButtonRow</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#button">Button</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#floating-button">FloatingButton</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#input">Input</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#list-tile-title">ListTileTitle</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#mod-list-tile">ModListTile</a></li>
@@ -74,14 +77,18 @@
                         <li class="glow"><a onclick="glowStyle(this)" href="#user">User</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#config">Config</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#feed">Feed</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#perfil">Perfil</a></li>
                     </div>
                     <div class="divisao-dois">
-                        <li class="glow"><a onclick="glowStyle(this)" href="#perfil">Perfil</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#pesquisa">Pesquisa</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#sobre">Sobre</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#tela-principal">TelaPrincipal</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-email">CadastroEmail</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-intro">CadastroIntro</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-nome">CadastroNome</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-senha">CadastroSenha</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-type">CadastroType</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#bem-vindo">BemVindo</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro">Cadastro</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#iniciacao-cientifica">IniciacaoCientifica</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#login">Login</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#pergunta-usuario">PerguntaUsuario</a></li>
@@ -264,6 +271,40 @@
             <div class="frontend">
                 <h2 id="frontend">Frontend</h2>
                 <div>
+                    <h3 id="borderless-button">Classe: BorderlessButton</h3>
+                    <h4>Caminho: frontend\lib\components\borderless_button.dart</h4> 
+                    <p>Classe responsável por criar um botão sem borda.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>build: constrói um Widget (BorderlessButton).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>onPressed: recebe uma função que é executada quando o botão é clicado.</li>
+                        <li>text: recebe um texto e o mostra dentro do botão.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="borderless-input">Classe: BorderlessInput</h3>
+                    <h4>Caminho: frontend\lib\components\borderless_input.dart</h4> 
+                    <p>Classe responsável por criar um input (local onde o usuário digita algum texto) sem borda.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createState: constrói um Widget de acordo com o State retornado (BorderlessInput)</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>hint: recebe um texto que serve de dica para o que deve ser inserido no Input.</li>
+                        <li>obscure: recebe um valor boolean que determina se o texto deve ser oculto ou não.</li>
+                        <li>controller: recebe um Controller que controla todo o texto inserido no Input.</li>
+                        <li>type: determina o tipo de teclado a ser mostrado.</li>
+                    </ul>
+                </div>
+                <div>
                     <h3 id="button-row">Classe: ButtonRow</h3>
                     <h4>Caminho: frontend\lib\components\button_row.dart</h4> 
                     <p>Classe responsável por armazenar um componente com 2 botões que oferecem as opções sim e não.</p>
@@ -298,6 +339,21 @@
                     </ul>
                 </div>
                 <div>
+                    <h3 id="floating-button">Classe: FloatingButton</h3>
+                    <h4>Caminho: frontend\lib\components\floating_button.dart</h4> 
+                    <p>Classe responsável por armazenar um botão flutuante, situando-o no canto inferior direito da tela.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>build: constrói um Widget (FloatingButton).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>onPressed: recebe uma função que é executada quando o botão é pressionado.</li>
+                    </ul>
+                </div>
+                <div>
                     <h3 id="input">Classe: Input</h3>
                     <h4>Caminho: frontend\lib\components\input.dart</h4> 
                     <p>Classe responsável por armazenar um componente que recebe texto escrito pelo usuário.</p>
@@ -312,6 +368,7 @@
                         <li>hint: recebe um texto que serve de dica para o que deve ser inserido no Input.</li>
                         <li>obscure: recebe um valor boolean que determina se o texto deve ser oculto ou não.</li>
                         <li>controller: recebe um Controller que controla todo o texto inserido no Input.</li>
+                        <li>type: determina o tipo de teclado a ser mostrado.</li>
                         <li>_selected: variável local e privada da classe que determina se o Input foi clicado ou não.</li>
                     </ul>
                 </div>
@@ -439,6 +496,12 @@
                     <ul>
                         <li>toJson: transforma os dados da instância da classe User em Json.</li>
                         <li>fromJson: pega os dados de um Json e atribui a uma instância da classe User.</li>
+                        <li>setUsername: recebe uma variável do tipo texto e muda o valor "username" da instância de um objeto do tipo User.</li>
+                        <li>setEmail: recebe uma variável do tipo texto e muda o valor "email" da instância de um objeto do tipo User.</li>
+                        <li>setPassword: recebe uma variável do tipo texto e muda o valor "password" da instância de um objeto do tipo User.</li>
+                        <li>setType: recebe uma variável do tipo texto e muda o valor "type" da instância de um objeto do tipo User.</li>
+                        <li>setAge: recebe uma variável do tipo texto e muda o valor "age" da instância de um objeto do tipo User.</li>
+                        <li>setLocal: recebe uma variável do tipo texto e muda o valor "local" da instância de um objeto do tipo User.</li>
                     </ul>
 
                     <h3>Variáveis da classe:</h3>
@@ -519,6 +582,96 @@
                     </ul>
                 </div>
                 <div>
+                    <h3 id="cadastro-email">Classe: CadastroEmail</h3>
+                    <h4>Caminho: frontend\lib\screens\signup\cadastro_email.dart</h4> 
+                    <p>Classe responsável por pegar o email do usuário para cadastro.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createState: constrói um Widget de acordo com o State retornado (CadastroEmail).</li>
+                        <li>verify: verifica se o campo email está vazio ou não. Se estiver, passa para o método showSnackbar. Se não, muda de tela com o navigator.</li>
+                        <li>showSnackBar: mostra uma mensagem avisando que o campo email está vazio.</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>p: instância da classe User, servindo para passar/pegar dados entre as telas de cadastro.</li>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
+                        <li>_emailController: instância do objeto Controller que controla todos os dados inseridos no input de email.</li>
+                        <li>email: variável do tipo texto que recebe o texto do Controller de email.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="cadastro-intro">Classe: CadastroIntro</h3>
+                    <h4>Caminho: frontend\lib\screens\signup\cadastro_intro.dart</h4> 
+                    <p>Classe responsável por introduzir o cadastro ao usuário.</p>
+
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>build: constrói um Widget (CadastroIntro).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="cadastro-nome">Classe: CadastroNome</h3>
+                    <h4>Caminho: frontend\lib\screens\signup\cadastro_nome.dart</h4> 
+                    <p>Classe responsável por pegar o nome do usuário para cadastro.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createState: constrói um Widget de acordo com o State retornado (CadastroNome).</li>
+                        <li>verify: verifica se o campo nome está vazio ou não. Se estiver, passa para o método showSnackbar. Se não, muda de tela com o navigator.</li>
+                        <li>showSnackBar: mostra uma mensagem avisando que o campo nome está vazio.</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>p: instância da classe User, servindo para passar/pegar dados entre as telas de cadastro.</li>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
+                        <li>_nomeController: instância do objeto Controller que controla todos os dados inseridos no input de nome.</li>
+                        <li>nome: variável do tipo texto que recebe o texto do Controller de nome.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="cadastro-senha">Classe: CadastroSenha</h3>
+                    <h4>Caminho: frontend\lib\screens\signup\cadastro_senha.dart</h4> 
+                    <p>Classe responsável por pegar a senha do usuário para cadastro.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createState: constrói um Widget de acordo com o State retornado (CadastroSenha).</li>
+                        <li>verify: verifica se o campo senha está vazio ou não. Se estiver, passa para o método showSnackbar. Se não, muda de tela com o navigator.</li>
+                        <li>showSnackBar: mostra uma mensagem avisando que o campo senha está vazio.</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>p: instância da classe User, servindo para passar/pegar dados entre as telas de cadastro.</li>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
+                        <li>_passwordController: instância do objeto Controller que controla todos os dados inseridos no input de senha.</li>
+                        <li>password: variável do tipo texto que recebe o texto do Controller de senha.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="cadastro-type">Classe: CadastroType</h3>
+                    <h4>Caminho: frontend\lib\screens\signup\cadastro_type.dart</h4>
+                    <p>Classe responsável por pegar o tipo do usuário para cadastro.</p> 
+
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>build: constrói um Widget (CadastroType)</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>p: instância da classe User, servindo para passar/pegar dados entre as telas de cadastro.</li>
+                    </ul>
+                </div>
+                <div>
                     <h3 id="bem-vindo">Classe: BemVindo</h3>
                     <h4>Caminho: frontend\lib\screens\bem_vindo.dart</h4> 
                     <p>Classe responsável por das as boas vindas ao usuário :).</p>
@@ -529,16 +682,6 @@
                     </ul>
                 </div>
                 <div>
-                    <h3 id="cadastro">Classe: Cadastro</h3>
-                    <h4>Caminho: frontend\lib\screens\cadastro.dart</h4> 
-                    <p>Classe responsável por realizar o cadastro do usuário.</p>
-                    
-                    <h3>Métodos da classe:</h3>
-                    <ul>
-                        <li>build: constrói um Widget (Cadastro).</li>
-                    </ul>
-                </div>
-                <div>
                     <h3 id="iniciacao-cientifica">Classe: IniciacaoCientifica</h3>
                     <h4>Caminho: frontend\lib\screens\iniciacao_cientifica.dart</h4> 
                     <p>Classe responsável por dizer ao usuário o que é iniciação científica.</p>
@@ -546,6 +689,11 @@
                     <h3>Métodos da classe:</h3>
                     <ul>
                         <li>build: constrói um Widget (IniciacaoCientifica).</li>
+                    </ul>
+                    
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
                     </ul>
                 </div>
                 <div>
@@ -602,6 +750,11 @@
                     <h3>Métodos da classe:</h3>
                     <ul>
                         <li>build: constrói um Widget (PrazerGenius).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
                     </ul>
                 </div>
                 <div>

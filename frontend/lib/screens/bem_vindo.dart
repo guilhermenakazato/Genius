@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Genius/screens/pergunta_usuario.dart';
+import 'package:genius/screens/pergunta_usuario.dart';
 
 class BemVindo extends StatelessWidget {
-  BemVindo({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

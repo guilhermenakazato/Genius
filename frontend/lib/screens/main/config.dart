@@ -1,9 +1,9 @@
-import 'package:Genius/components/list_tile_title.dart';
-import 'package:Genius/components/mod_list_tile.dart';
-import 'package:Genius/components/switch_tile.dart';
-import 'package:Genius/screens/bem_vindo.dart';
-import 'package:Genius/utils/local_store.dart';
-import 'package:Genius/utils/navigator_util.dart';
+import 'package:genius/components/list_tile_title.dart';
+import 'package:genius/components/mod_list_tile.dart';
+import 'package:genius/components/switch_tile.dart';
+import 'package:genius/screens/bem_vindo.dart';
+import 'package:genius/utils/local_store.dart';
+import 'package:genius/utils/navigator_util.dart';
 
 import 'package:flutter/material.dart';
 

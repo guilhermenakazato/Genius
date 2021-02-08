@@ -1,31 +1,31 @@
-import 'package:genius/screens/signup/cadastro_intro.dart';
+import 'package:genius/screens/signup/cadastro_nome.dart';
 import 'package:genius/utils/navigator_util.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
-class IniciacaoCientifica extends StatelessWidget {
+class CadastroIntro extends StatelessWidget {
   final NavigatorUtil navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigator.navigate(context, CadastroIntro());
+        navigator.navigate(context, CadastroNome());
       },
       child: Scaffold(
         backgroundColor: Colors.black,
         body: Center(
           child: TypewriterAnimatedTextKit(
             text: [
-              "Iniciação científica\n" +
-                  "é uma forma de colaboração\n" +
-                  "com a ciência através da\n" +
-                  "pesquisa. O objetivo é\n" +
-                  "atualizar o que já existe\n" +
-                  "e realizar descobertas."
+              "Agora que te apresentamos o Genius, gostaríamos de saber um pouco mais sobre você!"
             ],
+            onFinished: () {
+              Future.delayed(Duration(seconds: 1), () {
+                navigator.navigate(context, CadastroNome());
+              });
+            },
             onTap: () {
-              navigator.navigate(context, CadastroIntro());
+              navigator.navigate(context, CadastroNome());
             },
             textStyle: TextStyle(
               color: Theme.of(context).primaryColor,
