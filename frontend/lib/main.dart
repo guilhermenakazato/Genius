@@ -1,7 +1,7 @@
-import 'package:Genius/screens/main/tela_principal.dart';
-import 'package:Genius/utils/local_store.dart';
+import 'package:genius/screens/main/tela_principal.dart';
+import 'package:genius/utils/local_store.dart';
 import 'package:flutter/material.dart';
-import 'package:Genius/screens/bem_vindo.dart';
+import 'package:genius/screens/bem_vindo.dart';
 import 'package:get_storage/get_storage.dart';
 
 void main() async {
@@ -18,6 +18,7 @@ class Genius extends StatelessWidget {
       title: 'Genius',
       theme: ThemeData(
         primaryColor: const Color(0xffab84e5),
+        accentColor: const Color(0xffab84e5),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Gotham",
       ),

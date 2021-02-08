@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:Genius/components/button.dart';
-import 'package:Genius/components/input.dart';
-import 'package:Genius/http/webclients/login_webclient.dart';
-import 'package:Genius/models/auth.dart';
-import 'package:Genius/models/token.dart';
-import 'package:Genius/utils/navigator_util.dart';
+import 'package:genius/components/button.dart';
+import 'package:genius/components/input.dart';
+import 'package:genius/http/webclients/login_webclient.dart';
+import 'package:genius/models/auth.dart';
+import 'package:genius/models/token.dart';
+import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -76,11 +76,13 @@ class _LoginStateContent extends StatelessWidget {
             Input(
               controller: _emailController,
               hint: "E-mail",
+              type: TextInputType.emailAddress
             ),
             Input(
               controller: _passwordController,
               hint: "Senha",
               obscure: true,
+              type: TextInputType.text,
             ),
             Padding(
               padding: const EdgeInsets.all(24.0),
@@ -137,7 +139,7 @@ class _LoginStateContent extends StatelessWidget {
       debugPrint(e.toString());
     });
 
-    // Passa o token pra API
+    // Passa o token pra API 
     bool logged = await _webClient.logged(token.token);
     progress.dismiss();
 
@@ -155,7 +157,7 @@ class _LoginStateContent extends StatelessWidget {
 
   // Mostra uma SnackBar (textinho de aviso)
   void showSnackBar(String text, BuildContext context) {
-    Scaffold.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),
     ));
   }

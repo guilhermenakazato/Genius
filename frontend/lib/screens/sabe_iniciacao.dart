@@ -1,6 +1,6 @@
-import 'package:Genius/components/button_row.dart';
-import 'package:Genius/screens/cadastro.dart';
-import 'package:Genius/screens/iniciacao_cientifica.dart';
+import 'package:genius/components/button_row.dart';
+import 'package:genius/screens/iniciacao_cientifica.dart';
+import 'package:genius/screens/signup/cadastro_intro.dart';
 import 'package:flutter/material.dart';
 
 class SabeIniciacao extends StatelessWidget {
@@ -40,7 +40,7 @@ class SabeIniciacao extends StatelessWidget {
             Transform.translate(
               offset: Offset(0, 390),
               child: ButtonRow(
-                simScreen: Cadastro(),
+                simScreen: CadastroIntro(),
                 naoScreen: IniciacaoCientifica(),
               ),
             ),

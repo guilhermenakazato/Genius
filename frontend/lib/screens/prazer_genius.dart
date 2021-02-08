@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import "package:Genius/screens/sabe_iniciacao.dart";
+import "package:genius/screens/sabe_iniciacao.dart";
+import 'package:genius/utils/navigator_util.dart';
 
 class PrazerGenius extends StatelessWidget {
+  final NavigatorUtil navigator = NavigatorUtil();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navegarSabeIniciacao(context);
+        navigator.navigate(context, SabeIniciacao());
       },
       child: Scaffold(
         backgroundColor: const Color(0xff000000),
@@ -17,7 +20,7 @@ class PrazerGenius extends StatelessWidget {
               offset: Offset(40, 80),
               child: TypewriterAnimatedTextKit(
                 onTap: () {
-                  navegarSabeIniciacao(context);
+                  navigator.navigate(context, SabeIniciacao());
                 },
                 speed: Duration(milliseconds: 70),
                 text: [
@@ -31,6 +34,7 @@ class PrazerGenius extends StatelessWidget {
                   fontWeight: FontWeight.w900,
                 ),
                 totalRepeatCount: 1,
+                repeatForever: false,
               ),
             ),
             Transform.translate(
@@ -49,11 +53,5 @@ class PrazerGenius extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void navegarSabeIniciacao(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return SabeIniciacao();
-    }));
   }
 }

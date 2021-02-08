@@ -1,8 +1,33 @@
 class User {
-  final String username, email, password, type, age, local;
+  String username, email, password, type, age, local;
 
-  User(this.username, this.email, this.password, this.type, this.age,
-      this.local);
+  User(
+      {this.username,
+      this.email,
+      this.password,
+      this.type,
+      this.age,
+      this.local});
+  
+  void setUsername(String username) {
+    this.username = username;
+  }
+
+  void setEmail(String email) {
+    this.email = email;
+  }
+
+  void setPassword(String password) {
+    this.password = password;
+  }
+
+  void setType(String type) {
+    this.type = type;
+  }
+
+  void setAge(String age) {
+    this.age = age;
+  }
 
   User.fromJson(Map<String, dynamic> json)
       : username = json["username"],
@@ -13,11 +38,11 @@ class User {
         local = json["local"];
 
   Map<String, dynamic> toJson() => {
-    "username": username, 
-    "email": email,
-    "password": password, 
-    "type": type, 
-    "age": age, 
-    "local": local,
-  };
+        "username": username,
+        "email": email,
+        "password": password,
+        "type": type,
+        "age": age,
+        "local": local,
+      };
 }

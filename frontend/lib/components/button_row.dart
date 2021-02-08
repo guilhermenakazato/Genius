@@ -1,5 +1,5 @@
-import "package:Genius/components/button.dart";
-import 'package:Genius/utils/navigator_util.dart';
+import "package:genius/components/button.dart";
+import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/cupertino.dart';
 
 class ButtonRow extends StatelessWidget {

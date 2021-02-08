@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Input extends StatefulWidget {
   final String hint;
   final bool obscure;
   final TextEditingController controller;
+  final TextInputType type;
 
-  const Input({Key key, this.hint, this.obscure = false, this.controller})
-      : super(key: key);
+  const Input({
+    Key key,
+    @required this.hint,
+    this.obscure = false,
+    @required this.controller,
+    @required this.type,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -34,7 +41,7 @@ class InputState extends State<Input> {
             child: TextField(
               controller: widget.controller,
               obscureText: widget.obscure,
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: widget.type,
               textAlign: TextAlign.center,
               cursorColor: Theme.of(context).primaryColor,
               decoration: InputDecoration(

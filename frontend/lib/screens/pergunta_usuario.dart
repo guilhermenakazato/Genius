@@ -1,7 +1,7 @@
-import 'package:Genius/components/button_row.dart';
+import 'package:genius/components/button_row.dart';
 import 'package:flutter/material.dart';
-import "package:Genius/screens/login.dart";
-import 'package:Genius/screens/prazer_genius.dart';
+import "package:genius/screens/login.dart";
+import 'package:genius/screens/prazer_genius.dart';
 
 class PerguntaUsuario extends StatelessWidget {
   @override
