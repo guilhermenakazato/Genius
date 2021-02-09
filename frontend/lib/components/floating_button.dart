@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FloatingButton extends StatelessWidget {
   final Function onPressed;
 
-  const FloatingButton({Key key, this.onPressed}) : super(key: key);
+  const FloatingButton({Key key, @required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

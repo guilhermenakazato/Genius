@@ -55,9 +55,9 @@ class _CadastroSenhaState extends State<CadastroSenha> {
                 obscure: _obscure,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 20, 19),
-              child: Positioned(
+            Positioned(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 20, 19),
                 child: Align(
                   alignment: FractionalOffset.bottomLeft,
                   child: BorderlessButton(

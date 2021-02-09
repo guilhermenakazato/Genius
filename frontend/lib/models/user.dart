@@ -8,7 +8,7 @@ class User {
       this.type,
       this.age,
       this.local});
-  
+
   void setUsername(String username) {
     this.username = username;
   }
@@ -29,6 +29,11 @@ class User {
     this.age = age;
   }
 
+  // TODO: documentar
+  void setLocal(String local) {
+    this.local = local;
+  }
+
   User.fromJson(Map<String, dynamic> json)
       : username = json["username"],
         email = json["email"],
@@ -45,4 +50,9 @@ class User {
         "age": age,
         "local": local,
       };
+
+  @override
+  String toString() {
+    return "User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local}";
+  }
 }

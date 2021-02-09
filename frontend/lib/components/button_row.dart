@@ -2,9 +2,22 @@ import "package:genius/components/button.dart";
 import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/cupertino.dart';
 
+// TODO: documentar
 class ButtonRow extends StatelessWidget {
   final Widget simScreen, naoScreen;
-  const ButtonRow({Key key, this.simScreen, this.naoScreen}) : super(key: key);
+  final String textSim, textNao;
+  final Function addYesFunction, addNoFunction;
+  final double width;
+  const ButtonRow({
+    Key key,
+    @required this.simScreen,
+    @required this.naoScreen,
+    this.textSim = "Sim",
+    this.textNao = "Não",
+    this.addYesFunction,
+    this.addNoFunction,
+    this.width = 95,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +27,20 @@ class ButtonRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Button(
-          text: "Sim",
+          width: width,
+          text: textSim,
           onClick: () {
+            addYesFunction == null
+                ? debugPrint("Sem função")
+                : addYesFunction();
             navigator.navigate(context, simScreen);
           },
         ),
         Button(
-          text: "Não",
+          width: width,
+          text: textNao,
           onClick: () {
+            addNoFunction == null ? debugPrint("Sem função") : addNoFunction();
             navigator.navigate(context, naoScreen);
           },
         ),
