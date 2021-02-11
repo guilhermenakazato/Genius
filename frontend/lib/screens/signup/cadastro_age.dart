@@ -5,7 +5,7 @@ import 'package:genius/models/user.dart';
 import 'package:genius/screens/signup/cadastro_local.dart';
 import 'package:genius/utils/navigator_util.dart';
 
-// TODO: documentar
+// TODO: documentar e melhorar pq tá gigante mds
 class CadastroAge extends StatefulWidget {
   final User p;
 
@@ -17,7 +17,7 @@ class CadastroAge extends StatefulWidget {
 
 class _CadastroAgeState extends State<CadastroAge> {
   int age = 0;
-
+  var ages = [for(var i = 10; i <= 50; i++) i];
   final NavigatorUtil navigator = NavigatorUtil();
 
   @override
@@ -52,209 +52,10 @@ class _CadastroAgeState extends State<CadastroAge> {
                   age = value;
                 },
                 children: <Widget>[
+                  for(var number in ages)
                   Center(
                     child: Text(
-                      "10",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "11",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "12",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "13",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "14",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "15",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "16",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "17",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "18",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "19",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "20",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "21",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "22",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "23",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "24",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "25",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "26",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "27",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "28",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "29",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "30",
+                      number.toString(),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,
