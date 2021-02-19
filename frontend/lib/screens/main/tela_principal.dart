@@ -21,8 +21,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       bottomNavigationBar: CurvedNavigationBar(
         height: 48,
         index: 2,
-        color: const Color(0xFF3D3B8E),
-        backgroundColor: Colors.black,
+        color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        backgroundColor: Colors.transparent,
         items: <Widget>[
           Icon(Icons.emoji_objects, size: 24, color: Colors.white),
           Icon(Icons.person, size: 24, color: Colors.white),

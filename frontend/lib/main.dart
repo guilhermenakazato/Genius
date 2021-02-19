@@ -19,10 +19,19 @@ class Genius extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xffab84e5),
         accentColor: const Color(0xffab84e5),
+        cardColor: const Color(0xFF3D3B8E),
+        scaffoldBackgroundColor: Colors.black,
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: const Color(0xFF3D3B8E),
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Gotham",
+        textSelectionTheme: TextSelectionThemeData(
+          selectionHandleColor: const Color(0xffab84e5),
+        ),
       ),
-      home: localStore.getFromStorage() == "none" ? BemVindo() : TelaPrincipal(), 
+      home:
+          localStore.getFromStorage() == "none" ? BemVindo() : TelaPrincipal(),
     );
   }
 }
