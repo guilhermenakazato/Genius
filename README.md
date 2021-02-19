@@ -11,7 +11,7 @@ O Genius é o resultado esperado de um projeto (TCC) a ser apresentado no final 
 
 # ✔️ Pré-requisitos
 👉 [NodeJS >= 12.0.0 e npm >= 6.0.0](https://nodejs.org/en/)<br />
-👉 [Flutter (SDK) e Android SDK](https://flutter.dev/docs/get-started/install)
+👉 [Flutter (SDK - Canal Master) e Android SDK](https://flutter.dev/docs/get-started/install)
 
 # 🛠️ Tecnologias utilizadas
 👉 [AdonisJS](https://preview.adonisjs.com)<br />
