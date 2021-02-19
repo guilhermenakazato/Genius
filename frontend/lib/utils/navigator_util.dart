@@ -8,7 +8,18 @@ class NavigatorUtil {
   }
 
   void navigateAndRemove(BuildContext context, Widget widget) {
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (context) => widget), (route) => false);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => widget),
+      (route) => false,
+    );
+  }
+
+  void navigateAndReplace(BuildContext context, Widget widget) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => widget),
+      ModalRoute.withName('/'),
+    );
   }
 }

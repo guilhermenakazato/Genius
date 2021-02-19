@@ -36,7 +36,7 @@ class _LoginStateBody extends StatelessWidget {
         color: Theme.of(context).primaryColor,
       ),
       child: Builder(
-        builder: (context) => _LoginStateContent(context),
+        builder: (context) => _LoginStateContent(),
       ),
     );
   }
@@ -45,9 +45,6 @@ class _LoginStateBody extends StatelessWidget {
 class _LoginStateContent extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final BuildContext progressContext;
-
-  _LoginStateContent(this.progressContext);
 
   @override
   Widget build(BuildContext context) {

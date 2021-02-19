@@ -1,13 +1,14 @@
 class User {
   String username, email, password, type, age, local;
 
-  User(
-      {this.username,
-      this.email,
-      this.password,
-      this.type,
-      this.age,
-      this.local});
+  User({
+    this.username,
+    this.email,
+    this.password,
+    this.type,
+    this.age,
+    this.local,
+  });
 
   void setUsername(String username) {
     this.username = username;

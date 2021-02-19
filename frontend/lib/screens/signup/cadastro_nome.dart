@@ -66,7 +66,7 @@ class _CadastroNomeState extends State<CadastroNome> {
     if (nome.isEmpty) {
       showSnackBar("Preencha o campo nome!", context);
     } else {
-      p.setUsername(nome);
+      p.setUsername(nome.trimRight());
       navigator.navigate(context, CadastroEmail(p));
     }
   }
