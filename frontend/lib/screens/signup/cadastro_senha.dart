@@ -82,6 +82,8 @@ class _CadastroSenhaState extends State<CadastroSenha> {
 
     if (password.isEmpty) {
       showSnackBar("Preencha o campo de senha!", context);
+    } else if (password.length <= 7) {
+      showSnackBar("Insira uma senha de pelo menos 8 caracteres!", context);
     } else {
       widget.p.setPassword(password);
       navigator.navigate(context, CadastroType(widget.p));

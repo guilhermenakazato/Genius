@@ -5,6 +5,7 @@ import 'package:genius/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:genius/screens/signup/cadastro_senha.dart';
 import 'package:genius/utils/navigator_util.dart';
+import 'package:email_validator/email_validator.dart';
 
 class CadastroEmail extends StatefulWidget {
   final User p;
@@ -35,7 +36,9 @@ class _CadastroEmailState extends State<CadastroEmail> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Text(
-                "Prazer em te conhecer, " + widget.p.username + "!\nQual o seu email?",
+                "Prazer em te conhecer, " +
+                    widget.p.username +
+                    "!\nQual o seu email?",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
@@ -60,15 +63,17 @@ class _CadastroEmailState extends State<CadastroEmail> {
 
     if (email.isEmpty) {
       showSnackBar("Preencha o campo email!", context);
+    } else if (!EmailValidator.validate(email)) {
+      showSnackBar("Insira um e-mail válido!", context);
     } else {
       widget.p.setEmail(email);
       navigator.navigate(context, CadastroSenha(widget.p));
     }
   }
+}
 
-  void showSnackBar(String text, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(text),
-    ));
-  }
+void showSnackBar(String text, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(text),
+  ));
 }
