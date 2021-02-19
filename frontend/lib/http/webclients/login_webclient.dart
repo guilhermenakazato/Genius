@@ -12,8 +12,11 @@ class LoginWebClient {
     final String authJson = jsonEncode(auth.toJson());
     final LocalStore localStore = LocalStore();
 
-    final Response response = await client.post(baseUrl + "/login",
-        headers: {"Content-Type": "application/json"}, body: authJson);
+    final Response response = await client.post(
+      baseUrl + "/login",
+      headers: {"Content-Type": "application/json"},
+      body: authJson,
+    );
 
     if (response.statusCode == 200) {
       Token token = Token.fromJson(jsonDecode(response.body));
