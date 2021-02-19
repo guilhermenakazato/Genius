@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// TODO: documentar?
 class SwitchTile extends StatefulWidget {
   final IconData icon;
   final String text;
@@ -18,14 +20,14 @@ class _SwitchTileState extends State<SwitchTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Ink(
-      color: const Color(0xff202020),
-      child: InkWell(
-        onTap: () {
-          widget.function();
-        },
-        child: SwitchListTile(
-          value: _isSwitched,
+    return MergeSemantics(
+      child: Ink(
+        color: const Color(0xff202020),
+        child: ListTile(
+          leading: Icon(
+            widget.icon,
+            color: Theme.of(context).primaryColor,
+          ),
           title: Text(
             widget.text,
             style: TextStyle(
@@ -34,16 +36,20 @@ class _SwitchTileState extends State<SwitchTile> {
               fontWeight: FontWeight.w900,
             ),
           ),
-          secondary: Icon(
-            widget.icon,
-            color: Theme.of(context).primaryColor,
+          trailing: CupertinoSwitch(
+            value: _isSwitched,
+            activeColor: Theme.of(context).primaryColor,
+            onChanged: (bool value) {
+              setState(() {
+                _isSwitched = value;
+              });
+            },
           ),
-          onChanged: (bool value) {
+          onTap: () {
             setState(() {
-              _isSwitched = value;
+              _isSwitched = !_isSwitched;
             });
           },
-          activeColor: Theme.of(context).primaryColor,
         ),
       ),
     );
