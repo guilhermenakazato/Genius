@@ -12,7 +12,6 @@ class TelaPrincipal extends StatefulWidget {
 }
 
 class _TelaPrincipalState extends State<TelaPrincipal> {
-  // TODO: nao esquece de verificar
   int pageNumber = 2;
 
   @override
@@ -21,7 +20,6 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       backgroundColor: Colors.black,
       bottomNavigationBar: CurvedNavigationBar(
         height: 48,
-        // TODO: verificar ok
         index: 2,
         color: const Color(0xFF3D3B8E),
         backgroundColor: Colors.black,

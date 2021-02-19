@@ -12,7 +12,7 @@ class BorderlessInput extends StatefulWidget {
     @required this.hint,
     this.obscure = false,
     @required this.controller,
-    @required this.type,
+    @required this.type, 
   }) : super(key: key);
 
   @override

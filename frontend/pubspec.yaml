@@ -31,8 +31,7 @@ dependencies:
   flutter_spinkit: "^4.1.2"
   get_storage:
   path_provider: ^1.6.27
-
-  # rezando pra Gabi não odiar esse aqui <3
+  email_validator: '^1.0.5'
   curved_navigation_bar: ^0.3.7
 
   # The following adds the Cupertino Icons font to your application.
