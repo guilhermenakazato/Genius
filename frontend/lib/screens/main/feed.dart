@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:genius/screens/main/project/project_info.dart';
+import 'package:genius/utils/navigator_util.dart';
 import 'package:tcard/tcard.dart';
 
 // TODO: documentar
@@ -11,6 +13,7 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
   TCardController _controller = TCardController();
   var projetos = [for (int i = 1; i < 20; i++) i];
   int _index = 0;
+  final NavigatorUtil navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -42,18 +45,9 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                   ),
                   child: InkWell(
                     onTap: () {
+                      // card tá em cima
                       if (_index + 1 == projeto) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Vai abrir o projeto $projeto"),
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Não vai abrir o projeto $projeto"),
-                          ),
-                        );
+                        navigator.navigate(context, ProjectInfo(number: projeto,));
                       }
                     },
                     borderRadius: BorderRadius.circular(16.0),
