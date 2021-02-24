@@ -34,8 +34,10 @@ class LoginWebClient {
   };
 
   Future<bool> logged(String token) async {
-    final Response response = await client
-        .post(baseUrl + "/token", headers: {"Authorization": "Bearer $token"});
+    final Response response = await client.get(
+      baseUrl + "/token",
+      headers: {"Authorization": "Bearer $token"},
+    );
 
     if (response.statusCode == 200) {
       return true;
