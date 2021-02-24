@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:genius/components/button.dart';
 import 'package:genius/components/input.dart';
+import 'package:genius/http/exceptions/http_exception.dart';
 import 'package:genius/http/webclients/login_webclient.dart';
 import 'package:genius/models/auth.dart';
 import 'package:genius/models/token.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// TODO: documentar?
 class SwitchTile extends StatefulWidget {
   final IconData icon;
   final String text;

@@ -2,12 +2,12 @@ import "package:genius/components/button.dart";
 import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/cupertino.dart';
 
-// TODO: documentar
 class ButtonRow extends StatelessWidget {
   final Widget simScreen, naoScreen;
   final String textSim, textNao;
   final Function addYesFunction, addNoFunction;
   final double width;
+
   const ButtonRow({
     Key key,
     @required this.simScreen,

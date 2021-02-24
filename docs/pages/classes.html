@@ -31,7 +31,10 @@
                 que dentro da pasta lib há 5 pastas importantes: components, http, models, screens e utils. Na components, são 
                 armazenados componentes reutilizáveis; na http, são colocados códigos referentes às requisições HTTP dentro do app Flutter;
                 na models, são guardados os models, classes que representam uma tabela de dados; na screens, estão todos os códigos referentes às
-                telas do Genius e, por fim, na utils, são colocados métodos que podem vir a ser úteis durante o desenvolvimento.</p>
+                telas do Genius e, por fim, na utils, são colocados métodos que podem vir a ser úteis durante o desenvolvimento. Dentro da pasta screens, 
+                há 2 sub-pastas importantes: signup e main. Na signup, está todo o código referente ao cadastro do usuário, enquanto que na main está todo o código
+                relacionado a tela principal do Genius, onde se situa o Feed. E, por fim, dentro da pasta main, há a sub-pasta project, onde é armazenado o código referente
+                à criação de projetos dentro do app, além do código de mostrar as informações do app ao clicar no Card do Feed.</p>
         </div>
 
         <div class="classes">
@@ -70,11 +73,14 @@
                         <li class="glow"><a onclick="glowStyle(this)" href="#mod-list-tile">ModListTile</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#switch-tile">SwitchTile</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#logging-interceptors">LoggingInterceptors</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-web-client">CadastroWebClient</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#login-web-client">LoginWebClient</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#web-client">WebClient</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#auth">Auth</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#token">Token</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#user">User</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#create-project">CreateProject</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-info">ProjectInfo</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#config">Config</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#feed">Feed</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#perfil">Perfil</a></li>
@@ -83,6 +89,7 @@
                         <li class="glow"><a onclick="glowStyle(this)" href="#pesquisa">Pesquisa</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#sobre">Sobre</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#tela-principal">TelaPrincipal</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-age">CadastroAge</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-email">CadastroEmail</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-intro">CadastroIntro</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-nome">CadastroNome</a></li>
@@ -318,6 +325,12 @@
                     <ul>
                         <li>simScreen: recebe uma tela. Quando o usuário clicar no botão sim, o app entra nessa tela.</li>
                         <li>naoScreen: recebe uma tela. Quando o usuário clicar no botão não, o app entra nessa tela.</li>
+                        <li>textSim: muda o texto do botão que redireciona para a tela que está no botão sim.</li>
+                        <li>textNao: muda o texto do botão que redireciona para a tela que está no botão não.</li>
+                        <li>addYesFunction: executa uma função quando o botão sim é clicado.</li>
+                        <li>addNoFunction: executa uma função quando o botão não é clicado.</li>
+                        <li>width: aumenta a largura de ambos os botões.</li>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
                     </ul>
                 </div>
                 <div>
@@ -434,6 +447,16 @@
                     </ul>
                 </div>
                 <div>
+                    <h3 id="cadastro-web-client">Classe: CadastroWebClient</h3>
+                    <h4>Caminho: frontend\lib\http\webclients\cadastro_webclient.dart</h4> 
+                    <p>Classe responsável por lidar com todas as requisições e respostas referentes ao cadastro.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>cadastro: recebe um objeto User e realiza uma requisição HTTP POST com os dados. Se for bem-sucedida, faz o cadastro de um novo usuário no Genius.</li>
+                    </ul>
+                </div>
+                <div>
                     <h3 id="login-web-client">Classe: LoginWebClient</h3>
                     <h4>Caminho: frontend\lib\http\webclients\login_webclient.dart</h4> 
                     <p>Classe responsável por lidar com todas as requisições e respostas referentes ao login.</p>
@@ -502,6 +525,7 @@
                         <li>setType: recebe uma variável do tipo texto e muda o valor "type" da instância de um objeto do tipo User.</li>
                         <li>setAge: recebe uma variável do tipo texto e muda o valor "age" da instância de um objeto do tipo User.</li>
                         <li>setLocal: recebe uma variável do tipo texto e muda o valor "local" da instância de um objeto do tipo User.</li>
+                        <li>toString: retorna a instância do objeto User em formato String.</li>
                     </ul>
 
                     <h3>Variáveis da classe:</h3>
@@ -512,6 +536,31 @@
                         <li>type: variável do tipo texto que serve para identificar qual o tipo do usuário (estudante, professor ou comunidade externa).</li>
                         <li>age: variável do tipo texto que serve para armazenar a idade do usuário.</li>
                         <li>local: variável do tipo texto que serve para armazenar aonde o usuário mora.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="create-project">Classe: CreateProject</h3>
+                    <h4>Caminho: frontend\lib\screens\main\project\create_project.dart</h4> 
+                    <p>Classe responsável por criar projetos dentro do aplicativo.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>build: constrói um Widget (CreateProject).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="project-info">Classe: ProjectInfo</h3>
+                    <h4>Caminho: frontend\lib\screens\main\project\create_project.dart</h4> 
+                    <p>Classe responsável por mostrar as informações do projeto ao clicar no Card.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>build: constrói um Widget (ProjectInfo).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>number: variável que mostra o índice do projeto clicado.</li>
                     </ul>
                 </div>
                 <div>
@@ -531,7 +580,14 @@
                     
                     <h3>Métodos da classe:</h3>
                     <ul>
-                        <li>build: constrói um Widget (Feed).</li>
+                        <li>createState: constrói um Widget de acordo com o State retornado (Feed).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>_controller: variável que armazena todos os dados referentes ao Card (se arrastou, se não arrastou, etc.)</li>
+                        <li>index: serve para indicar o index do card do projeto que está em cima.</li>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
                     </ul>
                 </div>
                 <div>
@@ -582,6 +638,25 @@
                     </ul>
                 </div>
                 <div>
+                    <h3 id="cadastro-age">Classe: CadastroAge</h3>
+                    <h4>Caminho: frontend\lib\screens\signup\cadastro_age.dart</h4> 
+                    <p>Classe responsável por pegar a idade do usuário para cadastro.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createState: constrói um Widget de acordo com o State retornado (CadastroAge).</li>
+                        <li>nextScreen: adiciona a idade ao objeto da classe User, que será usado para cadastro.</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>p: instância da classe User, servindo para passar/pegar dados entre as telas de cadastro.</li>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
+                        <li>age: variável que pega a idade selecionada pelo usuário.</li>
+                        <li>ages: variável que serve para colocar todas as opções de idade no CupertinoPicker.</li>
+                    </ul>
+                </div>
+                <div>
                     <h3 id="cadastro-email">Classe: CadastroEmail</h3>
                     <h4>Caminho: frontend\lib\screens\signup\cadastro_email.dart</h4> 
                     <p>Classe responsável por pegar o email do usuário para cadastro.</p>
@@ -614,6 +689,36 @@
                     <h3>Variáveis da classe:</h3>
                     <ul>
                         <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 id="cadastro-local">Classe: CadastroLocal</h3>
+                    <h4>Caminho: frontend\lib\screens\signup\cadastro_local.dart</h4> 
+                    <p>Classe responsável por pegar a cidade em que o usuário mora para fazer o cadastro do usuário.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createState: constrói um Widget de acordo com o State retornado (CadastroLocal)</li>
+                        <li>showSnackBar: recebe uma variável do tipo texto e o contexto e imprime o texto em uma SnackBar.</li>
+                        <li>fazerCadastro: realiza o cadastro do usuário.</li>
+                        <li>verify: verifica se o campo de Local está vazio. Se não estiver, realiza o cadastro do usuário chamando o método fazerCadastro.</li>
+                    </ul>
+                    
+                    <h3>Sub-classes importantes:</h3>
+                    <ul>
+                        <li>_CadastroLocalBody: responsável por controlar o <a class="glow" href="https://pub.dev/packages/flutter_progress_hud" target="_blank">ProgressHUD</a>.</li>
+                        <li>_CadastroLocalContent: responsável por mostrar todo o conteúdo da tela CadastroLocal.</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>_localController: instância do objeto Controller que controla todos os dados inseridos no input de local.</li>
+                        <li>p: instância da classe User, servindo para passar/pegar dados entre as telas de cadastro.</li>
+                        <li>local: variável do tipo texto que recebe o texto do Controller de local.</li>
+                        <li>_webClient: instância do webClient, monitorando todas as requisições e respostas do backend.</li>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
+                        <li>progress: instância do ProgressHUD, usado para manusear as funções da classe.</li>
+                        <li>signed: verifica se o usuário foi cadastrado corretamente. Se sim, o manda para a tela de Login.</li>
                     </ul>
                 </div>
                 <div>
@@ -669,6 +774,7 @@
                     <h3>Variáveis da classe:</h3>
                     <ul>
                         <li>p: instância da classe User, servindo para passar/pegar dados entre as telas de cadastro.</li>
+                        <li>navigator: instância do navigatorUtil, serve para navegar de uma tela a outra.</li>
                     </ul>
                 </div>
                 <div>

@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:genius/http/exceptions/http_exception.dart';
 import 'package:genius/http/webclient.dart';
-import 'package:genius/http/webclients/login_webclient.dart';
 import 'package:genius/models/user.dart';
 import 'package:http/http.dart';
 
-// TODO: documentar
-// TODO: arrumar, não tá fazendo o cadastro
 class CadastroWebClient {
   Future<bool> cadastro(User user) async {
     final String userJson = jsonEncode(user.toJson());
