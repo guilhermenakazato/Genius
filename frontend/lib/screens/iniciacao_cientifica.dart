@@ -31,6 +31,7 @@ class IniciacaoCientifica extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               fontSize: 24,
               fontWeight: FontWeight.w900,
+              fontFamily: "Gotham",
               height: 1.2,
             ),
             textAlign: TextAlign.center,
