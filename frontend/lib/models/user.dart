@@ -30,7 +30,6 @@ class User {
     this.age = age;
   }
 
-  // TODO: documentar
   void setLocal(String local) {
     this.local = local;
   }

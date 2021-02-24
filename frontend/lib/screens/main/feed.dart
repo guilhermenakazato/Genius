@@ -3,7 +3,6 @@ import 'package:genius/screens/main/project/project_info.dart';
 import 'package:genius/utils/navigator_util.dart';
 import 'package:tcard/tcard.dart';
 
-// TODO: documentar
 class Feed extends StatefulWidget {
   @override
   _FeedState createState() => _FeedState();

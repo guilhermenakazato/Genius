@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:genius/http/exceptions/http_exception.dart';
 import 'package:genius/http/webclient.dart';
 import 'package:genius/models/auth.dart';
 import 'package:genius/models/token.dart';
@@ -47,11 +48,4 @@ class LoginWebClient {
     print(response.statusCode);
     throw HttpException("Unknown Error");
   }
-}
-
-// deixando a exceção mais específica
-class HttpException implements Exception {
-  final String message;
-
-  HttpException(this.message);
 }

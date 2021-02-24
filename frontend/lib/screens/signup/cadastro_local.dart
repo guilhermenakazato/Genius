@@ -6,15 +6,12 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:genius/components/borderless_input.dart';
 import 'package:genius/components/gradient_button.dart';
+import 'package:genius/http/exceptions/http_exception.dart';
 import 'package:genius/http/webclients/cadastro_webclient.dart';
-import 'package:genius/http/webclients/login_webclient.dart';
 import 'package:genius/models/user.dart';
 import 'package:genius/utils/navigator_util.dart';
-
 import '../login.dart';
 
-// TODO: documentar
-// TODO: botar HttpExcetion num arquivo
 class CadastroLocal extends StatefulWidget {
   final User p;
 

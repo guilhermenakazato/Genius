@@ -4,7 +4,6 @@ import 'package:genius/models/user.dart';
 import 'package:genius/screens/signup/cadastro_age.dart';
 import 'package:genius/utils/navigator_util.dart';
 
-// TODO: documentar
 class CadastroType extends StatelessWidget {
   final User p;
   final NavigatorUtil navigator = NavigatorUtil();
