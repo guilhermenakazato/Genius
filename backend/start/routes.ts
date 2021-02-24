@@ -29,7 +29,9 @@ Route.get("/usuario/id/:email", UsuariosController.getId);
 Route.post("/usuario", UsuariosController.create);
 
 Route.post("/login", AuthController.login);
-Route.post("/token", AuthController.token);
+Route.get("/token", AuthController.token);
+Route.get("/logout", AuthController.logout);
+Route.get("/data", AuthController.getData);
 
 Route.post("/projeto", ProjetosController.create)
 Route.get("/projetos", ProjetosController.index)
