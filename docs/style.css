@@ -196,7 +196,11 @@ button.float-button {
     opacity: 1;
 }
 
-a button.float-button:hover i{
+button.secondary {
+    bottom: 6vw;
+}
+
+a button.float-button:hover i {
     color: black;
 }
 
