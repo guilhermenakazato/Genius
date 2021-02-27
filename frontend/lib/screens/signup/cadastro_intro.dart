@@ -32,6 +32,7 @@ class CadastroIntro extends StatelessWidget {
               fontSize: 24,
               fontWeight: FontWeight.w900,
               height: 1.2,
+              fontFamily: "Gotham"
             ),
             textAlign: TextAlign.center,
             speed: Duration(milliseconds: 70),

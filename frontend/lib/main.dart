@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:genius/screens/bem_vindo.dart';
 import 'package:get_storage/get_storage.dart';
 
+// TODO: arrumar bug de quando aparece snackbar na senha
 void main() async {
   await GetStorage.init();
   runApp(Genius());
@@ -20,6 +21,11 @@ class Genius extends StatelessWidget {
         primaryColor: const Color(0xffab84e5),
         accentColor: const Color(0xffab84e5),
         cardColor: const Color(0xFF3D3B8E),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(
+            color: const Color(0xFFEEE5D6),
+          ),
+        ),
         scaffoldBackgroundColor: Colors.black,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: const Color(0xFF3D3B8E),
