@@ -26,30 +26,26 @@ class ButtonWrap extends StatelessWidget {
 
     return Wrap(
       alignment: WrapAlignment.center,
+      spacing: 20,
+      runSpacing: 10,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: Button(
-            width: width,
-            text: textSim,
-            onClick: () {
-              addYesFunction == null
-                  ? debugPrint("Sem função")
-                  : addYesFunction();
-              navigator.navigate(context, simScreen);
-            },
-          ),
+        Button(
+          width: width,
+          text: textSim,
+          onClick: () {
+            addYesFunction == null
+                ? debugPrint("Sem função")
+                : addYesFunction();
+            navigator.navigate(context, simScreen);
+          },
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Button(
-            width: width,
-            text: textNao,
-            onClick: () {
-              addNoFunction == null ? debugPrint("Sem função") : addNoFunction();
-              navigator.navigate(context, naoScreen);
-            },
-          ),
+        Button(
+          width: width,
+          text: textNao,
+          onClick: () {
+            addNoFunction == null ? debugPrint("Sem função") : addNoFunction();
+            navigator.navigate(context, naoScreen);
+          },
         ),
       ],
     );

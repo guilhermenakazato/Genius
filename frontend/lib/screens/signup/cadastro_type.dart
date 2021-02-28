@@ -14,35 +14,37 @@ class CadastroType extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              "Você é um professor ou um estudante?",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w900,
-                fontSize: 20,
+      body: Align(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                "Você é um professor ou um estudante?",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 20,
+                ),
               ),
             ),
-          ),
-          ButtonWrap(
-            simScreen: CadastroAge(p),
-            naoScreen: CadastroAge(p),
-            textSim: "Estudante",
-            textNao: "Professor",
-            width: 120,
-            addYesFunction: () {
-              p.setType("Estudante");
-            },
-            addNoFunction: () {
-              p.setType("Professor");
-            },
-          ),
-        ],
+            ButtonWrap(
+              simScreen: CadastroAge(p),
+              naoScreen: CadastroAge(p),
+              textSim: "Estudante",
+              textNao: "Professor",
+              width: 120,
+              addYesFunction: () {
+                p.setType("Estudante");
+              },
+              addNoFunction: () {
+                p.setType("Professor");
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
