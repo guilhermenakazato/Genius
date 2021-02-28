@@ -1,5 +1,5 @@
-import 'package:genius/components/button_row.dart';
 import 'package:flutter/material.dart';
+import 'package:genius/components/button_wrap.dart';
 import "package:genius/screens/login.dart";
 import 'package:genius/screens/prazer_genius.dart';
 
@@ -10,50 +10,45 @@ class PerguntaUsuario extends StatelessWidget {
       backgroundColor: const Color(0xff000000),
       body: Stack(
         children: <Widget>[
-          Transform.translate(
-            offset: Offset(0, 160),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: new AssetImage("assets/homem.png"),
-                    ),
-                  ),
+          Positioned(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 192.0),
+              child: Align(
+                alignment: FractionalOffset.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset("assets/homem.png", width: 140, height: 140,),
+                    Image.asset("assets/mulher.png", width: 140, height: 140,),
+                  ],
                 ),
-                Container(
-                  width: 150,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: new AssetImage("assets/mulher.png"),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Center(
-            child: Text(
-              "Você já é usuário\ndo Genius?",
-              style: TextStyle(
-                color:  Theme.of(context).primaryColor,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
               ),
-              textAlign: TextAlign.center,
             ),
           ),
-          Transform.translate(
-            offset: Offset(0, 390),
-            child: ButtonRow(
-              simScreen: Login(),
-              naoScreen: PrazerGenius(),
+          Positioned(
+            child: Align(
+              alignment: FractionalOffset.center,
+              child: Text(
+                "Você já é usuário\ndo Genius?",
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Positioned(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 136.0),
+              child: Align(
+                alignment: FractionalOffset.center,
+                child: ButtonWrap(
+                  simScreen: Login(),
+                  naoScreen: PrazerGenius(),
+                ),
+              ),
             ),
           ),
         ],
