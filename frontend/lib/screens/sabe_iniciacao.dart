@@ -9,39 +9,52 @@ class SabeIniciacao extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xff000000),
       body: Transform.translate(
-        offset: Offset(0, 70),
+        offset: Offset(0,70),
         child: Stack(
           children: <Widget>[
-            Transform.translate(
-              offset: Offset(70, 100),
-              child: Container(
-                width: 220.0,
-                height: 200.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: const AssetImage('assets/iniciacao-cientifica.png'),
-                    fit: BoxFit.fill,
+            Positioned(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 290.0),
+                child: Align(
+                  alignment: FractionalOffset.center,
+                  child: Container(
+                    width: 220.0,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: const AssetImage('assets/iniciacao-cientifica.png'),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-            Center(
-              child: Text(
-                "Você sabe o que é\niniciação científica?",
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontFamily: 'Gotham',
-                  fontWeight: FontWeight.w900,
-                  fontSize: 28,
+            Positioned(
+              child: Align(
+                alignment: FractionalOffset.center,
+                child: Text(
+                  "Você sabe o que é\niniciação científica?",
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontFamily: 'Gotham',
+                    fontWeight: FontWeight.w900,
+                    fontSize: 28,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
             ),
-            Transform.translate(
-              offset: Offset(0, 390),
-              child: ButtonWrap(
-                simScreen: CadastroIntro(),
-                naoScreen: IniciacaoCientifica(),
+            Positioned(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 150.0),
+                child: Align(
+                  alignment: FractionalOffset.center,
+                  child: ButtonWrap(
+                    simScreen: CadastroIntro(),
+                    naoScreen: IniciacaoCientifica(),
+                  ),
+                ),
               ),
             ),
           ],
