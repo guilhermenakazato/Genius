@@ -8,8 +8,8 @@ class SabeIniciacao extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff000000),
-      body: Transform.translate(
-        offset: Offset(0,70),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 90.0),
         child: Stack(
           children: <Widget>[
             Positioned(
@@ -22,7 +22,8 @@ class SabeIniciacao extends StatelessWidget {
                     height: 200.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: const AssetImage('assets/iniciacao-cientifica.png'),
+                        image:
+                            const AssetImage('assets/iniciacao-cientifica.png'),
                         fit: BoxFit.fill,
                       ),
                     ),
