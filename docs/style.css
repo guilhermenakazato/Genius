@@ -1,242 +1,269 @@
 @font-face {
-    font-family: "Gotham Bold";
-    src: url("./fonts/gotham-bold.otf");
+  font-family: "Gotham Bold";
+  src: url("./fonts/gotham-bold.otf");
 }
 
-:root { 
-    --principal: #EEE5D6;
-    --secundaria: #101010;
-    --terciaria: #181818;
+:root {
+  --principal: #eee5d6;
+  --secundaria: #101010;
+  --terciaria: #181818;
+  --scrollcolor: #505050;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    font-family: "Gotham Bold";
-    scroll-behavior: smooth;
-    color: var(--principal);
+  margin: 0;
+  padding: 0;
+  font-family: "Gotham Bold";
+  scroll-behavior: smooth;
+  color: var(--principal);
 }
 
 body {
-    background-color: black;
+  background-color: black;
 }
 
 p {
-    text-align: justify;
+  text-align: justify;
 }
 
 h2 {
-    padding: 10px;
-    text-align: center;
+  padding: 10px;
+  text-align: center;
 }
 
 h4 {
-    word-wrap: break-word; 
+  word-wrap: break-word;
 }
 
 ul {
-    margin-top: 10px;
-    margin-left: 30px;
-    margin-bottom: 20px;
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-bottom: 20px;
 }
 
 /*Página de sobre*/
 button {
-    margin-top: 10px;
-    width: 50vw;
-    font-size: 15px;
-    color: var(--principal);
-    outline: none;
-    display: inline-block;
-    background-color: transparent;
-    border: 2px solid var(--principal);
-    padding: 15px;
-    border-radius: 30px;
-    opacity: 0;
-    transition: opacity 2s, color 0.25s, background-color 0.25s, font-size 0.25s;
+  margin-top: 10px;
+  width: 50vw;
+  font-size: 15px;
+  color: var(--principal);
+  outline: none;
+  display: inline-block;
+  background-color: transparent;
+  border: 2px solid var(--principal);
+  padding: 15px;
+  border-radius: 30px;
+  opacity: 0;
+  transition: opacity 2s, color 0.25s, background-color 0.25s, font-size 0.25s;
 }
 
 button#b2 {
-    transition: opacity 4s, color 0.25s, background-color 0.25s, font-size 0.25s;
+  transition: opacity 4s, color 0.25s, background-color 0.25s, font-size 0.25s;
 }
 
 button#b3 {
-    transition: opacity 6s, color 0.25s, background-color 0.25s, font-size 0.25s;
+  transition: opacity 6s, color 0.25s, background-color 0.25s, font-size 0.25s;
 }
 
 button:hover {
-    color: black;
-    background-color: var(--principal);
+  color: black;
+  background-color: var(--principal);
 }
 
-button:active{
-    font-size: 13px;
-} 
+button:active {
+  font-size: 13px;
+}
 
 .options {
-    text-align: center;
+  text-align: center;
 }
 
 /*Alinhando verticalmente a div*/
 .outer {
-    display: table;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .middle {
-    display: table-cell;
-    vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .inner {
-    margin-left: auto;
-    margin-right: auto;
-    width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90vw;
 }
 
 /*Página sobre*/
 
 p#sobre {
-    font-size: 20px;
-    padding: 50px;
+  font-size: 20px;
+  padding: 50px;
 }
 
 h2#sobre-title {
-    margin: -20px;
+  margin: -20px;
 }
 
 /*Efeito de fade*/
 .mostrar {
-    opacity: 1;
+  opacity: 1;
 }
 
 /*Página de classes*/
 .doc {
-    padding: 20px;     
+  padding: 20px;
 }
 
 .doc h2 {
-    text-align: start;
-    padding: 0 0 10px 0;
+  text-align: start;
+  padding: 0 0 10px 0;
 }
 
 div + div h2 {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .glow {
-    transition: 0.25s;
+  transition: 0.25s;
 }
 
 .glow:hover {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--principal), 0 0 40px var(--principal), 0 0 50px var(--principal), 0 0 60px var(--principal), 0 0 70px var(--principal);
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--principal),
+    0 0 40px var(--principal), 0 0 50px var(--principal),
+    0 0 60px var(--principal), 0 0 70px var(--principal);
 }
 
 /*glow-text é usado no script*/
 .glow-text {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--principal), 0 0 40px var(--principal), 0 0 50px var(--principal), 0 0 60px var(--principal), 0 0 70px var(--principal);
+  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--principal),
+    0 0 40px var(--principal), 0 0 50px var(--principal),
+    0 0 60px var(--principal), 0 0 70px var(--principal);
 }
 
-div.divisao-um, div.divisao-dois {
-    width: 46vw;
-    display: inline-block;
-    vertical-align: top;
+div.divisao-um,
+div.divisao-dois {
+  width: 46vw;
+  display: inline-block;
+  vertical-align: top;
 }
 
-div.classes-frontend, div.classes-backend {
-    margin-bottom: 10px;
+div.classes-frontend,
+div.classes-backend {
+  margin-bottom: 10px;
 }
 
 div.descricao-classes div h4 {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 div.doc h2 {
-    margin-bottom: 10px;
-    display: inline-block;
-    border-bottom: 5px solid var(--principal);
+  margin-bottom: 10px;
+  display: inline-block;
+  border-bottom: 5px solid var(--principal);
 }
 
 div.doc p {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 div.doc p::first-letter {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 a.float-button {
-    position: fixed;
-    text-align: center;
-    background-color: transparent;
-    bottom: 20px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    border: 2px solid var(--principal);
-    transition: 0.3s;
+  position: fixed;
+  text-align: center;
+  background-color: transparent;
+  bottom: 20px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: 2px solid var(--principal);
+  transition: 0.3s;
 }
 
 a.float-button:hover {
-    background-color: var(--principal);
+  background-color: var(--principal);
 }
 
 button.float-button {
-    position: fixed;
-    bottom: 1.5vw;
-    right: 1.5vw;
+  position: fixed;
+  bottom: 1.5vw;
+  right: 2vw;
 
-    width: 55px;
-    height: 55px;
-    opacity: 1;
+  width: 55px;
+  height: 55px;
+  opacity: 1;
 }
 
 button.secondary {
-    bottom: 6vw;
+  bottom: 6vw;
 }
 
 a button.float-button:hover i {
-    color: black;
+  color: black;
 }
 
 .my-float {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
-#backend, #frontend {
-    margin-left: 10px;
+#backend,
+#frontend {
+  margin-left: 10px;
 }
 
-div.frontend, div.backend {
-    border: 2px solid var(--principal);
-    border-radius: 20px;
-    margin-bottom: 40px;
+div.frontend,
+div.backend {
+  border: 2px solid var(--principal);
+  border-radius: 20px;
+  margin-bottom: 40px;
 }
 
-div.frontend div, div.backend div {
-    padding: 20px;
+div.frontend div,
+div.backend div {
+  padding: 20px;
 }
 
-div.frontend div:nth-child(odd), div.backend div:nth-child(even) {
-    background-color: var(--secundaria);
+div.frontend div:nth-child(odd),
+div.backend div:nth-child(even) {
+  background-color: var(--secundaria);
 }
 
-div.frontend div:nth-child(even), div.backend div:nth-child(odd) {
-    background-color: var(--terciaria);
+div.frontend div:nth-child(even),
+div.backend div:nth-child(odd) {
+  background-color: var(--terciaria);
 }
 
-div.frontend div:last-child, div.backend div:last-child {
-    border-radius: 0 0 20px 20px;
+div.frontend div:last-child,
+div.backend div:last-child {
+  border-radius: 0 0 20px 20px;
 }
 
 /*Caso especial da tela de sobre*/
 @media only screen and (max-width: 400px) {
-    h2#sobre-title {
-        margin: 0px;
-    }
+  h2#sobre-title {
+    margin: 0px;
+  }
+}
+
+/*Scrollbar*/
+body::-webkit-scrollbar {
+  width: 1em; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--scrollcolor); /* color of the scroll thumb */
+  border-radius: 50px; /* roundness of the scroll thumb */
 }
