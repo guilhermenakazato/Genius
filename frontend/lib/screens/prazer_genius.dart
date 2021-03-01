@@ -19,7 +19,7 @@ class PrazerGenius extends StatelessWidget {
             Positioned(
               child: Padding(
                 padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.07,
+                  left: MediaQuery.of(context).size.width * 0.1,
                   top: MediaQuery.of(context).size.height * 0.03,
                 ),
                 child: Align(
@@ -47,7 +47,10 @@ class PrazerGenius extends StatelessWidget {
             ),
             Positioned(
               child: Padding(
-                padding: EdgeInsets.only(bottom: 72.0, right: MediaQuery.of(context).size.width * 0.05,),
+                padding: EdgeInsets.only(
+                  bottom: 72.0,
+                  right: MediaQuery.of(context).size.width * 0.07,
+                ),
                 child: Align(
                   alignment: FractionalOffset.bottomRight,
                   child: Image.asset(
