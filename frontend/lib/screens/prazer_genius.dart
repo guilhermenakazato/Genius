@@ -16,39 +16,46 @@ class PrazerGenius extends StatelessWidget {
         backgroundColor: const Color(0xff000000),
         body: Stack(
           children: [
-            Transform.translate(
-              offset: Offset(40, 80),
-              child: TypewriterAnimatedTextKit(
-                onTap: () {
-                  navigator.navigate(context, SabeIniciacao());
-                },
-                speed: Duration(milliseconds: 70),
-                text: [
-                  "Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas."
-                ],
-                textStyle: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 32,
-                  height: 2,
-                  fontFamily: "Gotham",
-                  fontWeight: FontWeight.w900,
+            Positioned(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.07,
+                  top: MediaQuery.of(context).size.height * 0.03,
                 ),
-                totalRepeatCount: 1,
-                repeatForever: false,
-              ),
-            ),
-            Transform.translate(
-              offset: Offset(-20, 300),
-              child: Container(
-                width: 350.0,
-                height: 400.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: const AssetImage('assets/homem-sentado.png'),
+                child: Align(
+                  alignment: FractionalOffset.topLeft,
+                  child: TypewriterAnimatedTextKit(
+                    onTap: () {
+                      navigator.navigate(context, SabeIniciacao());
+                    },
+                    speed: Duration(milliseconds: 70),
+                    text: [
+                      "Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas."
+                    ],
+                    textStyle: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: MediaQuery.of(context).size.height * 0.05,
+                      height: 2,
+                      fontFamily: "Gotham",
+                      fontWeight: FontWeight.w900,
+                    ),
+                    totalRepeatCount: 1,
+                    repeatForever: false,
                   ),
                 ),
               ),
-            )
+            ),
+            Positioned(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 72.0, right: MediaQuery.of(context).size.width * 0.05,),
+                child: Align(
+                  alignment: FractionalOffset.bottomRight,
+                  child: Image.asset(
+                    "assets/homem-sentado.png",
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

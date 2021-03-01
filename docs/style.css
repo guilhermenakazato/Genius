@@ -196,7 +196,7 @@ a.float-button:hover {
 button.float-button {
   position: fixed;
   bottom: 1.5vw;
-  right: 2vw;
+  right: 0.2vw;
 
   width: 55px;
   height: 55px;
