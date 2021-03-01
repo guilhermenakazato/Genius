@@ -35,7 +35,7 @@ class CadastroType extends StatelessWidget {
               naoScreen: CadastroAge(p),
               textSim: "Estudante",
               textNao: "Professor",
-              width: 120,
+              width: 130,
               addYesFunction: () {
                 p.setType("Estudante");
               },
