@@ -20,7 +20,6 @@
 
 body {
   background-color: #181818;
-  ;
 }
 
 p {
@@ -109,6 +108,10 @@ p#sobre {
 
 h2#sobre-title {
   margin: -20px;
+}
+
+.sobre {
+  right: 1.5vw !important;
 }
 
 /*Efeito de fade*/

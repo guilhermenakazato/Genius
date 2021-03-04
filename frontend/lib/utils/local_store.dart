@@ -1,18 +1,20 @@
-import 'package:get_storage/get_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStore {
-  // inicializando o storage
-  final _box = GetStorage();
-
-  void store(String token) {
-    _box.write("token", token);
+  void store(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("token", token);
   }
 
-  void removeFromStorage() {
-    _box.remove("token");
+  void removeFromStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove("token");
   }
 
-  String getFromStorage() {
-    return _box.read("token") ?? "none";
+  Future<String> getFromStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    debugPrint(prefs.getString("token"));
+    return prefs.getString("token") ?? "none";
   }
 }

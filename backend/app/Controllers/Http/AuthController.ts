@@ -14,7 +14,7 @@ export default {
     // Usa token gerado para autenticar
     async token({auth}: HttpContextContract){
         await auth.authenticate()
-        console.log(await auth.check())
+        console.log(auth.user)
 
         return {
             message: "Login realizado com sucesso!"
@@ -24,9 +24,9 @@ export default {
     async logout({auth}: HttpContextContract){
         await auth.use("api").logout();
     }, 
-    // pega os dados do usuário caso esteja logado
+    // retorna os dados do usuário se ele estiver logado
     async getData({auth}: HttpContextContract){
-        // usar auth.user.$attributes pra pegar os dados do usuário autenticado
+        await auth.authenticate();
         return auth.user?.$attributes;
-    }
+    },
 }
