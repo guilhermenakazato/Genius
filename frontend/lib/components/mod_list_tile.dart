@@ -4,9 +4,10 @@ class ModListTile extends StatelessWidget {
   final String text;
   final IconData icon;
   final Function function;
+  final String type;
 
   const ModListTile(
-      {Key key, @required this.text, @required this.icon, this.function})
+      {Key key, @required this.text, @required this.icon, this.function, this.type})
       : super(key: key);
 
   @override
@@ -20,12 +21,12 @@ class ModListTile extends StatelessWidget {
         child: ListTile(
           leading: Icon(
             icon,
-            color: Theme.of(context).primaryColor,
+            color: type == "warning" ? Colors.red : Theme.of(context).primaryColor,
           ),
           title: Text(
             text,
             style: TextStyle(
-              color: Theme.of(context).primaryColor,
+              color: type == "warning" ? Colors.red : Theme.of(context).primaryColor,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
