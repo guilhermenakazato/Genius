@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:genius/models/user.dart';
 
 // documentar?
 // TODO: procurar sobre como aumentar o tamanho da imagem sem perder qualidade
 class Perfil extends StatelessWidget {
+  final User user;
+
+  const Perfil({Key key, this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -15,7 +20,7 @@ class Perfil extends StatelessWidget {
             ),
           ),
           Text(
-            "Nome",
+            user.username,
             style: TextStyle(
               color: Theme.of(context).textTheme.bodyText1.color,
               fontSize: 16,

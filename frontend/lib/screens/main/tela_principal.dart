@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/http/webclients/login_webclient.dart';
+import 'package:genius/models/user.dart';
 import 'package:genius/screens/main/config.dart';
 import 'package:genius/screens/main/feed.dart';
 import 'package:genius/screens/main/perfil.dart';
@@ -5,13 +10,48 @@ import 'package:genius/screens/main/pesquisa.dart';
 import 'package:genius/screens/main/sobre.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:genius/utils/local_store.dart';
 
-class TelaPrincipal extends StatefulWidget {
+// TODO: documentar
+class TelaPrincipal extends StatelessWidget {
+  final LocalStore localStore = LocalStore();
+
   @override
-  _TelaPrincipalState createState() => _TelaPrincipalState();
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: getData(),
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.hasData) {
+          User user = User.fromJson(jsonDecode(snapshot.data));
+          return _TelaPrincipalContent(
+            user: user,
+          );
+        } else {
+          return SpinKitFadingCube(
+            color: Theme.of(context).primaryColor,
+          );
+        }
+      },
+    );
+  }
+
+  Future<String> getData() async {
+    final LoginWebClient _webClient = LoginWebClient();
+    String token = await localStore.getFromStorage();
+    String user = await _webClient.getData(token);
+    return user;
+  }
 }
 
-class _TelaPrincipalState extends State<TelaPrincipal> {
+class _TelaPrincipalContent extends StatefulWidget {
+  final User user;
+  const _TelaPrincipalContent({Key key, this.user}) : super(key: key);
+
+  @override
+  __TelaPrincipalContentState createState() => __TelaPrincipalContentState();
+}
+
+class __TelaPrincipalContentState extends State<_TelaPrincipalContent> {
   int pageNumber = 2;
 
   @override
@@ -43,7 +83,7 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
   Widget _showPage(int index) {
     List<Widget> _widgetList = <Widget>[
       Sobre(),
-      Perfil(),
+      Perfil(user: widget.user),
       Feed(),
       Pesquisa(),
       Config(),
