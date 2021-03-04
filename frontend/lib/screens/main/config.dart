@@ -31,8 +31,10 @@ class Config extends StatelessWidget {
           text: "Editar perfil",
           icon: Icons.edit,
         ),
+        ModListTile(text: "Excluir conta", icon: Icons.delete, type: "warning",),
         ModListTile(
           text: "Sair",
+          type: "warning",
           icon: Icons.login,
           function: () async {
             _webClient.logout(await localStore.getFromStorage());

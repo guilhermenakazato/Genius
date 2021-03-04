@@ -5,7 +5,6 @@ import 'package:genius/http/exceptions/http_exception.dart';
 import 'package:genius/http/webclient.dart';
 import 'package:genius/models/auth.dart';
 import 'package:genius/models/token.dart';
-import 'package:genius/models/user.dart';
 import 'package:http/http.dart';
 
 import "package:genius/utils/local_store.dart";

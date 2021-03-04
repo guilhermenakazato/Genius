@@ -1,11 +1,7 @@
-import 'dart:convert';
-
-import 'package:genius/http/webclients/login_webclient.dart';
 import 'package:genius/screens/bem_vindo.dart';
 import 'package:genius/screens/main/tela_principal.dart';
 import 'package:genius/utils/local_store.dart';
 import 'package:flutter/material.dart';
-import 'models/user.dart';
 
 // TODO: arrumar bug de quando aparece snackbar na senha e documentar
 void main() async {
