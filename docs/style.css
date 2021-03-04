@@ -19,7 +19,8 @@
 }
 
 body {
-  background-color: black;
+  background-color: #181818;
+  ;
 }
 
 p {
@@ -266,4 +267,62 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: var(--scrollcolor); /* color of the scroll thumb */
   border-radius: 50px; /* roundness of the scroll thumb */
+}
+
+.image-block {
+  display: block;
+  width: 15%;
+  height: 45px;;
+  background-color: #202633;
+  overflow: hidden; 
+  color: #ffff;
+  margin-top: 220px;
+}
+
+div.organização {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#box {
+  width: 720px;
+  height: auto;
+  margin: 15px auto;
+  display: inline-block;
+  margin-bottom: 50px;
+}
+
+#box:after {
+  display: inline-block;
+  content: '.';
+  line-height: 0;
+  visibility: hidden;
+}
+
+.estilizacao {
+  display: inline-block;
+  width: 720px;
+  list-style: none;
+}
+
+.estilizacao li {
+  position: relative;
+  display: block;
+  float: left;
+  width: 1440px;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.estilizacao li img {
+  width: 15%;
+  height: 15%;
+  display: block;
+  z-index: 999;
+  position: absolute;
+  transition:.5s;
+}
+
+.estilizacao li:hover img {
+  margin-top: -80px;
 }
