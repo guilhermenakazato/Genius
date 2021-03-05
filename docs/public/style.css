@@ -184,18 +184,6 @@ div.doc p::first-letter {
   margin-left: 10px;
 }
 
-a.float-button {
-  position: fixed;
-  text-align: center;
-  background-color: transparent;
-  bottom: 20px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  border: 2px solid var(--principal);
-  transition: 0.3s;
-}
 
 a.float-button:hover {
   background-color: var(--principal);
@@ -203,8 +191,8 @@ a.float-button:hover {
 
 button.float-button {
   position: fixed;
-  bottom: 1.5vw;
-  right: 0.2vw;
+  bottom: 1.5%;
+  right: .5%;
 
   width: 55px;
   height: 55px;
@@ -213,7 +201,7 @@ button.float-button {
 }
 
 button.secondary {
-  bottom: 6vw;
+  bottom: calc(55px + 1.8%);
 }
 
 a button.float-button:hover i {
