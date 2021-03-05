@@ -19,6 +19,10 @@
 }
 
 body {
+  background-color: #000;
+}
+
+body#design {
   background-color: #181818;
 }
 
@@ -205,6 +209,7 @@ button.float-button {
   width: 55px;
   height: 55px;
   opacity: 1;
+  z-index: 999;
 }
 
 button.secondary {
@@ -272,60 +277,42 @@ body::-webkit-scrollbar-thumb {
   border-radius: 50px; /* roundness of the scroll thumb */
 }
 
-.image-block {
-  display: block;
-  width: 15%;
-  height: 45px;;
-  background-color: #202633;
-  overflow: hidden; 
-  color: #ffff;
-  margin-top: 220px;
+
+/*Designs*/
+div#mockup, div#telas {
+  /*Centralize aqui dentro*/
+
+  /*Centralize aqui dentro*/
 }
 
-div.organização {
+div#box div div {
   display: inline-block;
-  vertical-align: top;
+  width: 200px;
+  vertical-align: bottom;
 }
 
-#box {
-  width: 720px;
-  height: auto;
-  margin: 15px auto;
-  display: inline-block;
-  margin-bottom: 50px;
-}
-
-#box:after {
-  display: inline-block;
-  content: '.';
-  line-height: 0;
-  visibility: hidden;
-}
-
-.estilizacao {
-  display: inline-block;
-  width: 720px;
-  list-style: none;
-}
-
-.estilizacao li {
-  position: relative;
-  display: block;
-  float: left;
-  width: 1440px;
-  margin: 20px;
-  cursor: pointer;
-}
-
-.estilizacao li img {
-  width: 15%;
-  height: 15%;
-  display: block;
-  z-index: 999;
+div#box div div img {
   position: absolute;
-  transition:.5s;
+  transition: .5s;
 }
 
-.estilizacao li:hover img {
+div#box div div:hover img {
   margin-top: -80px;
+}
+
+div#box div.image-block {
+  display: block;
+  margin-top: 380px;
+}
+
+.special {
+  margin-top: 360px !important;
+}
+
+p.legenda::first-letter {
+  margin-left: 0 !important;
+}
+
+p.legenda {
+  text-align: center;
 }
