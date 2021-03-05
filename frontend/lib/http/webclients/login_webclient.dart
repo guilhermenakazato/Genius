@@ -9,7 +9,6 @@ import 'package:http/http.dart';
 
 import "package:genius/utils/local_store.dart";
 
-// TODO: documentar
 class LoginWebClient {
   Future<Token> login(Auth auth) async {
     final String authJson = jsonEncode(auth.toJson());

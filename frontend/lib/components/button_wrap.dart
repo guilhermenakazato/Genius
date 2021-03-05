@@ -2,7 +2,6 @@ import "package:genius/components/button.dart";
 import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/cupertino.dart';
 
-// TODO: documentar
 class ButtonWrap extends StatelessWidget {
   final Widget simScreen, naoScreen;
   final String textSim, textNao;
