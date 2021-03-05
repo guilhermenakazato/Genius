@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: documentar
 class SearchBar extends StatefulWidget {
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -40,9 +39,10 @@ class _SearchBarState extends State<SearchBar> {
             ),
           ),
           AnimatedContainer(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(32),
-                        color: Theme.of(context).textTheme.bodyText1.color,
-),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(32),
+              color: Theme.of(context).textTheme.bodyText1.color,
+            ),
             duration: Duration(milliseconds: 400),
             child: Material(
               type: MaterialType.transparency,

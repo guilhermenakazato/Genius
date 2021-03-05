@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genius/models/user.dart';
 
-// documentar?
-// TODO: procurar sobre como aumentar o tamanho da imagem sem perder qualidade
 class Perfil extends StatelessWidget {
   final User user;
 

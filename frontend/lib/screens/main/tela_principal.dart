@@ -12,7 +12,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:genius/utils/local_store.dart';
 
-// TODO: documentar
 class TelaPrincipal extends StatelessWidget {
   final LocalStore localStore = LocalStore();
 
@@ -48,10 +47,10 @@ class _TelaPrincipalContent extends StatefulWidget {
   const _TelaPrincipalContent({Key key, this.user}) : super(key: key);
 
   @override
-  __TelaPrincipalContentState createState() => __TelaPrincipalContentState();
+  _TelaPrincipalContentState createState() => _TelaPrincipalContentState();
 }
 
-class __TelaPrincipalContentState extends State<_TelaPrincipalContent> {
+class _TelaPrincipalContentState extends State<_TelaPrincipalContent> {
   int pageNumber = 2;
 
   @override

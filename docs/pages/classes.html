@@ -71,12 +71,13 @@
                     <div class="divisao-um">
                         <li class="glow"><a onclick="glowStyle(this)" href="#borderless-button">BorderlessButton</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#borderless-input">BorderlessInput</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#button-row">ButtonRow</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#button-wrap">ButtonWrap</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#button">Button</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#floating-button">FloatingButton</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#input">Input</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#list-tile-title">ListTileTitle</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#mod-list-tile">ModListTile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#search-bar">SearchBar</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#switch-tile">SwitchTile</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#logging-interceptors">LoggingInterceptors</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-web-client">CadastroWebClient</a></li>
@@ -128,6 +129,8 @@
                     <ul>
                         <li>login: recebe o email e a senha do usuário. Se os dados estiverem corretos, retorna um token de autenticação.</li>
                         <li>token: recebe o token de autenticação disponibilizado pelo método login e verifica se está correto. Se estiver, autentica o usuário com sucesso.</li>
+                        <li>logout: desloga o usuário e desvalida o token da sessão.</li>
+                        <li>getData: verifica se o token é válido. Se for válido, retorna os dados do usuário logado.</li>
                     </ul>
                 </div>
 
@@ -275,6 +278,8 @@
                         <li>"/usuario": chama a classe UsuariosController e o método create.:</li>
                         <li>"/login": chama a classe AuthController e o método login.</li>
                         <li>"/token": chama a classe AuthController e o método token.</li>
+                        <li>"/logout": chama a classe AuthController e o método logout.</li>
+                        <li>"/getData": chama a classe AuthController e o método getData.</li>
                         <li>"/projeto": chama a classe ProjetosController e o método create.</li>
                         <li>"/projetos": chama a classe ProjetosController e o método index.</li>
                     </ul>
@@ -318,13 +323,13 @@
                     </ul>
                 </div>
                 <div>
-                    <h3 id="button-row">Classe: ButtonRow</h3>
-                    <h4>Caminho: frontend\lib\components\button_row.dart</h4> 
+                    <h3 id="button-wrap">Classe: ButtonWrap</h3>
+                    <h4>Caminho: frontend\lib\components\button_wrap.dart</h4> 
                     <p>Classe responsável por armazenar um componente com 2 botões que oferecem as opções sim e não.</p>
                     
                     <h3>Métodos da classe:</h3>
                     <ul>
-                        <li>build: constrói um Widget (ButtonRow).</li>
+                        <li>build: constrói um Widget (ButtonWrap).</li>
                     </ul>
 
                     <h3>Variáveis da classe:</h3>
@@ -424,6 +429,21 @@
                     </ul>
                 </div>
                 <div>
+                    <h3 id="search-bar">Classe: SearchBar</h3>
+                    <h4>Caminho: frontend\lib\components\search_bar.dart</h4> 
+                    <p>Classe responsável por construir o Widget Searchbar, responsável pelas pesquisas in-app.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createState: constrói um Widget de acordo com o State retornado (SearchBar).</li>
+                    </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>_folded: verifica se a SearchBar está minimizada ou não.</li>
+                    </ul>
+                </div>
+                <div>
                     <h3 id="switch-tile">Classe: SwitchTile</h3>
                     <h4>Caminho: frontend\lib\components\switch_tile.dart</h4> 
                     <p>Classe responsável por disponibilizar um Widget ListTile com Switch.</p>
@@ -471,6 +491,8 @@
                     <ul>
                         <li>login: recebe um objeto Auth e realiza uma requisição HTTP POST com os dados. Se for bem-sucedida, retorna um token de autenticação.</li>
                         <li>logged: recebe o token fornecido pelo método login e realiza uma requisição HTTP POST com o token. Se for bem-sucedida, retorna true, indicando que o usuário está logado no aplicativo.</li>
+                        <li>getData: pega os dados do usuário logado e disponibiliza para a tela de Perfil.</li>
+                        <li>logout: desloga o usuário, desvalidando o token disponível na aplicação.</li>
                     </ul>
                 </div>
                 <div>
@@ -605,6 +627,11 @@
                     <ul>
                         <li>build: constrói um Widget (Perfil).</li>
                     </ul>
+
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>user: instância da classe User, que recebe todos os dados do usuário logado.</li>
+                    </ul>
                 </div>
                 <div>
                     <h3 id="pesquisa">Classe: Pesquisa</h3>
@@ -635,12 +662,23 @@
                     <ul>
                         <li>createState: constrói um Widget de acordo com o State retornado (TelaPrincipal).</li>
                         <li>_showPage: recebe um valor inteiro indicando qual o indíce de navegação atual e, com isso, mostra uma tela de acordo com esse índice.</li>
+                        <li>getData: método assíncrono que retorna os dados do usuário logado.</li>
+                    </ul>
+
+                    <h3>Sub-classes importantes:</h3>
+                    <ul>
+                        <li>_TelaPrincipalContent: responsável por receber os dados do usuário.</li>
+                        <li>_TelaPrincipalContentState: responsável por mostrar todo o conteúdo da tela TelaPrincipal.</li>
                     </ul>
 
                     <h3>Variáveis da classe:</h3>
                     <ul>
                         <li>pageNumber: variável do tipo inteiro que mostra qual o indíce de navegação atual.</li>
                         <li>_widgetList: lista do tipo Widget que lista todos os Widgets a serem mostrados na tela.</li>
+                        <li>localStore: pega o token disponível na aplicação e envia para o backend, para conseguir os dados do usuário logado.</li>
+                        <li>_webClient: instância do webClient, monitorando todas as requisições e respostas do backend.</li>
+                        <li>token: token do usuário que está logado no aplicativo e que será passado ao backend.</li>
+                        <li>user: instância do usuário que está logado no aplicativo.</li>
                     </ul>
                 </div>
                 <div>
