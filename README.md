@@ -2,12 +2,18 @@
 O Genius é o resultado esperado de um projeto (TCC) a ser apresentado no final do curso Técnico Integrado de Informática, do Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso do Sul, Campus Aquidauana, tendo o objetivo de divulgar toda a ciência brasileira de uma forma acessível.
 
 # 👋 Tabela de conteúdos 
+* [Documentação](#-documentação)
 * [Pré-requisitos](#%EF%B8%8F-pré-requisitos)
 * [Tecnologias utilizadas](#%EF%B8%8F-tecnologias-utilizadas) 
 * [Instalação](#-instalação)
     * [Backend](#%EF%B8%8F-backend)
     * [Frontend](#-frontend)
 * [Licença](#-licença)
+
+# 📖 Documentação 
+Caso queira encontrar mais sobre como o Genius foi produzido, leia a nossa [documentação](https://doc-genius.firebaseapp.com)!
+
+Nela, há todas as informações sobre o backend e frontend do Genius, contendo descrições sobre suas classes e métodos e detalhando a organização das pastas. Além disso, é apresentado todo o mockup por trás do aplicativo, expondo também os resultados que foram obtidos até o momento.
 
 # ✔️ Pré-requisitos
 👉 [NodeJS >= 12.0.0 e npm >= 6.0.0](https://nodejs.org/en/)<br />
@@ -46,7 +52,7 @@ ou, caso queira uma versão com mais performance,
 flutter run --release
 ```
 
-Feito isso, o aplicativo estará totalmente disponível para uso no seu dispositivo móvel. Caso queira entender melhor o funcionamento do Genius, veja a pasta [docs](./docs) para informações mais detalhadas sobre todas as classes e métodos presentes.
+Feito isso, o aplicativo estará totalmente disponível para uso no seu dispositivo móvel. 
 
 # 📄 Licença 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](./LICENSE) para mais informações sobre ela.
