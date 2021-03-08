@@ -4,7 +4,7 @@ import 'package:genius/utils/local_store.dart';
 import 'package:flutter/material.dart';
 
 // TODO: arrumar bug de quando aparece snackbar na senha e documentar
-void main() async {
+void main() {
   runApp(Genius());
 }
 
