@@ -69,7 +69,10 @@ class LoginWebClient {
   void logout(String token) async {
     final Response response = await client.get(
       baseUrl + "/logout",
-      headers: {"Authorization": "Bearer $token"},
+      headers: {
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json",
+      },
     );
 
     // expirando token só por segurança
