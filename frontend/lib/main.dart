@@ -4,6 +4,7 @@ import 'package:genius/utils/local_store.dart';
 import 'package:flutter/material.dart';
 
 // TODO: arrumar bug de quando aparece snackbar na senha e documentar
+// TODO: arrumar BD bugado
 void main() {
   runApp(Genius());
 }
@@ -25,7 +26,7 @@ class Genius extends StatelessWidget {
             color: const Color(0xFFEEE5D6),
           ),
         ),
-        scaffoldBackgroundColor: Colors.black,
+        scaffoldBackgroundColor: const Color((0xFF131313)),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: const Color(0xFF3D3B8E),
         ),
