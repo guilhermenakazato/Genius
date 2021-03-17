@@ -46,20 +46,39 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                     onTap: () {
                       // card tá em cima
                       if (_index + 1 == projeto) {
-                        navigator.navigate(context, ProjectInfo(number: projeto,));
+                        navigator.navigate(
+                            context,
+                            ProjectInfo(
+                              number: projeto,
+                            ));
                       }
                     },
                     borderRadius: BorderRadius.circular(16.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          "Projeto $projeto",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30, left: 30),
+                          child: Container(
+                            width: double.infinity,
+                            child: Text(
+                              "Projeto $projeto",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(40, 10, 30, 0),
+                          child: Text(
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in [...]",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              )),
+                        )
                       ],
                     ),
                   ),
