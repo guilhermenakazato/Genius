@@ -72,7 +72,22 @@ flutter:
   fonts:
     - family: Gotham
       fonts:
+        - asset: fonts/gotham-thin.otf
+          weight: 100
+        - asset: fonts/gotham-xlight.otf
+          weight: 200
+        - asset: fonts/gotham-light.ttf
+          weight: 300
+        - asset: fonts/gotham-book.ttf
+          weight: 400
+        - asset: fonts/gotham-medium.ttf
+          weight: 500
         - asset: fonts/gotham-bold.otf
+          weight: 600
+        - asset: fonts/gotham-black.otf
+          weight: 700
+        - asset: fonts/metropolis-extra-bold.otf
+          weight: 800
         - asset: fonts/gotham-ultra.otf
           weight: 900
   

@@ -12,6 +12,8 @@ export default class UsuariosSchema extends BaseSchema {
       table.string("type", 30).notNullable()
       table.string("age", 60).notNullable()
       table.string("local", 200).notNullable()
+      table.string("instituicao", 200).notNullable()
+      table.string("formacao", 200).notNullable()
       table.string('remember_me_token').nullable().defaultTo("true")
       table.timestamps(true)
     })

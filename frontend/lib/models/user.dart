@@ -1,5 +1,7 @@
+// TODO: documentar
+
 class User {
-  String username, email, password, type, age, local;
+  String username, email, password, type, age, local, instituicao, formacao;
 
   User({
     this.username,
@@ -8,6 +10,8 @@ class User {
     this.type,
     this.age,
     this.local,
+    this.instituicao, 
+    this.formacao
   });
 
   void setUsername(String username) {
@@ -34,13 +38,24 @@ class User {
     this.local = local;
   }
 
+  void setInstituicao(String instituicao) {
+    this.instituicao = instituicao;
+  }
+
+  void setFormacao(String formacao) {
+    this.formacao = formacao;
+  }
+
+
   User.fromJson(Map<String, dynamic> json)
       : username = json["username"],
         email = json["email"],
         password = json["password"],
         type = json["type"],
         age = json["age"],
-        local = json["local"];
+        local = json["local"],
+        instituicao = json["instituicao"],
+        formacao = json["formacao"];
 
   Map<String, dynamic> toJson() => {
         "username": username,
@@ -49,10 +64,14 @@ class User {
         "type": type,
         "age": age,
         "local": local,
+        "instituicao": instituicao,
+        "formacao": formacao,
       };
 
   @override
   String toString() {
-    return "User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local}";
+    return "User: {username: $username, email: $email,"+ 
+    "password: $password, type: $type, age: $age," + 
+    "local: $local, instituicao: $instituicao, formação: $formacao}";
   }
 }
