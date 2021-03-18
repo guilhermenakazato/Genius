@@ -44,7 +44,7 @@ class _BorderlessInputState extends State<BorderlessInput> {
           fontSize: 20,
           color: Colors.white,
           fontFamily: "Gotham",
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );

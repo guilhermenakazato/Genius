@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 // TODO: arrumar bug de quando aparece snackbar na senha e documentar
 // TODO: arrumar BD bugado
+
+// TODO: erro 400 ao recuperar token inválido (adicionar)
 void main() {
   runApp(Genius());
 }

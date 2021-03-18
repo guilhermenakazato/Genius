@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:genius/components/button_wrap.dart';
 import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/cadastro_age.dart';
+import 'package:genius/screens/signup/cadastro_formacao.dart';
 import 'package:genius/utils/navigator_util.dart';
 
 class CadastroType extends StatelessWidget {
@@ -31,8 +31,8 @@ class CadastroType extends StatelessWidget {
               ),
             ),
             ButtonWrap(
-              simScreen: CadastroAge(p),
-              naoScreen: CadastroAge(p),
+              simScreen: CadastroFormacao(p),
+              naoScreen: CadastroFormacao(p),
               textSim: "Estudante",
               textNao: "Professor",
               width: 130,
