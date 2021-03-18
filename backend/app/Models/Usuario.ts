@@ -26,7 +26,13 @@ export default class Usuario extends BaseModel {
   public age: string
 
   @column()
-  local: string
+  public local: string
+
+  @column()
+  public instituicao: string
+
+  @column()
+  public formacao: string
 
   @column()
   public rememberMeToken?: string
