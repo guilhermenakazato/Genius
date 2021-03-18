@@ -8,7 +8,9 @@ export default {
             email: usuario.email, 
             type: usuario.type,
             age: usuario.age,
-            local: usuario.local
+            local: usuario.local,
+            instituicao: usuario.instituicao,
+            formacao: usuario.formacao
         };
     }
 }
