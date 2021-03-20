@@ -2,11 +2,11 @@ import 'package:genius/screens/bem_vindo.dart';
 import 'package:genius/screens/main/tela_principal.dart';
 import 'package:genius/utils/local_store.dart';
 import 'package:flutter/material.dart';
+import 'package:genius/http/webclients/login_webclient.dart';
 
-// TODO: arrumar bug de quando aparece snackbar na senha e documentar
+// TODO: arrumar bug de quando aparece snackbar na senha e documentar (login ou esse método???)
 // TODO: arrumar BD bugado
-
-// TODO: erro 400 ao recuperar token inválido (adicionar)
+// TODO: documentar authcontroller e routes
 void main() {
   runApp(Genius());
 }
@@ -58,12 +58,21 @@ class Genius extends StatelessWidget {
 
   Future<String> verificarToken() async {
     String token = await localStore.getFromStorage();
+    LoginWebClient _webClient = LoginWebClient();
 
+    debugPrint(token);
     if (token == "none") {
       return token;
     } else {
-      // tem token
-      return "";
+      bool isValid = await _webClient.check(token);
+
+      if (isValid) {
+        return token;
+      } else {
+        localStore.removeFromStorage();
+        String token = await localStore.getFromStorage();
+        return token;
+      }
     }
   }
 }

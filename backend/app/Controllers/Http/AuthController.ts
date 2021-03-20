@@ -29,4 +29,8 @@ export default {
         await auth.authenticate();
         return auth.user?.$attributes;
     },
+    // checa se o token é válido
+    async check({auth}: HttpContextContract){
+        return await auth.check();
+    }
 }

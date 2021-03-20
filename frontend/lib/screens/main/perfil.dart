@@ -186,6 +186,18 @@ class _PerfilState extends State<Perfil> {
                       child: Text(
                         "Você mora em " + widget.user.local,
                       ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      child: Text(
+                        "Você estuda em " + widget.user.instituicao,
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      child: Text(
+                        "Você tem o " + widget.user.formacao,
+                      ),
                     )
                   ],
                 ),

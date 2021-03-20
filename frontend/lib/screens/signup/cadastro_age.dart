@@ -5,6 +5,7 @@ import 'package:genius/models/user.dart';
 import 'package:genius/screens/signup/cadastro_local.dart';
 import 'package:genius/utils/navigator_util.dart';
 
+// TODO: melhorar código
 class CadastroAge extends StatefulWidget {
   final User p;
 
