@@ -24,7 +24,15 @@ class CadastroInstituicao extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Qual o nome da instituição\nque você dá aula/estuda?"),
+            Text(
+              "Qual o nome da instituição\nque você dá aula/estuda?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.w900,
+                fontSize: 22,
+              ),
+            ),
           ],
         ),
       ),

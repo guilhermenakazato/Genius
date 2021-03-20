@@ -32,6 +32,7 @@ Route.post("/login", AuthController.login);
 Route.get("/token", AuthController.token);
 Route.get("/logout", AuthController.logout);
 Route.get("/getData", AuthController.getData);
+Route.get("/check", AuthController.check);
 
 Route.post("/projeto", ProjetosController.create)
 Route.get("/projetos", ProjetosController.index)

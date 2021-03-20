@@ -33,6 +33,7 @@ class LoginWebClient {
 
   static final Map<int, String> _statusCodeResponses = {
     400: "Erro ao realizar o login! Verifique os campos preenchidos.",
+    401: "Token inválido."
   };
 
   Future<bool> logged(String token) async {
@@ -78,6 +79,22 @@ class LoginWebClient {
     // expirando token só por segurança
     if (response.statusCode == 200) {
       debugPrint("realizou Logout");
+    }
+  }
+
+  // TODO: documentar
+  Future<bool> check(String token) async {
+    final Response response = await client.get(
+      baseUrl + "/check",
+      headers: {
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json",
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // retorna verdadeiro ou falso. Se for falso, o usuário vai pra tela inicial pq o token é inválido
+      return response.body == "true";
     }
   }
 }

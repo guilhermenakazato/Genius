@@ -33,18 +33,15 @@ class _CadastroEmailState extends State<CadastroEmail> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: Text(
-                "Prazer em te conhecer, " +
-                    widget.p.username +
-                    "!\nQual o seu email?",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20,
-                ),
+            Text(
+              "Prazer em te conhecer,\n" +
+                  widget.p.username +
+                  "!\nQual o seu email?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.w900,
+                fontSize: 20,
               ),
             ),
             BorderlessInput(

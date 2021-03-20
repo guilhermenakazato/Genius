@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:genius/components/floating_button.dart';
 import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/cadastro_age.dart';
 import 'package:genius/screens/signup/cadastro_instituicao.dart';
 import 'package:genius/utils/navigator_util.dart';
 

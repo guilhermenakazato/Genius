@@ -91,6 +91,7 @@ class _CadastroLocalContent extends StatelessWidget {
   void verify(BuildContext context) {
     final String local = _localController.text;
 
+    debugPrint(p.toString());
     if (local.isEmpty) {
       showSnackBar("Preencha o campo de local!", context);
     } else {
