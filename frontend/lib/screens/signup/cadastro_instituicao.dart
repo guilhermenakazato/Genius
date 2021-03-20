@@ -1,5 +1,7 @@
 // TODO: documentar
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:genius/components/borderless_input.dart';
 import 'package:genius/components/floating_button.dart';
 import 'package:genius/models/user.dart';
 import 'package:genius/screens/signup/cadastro_age.dart';
@@ -8,6 +10,7 @@ import 'package:genius/utils/navigator_util.dart';
 class CadastroInstituicao extends StatelessWidget {
   final User p;
   final NavigatorUtil navigator = NavigatorUtil();
+  final TextEditingController _instituicaoController = TextEditingController();
 
   CadastroInstituicao(this.p);
 
@@ -16,7 +19,7 @@ class CadastroInstituicao extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          nextScreen(context);
+          verify(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -33,14 +36,34 @@ class CadastroInstituicao extends StatelessWidget {
                 fontSize: 22,
               ),
             ),
+            BorderlessInput(
+              hint: "Nome da instituição",
+              controller: _instituicaoController,
+              type: TextInputType.text,
+            ),
           ],
         ),
       ),
     );
   }
 
-  void nextScreen(BuildContext context) {
-    p.setInstituicao("IFMS");
-    navigator.navigate(context, CadastroAge(p));
+  // set instituicao e cadastroage
+  void verify(BuildContext context) {
+    final String instituicao = _instituicaoController.text.trimLeft();
+
+    if (instituicao.isEmpty) {
+      showSnackBar("Preencha o campo de instituição!", context);
+    } else {
+      p.setInstituicao(instituicao);
+      navigator.navigate(context, CadastroAge(p));
+    }
+  }
+
+  void showSnackBar(String text, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
   }
 }
