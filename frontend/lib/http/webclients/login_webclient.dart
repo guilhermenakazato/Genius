@@ -96,5 +96,7 @@ class LoginWebClient {
       // retorna verdadeiro ou falso. Se for falso, o usuário vai pra tela inicial pq o token é inválido
       return response.body == "true";
     }
+
+    return false;
   }
 }
