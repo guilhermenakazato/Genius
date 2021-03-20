@@ -61,7 +61,7 @@ class _CadastroNomeState extends State<CadastroNome> {
   }
 
   void verify(BuildContext context) {
-    final String nome = _nomeController.text;
+    final String nome = _nomeController.text.trimLeft();
 
     if (nome.isEmpty) {
       showSnackBar("Preencha o campo nome!", context);
