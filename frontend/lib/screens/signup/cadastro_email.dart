@@ -56,7 +56,7 @@ class _CadastroEmailState extends State<CadastroEmail> {
   }
 
   void verify(BuildContext context) {
-    final String email = _emailController.text;
+    final String email = _emailController.text.trimLeft();
 
     if (email.isEmpty) {
       showSnackBar("Preencha o campo email!", context);

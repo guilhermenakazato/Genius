@@ -89,7 +89,7 @@ class _CadastroLocalContent extends StatelessWidget {
   }
 
   void verify(BuildContext context) {
-    final String local = _localController.text;
+    final String local = _localController.text.trimLeft();
 
     debugPrint(p.toString());
     if (local.isEmpty) {

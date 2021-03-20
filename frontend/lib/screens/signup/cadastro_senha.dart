@@ -78,7 +78,7 @@ class _CadastroSenhaState extends State<CadastroSenha> {
   }
 
   void verify(BuildContext context) {
-    final String password = _passwordController.text;
+    final String password = _passwordController.text.trimLeft();
 
     if (password.isEmpty) {
       showSnackBar("Preencha o campo de senha!", context);
