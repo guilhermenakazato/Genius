@@ -32,7 +32,7 @@ class Genius extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color((0xFF131313)),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: const Color(0xFF3D3B8E),
+          backgroundColor: const Color(0xFF312F72),
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: "Gotham",
