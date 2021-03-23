@@ -56,6 +56,7 @@ class _TelaPrincipalContentState extends State<_TelaPrincipalContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       backgroundColor: Colors.black,
       bottomNavigationBar: CurvedNavigationBar(
         height: 48,
