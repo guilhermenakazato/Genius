@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:genius/screens/bem_vindo.dart';
 import 'package:genius/screens/main/tela_principal.dart';
 import 'package:genius/utils/local_store.dart';
@@ -64,7 +66,10 @@ class Genius extends StatelessWidget {
     if (token == "none") {
       return token;
     } else {
-      bool isValid = await _webClient.check(token);
+      bool isValid = await _webClient.check(token).catchError((e) {
+        // deu timeout então envalida o token
+        return false;
+      }, test: (e) => e is TimeoutException);
 
       if (isValid) {
         return token;

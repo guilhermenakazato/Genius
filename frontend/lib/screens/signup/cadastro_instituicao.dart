@@ -47,7 +47,6 @@ class CadastroInstituicao extends StatelessWidget {
     );
   }
 
-  // set instituicao e cadastroage
   void verify(BuildContext context) {
     final String instituicao = _instituicaoController.text.trimLeft();
 
