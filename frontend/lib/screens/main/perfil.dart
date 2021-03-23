@@ -14,6 +14,7 @@ class Perfil extends StatefulWidget {
 
 class _PerfilState extends State<Perfil> {
   List tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
+  List pages = ['Sobre mim', 'Meus projetos', 'Conquistas'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,14 +26,14 @@ class _PerfilState extends State<Perfil> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(left: 28.0, top: 7),
+                padding: const EdgeInsets.only(left: 28.0, top: 70),
                 child: CircleAvatar(
                   radius: 40,
                   backgroundImage: AssetImage('assets/sem-foto.png'),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 38.0),
+                padding: const EdgeInsets.only(left: 10, top: 72),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -70,7 +71,7 @@ class _PerfilState extends State<Perfil> {
           ),
           Padding(
             padding: const EdgeInsets.only(
-                right: 38.0, left: 38.0, top: 15, bottom: 12),
+                right: 30.0, left: 30.0, top: 15, bottom: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -81,7 +82,7 @@ class _PerfilState extends State<Perfil> {
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 25)),
+                            fontSize: 20)),
                     Text(
                       'followers',
                       style: TextStyle(color: Colors.white),
@@ -100,7 +101,7 @@ class _PerfilState extends State<Perfil> {
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 25)),
+                            fontSize: 20)),
                     Text(
                       'following',
                       style: TextStyle(color: Colors.white),
@@ -116,7 +117,7 @@ class _PerfilState extends State<Perfil> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(33)),
                             gradient: LinearGradient(
-                                colors: [Color(0xff6D0EB5), Color(0xff4059F1)],
+                                colors: [Color(0xFF3D3B8E), Color(0xff4059F1)],
                                 begin: Alignment.bottomRight,
                                 end: Alignment.centerLeft)),
                         child: Text('follow',
@@ -136,8 +137,8 @@ class _PerfilState extends State<Perfil> {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(33),
-                      border: Border.all(color: Colors.white12),
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(color: Color(0xFF3D3B8E), width: 3),
                     ),
                     margin: EdgeInsets.only(right: 13),
                     child: Padding(
@@ -148,7 +149,71 @@ class _PerfilState extends State<Perfil> {
                     ),
                   );
                 },
-              ))
+              )),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(top: 15),
+              decoration: BoxDecoration(
+                  color: Color(0xFF3D3B8E),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(34))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 33, right: 25, left: 25),
+                    child: Text(
+                      'MY MIND',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 33),
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: pages.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 17.0, top: 3),
+                          child: index == 1
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Text(pages[index],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 19)),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5),
+                                      child: CircleAvatar(
+                                        radius: 2,
+                                        backgroundColor: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : Padding(
+                                padding: const EdgeInsets.only(left: 27, top: 10),
+                                child: Text(pages[index],
+                                    style: TextStyle(
+                                        color: Colors.grey.withOpacity(0.9),
+                                        fontSize: 19)),
+                              ),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
