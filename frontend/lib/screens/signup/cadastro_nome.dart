@@ -49,7 +49,7 @@ class _CadastroNomeState extends State<CadastroNome> {
                 ),
               ),
               BorderlessInput(
-                hint: "Nome",
+                hint: "Nome + sobrenome",
                 controller: _nomeController,
                 type: TextInputType.name,
               ),
