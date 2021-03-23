@@ -13,197 +13,142 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
-  TCardController _controller = TCardController();
-
-  int _index = 0;
-
-  var projetos = [for (int i = 0; i < 10; i++) i];
-
+  List tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 32.0, bottom: 8),
-            child: Image.asset(
-              "assets/sem-foto.png",
-            ),
-          ),
-          Text(
-            widget.user.username,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodyText1.color,
-              fontSize: 16,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "3\nPARTNERS",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1.color,
-                        ),
-                      )
-                    ],
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 28.0, top: 7),
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage('assets/sem-foto.png'),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        "2\nPROJETOS",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyText1.color,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.chat,
-                      color: Theme.of(context).textTheme.bodyText1.color,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          TCard(
-            size: Size(350, 400),
-            controller: _controller,
-            onForward: (index, info) {
-              _index = index;
-              debugPrint(info.direction.toString());
-              setState(() {});
-            },
-            onBack: (index) {
-              _index = index;
-              setState(() {});
-            },
-            cards: [
-              for (var projeto in projetos)
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  child: Ink(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.0),
-                      color: Theme.of(context).cardColor,
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        // card tá em cima
-                        if (_index + 1 == projeto) {}
-                      },
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          projeto == 0
-                              ? Column(
-                                children: [
-                                  Image.asset("assets/pasta.png"),
-                                  Text(
-                                      "Passe para o lado para\nvisualizar os projetos",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w900,
-                                      ),
-                                    ),
-                                ],
-                              )
-                              : Text(
-                                  "Projeto $projeto",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 38.0),
                 child: Column(
-                  children: [
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Gabriela Prado',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                        color: Colors.white,
+                      ),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Container(
-                        width: double.infinity,
-                        child: Text(
-                          "Sobre você",
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyText1.color,
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.location_on,
+                              color: Colors.white, size: 17),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              'Anastácio- MS',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  wordSpacing: 2,
+                                  letterSpacing: 4),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Você é um " + widget.user.type,
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Seu email é " + widget.user.email,
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Você tem " + widget.user.age + " anos",
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Você mora em " + widget.user.local,
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Você estuda em " + widget.user.instituicao,
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Text(
-                        "Você tem o " + widget.user.formacao,
+                        ],
                       ),
                     )
                   ],
                 ),
               ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+                right: 38.0, left: 38.0, top: 15, bottom: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('17K',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25)),
+                    Text(
+                      'followers',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                Container(
+                  color: Colors.white,
+                  width: 0.2,
+                  height: 22,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('387',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25)),
+                    Text(
+                      'following',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Container(
+                      color: Colors.white,
+                      width: 0.2,
+                      height: 22,
+                    ),
+                    Container(
+                        padding: EdgeInsets.only(
+                            left: 18, right: 18, top: 8, bottom: 8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(33)),
+                            gradient: LinearGradient(
+                                colors: [Color(0xff6D0EB5), Color(0xff4059F1)],
+                                begin: Alignment.bottomRight,
+                                end: Alignment.centerLeft)),
+                        child: Text('follow',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold)))
+                  ],
+                ),
+              ],
             ),
           ),
+          Container(
+              height: 44,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: tags.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(33),
+                      border: Border.all(color: Colors.white12),
+                    ),
+                    margin: EdgeInsets.only(right: 13),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 13.0, bottom: 5, right: 20, left: 20),
+                      child: Text(tags[index],
+                          style: TextStyle(color: Colors.white)),
+                    ),
+                  );
+                },
+              ))
         ],
       ),
     );
