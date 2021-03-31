@@ -19,20 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import AuthController from 'App/Controllers/Http/AuthController';
-import ProjetosController from 'App/Controllers/Http/ProjetosController';
-import UsuariosController from 'App/Controllers/Http/UsuariosController';
 
-Route.get('/usuarios', UsuariosController.index);
-Route.get("/usuario/:id", UsuariosController.get);
-Route.get("/usuario/id/:email", UsuariosController.getId);
-Route.post("/usuario", UsuariosController.create);
-
-Route.post("/login", AuthController.login);
-Route.get("/token", AuthController.token);
-Route.get("/logout", AuthController.logout);
-Route.get("/getData", AuthController.getData);
-Route.get("/check", AuthController.check);
-
-Route.post("/projeto", ProjetosController.create)
-Route.get("/projetos", ProjetosController.index)
+Route.get('/', async () => {
+  return { hello: 'world' }
+})
