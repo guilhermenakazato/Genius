@@ -18,7 +18,7 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(top: 16.0),
+        padding: const EdgeInsets.only(bottom: 15),
         child: TCard(
           controller: _controller,
           onForward: (index, info) {
@@ -30,7 +30,7 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
             _index = index;
             setState(() {});
           },
-          size: Size(350, 500),
+          size: Size(350, 550),
           cards: [
             for (var projeto in projetos)
               Card(
@@ -73,12 +73,21 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(40, 10, 30, 0),
                           child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in [...]",
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in[...]",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
                               )),
-                        )
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 130, left: 220),
+                        child: IconButton(
+                              icon: const Icon(Icons.volunteer_activism), //aumentar tamanho
+                              onPressed: () {
+                                setState(() {});
+                              },
+                            ),
+                      ),
                       ],
                     ),
                   ),
