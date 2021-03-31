@@ -21,7 +21,7 @@ class TelaPrincipal extends StatelessWidget {
       future: getData(),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
-          User user = User.fromJson(jsonDecode(snapshot.data));
+          var user = User.fromJson(jsonDecode(snapshot.data));
           return _TelaPrincipalContent(
             user: user,
           );
@@ -35,9 +35,9 @@ class TelaPrincipal extends StatelessWidget {
   }
 
   Future<String> getData() async {
-    final LoginWebClient _webClient = LoginWebClient();
-    String token = await localStore.getFromStorage();
-    String user = await _webClient.getData(token);
+    final _webClient = LoginWebClient();
+    var token = await localStore.getFromStorage();
+    var user = await _webClient.getData(token);
     return user;
   }
 }
@@ -81,7 +81,7 @@ class _TelaPrincipalContentState extends State<_TelaPrincipalContent> {
   }
 
   Widget _showPage(int index) {
-    List<Widget> _widgetList = <Widget>[
+    var _widgetList = <Widget>[
       Sobre(),
       Perfil(user: widget.user),
       Feed(),

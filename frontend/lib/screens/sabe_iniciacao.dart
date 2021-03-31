@@ -35,7 +35,7 @@ class SabeIniciacao extends StatelessWidget {
               child: Align(
                 alignment: FractionalOffset.center,
                 child: Text(
-                  "Você sabe o que é\niniciação científica?",
+                  'Você sabe o que é\niniciação científica?',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontFamily: 'Gotham',

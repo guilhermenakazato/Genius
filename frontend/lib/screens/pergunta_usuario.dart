@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:genius/components/button_wrap.dart';
-import "package:genius/screens/login.dart";
+import 'package:genius/screens/login.dart';
 import 'package:genius/screens/prazer_genius.dart';
 
 class PerguntaUsuario extends StatelessWidget {
@@ -18,8 +18,8 @@ class PerguntaUsuario extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset("assets/homem.png", width: 140, height: 140,),
-                    Image.asset("assets/mulher.png", width: 140, height: 140,),
+                    Image.asset('assets/homem.png', width: 140, height: 140,),
+                    Image.asset('assets/mulher.png', width: 140, height: 140,),
                   ],
                 ),
               ),
@@ -29,7 +29,7 @@ class PerguntaUsuario extends StatelessWidget {
             child: Align(
               alignment: FractionalOffset.center,
               child: Text(
-                "Você já é usuário\ndo Genius?",
+                'Você já é usuário\ndo Genius?',
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 32,

@@ -37,7 +37,7 @@ class _CadastroNomeState extends State<CadastroNome> {
                   child: Container(
                     width: double.infinity,
                     child: Text(
-                      "Qual é o seu nome?",
+                      'Qual é o seu nome?',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
@@ -49,7 +49,7 @@ class _CadastroNomeState extends State<CadastroNome> {
                 ),
               ),
               BorderlessInput(
-                hint: "Nome + sobrenome",
+                hint: 'Nome + sobrenome',
                 controller: _nomeController,
                 type: TextInputType.name,
               ),
@@ -61,10 +61,10 @@ class _CadastroNomeState extends State<CadastroNome> {
   }
 
   void verify(BuildContext context) {
-    final String nome = _nomeController.text.trimLeft();
+    final nome = _nomeController.text.trimLeft();
 
     if (nome.isEmpty) {
-      showSnackBar("Preencha o campo nome!", context);
+      showSnackBar('Preencha o campo nome!', context);
     } else {
       p.setUsername(nome.trimRight());
       navigator.navigate(context, CadastroEmail(p));

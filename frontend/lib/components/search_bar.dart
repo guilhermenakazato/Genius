@@ -28,7 +28,7 @@ class _SearchBarState extends State<SearchBar> {
                   ? TextField(
                       textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
-                        hintText: "Pesquisar",
+                        hintText: 'Pesquisar',
                         hintStyle: TextStyle(
                           color: Colors.black,
                         ),
@@ -53,6 +53,11 @@ class _SearchBarState extends State<SearchBar> {
                   bottomLeft: Radius.circular(_folded ? 32 : 0),
                   bottomRight: Radius.circular(32),
                 ),
+                onTap: () {
+                  setState(() {
+                    _folded = !_folded;
+                  });
+                },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Icon(
@@ -60,11 +65,6 @@ class _SearchBarState extends State<SearchBar> {
                     color: Colors.black,
                   ),
                 ),
-                onTap: () {
-                  setState(() {
-                    _folded = !_folded;
-                  });
-                },
               ),
             ),
           )

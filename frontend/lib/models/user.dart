@@ -48,30 +48,28 @@ class User {
 
 
   User.fromJson(Map<String, dynamic> json)
-      : username = json["username"],
-        email = json["email"],
-        password = json["password"],
-        type = json["type"],
-        age = json["age"],
-        local = json["local"],
-        instituicao = json["instituicao"],
-        formacao = json["formacao"];
+      : username = json['username'],
+        email = json['email'],
+        password = json['password'],
+        type = json['type'],
+        age = json['age'],
+        local = json['local'],
+        instituicao = json['instituicao'],
+        formacao = json['formacao'];
 
   Map<String, dynamic> toJson() => {
-        "username": username,
-        "email": email,
-        "password": password,
-        "type": type,
-        "age": age,
-        "local": local,
-        "instituicao": instituicao,
-        "formacao": formacao,
+        'username': username,
+        'email': email,
+        'password': password,
+        'type': type,
+        'age': age,
+        'local': local,
+        'instituicao': instituicao,
+        'formacao': formacao,
       };
 
   @override
   String toString() {
-    return "User: {username: $username, email: $email,"+ 
-    "password: $password, type: $type, age: $age," + 
-    "local: $local, instituicao: $instituicao, formação: $formacao}";
+    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, instituicao: $instituicao, formação: $formacao}';
   }
 }

@@ -5,7 +5,6 @@ import 'package:genius/components/input.dart';
 import 'package:genius/http/exceptions/http_exception.dart';
 import 'package:genius/http/webclients/login_webclient.dart';
 import 'package:genius/models/auth.dart';
-import 'package:genius/models/token.dart';
 import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -60,7 +59,7 @@ class _LoginStateContent extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   child: Text(
-                    "Login",
+                    'Login',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 60,
@@ -73,19 +72,19 @@ class _LoginStateContent extends StatelessWidget {
             ),
             Input(
               controller: _emailController,
-              hint: "E-mail",
+              hint: 'E-mail',
               type: TextInputType.emailAddress
             ),
             Input(
               controller: _passwordController,
-              hint: "Senha",
+              hint: 'Senha',
               obscure: true,
               type: TextInputType.text,
             ),
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Button(
-                text: "Login",
+                text: 'Login',
                 width: 150,
                 height: 50,
                 onClick: () {
@@ -104,48 +103,48 @@ class _LoginStateContent extends StatelessWidget {
   }
 
   void verifyInput(BuildContext context) {
-    final String email = _emailController.text;
-    final String senha = _passwordController.text;
+    final email = _emailController.text;
+    final senha = _passwordController.text;
 
     // talvez tenham mais exceções, mas por enquanto é isso
-    if (email.contains(" ") || senha.contains(" ")) {
-      showSnackBar("Preencha os campos acima sem espaços em branco!", context);
+    if (email.contains(' ') || senha.contains(' ')) {
+      showSnackBar('Preencha os campos acima sem espaços em branco!', context);
     } else if (email.isEmpty || senha.isEmpty) {
-      showSnackBar("Preencha os campos acima!", context);
+      showSnackBar('Preencha os campos acima!', context);
     } else {
       authenticate(email, senha, context);
     }
   }
 
   void authenticate(String email, String senha, BuildContext context) async {
-    final LoginWebClient _webClient = LoginWebClient();
+    final _webClient = LoginWebClient();
     final progress = ProgressHUD.of(context);
 
     progress.show();
 
     // Faz login e pega um token
-    Token token = await _webClient.login(Auth(email, senha)).catchError((e) {
+    var token = await _webClient.login(Auth(email, senha)).catchError((e) {
       progress.dismiss();
       showSnackBar(e.message, context);
     }, test: (e) => e is HttpException).catchError((e) {
       progress.dismiss();
       showSnackBar(
-          "Erro: o tempo para fazer login excedeu o esperado.", context);
+          'Erro: o tempo para fazer login excedeu o esperado.', context);
     }, test: (e) => e is TimeoutException).catchError((e) {
       progress.dismiss();
-      showSnackBar("Erro desconhecido.", context);
+      showSnackBar('Erro desconhecido.', context);
       debugPrint(e.toString());
     });
 
     // Passa o token pra API 
-    bool logged = await _webClient.logged(token.token);
+    var logged = await _webClient.logged(token.token);
     progress.dismiss();
 
     enter(logged, context);
   }
 
   void enter(bool logged, BuildContext context) {
-    final NavigatorUtil navigator = NavigatorUtil();
+    final navigator = NavigatorUtil();
 
     // Entra na tela principal
     if (logged) {

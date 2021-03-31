@@ -17,7 +17,7 @@ class CadastroIntro extends StatelessWidget {
         body: Center(
           child: TypewriterAnimatedTextKit(
             text: [
-              "Agora que te apresentamos o Genius, gostaríamos de saber um pouco mais sobre você!"
+              'Agora que te apresentamos o Genius, gostaríamos de saber um pouco mais sobre você!'
             ],
             onFinished: () {
               Future.delayed(Duration(seconds: 1), () {
@@ -32,7 +32,7 @@ class CadastroIntro extends StatelessWidget {
               fontSize: 24,
               fontWeight: FontWeight.w900,
               height: 1.2,
-              fontFamily: "Gotham"
+              fontFamily: 'Gotham'
             ),
             textAlign: TextAlign.center,
             speed: Duration(milliseconds: 70),

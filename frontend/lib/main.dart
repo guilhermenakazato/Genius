@@ -35,7 +35,7 @@ class Genius extends StatelessWidget {
           backgroundColor: const Color(0xFF312F72),
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        fontFamily: "Gotham",
+        fontFamily: 'Gotham',
         textSelectionTheme: TextSelectionThemeData(
           selectionHandleColor: const Color(0xffab84e5),
         ),
@@ -46,7 +46,7 @@ class Genius extends StatelessWidget {
         future: verificarToken(),
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data == "none") {
+            if (snapshot.data == 'none') {
               return BemVindo();
             } else {
               return TelaPrincipal();
@@ -59,14 +59,14 @@ class Genius extends StatelessWidget {
   }
 
   Future<String> verificarToken() async {
-    String token = await localStore.getFromStorage();
-    LoginWebClient _webClient = LoginWebClient();
+    var token = await localStore.getFromStorage();
+    var _webClient = LoginWebClient();
 
     debugPrint(token);
-    if (token == "none") {
+    if (token == 'none') {
       return token;
     } else {
-      bool isValid = await _webClient.check(token).catchError((e) {
+      var isValid = await _webClient.check(token).catchError((e) {
         // deu timeout então envalida o token
         return false;
       }, test: (e) => e is TimeoutException);
@@ -75,7 +75,7 @@ class Genius extends StatelessWidget {
         return token;
       } else {
         localStore.removeFromStorage();
-        String token = await localStore.getFromStorage();
+        var token = await localStore.getFromStorage();
         return token;
       }
     }

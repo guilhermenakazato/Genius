@@ -12,7 +12,7 @@ class ListTileTitle extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          "Configurações da conta",
+          'Configurações da conta',
           style: TextStyle(
             color: Colors.white,
             fontSize: 14,

@@ -16,6 +16,9 @@ class BorderlessButton extends StatelessWidget {
       onPressed: () {
         onPressed();
       },
+      style: TextButton.styleFrom(
+        primary: Theme.of(context).primaryColor,
+      ),
       child: Text(
         text,
         textAlign: TextAlign.center,
@@ -24,9 +27,6 @@ class BorderlessButton extends StatelessWidget {
           fontWeight: FontWeight.w900,
           fontSize: 16,
         ),
-      ),
-      style: TextButton.styleFrom(
-        primary: Theme.of(context).primaryColor,
       ),
     );
   }

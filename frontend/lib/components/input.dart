@@ -68,7 +68,7 @@ class InputState extends State<Input> {
               ),
               style: TextStyle(
                 color: Colors.white,
-                fontFamily: "Gotham",
+                fontFamily: 'Gotham',
                 fontWeight: FontWeight.w700,
                 letterSpacing: 1.2,
               ),

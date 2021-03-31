@@ -61,7 +61,7 @@ class _CadastroLocalContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            "E, por fim, aonde você mora?",
+            'E, por fim, aonde você mora?',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Theme.of(context).primaryColor,
@@ -72,7 +72,7 @@ class _CadastroLocalContent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: BorderlessInput(
-              hint: "Cidade",
+              hint: 'Cidade',
               controller: _localController,
               type: TextInputType.streetAddress,
             ),
@@ -81,7 +81,7 @@ class _CadastroLocalContent extends StatelessWidget {
             onPressed: () {
               verify(context);
             },
-            text: "Finalizar cadastro".toUpperCase(),
+            text: 'Finalizar cadastro'.toUpperCase(),
           ),
         ],
       ),
@@ -89,11 +89,11 @@ class _CadastroLocalContent extends StatelessWidget {
   }
 
   void verify(BuildContext context) {
-    final String local = _localController.text.trimLeft();
+    final local = _localController.text.trimLeft();
 
     debugPrint(p.toString());
     if (local.isEmpty) {
-      showSnackBar("Preencha o campo de local!", context);
+      showSnackBar('Preencha o campo de local!', context);
     } else {
       p.setLocal(local.trimRight());
       debugPrint(p.toString());
@@ -102,22 +102,22 @@ class _CadastroLocalContent extends StatelessWidget {
   }
 
   void fazerCadastro(User p, BuildContext context) async {
-    final CadastroWebClient _webClient = CadastroWebClient();
+    final _webClient = CadastroWebClient();
     final progress = ProgressHUD.of(context);
-    final NavigatorUtil navigator = NavigatorUtil();
-    bool signed = false;
+    final navigator = NavigatorUtil();
+    var signed = false;
 
     progress.show();
     signed = await _webClient.cadastro(p).catchError((e) {
       showSnackBar(e.message, context);
     }, test: (e) => e is HttpException).catchError((e) {
       showSnackBar(
-        "Erro: o tempo para fazer login excedeu o esperado.",
+        'Erro: o tempo para fazer login excedeu o esperado.',
         context,
       );
     }, test: (e) => e is TimeoutException).catchError((e) {
       showSnackBar(
-        "Erro desconhecido.",
+        'Erro desconhecido.',
         context,
       );
       debugPrint(e.toString());

@@ -21,20 +21,20 @@ class Config extends StatelessWidget {
           padding: const EdgeInsets.only(top: 40),
         ),
         ListTileTitle(
-          text: "Configurações",
+          text: 'Configurações',
         ),
         SwitchTile(
           icon: Icons.notifications,
-          text: "Notificações",
+          text: 'Notificações',
         ),
         ModListTile(
-          text: "Editar perfil",
+          text: 'Editar perfil',
           icon: Icons.edit,
         ),
-        ModListTile(text: "Excluir conta", icon: Icons.delete, type: "warning",),
+        ModListTile(text: 'Excluir conta', icon: Icons.delete, type: 'warning',),
         ModListTile(
-          text: "Sair",
-          type: "warning",
+          text: 'Sair',
+          type: 'warning',
           icon: Icons.login,
           function: () async {
             _webClient.logout(await localStore.getFromStorage());

@@ -1,4 +1,4 @@
-import "package:genius/components/button.dart";
+import 'package:genius/components/button.dart';
 import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,8 +12,8 @@ class ButtonWrap extends StatelessWidget {
     Key key,
     @required this.simScreen,
     @required this.naoScreen,
-    this.textSim = "Sim",
-    this.textNao = "Não",
+    this.textSim = 'Sim',
+    this.textNao = 'Não',
     this.addYesFunction,
     this.addNoFunction,
     this.width = 95,
@@ -21,7 +21,7 @@ class ButtonWrap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NavigatorUtil navigator = NavigatorUtil();
+    final navigator = NavigatorUtil();
 
     return Wrap(
       alignment: WrapAlignment.center,
@@ -33,7 +33,7 @@ class ButtonWrap extends StatelessWidget {
           text: textSim,
           onClick: () {
             addYesFunction == null
-                ? debugPrint("Sem função")
+                ? debugPrint('Sem função')
                 : addYesFunction();
             navigator.navigate(context, simScreen);
           },
@@ -42,7 +42,7 @@ class ButtonWrap extends StatelessWidget {
           width: width,
           text: textNao,
           onClick: () {
-            addNoFunction == null ? debugPrint("Sem função") : addNoFunction();
+            addNoFunction == null ? debugPrint('Sem função') : addNoFunction();
             navigator.navigate(context, naoScreen);
           },
         ),
