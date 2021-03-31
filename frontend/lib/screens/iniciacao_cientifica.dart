@@ -17,12 +17,7 @@ class IniciacaoCientifica extends StatelessWidget {
         body: Center(
           child: TypewriterAnimatedTextKit(
             text: [
-              "Iniciação científica\n" +
-                  "é uma forma de colaboração\n" +
-                  "com a ciência através da\n" +
-                  "pesquisa. O objetivo é\n" +
-                  "atualizar o que já existe\n" +
-                  "e realizar descobertas."
+              'Iniciação científica\n é uma forma de colaboração\n com a ciência através da\n pesquisa. O objetivo é\n atualizar o que já existe\n e realizar descobertas.'
             ],
             onTap: () {
               navigator.navigate(context, CadastroIntro());
@@ -31,7 +26,7 @@ class IniciacaoCientifica extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               fontSize: 24,
               fontWeight: FontWeight.w900,
-              fontFamily: "Gotham",
+              fontFamily: 'Gotham',
               height: 1.2,
             ),
             textAlign: TextAlign.center,

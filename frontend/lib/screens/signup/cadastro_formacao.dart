@@ -25,7 +25,7 @@ class CadastroFormacao extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Qual a sua\nformação acadêmica?",
+              'Qual a sua\nformação acadêmica?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
@@ -40,7 +40,7 @@ class CadastroFormacao extends StatelessWidget {
   }
 
   void nextScreen(BuildContext context) {
-    p.setFormacao("Segundo grau incompleto");
+    p.setFormacao('Segundo grau incompleto');
     navigator.navigate(context, CadastroInstituicao(p));
   }
 }

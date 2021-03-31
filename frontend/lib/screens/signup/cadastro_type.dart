@@ -21,7 +21,7 @@ class CadastroType extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                "Você é um professor ou um estudante?",
+                'Você é um professor ou um estudante?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
@@ -33,14 +33,14 @@ class CadastroType extends StatelessWidget {
             ButtonWrap(
               simScreen: CadastroFormacao(p),
               naoScreen: CadastroFormacao(p),
-              textSim: "Estudante",
-              textNao: "Professor",
+              textSim: 'Estudante',
+              textNao: 'Professor',
               width: 130,
               addYesFunction: () {
-                p.setType("Estudante");
+                p.setType('Estudante');
               },
               addNoFunction: () {
-                p.setType("Professor");
+                p.setType('Professor');
               },
             ),
           ],

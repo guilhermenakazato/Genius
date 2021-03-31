@@ -3,5 +3,5 @@ class Token {
 
   Token(this.token);
 
-  Token.fromJson(Map<String, dynamic> json) : token = json["token"];
+  Token.fromJson(Map<String, dynamic> json) : token = json['token'];
 }

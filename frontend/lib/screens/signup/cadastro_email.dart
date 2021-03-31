@@ -34,9 +34,9 @@ class _CadastroEmailState extends State<CadastroEmail> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Prazer em te conhecer,\n" +
+              'Prazer em te conhecer,\n' +
                   widget.p.username +
-                  "!\nQual o seu email?",
+                  '!\nQual o seu email?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
@@ -45,7 +45,7 @@ class _CadastroEmailState extends State<CadastroEmail> {
               ),
             ),
             BorderlessInput(
-              hint: "Email",
+              hint: 'Email',
               controller: _emailController,
               type: TextInputType.emailAddress,
             )
@@ -56,12 +56,12 @@ class _CadastroEmailState extends State<CadastroEmail> {
   }
 
   void verify(BuildContext context) {
-    final String email = _emailController.text.trimLeft();
+    final email = _emailController.text.trimLeft();
 
     if (email.isEmpty) {
-      showSnackBar("Preencha o campo email!", context);
+      showSnackBar('Preencha o campo email!', context);
     } else if (!EmailValidator.validate(email)) {
-      showSnackBar("Insira um e-mail válido!", context);
+      showSnackBar('Insira um e-mail válido!', context);
     } else {
       widget.p.setEmail(email);
       navigator.navigate(context, CadastroSenha(widget.p));

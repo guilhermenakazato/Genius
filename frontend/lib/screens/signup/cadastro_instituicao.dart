@@ -28,7 +28,7 @@ class CadastroInstituicao extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Qual o nome da instituição\nque você dá aula/estuda?",
+              'Qual o nome da instituição\nque você dá aula/estuda?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
@@ -37,7 +37,7 @@ class CadastroInstituicao extends StatelessWidget {
               ),
             ),
             BorderlessInput(
-              hint: "Nome da instituição",
+              hint: 'Nome da instituição',
               controller: _instituicaoController,
               type: TextInputType.text,
             ),
@@ -48,10 +48,10 @@ class CadastroInstituicao extends StatelessWidget {
   }
 
   void verify(BuildContext context) {
-    final String instituicao = _instituicaoController.text.trimLeft();
+    final instituicao = _instituicaoController.text.trimLeft();
 
     if (instituicao.isEmpty) {
-      showSnackBar("Preencha o campo de instituição!", context);
+      showSnackBar('Preencha o campo de instituição!', context);
     } else {
       p.setInstituicao(instituicao);
       navigator.navigate(context, CadastroAge(p));

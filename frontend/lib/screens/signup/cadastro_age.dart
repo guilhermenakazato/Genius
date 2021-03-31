@@ -34,7 +34,7 @@ class _CadastroAgeState extends State<CadastroAge> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Qual a sua idade?",
+              'Qual a sua idade?',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,

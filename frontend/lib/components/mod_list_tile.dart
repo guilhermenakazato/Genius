@@ -16,17 +16,17 @@ class ModListTile extends StatelessWidget {
       color: const Color(0xff202020),
       child: InkWell(
         onTap: () {
-          function != null ? function() : debugPrint("tem nd aí moço");
+          function != null ? function() : debugPrint('tem nd aí moço');
         },
         child: ListTile(
           leading: Icon(
             icon,
-            color: type == "warning" ? Colors.red : Theme.of(context).primaryColor,
+            color: type == 'warning' ? Colors.red : Theme.of(context).primaryColor,
           ),
           title: Text(
             text,
             style: TextStyle(
-              color: type == "warning" ? Colors.red : Theme.of(context).primaryColor,
+              color: type == 'warning' ? Colors.red : Theme.of(context).primaryColor,
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),

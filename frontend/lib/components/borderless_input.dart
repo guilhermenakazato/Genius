@@ -43,7 +43,7 @@ class _BorderlessInputState extends State<BorderlessInput> {
         style: TextStyle(
           fontSize: 20,
           color: Colors.white,
-          fontFamily: "Gotham",
+          fontFamily: 'Gotham',
           fontWeight: FontWeight.w700,
         ),
       ),

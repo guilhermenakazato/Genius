@@ -19,7 +19,7 @@ class FloatingButton extends StatelessWidget {
       onPressed: () {
         onPressed();
       },
-      tooltip: "Prosseguir",
+      tooltip: 'Prosseguir',
       child: Icon(
         Icons.arrow_forward_ios,
         color: Theme.of(context).primaryColor,

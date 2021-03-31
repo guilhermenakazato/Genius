@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import "package:genius/screens/sabe_iniciacao.dart";
+import 'package:genius/screens/sabe_iniciacao.dart';
 import 'package:genius/utils/navigator_util.dart';
 
 class PrazerGenius extends StatelessWidget {
@@ -30,13 +30,13 @@ class PrazerGenius extends StatelessWidget {
                     },
                     speed: Duration(milliseconds: 70),
                     text: [
-                      "Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas."
+                      'Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas.'
                     ],
                     textStyle: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: MediaQuery.of(context).size.height * 0.05,
                       height: 2,
-                      fontFamily: "Gotham",
+                      fontFamily: 'Gotham',
                       fontWeight: FontWeight.w900,
                     ),
                     totalRepeatCount: 1,
@@ -54,7 +54,7 @@ class PrazerGenius extends StatelessWidget {
                 child: Align(
                   alignment: FractionalOffset.bottomRight,
                   child: Image.asset(
-                    "assets/homem-sentado.png",
+                    'assets/homem-sentado.png',
                   ),
                 ),
               ),
