@@ -11,10 +11,28 @@ export default class user extends BaseModel {
   public id: number
 
   @column()
+  public username: string
+
+  @column()
   public email: string
 
-  @column({ serializeAs: null })
+  @column()
   public password: string
+
+  @column()
+  public type: string
+
+  @column()
+  public age: string
+
+  @column()
+  public local: string
+
+  @column()
+  public instituicao: string
+
+  @column()
+  public formacao: string
 
   @column()
   public rememberMeToken?: string

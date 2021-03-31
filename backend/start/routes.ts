@@ -20,6 +20,9 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
+import AuthController from 'App/Controllers/Http/AuthController'
+import UsuariosController from 'App/Controllers/Http/UserController'
+import ProjetosController from 'App/Controllers/Http/ProjectController'
  
 Route.get('health', async ({ response }) => {
   const report = await HealthCheck.getReport()
@@ -28,3 +31,17 @@ Route.get('health', async ({ response }) => {
     ? response.ok(report)
     : response.badRequest(report)
 })
+
+Route.get('/usuarios', UsuariosController.index);
+Route.get("/usuario/:id", UsuariosController.get);
+Route.get("/usuario/id/:email", UsuariosController.getId);
+Route.post("/usuario", UsuariosController.create);
+
+Route.post("/login", AuthController.login);
+Route.get("/token", AuthController.authenticateWithToken);
+Route.get("/logout", AuthController.logout);
+Route.get("/getData", AuthController.getUserData);
+Route.get("/check", AuthController.checkTokenIsValid);
+
+Route.post("/projeto", ProjetosController.create)
+Route.get("/projetos", ProjetosController.index)
