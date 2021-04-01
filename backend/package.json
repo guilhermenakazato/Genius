@@ -10,7 +10,6 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^3.1.1",
     "adonis-preset-ts": "^2.1.0",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
@@ -23,6 +22,7 @@
     "youch-terminal": "^1.1.0"
   },
   "dependencies": {
+    "@adonisjs/assembler": "^3.1.1",
     "@adonisjs/auth": "^5.1.1",
     "@adonisjs/core": "^5.0.4-preview-rc-2.1",
     "@adonisjs/lucid": "^10.0.0",
