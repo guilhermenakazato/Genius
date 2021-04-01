@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:genius/components/button_wrap.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/cadastro_formacao.dart';
-import 'package:genius/utils/navigator_util.dart';
 
-class CadastroType extends StatelessWidget {
-  final User p;
+import '../../components/button_wrap.dart';
+import '../../models/user.dart';
+import '../../screens/signup/signup_formation.dart';
+import '../../utils/navigator_util.dart';
+
+class SignUpType extends StatelessWidget {
+  final User person;
   final NavigatorUtil navigator = NavigatorUtil();
 
-  CadastroType(this.p);
+  SignUpType(this.person);
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +32,16 @@ class CadastroType extends StatelessWidget {
               ),
             ),
             ButtonWrap(
-              simScreen: CadastroFormacao(p),
-              naoScreen: CadastroFormacao(p),
-              textSim: 'Estudante',
-              textNao: 'Professor',
+              yesScreen: SignUpFormation(person),
+              noScreen: SignUpFormation(person),
+              textYes: 'Estudante',
+              textNo: 'Professor',
               width: 130,
               addYesFunction: () {
-                p.setType('Estudante');
+                person.setType('Estudante');
               },
               addNoFunction: () {
-                p.setType('Professor');
+                person.setType('Professor');
               },
             ),
           ],

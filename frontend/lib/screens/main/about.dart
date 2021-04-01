@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Sobre extends StatelessWidget {
+class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -50,9 +50,9 @@ class Sobre extends StatelessWidget {
               ),
             ),
           ),
-          Equipe(nome: 'Gabriela Prado'),
-          Equipe(nome: 'Guilherme Nakazato'),
-          Equipe(nome: 'Sidney Sousa'),
+          Team(name: 'Gabriela Prado'),
+          Team(name: 'Guilherme Nakazato'),
+          Team(name: 'Sidney Sousa'),
           Padding(
             padding: const EdgeInsets.only(bottom: 32),
           ),
@@ -62,16 +62,16 @@ class Sobre extends StatelessWidget {
   }
 }
 
-class Equipe extends StatelessWidget {
-  final String nome;
-  const Equipe({Key key, this.nome}) : super(key: key);
+class Team extends StatelessWidget {
+  final String name;
+  const Team({Key key, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Text(
-        nome,
+        name,
         style: TextStyle(
           color: Theme.of(context).primaryColor,
           fontSize: 24,

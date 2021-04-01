@@ -1,15 +1,15 @@
-//TODO: documentar
 import 'package:flutter/material.dart';
-import 'package:genius/components/floating_button.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/cadastro_instituicao.dart';
-import 'package:genius/utils/navigator_util.dart';
 
-class CadastroFormacao extends StatelessWidget {
-  final User p;
+import '../../components/floating_button.dart';
+import '../../models/user.dart';
+import '../../screens/signup/signup_institution.dart';
+import '../../utils/navigator_util.dart';
+
+class SignUpFormation extends StatelessWidget {
+  final User person;
   final NavigatorUtil navigator = NavigatorUtil();
 
-  CadastroFormacao(this.p);
+  SignUpFormation(this.person);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class CadastroFormacao extends StatelessWidget {
   }
 
   void nextScreen(BuildContext context) {
-    p.setFormacao('Segundo grau incompleto');
-    navigator.navigate(context, CadastroInstituicao(p));
+    person.setFormation('Segundo grau incompleto');
+    navigator.navigate(context, SignUpInstitution(person));
   }
 }

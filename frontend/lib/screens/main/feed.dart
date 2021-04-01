@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:genius/screens/main/project/project_info.dart';
-import 'package:genius/utils/navigator_util.dart';
 import 'package:tcard/tcard.dart';
+
+import '../../screens/main/project/project_info.dart';
+import '../../utils/navigator_util.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class Feed extends StatefulWidget {
 
 class _FeedState extends State<Feed> with TickerProviderStateMixin {
   final TCardController _controller = TCardController();
-  var projetos = [for (int i = 1; i < 20; i++) i];
+  var projects = [for (int i = 1; i < 20; i++) i];
   int _index = 0;
   final NavigatorUtil navigator = NavigatorUtil();
 
@@ -23,7 +24,6 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
           controller: _controller,
           onForward: (index, info) {
             _index = index;
-            debugPrint(info.direction.toString());
             setState(() {});
           },
           onBack: (index) {
@@ -32,7 +32,7 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
           },
           size: Size(350, 550),
           cards: [
-            for (var projeto in projetos)
+            for (var project in projects)
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
@@ -44,12 +44,11 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                   ),
                   child: InkWell(
                     onTap: () {
-                      // card tá em cima
-                      if (_index + 1 == projeto) {
+                      if (_index + 1 == project) {
                         navigator.navigate(
                             context,
                             ProjectInfo(
-                              number: projeto,
+                              number: project,
                             ));
                       }
                     },
@@ -61,7 +60,7 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                           child: Container(
                             width: double.infinity,
                             child: Text(
-                              'Projeto $projeto',
+                              'Projeto $project',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 30,
@@ -82,7 +81,7 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                       Padding(
                         padding: const EdgeInsets.only(top: 130, left: 220),
                         child: IconButton(
-                              icon: const Icon(Icons.volunteer_activism), //aumentar tamanho
+                              icon: const Icon(Icons.volunteer_activism),
                               onPressed: () {
                                 setState(() {});
                               },

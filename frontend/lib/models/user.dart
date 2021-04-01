@@ -1,7 +1,6 @@
-// TODO: documentar
 
 class User {
-  String username, email, password, type, age, local, instituicao, formacao;
+  String username, email, password, type, age, local, institution, formation;
 
   User({
     this.username,
@@ -10,8 +9,8 @@ class User {
     this.type,
     this.age,
     this.local,
-    this.instituicao, 
-    this.formacao
+    this.institution, 
+    this.formation
   });
 
   void setUsername(String username) {
@@ -38,12 +37,12 @@ class User {
     this.local = local;
   }
 
-  void setInstituicao(String instituicao) {
-    this.instituicao = instituicao;
+  void setInstitution(String institution) {
+    this.institution = institution;
   }
 
-  void setFormacao(String formacao) {
-    this.formacao = formacao;
+  void setFormation(String formation) {
+    this.formation = formation;
   }
 
 
@@ -54,8 +53,8 @@ class User {
         type = json['type'],
         age = json['age'],
         local = json['local'],
-        instituicao = json['instituicao'],
-        formacao = json['formacao'];
+        institution = json['institution'],
+        formation = json['formacao'];
 
   Map<String, dynamic> toJson() => {
         'username': username,
@@ -64,12 +63,12 @@ class User {
         'type': type,
         'age': age,
         'local': local,
-        'instituicao': instituicao,
-        'formacao': formacao,
+        'institution': institution,
+        'formation': formation,
       };
 
   @override
   String toString() {
-    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, instituicao: $instituicao, formação: $formacao}';
+    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, institution: $institution, formação: $formation}';
   }
 }

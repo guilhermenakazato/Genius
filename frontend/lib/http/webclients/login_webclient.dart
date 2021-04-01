@@ -1,12 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:genius/http/exceptions/http_exception.dart';
-import 'package:genius/http/webclient.dart';
-import 'package:genius/models/auth.dart';
-import 'package:genius/models/token.dart';
-
-import 'package:genius/utils/local_store.dart';
+import '../exceptions/http_exception.dart';
+import '../webclient.dart';
+import '../../models/auth.dart';
+import '../../models/token.dart';
+import '../../utils/local_store.dart';
 
 class LoginWebClient {
   Future<Token> login(Auth auth) async {
@@ -21,12 +19,11 @@ class LoginWebClient {
 
     if (response.statusCode == 200) {
       var token = Token.fromJson(jsonDecode(response.body));
-      localStore.store(token.token);
+      localStore.setToken(token.token);
 
       return token;
     }
 
-    print(response.statusCode);
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
@@ -35,7 +32,7 @@ class LoginWebClient {
     401: 'Token inválido.'
   };
 
-  Future<bool> logged(String token) async {
+  Future<bool> userIsLogged(String token) async {
     final response = await client.get(
       baseUrl + '/token',
       headers: {'Authorization': 'Bearer $token'},
@@ -45,13 +42,10 @@ class LoginWebClient {
       return true;
     }
 
-    // acho meio difícil acontecer algum erro aqui mas por segurança vou deixar isso
-    print(response.statusCode);
     throw HttpException('Unknown Error');
   }
 
-  // Retorna dados do usuário se estiver logado
-  Future<String> getData(String token) async {
+  Future<String> getUserData(String token) async {
     final response = await client.get(
       baseUrl + '/getData',
       headers: {'Authorization': 'Bearer $token'},
@@ -62,26 +56,19 @@ class LoginWebClient {
       return data;
     }
 
-    print(response.statusCode);
     throw HttpException('errinho brabo');
   }
 
   void logout(String token) async {
-    final response = await client.get(
+    await client.get(
       baseUrl + '/logout',
       headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
       },
     );
-
-    // expirando token só por segurança
-    if (response.statusCode == 200) {
-      debugPrint('realizou Logout');
-    }
   }
 
-  // TODO: documentar
   Future<bool> check(String token) async {
     final response = await client.get(
       baseUrl + '/check',
@@ -92,7 +79,6 @@ class LoginWebClient {
     );
 
     if (response.statusCode == 200) {
-      // retorna verdadeiro ou falso. Se for falso, o usuário vai pra tela inicial pq o token é inválido
       return response.body == 'true';
     }
 

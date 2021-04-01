@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:genius/screens/sabe_iniciacao.dart';
-import 'package:genius/utils/navigator_util.dart';
 
-class PrazerGenius extends StatelessWidget {
+import '../screens/question_science.dart';
+import '../utils/navigator_util.dart';
+
+class Presentation extends StatelessWidget {
   final NavigatorUtil navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigator.navigate(context, SabeIniciacao());
+        navigator.navigate(context, QuestionScience());
       },
       child: Scaffold(
         backgroundColor: const Color(0xff000000),
@@ -26,7 +27,7 @@ class PrazerGenius extends StatelessWidget {
                   alignment: FractionalOffset.topLeft,
                   child: TypewriterAnimatedTextKit(
                     onTap: () {
-                      navigator.navigate(context, SabeIniciacao());
+                      navigator.navigate(context, QuestionScience());
                     },
                     speed: Duration(milliseconds: 70),
                     text: [

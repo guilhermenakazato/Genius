@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:genius/models/user.dart';
 
-// TODO: documentar
-class Perfil extends StatefulWidget {
+import '../../models/user.dart';
+
+class Profile extends StatefulWidget {
   final User user;
 
-  Perfil({Key key, this.user}) : super(key: key);
+  Profile({Key key, this.user}) : super(key: key);
 
   @override
-  _PerfilState createState() => _PerfilState();
+  _ProfileState createState() => _ProfileState();
 }
 
-class _PerfilState extends State<Perfil> {
+class _ProfileState extends State<Profile> {
   List tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
   List pages = ['Sobre mim', 'Meus projetos', 'Conquistas'];
 

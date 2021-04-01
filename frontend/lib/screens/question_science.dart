@@ -1,9 +1,10 @@
-import 'package:genius/components/button_wrap.dart';
-import 'package:genius/screens/iniciacao_cientifica.dart';
-import 'package:genius/screens/signup/cadastro_intro.dart';
 import 'package:flutter/material.dart';
 
-class SabeIniciacao extends StatelessWidget {
+import '../components/button_wrap.dart';
+import '../screens/intro_science.dart';
+import '../screens/signup/signup_intro.dart';
+
+class QuestionScience extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,8 +53,8 @@ class SabeIniciacao extends StatelessWidget {
                 child: Align(
                   alignment: FractionalOffset.center,
                   child: ButtonWrap(
-                    simScreen: CadastroIntro(),
-                    naoScreen: IniciacaoCientifica(),
+                    yesScreen: SignUpIntro(),
+                    noScreen: IntroScience(),
                   ),
                 ),
               ),

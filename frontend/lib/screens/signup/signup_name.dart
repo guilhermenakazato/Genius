@@ -1,27 +1,28 @@
 import 'package:flutter/services.dart';
-import 'package:genius/components/borderless_input.dart';
-import 'package:genius/components/floating_button.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/cadastro_email.dart';
-import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/material.dart';
 
-class CadastroNome extends StatefulWidget {
+import '../../components/borderless_input.dart';
+import '../../components/floating_button.dart';
+import '../../models/user.dart';
+import '../../screens/signup/signup_email.dart';
+import '../../utils/navigator_util.dart';
+
+class SignUpName extends StatefulWidget {
   @override
-  _CadastroNomeState createState() => _CadastroNomeState();
+  _SignUpNameState createState() => _SignUpNameState();
 }
 
-class _CadastroNomeState extends State<CadastroNome> {
+class _SignUpNameState extends State<SignUpName> {
   final TextEditingController _nomeController = TextEditingController();
   final NavigatorUtil navigator = NavigatorUtil();
-  final User p = User();
+  final User person = User();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          verify(context);
+          verifyInput(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -60,14 +61,14 @@ class _CadastroNomeState extends State<CadastroNome> {
     );
   }
 
-  void verify(BuildContext context) {
-    final nome = _nomeController.text.trimLeft();
+  void verifyInput(BuildContext context) {
+    final name = _nomeController.text.trimLeft();
 
-    if (nome.isEmpty) {
+    if (name.isEmpty) {
       showSnackBar('Preencha o campo nome!', context);
     } else {
-      p.setUsername(nome.trimRight());
-      navigator.navigate(context, CadastroEmail(p));
+      person.setUsername(name.trimRight());
+      navigator.navigate(context, SignUpEmail(person));
     }
   }
 

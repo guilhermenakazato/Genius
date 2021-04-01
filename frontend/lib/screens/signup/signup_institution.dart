@@ -1,25 +1,25 @@
-// TODO: documentar
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:genius/components/borderless_input.dart';
-import 'package:genius/components/floating_button.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/cadastro_age.dart';
-import 'package:genius/utils/navigator_util.dart';
 
-class CadastroInstituicao extends StatelessWidget {
-  final User p;
+import '../../components/borderless_input.dart';
+import '../../components/floating_button.dart';
+import '../../models/user.dart';
+import '../../screens/signup/signup_age.dart';
+import '../../utils/navigator_util.dart';
+
+class SignUpInstitution extends StatelessWidget {
+  final User person;
   final NavigatorUtil navigator = NavigatorUtil();
-  final TextEditingController _instituicaoController = TextEditingController();
+  final TextEditingController _institutionController = TextEditingController();
 
-  CadastroInstituicao(this.p);
+  SignUpInstitution(this.person);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          verify(context);
+          verifyInput(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -38,7 +38,7 @@ class CadastroInstituicao extends StatelessWidget {
             ),
             BorderlessInput(
               hint: 'Nome da instituição',
-              controller: _instituicaoController,
+              controller: _institutionController,
               type: TextInputType.text,
             ),
           ],
@@ -47,14 +47,14 @@ class CadastroInstituicao extends StatelessWidget {
     );
   }
 
-  void verify(BuildContext context) {
-    final instituicao = _instituicaoController.text.trimLeft();
+  void verifyInput(BuildContext context) {
+    final institution = _institutionController.text.trimLeft();
 
-    if (instituicao.isEmpty) {
+    if (institution.isEmpty) {
       showSnackBar('Preencha o campo de instituição!', context);
     } else {
-      p.setInstituicao(instituicao);
-      navigator.navigate(context, CadastroAge(p));
+      person.setInstitution(institution);
+      navigator.navigate(context, SignUpAge(person));
     }
   }
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:genius/components/button_wrap.dart';
-import 'package:genius/screens/login.dart';
-import 'package:genius/screens/prazer_genius.dart';
 
-class PerguntaUsuario extends StatelessWidget {
+import '../components/button_wrap.dart';
+import '../screens/login.dart';
+import '../screens/presentation.dart';
+
+class AskUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,8 +46,8 @@ class PerguntaUsuario extends StatelessWidget {
               child: Align(
                 alignment: FractionalOffset.center,
                 child: ButtonWrap(
-                  simScreen: Login(),
-                  naoScreen: PrazerGenius(),
+                  yesScreen: Login(),
+                  noScreen: Presentation(),
                 ),
               ),
             ),

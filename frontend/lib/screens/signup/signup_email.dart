@@ -1,22 +1,23 @@
 import 'package:flutter/services.dart';
-import 'package:genius/components/borderless_input.dart';
-import 'package:genius/components/floating_button.dart';
-import 'package:genius/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:genius/screens/signup/cadastro_senha.dart';
-import 'package:genius/utils/navigator_util.dart';
 import 'package:email_validator/email_validator.dart';
 
-class CadastroEmail extends StatefulWidget {
-  final User p;
+import '../../components/borderless_input.dart';
+import '../../components/floating_button.dart';
+import '../../models/user.dart';
+import '../../screens/signup/signup_password.dart';
+import '../../utils/navigator_util.dart';
 
-  CadastroEmail(this.p);
+class SignUpEmail extends StatefulWidget {
+  final User person;
+
+  SignUpEmail(this.person);
 
   @override
-  _CadastroEmailState createState() => _CadastroEmailState();
+  _SignUpEmailState createState() => _SignUpEmailState();
 }
 
-class _CadastroEmailState extends State<CadastroEmail> {
+class _SignUpEmailState extends State<SignUpEmail> {
   final NavigatorUtil navigator = NavigatorUtil();
   final TextEditingController _emailController = TextEditingController();
 
@@ -25,7 +26,7 @@ class _CadastroEmailState extends State<CadastroEmail> {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          verify(context);
+          verifyInput(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -35,7 +36,7 @@ class _CadastroEmailState extends State<CadastroEmail> {
           children: <Widget>[
             Text(
               'Prazer em te conhecer,\n' +
-                  widget.p.username +
+                  widget.person.username +
                   '!\nQual o seu email?',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -55,7 +56,7 @@ class _CadastroEmailState extends State<CadastroEmail> {
     );
   }
 
-  void verify(BuildContext context) {
+  void verifyInput(BuildContext context) {
     final email = _emailController.text.trimLeft();
 
     if (email.isEmpty) {
@@ -63,8 +64,8 @@ class _CadastroEmailState extends State<CadastroEmail> {
     } else if (!EmailValidator.validate(email)) {
       showSnackBar('Insira um e-mail válido!', context);
     } else {
-      widget.p.setEmail(email);
-      navigator.navigate(context, CadastroSenha(widget.p));
+      widget.person.setEmail(email);
+      navigator.navigate(context, SignUpPassword(widget.person));
     }
   }
 }

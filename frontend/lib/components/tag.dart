@@ -1,4 +1,3 @@
-// TODO: documentar
 import 'package:flutter/material.dart';
 
 class Tag extends StatelessWidget {

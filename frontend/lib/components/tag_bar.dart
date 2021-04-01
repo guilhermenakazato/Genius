@@ -1,6 +1,6 @@
-// TODO: documentar
 import 'package:flutter/material.dart';
-import 'package:genius/components/tag.dart';
+
+import 'tag.dart';
 
 class TagBar extends StatelessWidget {
   @override

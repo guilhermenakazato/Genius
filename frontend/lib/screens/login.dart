@@ -1,16 +1,15 @@
 import 'dart:async';
-
-import 'package:genius/components/button.dart';
-import 'package:genius/components/input.dart';
-import 'package:genius/http/exceptions/http_exception.dart';
-import 'package:genius/http/webclients/login_webclient.dart';
-import 'package:genius/models/auth.dart';
-import 'package:genius/utils/navigator_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'main/tela_principal.dart';
+import 'main/main_screen.dart';
+import '../components/button.dart';
+import '../components/input.dart';
+import '../http/exceptions/http_exception.dart';
+import '../http/webclients/login_webclient.dart';
+import '../models/auth.dart';
+import '../utils/navigator_util.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -106,7 +105,6 @@ class _LoginStateContent extends StatelessWidget {
     final email = _emailController.text;
     final senha = _passwordController.text;
 
-    // talvez tenham mais exceções, mas por enquanto é isso
     if (email.contains(' ') || senha.contains(' ')) {
       showSnackBar('Preencha os campos acima sem espaços em branco!', context);
     } else if (email.isEmpty || senha.isEmpty) {
@@ -122,37 +120,32 @@ class _LoginStateContent extends StatelessWidget {
 
     progress.show();
 
-    // Faz login e pega um token
-    var token = await _webClient.login(Auth(email, senha)).catchError((e) {
+    var token = await _webClient.login(Auth(email, senha)).catchError((error) {
       progress.dismiss();
-      showSnackBar(e.message, context);
-    }, test: (e) => e is HttpException).catchError((e) {
+      showSnackBar(error.message, context);
+    }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
       showSnackBar(
           'Erro: o tempo para fazer login excedeu o esperado.', context);
-    }, test: (e) => e is TimeoutException).catchError((e) {
+    }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
       showSnackBar('Erro desconhecido.', context);
-      debugPrint(e.toString());
     });
 
-    // Passa o token pra API 
-    var logged = await _webClient.logged(token.token);
+    var logged = await _webClient.userIsLogged(token.token);
     progress.dismiss();
 
-    enter(logged, context);
+    enterMainScreen(logged, context);
   }
 
-  void enter(bool logged, BuildContext context) {
+  void enterMainScreen(bool logged, BuildContext context) {
     final navigator = NavigatorUtil();
 
-    // Entra na tela principal
     if (logged) {
-      navigator.navigateAndRemove(context, TelaPrincipal());
+      navigator.navigateAndRemove(context, MainScreen());
     }
   }
 
-  // Mostra uma SnackBar (textinho de aviso)
   void showSnackBar(String text, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),

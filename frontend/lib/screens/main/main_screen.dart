@@ -1,18 +1,18 @@
 import 'dart:convert';
-
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/http/webclients/login_webclient.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/screens/main/config.dart';
-import 'package:genius/screens/main/feed.dart';
-import 'package:genius/screens/main/perfil.dart';
-import 'package:genius/screens/main/pesquisa.dart';
-import 'package:genius/screens/main/sobre.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:genius/utils/local_store.dart';
 
-class TelaPrincipal extends StatelessWidget {
+import '../../http/webclients/login_webclient.dart';
+import '../../models/user.dart';
+import '../../screens/main/config.dart';
+import '../../screens/main/feed.dart';
+import '../../screens/main/profile.dart';
+import '../../screens/main/search.dart';
+import '../../screens/main/about.dart';
+import '../../utils/local_store.dart';
+
+class MainScreen extends StatelessWidget {
   final LocalStore localStore = LocalStore();
 
   @override
@@ -22,7 +22,7 @@ class TelaPrincipal extends StatelessWidget {
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
           var user = User.fromJson(jsonDecode(snapshot.data));
-          return _TelaPrincipalContent(
+          return _MainScreenContent(
             user: user,
           );
         } else {
@@ -36,21 +36,21 @@ class TelaPrincipal extends StatelessWidget {
 
   Future<String> getData() async {
     final _webClient = LoginWebClient();
-    var token = await localStore.getFromStorage();
-    var user = await _webClient.getData(token);
+    var token = await localStore.getToken();
+    var user = await _webClient.getUserData(token);
     return user;
   }
 }
 
-class _TelaPrincipalContent extends StatefulWidget {
+class _MainScreenContent extends StatefulWidget {
   final User user;
-  const _TelaPrincipalContent({Key key, this.user}) : super(key: key);
+  const _MainScreenContent({Key key, this.user}) : super(key: key);
 
   @override
-  _TelaPrincipalContentState createState() => _TelaPrincipalContentState();
+  _MainScreenContentState createState() => _MainScreenContentState();
 }
 
-class _TelaPrincipalContentState extends State<_TelaPrincipalContent> {
+class _MainScreenContentState extends State<_MainScreenContent> {
   int pageNumber = 2;
 
   @override
@@ -82,10 +82,10 @@ class _TelaPrincipalContentState extends State<_TelaPrincipalContent> {
 
   Widget _showPage(int index) {
     var _widgetList = <Widget>[
-      Sobre(),
-      Perfil(user: widget.user),
+      About(),
+      Profile(user: widget.user),
       Feed(),
-      Pesquisa(),
+      Search(),
       Config(),
     ];
 

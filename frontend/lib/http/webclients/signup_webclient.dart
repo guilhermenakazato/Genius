@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:genius/http/exceptions/http_exception.dart';
-import 'package:genius/http/webclient.dart';
-import 'package:genius/models/user.dart';
+import '../exceptions/http_exception.dart';
+import '../webclient.dart';
+import '../../models/user.dart';
 
-class CadastroWebClient {
-  Future<bool> cadastro(User user) async {
+class SignUpWebClient {
+  Future<bool> signup(User user) async {
     final userJson = jsonEncode(user.toJson());
 
     final response = await client.post(
@@ -16,11 +15,9 @@ class CadastroWebClient {
     );
 
     if (response.statusCode == 200) {
-      debugPrint('Cadastro realizado com sucesso!');
       return true;
     }
 
-    print(response.statusCode);
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 

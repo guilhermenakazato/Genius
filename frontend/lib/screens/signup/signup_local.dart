@@ -1,40 +1,40 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/components/borderless_input.dart';
-import 'package:genius/components/gradient_button.dart';
-import 'package:genius/http/exceptions/http_exception.dart';
-import 'package:genius/http/webclients/cadastro_webclient.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/utils/navigator_util.dart';
+
+import '../../components/borderless_input.dart';
+import '../../components/gradient_button.dart';
+import '../../http/exceptions/http_exception.dart';
+import '../../http/webclients/signup_webclient.dart';
+import '../../models/user.dart';
+import '../../utils/navigator_util.dart';
 import '../login.dart';
 
-class CadastroLocal extends StatefulWidget {
-  final User p;
+class SignUpLocal extends StatefulWidget {
+  final User person;
 
-  CadastroLocal(this.p);
+  SignUpLocal(this.person);
 
   @override
-  _CadastroLocalState createState() => _CadastroLocalState();
+  _SignUpLocalState createState() => _SignUpLocalState();
 }
 
-class _CadastroLocalState extends State<CadastroLocal> {
+class _SignUpLocalState extends State<SignUpLocal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: _CadastroLocalBody(widget.p),
+      body: _SignUpLocalBody(widget.person),
     );
   }
 }
 
-class _CadastroLocalBody extends StatelessWidget {
-  final User p;
+class _SignUpLocalBody extends StatelessWidget {
+  final User person;
 
-  _CadastroLocalBody(this.p);
+  _SignUpLocalBody(this.person);
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +43,16 @@ class _CadastroLocalBody extends StatelessWidget {
       indicatorWidget: SpinKitPouringHourglass(
         color: Theme.of(context).primaryColor,
       ),
-      child: Builder(builder: (buildContext) => _CadastroLocalContent(p)),
+      child: Builder(builder: (buildContext) => _SignUpLocalContent(person)),
     );
   }
 }
 
-class _CadastroLocalContent extends StatelessWidget {
+class _SignUpLocalContent extends StatelessWidget {
   final TextEditingController _localController = TextEditingController();
-  final User p;
+  final User person;
 
-  _CadastroLocalContent(this.p);
+  _SignUpLocalContent(this.person);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class _CadastroLocalContent extends StatelessWidget {
           ),
           GradientButton(
             onPressed: () {
-              verify(context);
+              verifyInput(context);
             },
             text: 'Finalizar cadastro'.toUpperCase(),
           ),
@@ -88,40 +88,37 @@ class _CadastroLocalContent extends StatelessWidget {
     );
   }
 
-  void verify(BuildContext context) {
+  void verifyInput(BuildContext context) {
     final local = _localController.text.trimLeft();
 
-    debugPrint(p.toString());
     if (local.isEmpty) {
       showSnackBar('Preencha o campo de local!', context);
     } else {
-      p.setLocal(local.trimRight());
-      debugPrint(p.toString());
-      fazerCadastro(p, context);
+      person.setLocal(local.trimRight());
+      realizeSignUp(person, context);
     }
   }
 
-  void fazerCadastro(User p, BuildContext context) async {
-    final _webClient = CadastroWebClient();
+  void realizeSignUp(User person, BuildContext context) async {
+    final _webClient = SignUpWebClient();
     final progress = ProgressHUD.of(context);
     final navigator = NavigatorUtil();
     var signed = false;
 
     progress.show();
-    signed = await _webClient.cadastro(p).catchError((e) {
-      showSnackBar(e.message, context);
-    }, test: (e) => e is HttpException).catchError((e) {
+    signed = await _webClient.signup(person).catchError((error) {
+      showSnackBar(error.message, context);
+    }, test: (error) => error is HttpException).catchError((error) {
       showSnackBar(
         'Erro: o tempo para fazer login excedeu o esperado.',
         context,
       );
-    }, test: (e) => e is TimeoutException).catchError((e) {
+    }, test: (error) => error is TimeoutException).catchError((error) {
       showSnackBar(
         'Erro desconhecido.',
         context,
       );
-      debugPrint(e.toString());
-    }, test: (e) => e is Exception);
+    }, test: (error) => error is Exception);
 
     progress.dismiss();
     if (signed) {

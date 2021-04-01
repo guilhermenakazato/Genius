@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:genius/components/borderless_button.dart';
-import 'package:genius/components/borderless_input.dart';
-import 'package:genius/components/floating_button.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/cadastro_type.dart';
-import 'package:genius/utils/navigator_util.dart';
 
-class CadastroSenha extends StatefulWidget {
-  final User p;
+import '../../components/borderless_button.dart';
+import '../../components/borderless_input.dart';
+import '../../components/floating_button.dart';
+import '../../models/user.dart';
+import '../../screens/signup/signup_type.dart';
+import '../../utils/navigator_util.dart';
 
-  CadastroSenha(this.p);
+class SignUpPassword extends StatefulWidget {
+  final User person;
+
+  SignUpPassword(this.person);
 
   @override
-  _CadastroSenhaState createState() => _CadastroSenhaState();
+  _SignUpPasswordState createState() => _SignUpPasswordState();
 }
 
-class _CadastroSenhaState extends State<CadastroSenha> {
+class _SignUpPasswordState extends State<SignUpPassword> {
   final TextEditingController _passwordController = TextEditingController();
   final NavigatorUtil navigator = NavigatorUtil();
   bool _obscure = true;
@@ -26,7 +27,7 @@ class _CadastroSenhaState extends State<CadastroSenha> {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          verify(context);
+          verifyInput(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -77,7 +78,7 @@ class _CadastroSenhaState extends State<CadastroSenha> {
     );
   }
 
-  void verify(BuildContext context) {
+  void verifyInput(BuildContext context) {
     final password = _passwordController.text.trimLeft();
 
     if (password.isEmpty) {
@@ -87,8 +88,8 @@ class _CadastroSenhaState extends State<CadastroSenha> {
     } else if (password.contains(' ')) {
       showSnackBar('A sua senha não pode conter um espaço em branco!', context);
     } else {
-      widget.p.setPassword(password);
-      navigator.navigate(context, CadastroType(widget.p));
+      widget.person.setPassword(password);
+      navigator.navigate(context, SignUpType(widget.person));
     }
   }
 
