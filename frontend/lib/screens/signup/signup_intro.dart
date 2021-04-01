@@ -1,16 +1,17 @@
-import 'package:genius/screens/signup/cadastro_nome.dart';
-import 'package:genius/utils/navigator_util.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
-class CadastroIntro extends StatelessWidget {
+import '../../screens/signup/signup_name.dart';
+import '../../utils/navigator_util.dart';
+
+class SignUpIntro extends StatelessWidget {
   final NavigatorUtil navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigator.navigate(context, CadastroNome());
+        navigator.navigate(context, SignUpName());
       },
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -21,11 +22,11 @@ class CadastroIntro extends StatelessWidget {
             ],
             onFinished: () {
               Future.delayed(Duration(seconds: 1), () {
-                navigator.navigate(context, CadastroNome());
+                navigator.navigate(context, SignUpName());
               });
             },
             onTap: () {
-              navigator.navigate(context, CadastroNome());
+              navigator.navigate(context, SignUpName());
             },
             textStyle: TextStyle(
               color: Theme.of(context).primaryColor,

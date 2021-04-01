@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:genius/components/floating_button.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/cadastro_local.dart';
-import 'package:genius/utils/navigator_util.dart';
 
-// TODO: melhorar código
-class CadastroAge extends StatefulWidget {
-  final User p;
+import '../../components/floating_button.dart';
+import '../../models/user.dart';
+import '../../screens/signup/signup_local.dart';
+import '../../utils/navigator_util.dart';
 
-  CadastroAge(this.p);
+class SignUpAge extends StatefulWidget {
+  final User person;
+
+  SignUpAge(this.person);
 
   @override
-  _CadastroAgeState createState() => _CadastroAgeState();
+  _SignUpAgeState createState() => _SignUpAgeState();
 }
 
-class _CadastroAgeState extends State<CadastroAge> {
+class _SignUpAgeState extends State<SignUpAge> {
   int age = 0;
   var ages = [for(var i = 10; i <= 50; i++) i];
   final NavigatorUtil navigator = NavigatorUtil();
@@ -73,7 +73,7 @@ class _CadastroAgeState extends State<CadastroAge> {
   }
 
   void nextScreen(BuildContext context) {
-    widget.p.setAge((age + 10).toString());
-    navigator.navigate(context, CadastroLocal(widget.p));
+    widget.person.setAge((age + 10).toString());
+    navigator.navigate(context, SignUpLocal(widget.person));
   }
 }

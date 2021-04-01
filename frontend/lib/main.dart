@@ -1,14 +1,11 @@
 import 'dart:async';
-
-import 'package:genius/screens/bem_vindo.dart';
-import 'package:genius/screens/main/tela_principal.dart';
-import 'package:genius/utils/local_store.dart';
 import 'package:flutter/material.dart';
-import 'package:genius/http/webclients/login_webclient.dart';
 
-// TODO: arrumar bug de quando aparece snackbar na senha e documentar (login ou esse método???)
-// TODO: arrumar BD bugado
-// TODO: documentar authcontroller e routes
+import 'screens/welcome.dart';
+import 'screens/main/main_screen.dart';
+import 'utils/local_store.dart';
+import 'http/webclients/login_webclient.dart';
+
 void main() {
   runApp(Genius());
 }
@@ -40,16 +37,15 @@ class Genius extends StatelessWidget {
           selectionHandleColor: const Color(0xffab84e5),
         ),
       ),
-      // token -> verificar se tá logado e TelaPrincipal
-      // sem token -> mandar para a BemVindo
+
       home: FutureBuilder<String>(
-        future: verificarToken(),
+        future: verifyToken(),
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == 'none') {
-              return BemVindo();
+              return Welcome();
             } else {
-              return TelaPrincipal();
+              return MainScreen();
             }
           }
           return Container();
@@ -58,24 +54,22 @@ class Genius extends StatelessWidget {
     );
   }
 
-  Future<String> verificarToken() async {
-    var token = await localStore.getFromStorage();
+  Future<String> verifyToken() async {
+    var token = await localStore.getToken();
     var _webClient = LoginWebClient();
 
-    debugPrint(token);
     if (token == 'none') {
       return token;
     } else {
-      var isValid = await _webClient.check(token).catchError((e) {
-        // deu timeout então envalida o token
+      var isValid = await _webClient.check(token).catchError((error) {
         return false;
-      }, test: (e) => e is TimeoutException);
+      }, test: (error) => error is TimeoutException);
 
       if (isValid) {
         return token;
       } else {
-        localStore.removeFromStorage();
-        var token = await localStore.getFromStorage();
+        localStore.removeToken();
+        var token = await localStore.getToken();
         return token;
       }
     }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:genius/screens/pergunta_usuario.dart';
 
-class BemVindo extends StatelessWidget {
+import '../screens/ask_user.dart';
+
+class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return PerguntaUsuario();
+          return AskUser();
         }));
       },
       child: Scaffold(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:genius/components/search_bar.dart';
-import 'package:genius/components/tag_bar.dart';
 
-class Pesquisa extends StatelessWidget {
+import '../../components/search_bar.dart';
+import '../../components/tag_bar.dart';
+
+class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
