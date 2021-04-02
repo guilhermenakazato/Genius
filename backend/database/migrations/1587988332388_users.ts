@@ -12,8 +12,8 @@ export default class UsersSchema extends BaseSchema {
       table.string("type", 30).notNullable()
       table.string("age", 60).notNullable()
       table.string("local", 200).notNullable()      
-      table.string("formacao", 200).notNullable()
-      table.string("instituicao", 200).notNullable()
+      table.string("formation", 200).notNullable()
+      table.string("institution", 200).notNullable()
       table.timestamps(true)
     })
   }

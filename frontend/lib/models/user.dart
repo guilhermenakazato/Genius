@@ -53,7 +53,7 @@ class User {
         age = json['age'],
         local = json['local'],
         institution = json['institution'],
-        formation = json['formacao'];
+        formation = json['formation'];
 
   Map<String, dynamic> toJson() => {
         'username': username,
