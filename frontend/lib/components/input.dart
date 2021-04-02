@@ -27,7 +27,7 @@ class InputState extends State<Input> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      width: _selected ? 370 : 250,
+      width: _determineSize(),
       duration: Duration(milliseconds: 250),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16.0, 16, 16, 4),
@@ -77,5 +77,14 @@ class InputState extends State<Input> {
         ),
       ),
     );
+  }
+
+  // 370, 250
+  double _determineSize() {
+    if (_selected) {
+      return 370;
+    } else {
+      return 250;
+    }
   }
 }

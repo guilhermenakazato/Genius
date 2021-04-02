@@ -46,10 +46,11 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                     onTap: () {
                       if (_index + 1 == project) {
                         navigator.navigate(
-                            context,
-                            ProjectInfo(
-                              number: project,
-                            ));
+                          context,
+                          ProjectInfo(
+                            number: project,
+                          ),
+                        );
                       }
                     },
                     borderRadius: BorderRadius.circular(16.0),
@@ -78,15 +79,15 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                                 fontSize: 15,
                               )),
                         ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 130, left: 220),
-                        child: IconButton(
-                              icon: const Icon(Icons.volunteer_activism),
-                              onPressed: () {
-                                setState(() {});
-                              },
-                            ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 130, left: 220),
+                          child: IconButton(
+                            icon: const Icon(Icons.volunteer_activism),
+                            onPressed: () {
+                              setState(() {});
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),

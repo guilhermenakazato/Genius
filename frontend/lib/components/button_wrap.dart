@@ -33,9 +33,9 @@ class ButtonWrap extends StatelessWidget {
           width: width,
           text: textYes,
           onClick: () {
-            addYesFunction == null
-                ? debugPrint('Sem função')
-                : addYesFunction();
+            if (addYesFunction != null) {
+              addYesFunction();
+            }
             navigator.navigate(context, yesScreen);
           },
         ),
@@ -43,7 +43,9 @@ class ButtonWrap extends StatelessWidget {
           width: width,
           text: textNo,
           onClick: () {
-            addNoFunction == null ? debugPrint('Sem função') : addNoFunction();
+            if (addNoFunction != null) {
+              addNoFunction();
+            }
             navigator.navigate(context, noScreen);
           },
         ),
