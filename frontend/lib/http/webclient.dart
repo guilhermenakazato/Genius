@@ -8,5 +8,4 @@ final Client client = HttpClientWithInterceptor.build(
   requestTimeout: Duration(seconds: 10),
 );
 
-// No lugar de 192.168.1.13, vai o IPv4 da máquina
 final String baseUrl = 'https://genius-server.herokuapp.com';

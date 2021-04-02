@@ -10,10 +10,10 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> with TickerProviderStateMixin {
-  final TCardController _controller = TCardController();
-  var projects = [for (int i = 1; i < 20; i++) i];
+  final _controller = TCardController();
+  final _projects = [for (int i = 1; i < 20; i++) i];
   int _index = 0;
-  final NavigatorUtil navigator = NavigatorUtil();
+  final navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
           },
           size: Size(350, 550),
           cards: [
-            for (var project in projects)
+            for (var project in _projects)
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),

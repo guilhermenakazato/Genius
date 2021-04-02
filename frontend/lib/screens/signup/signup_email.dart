@@ -18,15 +18,15 @@ class SignUpEmail extends StatefulWidget {
 }
 
 class _SignUpEmailState extends State<SignUpEmail> {
-  final NavigatorUtil navigator = NavigatorUtil();
-  final TextEditingController _emailController = TextEditingController();
+  final navigator = NavigatorUtil();
+  final _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          verifyInput(context);
+          _verifyInput(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -56,21 +56,21 @@ class _SignUpEmailState extends State<SignUpEmail> {
     );
   }
 
-  void verifyInput(BuildContext context) {
-    final email = _emailController.text.trimLeft();
+  void _verifyInput(BuildContext context) {
+    final _email = _emailController.text.trimLeft();
 
-    if (email.isEmpty) {
-      showSnackBar('Preencha o campo email!', context);
-    } else if (!EmailValidator.validate(email)) {
-      showSnackBar('Insira um e-mail válido!', context);
+    if (_email.isEmpty) {
+      _showSnackBar('Preencha o campo email!', context);
+    } else if (!EmailValidator.validate(_email)) {
+      _showSnackBar('Insira um e-mail válido!', context);
     } else {
-      widget.person.setEmail(email);
+      widget.person.setEmail(_email);
       navigator.navigate(context, SignUpPassword(widget.person));
     }
   }
 }
 
-void showSnackBar(String text, BuildContext context) {
+void _showSnackBar(String text, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(text),
   ));

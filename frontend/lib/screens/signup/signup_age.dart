@@ -16,16 +16,16 @@ class SignUpAge extends StatefulWidget {
 }
 
 class _SignUpAgeState extends State<SignUpAge> {
-  int age = 0;
-  var ages = [for(var i = 10; i <= 50; i++) i];
-  final NavigatorUtil navigator = NavigatorUtil();
+  int _age = 0;
+  final _ages = [for(var i = 10; i <= 50; i++) i];
+  final navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          nextScreen(context);
+          _nextScreen(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -49,10 +49,10 @@ class _SignUpAgeState extends State<SignUpAge> {
                 itemExtent: 50,
                 backgroundColor: Colors.transparent,
                 onSelectedItemChanged: (int value) {
-                  age = value;
+                  _age = value;
                 },
                 children: <Widget>[
-                  for(var number in ages)
+                  for(var number in _ages)
                   Center(
                     child: Text(
                       number.toString(),
@@ -72,8 +72,8 @@ class _SignUpAgeState extends State<SignUpAge> {
     );
   }
 
-  void nextScreen(BuildContext context) {
-    widget.person.setAge((age + 10).toString());
+  void _nextScreen(BuildContext context) {
+    widget.person.setAge((_age + 10).toString());
     navigator.navigate(context, SignUpLocal(widget.person));
   }
 }

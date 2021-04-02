@@ -11,7 +11,7 @@ void main() {
 }
 
 class Genius extends StatelessWidget {
-  final LocalStore localStore = LocalStore();
+  final localStore = LocalStore();
 
   @override
   Widget build(BuildContext context) {
@@ -55,13 +55,13 @@ class Genius extends StatelessWidget {
   }
 
   Future<String> verifyToken() async {
-    var token = await localStore.getToken();
-    var _webClient = LoginWebClient();
+    final token = await localStore.getToken();
+    final _webClient = LoginWebClient();
 
     if (token == 'none') {
       return token;
     } else {
-      var isValid = await _webClient.check(token).catchError((error) {
+      final isValid = await _webClient.check(token).catchError((error) {
         return false;
       }, test: (error) => error is TimeoutException);
 
@@ -69,7 +69,7 @@ class Genius extends StatelessWidget {
         return token;
       } else {
         localStore.removeToken();
-        var token = await localStore.getToken();
+        final token = await localStore.getToken();
         return token;
       }
     }

@@ -13,16 +13,16 @@ class SignUpName extends StatefulWidget {
 }
 
 class _SignUpNameState extends State<SignUpName> {
-  final TextEditingController _nomeController = TextEditingController();
-  final NavigatorUtil navigator = NavigatorUtil();
-  final User person = User();
+  final _nomeController = TextEditingController();
+  final _navigator = NavigatorUtil();
+  final person = User();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          verifyInput(context);
+          _verifyInput(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -61,18 +61,18 @@ class _SignUpNameState extends State<SignUpName> {
     );
   }
 
-  void verifyInput(BuildContext context) {
-    final name = _nomeController.text.trimLeft();
+  void _verifyInput(BuildContext context) {
+    final _name = _nomeController.text.trimLeft();
 
-    if (name.isEmpty) {
-      showSnackBar('Preencha o campo nome!', context);
+    if (_name.isEmpty) {
+      _showSnackBar('Preencha o campo nome!', context);
     } else {
-      person.setUsername(name.trimRight());
-      navigator.navigate(context, SignUpEmail(person));
+      person.setUsername(_name.trimRight());
+      _navigator.navigate(context, SignUpEmail(person));
     }
   }
 
-  void showSnackBar(String text, BuildContext context) {
+  void _showSnackBar(String text, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),
     ));

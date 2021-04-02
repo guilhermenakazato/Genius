@@ -12,8 +12,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  List tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
-  List pages = ['Sobre mim', 'Meus projetos', 'Conquistas'];
+  final _tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
+  final _pages = ['Sobre mim', 'Meus projetos', 'Conquistas'];
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +168,7 @@ class _ProfileState extends State<Profile> {
           height: 44,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: tags.length,
+            itemCount: _tags.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.only(right: 5.0, left: 5),
@@ -191,7 +191,7 @@ class _ProfileState extends State<Profile> {
                         left: 20,
                       ),
                       child: Text(
-                        tags[index],
+                        _tags[index],
                         style: TextStyle(
                           color: Colors.white,
                         ),
@@ -228,7 +228,7 @@ class _ProfileState extends State<Profile> {
                   height: 40,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: pages.length,
+                    itemCount: _pages.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 13.0, top: 3, left: 13),
@@ -239,7 +239,7 @@ class _ProfileState extends State<Profile> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 10),
                                     child: Text(
-                                      pages[index],
+                                      _pages[index],
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 19,
@@ -259,7 +259,7 @@ class _ProfileState extends State<Profile> {
                                 padding:
                                     const EdgeInsets.only(top: 10),
                                 child: Text(
-                                  pages[index],
+                                  _pages[index],
                                   style: TextStyle(
                                     color: Colors.grey.withOpacity(0.9),
                                     fontSize: 19,

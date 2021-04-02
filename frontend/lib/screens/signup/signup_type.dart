@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import '../../components/button_wrap.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_formation.dart';
-import '../../utils/navigator_util.dart';
 
 class SignUpType extends StatelessWidget {
   final User person;
-  final NavigatorUtil navigator = NavigatorUtil();
 
   SignUpType(this.person);
 
