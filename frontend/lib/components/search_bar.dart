@@ -12,7 +12,7 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 400),
-      width: _folded ? 56 : 324,
+      width: _determineSize(),
       height: 56,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
@@ -24,18 +24,7 @@ class _SearchBarState extends State<SearchBar> {
           Expanded(
             child: Container(
               padding: EdgeInsets.only(left: 16),
-              child: !_folded
-                  ? TextField(
-                      textInputAction: TextInputAction.search,
-                      decoration: InputDecoration(
-                        hintText: 'Pesquisar',
-                        hintStyle: TextStyle(
-                          color: Colors.black,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                    )
-                  : null,
+              child: _returnTextFieldIfNotFolded(),
             ),
           ),
           AnimatedContainer(
@@ -48,9 +37,9 @@ class _SearchBarState extends State<SearchBar> {
               type: MaterialType.transparency,
               child: InkWell(
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(_folded ? 32 : 0),
+                  topLeft: Radius.circular(_determineBorderRadius()),
                   topRight: Radius.circular(32),
-                  bottomLeft: Radius.circular(_folded ? 32 : 0),
+                  bottomLeft: Radius.circular(_determineBorderRadius()),
                   bottomRight: Radius.circular(32),
                 ),
                 onTap: () {
@@ -61,7 +50,7 @@ class _SearchBarState extends State<SearchBar> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Icon(
-                    _folded ? Icons.search : Icons.close,
+                    _determineIcon(),
                     color: Colors.black,
                   ),
                 ),
@@ -71,5 +60,46 @@ class _SearchBarState extends State<SearchBar> {
         ],
       ),
     );
+  }
+
+  double _determineSize() {
+    if (_folded) {
+      return 56;
+    } else {
+      return 324;
+    }
+  }
+
+  double _determineBorderRadius() {
+    if (_folded) {
+      return 32;
+    } else {
+      return 0;
+    }
+  }
+
+  IconData _determineIcon() {
+    if (_folded) {
+      return Icons.search;
+    } else {
+      return Icons.close;
+    }
+  }
+
+  Widget _returnTextFieldIfNotFolded() {
+    if (!_folded) {
+      return TextField(
+        textInputAction: TextInputAction.search,
+        decoration: InputDecoration(
+          hintText: 'Pesquisar',
+          hintStyle: TextStyle(
+            color: Colors.black,
+          ),
+          border: InputBorder.none,
+        ),
+      );
+    } else {
+      return null;
+    }
   }
 }

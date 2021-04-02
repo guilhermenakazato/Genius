@@ -5,7 +5,7 @@ import '../../screens/signup/signup_name.dart';
 import '../../utils/navigator_util.dart';
 
 class SignUpIntro extends StatelessWidget {
-  final NavigatorUtil _navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {

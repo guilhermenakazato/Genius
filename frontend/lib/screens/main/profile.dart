@@ -231,41 +231,12 @@ class _ProfileState extends State<Profile> {
                     itemCount: _pages.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.only(right: 13.0, top: 3, left: 13),
-                        child: index == 1
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      _pages[index],
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 19,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5),
-                                    child: CircleAvatar(
-                                      radius: 2,
-                                      backgroundColor: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              )
-                            : Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 10),
-                                child: Text(
-                                  _pages[index],
-                                  style: TextStyle(
-                                    color: Colors.grey.withOpacity(0.9),
-                                    fontSize: 19,
-                                  ),
-                                ),
-                              ),
+                        padding: const EdgeInsets.only(
+                          right: 13.0,
+                          top: 3,
+                          left: 13,
+                        ),
+                        child: _determineActiveListViewItem(index),
                       );
                     },
                   ),
@@ -276,5 +247,43 @@ class _ProfileState extends State<Profile> {
         )
       ],
     );
+  }
+
+  Widget _determineActiveListViewItem(int index) {
+    if (index == 1) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Text(
+              _pages[index],
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 19,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: CircleAvatar(
+              radius: 2,
+              backgroundColor: Colors.white,
+            ),
+          )
+        ],
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: Text(
+          _pages[index],
+          style: TextStyle(
+            color: Colors.grey.withOpacity(0.9),
+            fontSize: 19,
+          ),
+        ),
+      );
+    }
   }
 }

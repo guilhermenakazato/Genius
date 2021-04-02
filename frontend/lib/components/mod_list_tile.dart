@@ -7,7 +7,11 @@ class ModListTile extends StatelessWidget {
   final String type;
 
   const ModListTile(
-      {Key key, @required this.text, @required this.icon, this.function, this.type})
+      {Key key,
+      @required this.text,
+      @required this.icon,
+      this.function,
+      this.type})
       : super(key: key);
 
   @override
@@ -16,17 +20,19 @@ class ModListTile extends StatelessWidget {
       color: const Color(0xff202020),
       child: InkWell(
         onTap: () {
-          function != null ? function() : debugPrint('tem nd aí moço');
+          if (function != null) {
+            function();
+          }
         },
         child: ListTile(
           leading: Icon(
             icon,
-            color: type == 'warning' ? Colors.red : Theme.of(context).primaryColor,
+            color: _changeColorIfTypeIsWarning(context),
           ),
           title: Text(
             text,
             style: TextStyle(
-              color: type == 'warning' ? Colors.red : Theme.of(context).primaryColor,
+              color: _changeColorIfTypeIsWarning(context),
               fontSize: 18,
               fontWeight: FontWeight.w900,
             ),
@@ -34,5 +40,13 @@ class ModListTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _changeColorIfTypeIsWarning(BuildContext context) {
+    if (type == 'warning') {
+      return Colors.red;
+    } else {
+      return Theme.of(context).primaryColor;
+    }
   }
 }
