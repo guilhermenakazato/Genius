@@ -5,13 +5,13 @@ import '../../screens/signup/signup_name.dart';
 import '../../utils/navigator_util.dart';
 
 class SignUpIntro extends StatelessWidget {
-  final NavigatorUtil navigator = NavigatorUtil();
+  final NavigatorUtil _navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigator.navigate(context, SignUpName());
+        _navigator.navigate(context, SignUpName());
       },
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -22,11 +22,11 @@ class SignUpIntro extends StatelessWidget {
             ],
             onFinished: () {
               Future.delayed(Duration(seconds: 1), () {
-                navigator.navigate(context, SignUpName());
+                _navigator.navigate(context, SignUpName());
               });
             },
             onTap: () {
-              navigator.navigate(context, SignUpName());
+              _navigator.navigate(context, SignUpName());
             },
             textStyle: TextStyle(
               color: Theme.of(context).primaryColor,

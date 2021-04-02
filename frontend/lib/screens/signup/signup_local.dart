@@ -49,7 +49,7 @@ class _SignUpLocalBody extends StatelessWidget {
 }
 
 class _SignUpLocalContent extends StatelessWidget {
-  final TextEditingController _localController = TextEditingController();
+  final _localController = TextEditingController();
   final User person;
 
   _SignUpLocalContent(this.person);
@@ -79,7 +79,7 @@ class _SignUpLocalContent extends StatelessWidget {
           ),
           GradientButton(
             onPressed: () {
-              verifyInput(context);
+              _verifyInput(context);
             },
             text: 'Finalizar cadastro'.toUpperCase(),
           ),
@@ -88,45 +88,45 @@ class _SignUpLocalContent extends StatelessWidget {
     );
   }
 
-  void verifyInput(BuildContext context) {
-    final local = _localController.text.trimLeft();
+  void _verifyInput(BuildContext context) {
+    final _local = _localController.text.trimLeft();
 
-    if (local.isEmpty) {
-      showSnackBar('Preencha o campo de local!', context);
+    if (_local.isEmpty) {
+      _showSnackBar('Preencha o campo de local!', context);
     } else {
-      person.setLocal(local.trimRight());
-      realizeSignUp(person, context);
+      person.setLocal(_local.trimRight());
+      _realizeSignUp(person, context);
     }
   }
 
-  void realizeSignUp(User person, BuildContext context) async {
+  void _realizeSignUp(User person, BuildContext context) async {
     final _webClient = SignUpWebClient();
-    final progress = ProgressHUD.of(context);
-    final navigator = NavigatorUtil();
-    var signed = false;
+    final _progress = ProgressHUD.of(context);
+    final _navigator = NavigatorUtil();
+    var _signed = false;
 
-    progress.show();
-    signed = await _webClient.signup(person).catchError((error) {
-      showSnackBar(error.message, context);
+    _progress.show();
+    _signed = await _webClient.signup(person).catchError((error) {
+      _showSnackBar(error.message, context);
     }, test: (error) => error is HttpException).catchError((error) {
-      showSnackBar(
+      _showSnackBar(
         'Erro: o tempo para fazer login excedeu o esperado.',
         context,
       );
     }, test: (error) => error is TimeoutException).catchError((error) {
-      showSnackBar(
+      _showSnackBar(
         'Erro desconhecido.',
         context,
       );
     }, test: (error) => error is Exception);
 
-    progress.dismiss();
-    if (signed) {
-      navigator.navigateAndReplace(context, Login());
+    _progress.dismiss();
+    if (_signed) {
+      _navigator.navigateAndReplace(context, Login());
     }
   }
 
-  void showSnackBar(String text, BuildContext context) {
+  void _showSnackBar(String text, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),
     ));

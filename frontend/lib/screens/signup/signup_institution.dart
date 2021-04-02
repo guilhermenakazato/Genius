@@ -9,8 +9,8 @@ import '../../utils/navigator_util.dart';
 
 class SignUpInstitution extends StatelessWidget {
   final User person;
-  final NavigatorUtil navigator = NavigatorUtil();
-  final TextEditingController _institutionController = TextEditingController();
+  final _navigator = NavigatorUtil();
+  final _institutionController = TextEditingController();
 
   SignUpInstitution(this.person);
 
@@ -19,7 +19,7 @@ class SignUpInstitution extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          verifyInput(context);
+          _verifyInput(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -47,18 +47,18 @@ class SignUpInstitution extends StatelessWidget {
     );
   }
 
-  void verifyInput(BuildContext context) {
-    final institution = _institutionController.text.trimLeft();
+  void _verifyInput(BuildContext context) {
+    final _institution = _institutionController.text.trimLeft();
 
-    if (institution.isEmpty) {
-      showSnackBar('Preencha o campo de instituição!', context);
+    if (_institution.isEmpty) {
+      _showSnackBar('Preencha o campo de instituição!', context);
     } else {
-      person.setInstitution(institution);
-      navigator.navigate(context, SignUpAge(person));
+      person.setInstitution(_institution);
+      _navigator.navigate(context, SignUpAge(person));
     }
   }
 
-  void showSnackBar(String text, BuildContext context) {
+  void _showSnackBar(String text, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(text),

@@ -9,9 +9,9 @@ import '../../utils/local_store.dart';
 import '../../utils/navigator_util.dart';
 
 class Config extends StatelessWidget {
-  final LocalStore localStore = LocalStore();
-  final NavigatorUtil navigator = NavigatorUtil();
-  final LoginWebClient _webClient = LoginWebClient();
+  final _localStore = LocalStore();
+  final _navigator = NavigatorUtil();
+  final _webClient = LoginWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +31,19 @@ class Config extends StatelessWidget {
           text: 'Editar perfil',
           icon: Icons.edit,
         ),
-        ModListTile(text: 'Excluir conta', icon: Icons.delete, type: 'warning',),
+        ModListTile(
+          text: 'Excluir conta',
+          icon: Icons.delete,
+          type: 'warning',
+        ),
         ModListTile(
           text: 'Sair',
           type: 'warning',
           icon: Icons.login,
           function: () async {
-            _webClient.logout(await localStore.getToken());
-            localStore.removeToken();
-            navigator.navigateAndRemove(context, Welcome());
+            _webClient.logout(await _localStore.getToken());
+            _localStore.removeToken();
+            _navigator.navigateAndRemove(context, Welcome());
           },
         ),
       ],

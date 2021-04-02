@@ -13,7 +13,7 @@ import '../../screens/main/about.dart';
 import '../../utils/local_store.dart';
 
 class MainScreen extends StatelessWidget {
-  final LocalStore localStore = LocalStore();
+  final LocalStore _localStore = LocalStore();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
       future: getData(),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
-          var user = User.fromJson(jsonDecode(snapshot.data));
+          final user = User.fromJson(jsonDecode(snapshot.data));
           return _MainScreenContent(
             user: user,
           );
@@ -36,9 +36,9 @@ class MainScreen extends StatelessWidget {
 
   Future<String> getData() async {
     final _webClient = LoginWebClient();
-    var token = await localStore.getToken();
-    var user = await _webClient.getUserData(token);
-    return user;
+    final _token = await _localStore.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
   }
 }
 
@@ -51,7 +51,7 @@ class _MainScreenContent extends StatefulWidget {
 }
 
 class _MainScreenContentState extends State<_MainScreenContent> {
-  int pageNumber = 2;
+  int _pageNumber = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -72,16 +72,16 @@ class _MainScreenContentState extends State<_MainScreenContent> {
         ],
         onTap: (index) {
           setState(() {
-            pageNumber = index;
+            _pageNumber = index;
           });
         },
       ),
-      body: _showPage(pageNumber),
+      body: _showPage(_pageNumber),
     );
   }
 
   Widget _showPage(int index) {
-    var _widgetList = <Widget>[
+    final _widgetList = <Widget>[
       About(),
       Profile(user: widget.user),
       Feed(),

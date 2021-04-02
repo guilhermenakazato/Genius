@@ -1,4 +1,3 @@
-
 class User {
   String username, email, password, type, age, local, institution, formation;
 

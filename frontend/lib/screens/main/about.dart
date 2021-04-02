@@ -50,9 +50,9 @@ class About extends StatelessWidget {
               ),
             ),
           ),
-          Team(name: 'Gabriela Prado'),
-          Team(name: 'Guilherme Nakazato'),
-          Team(name: 'Sidney Sousa'),
+          _Team(name: 'Gabriela Prado'),
+          _Team(name: 'Guilherme Nakazato'),
+          _Team(name: 'Sidney Sousa'),
           Padding(
             padding: const EdgeInsets.only(bottom: 32),
           ),
@@ -62,9 +62,9 @@ class About extends StatelessWidget {
   }
 }
 
-class Team extends StatelessWidget {
+class _Team extends StatelessWidget {
   final String name;
-  const Team({Key key, this.name}) : super(key: key);
+  const _Team({Key key, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

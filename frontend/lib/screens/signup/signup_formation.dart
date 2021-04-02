@@ -7,7 +7,7 @@ import '../../utils/navigator_util.dart';
 
 class SignUpFormation extends StatelessWidget {
   final User person;
-  final NavigatorUtil navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
 
   SignUpFormation(this.person);
 
@@ -17,7 +17,7 @@ class SignUpFormation extends StatelessWidget {
       backgroundColor: Colors.black,
       floatingActionButton: FloatingButton(
         onPressed: () {
-          nextScreen(context);
+          _nextScreen(context);
         },
       ),
       body: Align(
@@ -39,8 +39,8 @@ class SignUpFormation extends StatelessWidget {
     );
   }
 
-  void nextScreen(BuildContext context) {
+  void _nextScreen(BuildContext context) {
     person.setFormation('Segundo grau incompleto');
-    navigator.navigate(context, SignUpInstitution(person));
+    _navigator.navigate(context, SignUpInstitution(person));
   }
 }

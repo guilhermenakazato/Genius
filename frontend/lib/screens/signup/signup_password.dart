@@ -18,8 +18,8 @@ class SignUpPassword extends StatefulWidget {
 }
 
 class _SignUpPasswordState extends State<SignUpPassword> {
-  final TextEditingController _passwordController = TextEditingController();
-  final NavigatorUtil navigator = NavigatorUtil();
+  final _passwordController = TextEditingController();
+  final _navigator = NavigatorUtil();
   bool _obscure = true;
 
   @override
@@ -27,7 +27,7 @@ class _SignUpPasswordState extends State<SignUpPassword> {
     return Scaffold(
       floatingActionButton: FloatingButton(
         onPressed: () {
-          verifyInput(context);
+          _verifyInput(context);
         },
       ),
       backgroundColor: Colors.black,
@@ -78,22 +78,22 @@ class _SignUpPasswordState extends State<SignUpPassword> {
     );
   }
 
-  void verifyInput(BuildContext context) {
-    final password = _passwordController.text.trimLeft();
+  void _verifyInput(BuildContext context) {
+    final _password = _passwordController.text.trimLeft();
 
-    if (password.isEmpty) {
-      showSnackBar('Preencha o campo de senha!', context);
-    } else if (password.length <= 7) {
-      showSnackBar('Insira uma senha de pelo menos 8 caracteres!', context);
-    } else if (password.contains(' ')) {
-      showSnackBar('A sua senha não pode conter um espaço em branco!', context);
+    if (_password.isEmpty) {
+      _showSnackBar('Preencha o campo de senha!', context);
+    } else if (_password.length <= 7) {
+      _showSnackBar('Insira uma senha de pelo menos 8 caracteres!', context);
+    } else if (_password.contains(' ')) {
+      _showSnackBar('A sua senha não pode conter um espaço em branco!', context);
     } else {
-      widget.person.setPassword(password);
-      navigator.navigate(context, SignUpType(widget.person));
+      widget.person.setPassword(_password);
+      _navigator.navigate(context, SignUpType(widget.person));
     }
   }
 
-  void showSnackBar(String text, BuildContext context) {
+  void _showSnackBar(String text, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),
     ));
