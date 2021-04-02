@@ -9,8 +9,8 @@ export default {
             type: usuario.type,
             age: usuario.age,
             local: usuario.local,
-            instituicao: usuario.instituicao,
-            formacao: usuario.formacao
+            institution: usuario.institution,
+            formation: usuario.formation
         };
     }
 }

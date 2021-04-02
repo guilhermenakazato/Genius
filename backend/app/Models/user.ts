@@ -29,10 +29,10 @@ export default class user extends BaseModel {
   public local: string
 
   @column()
-  public instituicao: string
+  public institution: string
 
   @column()
-  public formacao: string
+  public formation: string
 
   @column()
   public rememberMeToken?: string
