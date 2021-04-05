@@ -187,6 +187,25 @@ class ApplicationTypography {
   );
 
   static final numberFollowCaptionProfile = TextStyle(
-    color: ApplicationColors.numberFollowCaptionProfileColor
+    color: ApplicationColors.numberFollowCaptionProfileColor,
+  );
+
+  static final profileTags = TextStyle(
+    color: ApplicationColors.profileTagsTextColor,
+  );
+
+  static final profileInfoTitle = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 33,
+  );
+
+  static final selectedProfileInfoPageTitle = TextStyle(
+    color: ApplicationColors.selectedProfileInfoPageTitleColor,
+    fontSize: 19,
+  );
+
+  static final notSelectedProfileInfoPageTitle = TextStyle(
+    color: Colors.grey.withOpacity(0.9),
+    fontSize: 19,
   );
 }

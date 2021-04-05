@@ -12,8 +12,8 @@ class ApplicationColors {
   static const gradientButtonTextColor = Color(0xffffffff);
 
   static const gradientButtonColors = <Color>[
-    Color(0xffab84e5),
     Color(0xFF3D3B8E),
+    Color(0xff4059F1),
   ];
 
   static const configTitle = Color(0xffffffff);
@@ -25,4 +25,6 @@ class ApplicationColors {
   static const profileCityColor = Color(0xffffffff);
   static const numberFollowProfileColor = Color(0xffffffff);
   static const numberFollowCaptionProfileColor = Color(0xffffffff);
+  static const profileTagsTextColor = Color(0xffffffff);
+  static const selectedProfileInfoPageTitleColor = Color(0xffffffff);
 }

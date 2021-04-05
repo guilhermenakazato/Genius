@@ -79,6 +79,8 @@ class _SignUpLocalContent extends StatelessWidget {
               _verifyInput(context);
             },
             text: 'Finalizar cadastro'.toUpperCase(),
+            width: 250,
+            height: 50,
           ),
         ],
       ),

@@ -31,7 +31,7 @@ class _SignUpPasswordState extends State<SignUpPassword> {
           _verifyInput(context);
         },
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(
         child: Stack(
           alignment: FractionalOffset.center,
