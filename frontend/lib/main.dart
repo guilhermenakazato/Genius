@@ -10,7 +10,6 @@ class Genius extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Genius',
       theme: ApplicationThemes.defaultTheme,
       home: DetermineFirstScreen(),
     );

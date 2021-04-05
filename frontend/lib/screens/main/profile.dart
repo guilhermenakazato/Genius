@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/application_colors.dart';
+import '../../components/gradient_button.dart';
 import '../../models/user.dart';
 import '../../utils/application_typography.dart';
 
-// TODO: terminar de arrumar a tipografia dessa classe
 class Profile extends StatefulWidget {
   final User user;
 
@@ -41,7 +42,7 @@ class _ProfileState extends State<Profile> {
                 children: <Widget>[
                   Text(
                     widget.user.username,
-                    style: ApplicationTypography.profileName
+                    style: ApplicationTypography.profileName,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -54,10 +55,8 @@ class _ProfileState extends State<Profile> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            widget.user.local,
-                            style: ApplicationTypography.profileCity
-                          ),
+                          child: Text(widget.user.local,
+                              style: ApplicationTypography.profileCity),
                         ),
                       ],
                     ),
@@ -82,7 +81,7 @@ class _ProfileState extends State<Profile> {
                 children: <Widget>[
                   Text(
                     '17K',
-                    style: ApplicationTypography.numberFollowProfile
+                    style: ApplicationTypography.numberFollowProfile,
                   ),
                   Text(
                     'followers',
@@ -100,7 +99,7 @@ class _ProfileState extends State<Profile> {
                 children: <Widget>[
                   Text(
                     '387',
-                    style: ApplicationTypography.numberFollowProfile
+                    style: ApplicationTypography.numberFollowProfile,
                   ),
                   Text(
                     'following',
@@ -113,40 +112,12 @@ class _ProfileState extends State<Profile> {
                 width: 0.2,
                 height: 22,
               ),
-              Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(33),
-                  ),
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF3D3B8E),
-                      Color(0xff4059F1),
-                    ],
-                    begin: Alignment.bottomRight,
-                    end: Alignment.centerLeft,
-                  ),
-                ),
-                child: InkWell(
-                  onTap: () {},
-                  borderRadius: BorderRadius.all(Radius.circular(33)),
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      left: 18,
-                      right: 18,
-                      top: 8,
-                      bottom: 8,
-                    ),
-                    child: Text(
-                      'follow',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              )
+              GradientButton(
+                onPressed: () {},
+                text: 'Editar',
+                width: 72,
+                height: 32,
+              ),
             ],
           ),
         ),
@@ -165,7 +136,7 @@ class _ProfileState extends State<Profile> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       border: Border.all(
-                        color: Color(0xFF3D3B8E),
+                        color: ApplicationColors.cardColor,
                         width: 3,
                       ),
                     ),
@@ -176,12 +147,8 @@ class _ProfileState extends State<Profile> {
                         right: 20,
                         left: 20,
                       ),
-                      child: Text(
-                        _tags[index],
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: Text(_tags[index],
+                          style: ApplicationTypography.profileTags),
                     ),
                   ),
                 ),
@@ -194,7 +161,7 @@ class _ProfileState extends State<Profile> {
             width: double.infinity,
             margin: EdgeInsets.only(top: 15),
             decoration: BoxDecoration(
-              color: Color(0xFF3D3B8E),
+              color: ApplicationColors.cardColor,
               borderRadius: BorderRadius.vertical(
                 top: Radius.circular(34),
               ),
@@ -205,10 +172,8 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 33, right: 25, left: 25),
-                  child: Text(
-                    'MY MIND',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 33),
-                  ),
+                  child: Text('MY MIND',
+                      style: ApplicationTypography.profileInfoTitle),
                 ),
                 Container(
                   height: 40,
@@ -244,10 +209,7 @@ class _ProfileState extends State<Profile> {
             padding: const EdgeInsets.only(top: 10),
             child: Text(
               _pages[index],
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 19,
-              ),
+              style: ApplicationTypography.selectedProfileInfoPageTitle,
             ),
           ),
           Padding(
@@ -264,10 +226,7 @@ class _ProfileState extends State<Profile> {
         padding: const EdgeInsets.only(top: 10),
         child: Text(
           _pages[index],
-          style: TextStyle(
-            color: Colors.grey.withOpacity(0.9),
-            fontSize: 19,
-          ),
+          style: ApplicationTypography.notSelectedProfileInfoPageTitle,
         ),
       );
     }
