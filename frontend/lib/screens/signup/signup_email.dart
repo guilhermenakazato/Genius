@@ -7,6 +7,7 @@ import '../../components/floating_button.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_password.dart';
 import '../../utils/navigator_util.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpEmail extends StatefulWidget {
   final User person;
@@ -29,7 +30,7 @@ class _SignUpEmailState extends State<SignUpEmail> {
           _verifyInput(context);
         },
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,11 +40,7 @@ class _SignUpEmailState extends State<SignUpEmail> {
                   widget.person.username +
                   '!\nQual o seu email?',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w900,
-                fontSize: 20,
-              ),
+              style: ApplicationTypography.primarySignUpText,
             ),
             BorderlessInput(
               hint: 'Email',

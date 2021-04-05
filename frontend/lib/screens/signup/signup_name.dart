@@ -6,6 +6,7 @@ import '../../components/floating_button.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_email.dart';
 import '../../utils/navigator_util.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpName extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _SignUpNameState extends State<SignUpName> {
           _verifyInput(context);
         },
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(
         child: SingleChildScrollView(
           child: Column(
@@ -40,11 +41,7 @@ class _SignUpNameState extends State<SignUpName> {
                     child: Text(
                       'Qual é o seu nome?',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
+                      style: ApplicationTypography.primarySignUpText,
                     ),
                   ),
                 ),

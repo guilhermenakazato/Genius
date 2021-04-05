@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/application_colors.dart';
+
 class FloatingButton extends StatelessWidget {
   final Function onPressed;
 
@@ -8,7 +10,7 @@ class FloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: Colors.black,
+      backgroundColor: ApplicationColors.floatingButtonColor,
       shape: OutlineInputBorder(
         borderSide: BorderSide(
           color: Theme.of(context).primaryColor,

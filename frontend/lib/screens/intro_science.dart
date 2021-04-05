@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../screens/signup/signup_intro.dart';
 import '../utils/navigator_util.dart';
+import '../utils/application_typography.dart';
 
 class IntroScience extends StatelessWidget {
   final NavigatorUtil navigator = NavigatorUtil();
@@ -14,7 +15,7 @@ class IntroScience extends StatelessWidget {
         navigator.navigate(context, SignUpIntro());
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
           child: TypewriterAnimatedTextKit(
             text: [
@@ -23,13 +24,7 @@ class IntroScience extends StatelessWidget {
             onTap: () {
               navigator.navigate(context, SignUpIntro());
             },
-            textStyle: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              fontFamily: 'Gotham',
-              height: 1.2,
-            ),
+            textStyle: ApplicationTypography.introScienceText,
             textAlign: TextAlign.center,
             speed: Duration(milliseconds: 70),
             totalRepeatCount: 1,

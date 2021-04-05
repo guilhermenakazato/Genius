@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
+import '../../utils/application_typography.dart';
 
+// TODO: terminar de arrumar a tipografia dessa classe
 class Profile extends StatefulWidget {
   final User user;
 
@@ -39,11 +41,7 @@ class _ProfileState extends State<Profile> {
                 children: <Widget>[
                   Text(
                     widget.user.username,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28,
-                      color: Colors.white,
-                    ),
+                    style: ApplicationTypography.profileName
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -58,11 +56,7 @@ class _ProfileState extends State<Profile> {
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Text(
                             widget.user.local,
-                            style: TextStyle(
-                              color: Colors.white,
-                              wordSpacing: 2,
-                              letterSpacing: 4,
-                            ),
+                            style: ApplicationTypography.profileCity
                           ),
                         ),
                       ],
@@ -88,15 +82,11 @@ class _ProfileState extends State<Profile> {
                 children: <Widget>[
                   Text(
                     '17K',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                    style: ApplicationTypography.numberFollowProfile
                   ),
                   Text(
                     'followers',
-                    style: TextStyle(color: Colors.white),
+                    style: ApplicationTypography.numberFollowCaptionProfile,
                   ),
                 ],
               ),
@@ -110,15 +100,11 @@ class _ProfileState extends State<Profile> {
                 children: <Widget>[
                   Text(
                     '387',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                    style: ApplicationTypography.numberFollowProfile
                   ),
                   Text(
                     'following',
-                    style: TextStyle(color: Colors.white),
+                    style: ApplicationTypography.numberFollowCaptionProfile,
                   ),
                 ],
               ),

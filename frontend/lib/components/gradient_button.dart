@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../utils/application_colors.dart';
+import '../utils/application_typography.dart';
+
 class GradientButton extends StatelessWidget {
   final Function onPressed;
   final String text;
@@ -18,10 +21,7 @@ class GradientButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32.0),
         gradient: LinearGradient(
-          colors: <Color>[
-            const Color(0xffab84e5),
-            const Color(0xFF3D3B8E),
-          ],
+          colors: ApplicationColors.gradientButtonColors,
         ),
       ),
       child: Material(
@@ -33,11 +33,7 @@ class GradientButton extends StatelessWidget {
             child: Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-                fontSize: 16,
-              ),
+              style: ApplicationTypography.gradientButton,
             ),
           ),
         ),

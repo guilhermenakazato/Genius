@@ -4,12 +4,10 @@ import '../exceptions/http_exception.dart';
 import '../webclient.dart';
 import '../../models/auth.dart';
 import '../../models/token.dart';
-import '../../utils/local_store.dart';
 
 class LoginWebClient {
   Future<Token> login(Auth auth) async {
     final authJson = jsonEncode(auth.toJson());
-    final localStore = LocalStore();
 
     final response = await client.post(
       baseUrl + '/login',
@@ -19,7 +17,7 @@ class LoginWebClient {
 
     if (response.statusCode == 200) {
       var token = Token.fromJson(jsonDecode(response.body));
-      localStore.setToken(token.token);
+      token.setToken(token.token);
 
       return token;
     }
@@ -56,7 +54,7 @@ class LoginWebClient {
       return data;
     }
 
-    throw HttpException('errinho brabo');
+    throw HttpException('Erro desconhecido..');
   }
 
   void logout(String token) async {

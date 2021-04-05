@@ -6,6 +6,7 @@ import '../../components/floating_button.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_age.dart';
 import '../../utils/navigator_util.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpInstitution extends StatelessWidget {
   final User person;
@@ -22,7 +23,7 @@ class SignUpInstitution extends StatelessWidget {
           _verifyInput(context);
         },
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -30,11 +31,7 @@ class SignUpInstitution extends StatelessWidget {
             Text(
               'Qual o nome da instituição\nque você dá aula/estuda?',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w900,
-                fontSize: 22,
-              ),
+              style: ApplicationTypography.secondarySignUpText,
             ),
             BorderlessInput(
               hint: 'Nome da instituição',

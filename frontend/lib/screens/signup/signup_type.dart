@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../components/button_wrap.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_formation.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpType extends StatelessWidget {
   final User person;
@@ -12,7 +13,7 @@ class SignUpType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,11 +23,7 @@ class SignUpType extends StatelessWidget {
               child: Text(
                 'Você é um professor ou um estudante?',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20,
-                ),
+                style: ApplicationTypography.primarySignUpText,
               ),
             ),
             ButtonWrap(

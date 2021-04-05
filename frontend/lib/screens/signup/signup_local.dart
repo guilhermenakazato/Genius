@@ -11,6 +11,7 @@ import '../../http/webclients/signup_webclient.dart';
 import '../../models/user.dart';
 import '../../utils/navigator_util.dart';
 import '../login.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpLocal extends StatefulWidget {
   final User person;
@@ -25,7 +26,7 @@ class _SignUpLocalState extends State<SignUpLocal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _SignUpLocalBody(widget.person),
     );
   }
@@ -63,11 +64,7 @@ class _SignUpLocalContent extends StatelessWidget {
           Text(
             'E, por fim, aonde você mora?',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontWeight: FontWeight.w900,
-              fontSize: 20,
-            ),
+            style: ApplicationTypography.primarySignUpText,
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
