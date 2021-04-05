@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/application_typography.dart';
+
 class BorderlessButton extends StatelessWidget {
   final Function onPressed;
   final String text;
@@ -22,11 +24,7 @@ class BorderlessButton extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontWeight: FontWeight.w900,
-          fontSize: 16,
-        ),
+        style: ApplicationTypography.borderlessButton,
       ),
     );
   }

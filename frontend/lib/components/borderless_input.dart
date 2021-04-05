@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../utils/application_typography.dart';
+
 class BorderlessInput extends StatefulWidget {
   final String hint;
   final bool obscure;
@@ -34,18 +36,9 @@ class _BorderlessInputState extends State<BorderlessInput> {
         decoration: InputDecoration(
           hintText: widget.hint,
           border: InputBorder.none,
-          hintStyle: TextStyle(
-            fontSize: 20,
-            color: Color.fromARGB(200, 171, 132, 229),
-            fontWeight: FontWeight.w900,
-          ),
+          hintStyle: ApplicationTypography.borderlessInputHint
         ),
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
-          fontFamily: 'Gotham',
-          fontWeight: FontWeight.w700,
-        ),
+        style: ApplicationTypography.borderlessInput
       ),
     );
   }

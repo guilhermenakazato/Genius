@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:genius/utils/application_typography.dart';
+
+import '../utils/application_colors.dart';
 
 class ModListTile extends StatelessWidget {
   final String text;
@@ -6,18 +9,18 @@ class ModListTile extends StatelessWidget {
   final Function function;
   final String type;
 
-  const ModListTile(
-      {Key key,
-      @required this.text,
-      @required this.icon,
-      this.function,
-      this.type})
-      : super(key: key);
+  const ModListTile({
+    Key key,
+    @required this.text,
+    @required this.icon,
+    this.function,
+    this.type,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Ink(
-      color: const Color(0xff202020),
+      color: ApplicationColors.switchTileColor,
       child: InkWell(
         onTap: () {
           if (function != null) {
@@ -31,10 +34,8 @@ class ModListTile extends StatelessWidget {
           ),
           title: Text(
             text,
-            style: TextStyle(
-              color: _changeColorIfTypeIsWarning(context),
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
+            style: ApplicationTypography.listTileText(
+              _changeColorIfTypeIsWarning(context),
             ),
           ),
         ),
@@ -44,7 +45,7 @@ class ModListTile extends StatelessWidget {
 
   Color _changeColorIfTypeIsWarning(BuildContext context) {
     if (type == 'warning') {
-      return Colors.red;
+      return ApplicationColors.atentionColor;
     } else {
       return Theme.of(context).primaryColor;
     }

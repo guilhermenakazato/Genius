@@ -13,14 +13,14 @@ class Welcome extends StatelessWidget {
         }));
       },
       child: Scaffold(
-        backgroundColor: const Color(0xff000000),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Align(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
                Text(
                 'Bem\nVindo!',
-                style: ApplicationTypography.welcomeText,
+                style: ApplicationTypography.welcomeTitle,
                 textAlign: TextAlign.center,
               ),
               Container(

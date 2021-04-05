@@ -10,6 +10,7 @@ import '../http/exceptions/http_exception.dart';
 import '../http/webclients/login_webclient.dart';
 import '../models/auth.dart';
 import '../utils/navigator_util.dart';
+import '../utils/application_typography.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff000000),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: _LoginStateBody(),
     );
   }
@@ -59,11 +60,7 @@ class _LoginStateContent extends StatelessWidget {
                   width: double.infinity,
                   child: Text(
                     'Login',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 60,
-                      fontWeight: FontWeight.w900,
-                    ),
+                    style: ApplicationTypography.loginTitle,
                     textAlign: TextAlign.center,
                   ),
                 ),

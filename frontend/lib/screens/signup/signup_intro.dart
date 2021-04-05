@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../screens/signup/signup_name.dart';
 import '../../utils/navigator_util.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpIntro extends StatelessWidget {
   final _navigator = NavigatorUtil();
@@ -14,7 +15,7 @@ class SignUpIntro extends StatelessWidget {
         _navigator.navigate(context, SignUpName());
       },
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
           child: TypewriterAnimatedTextKit(
             text: [
@@ -28,13 +29,7 @@ class SignUpIntro extends StatelessWidget {
             onTap: () {
               _navigator.navigate(context, SignUpName());
             },
-            textStyle: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              height: 1.2,
-              fontFamily: 'Gotham'
-            ),
+            textStyle: ApplicationTypography.signUpIntro,
             textAlign: TextAlign.center,
             speed: Duration(milliseconds: 70),
             totalRepeatCount: 1,

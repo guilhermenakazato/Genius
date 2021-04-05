@@ -4,6 +4,7 @@ import '../../components/floating_button.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_institution.dart';
 import '../../utils/navigator_util.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpFormation extends StatelessWidget {
   final User person;
@@ -14,7 +15,7 @@ class SignUpFormation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       floatingActionButton: FloatingButton(
         onPressed: () {
           _nextScreen(context);
@@ -27,11 +28,7 @@ class SignUpFormation extends StatelessWidget {
             Text(
               'Qual a sua\nformação acadêmica?',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w900,
-                fontSize: 22,
-              ),
+              style: ApplicationTypography.secondarySignUpText,
             ),
           ],
         ),

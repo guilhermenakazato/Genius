@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/application_typography.dart';
+import '../utils/application_colors.dart';
+
 class SwitchTile extends StatefulWidget {
   final IconData icon;
   final String text;
@@ -21,7 +24,7 @@ class _SwitchTileState extends State<SwitchTile> {
   Widget build(BuildContext context) {
     return MergeSemantics(
       child: Ink(
-        color: const Color(0xff202020),
+        color: ApplicationColors.switchTileColor,
         child: ListTile(
           leading: Icon(
             widget.icon,
@@ -29,11 +32,7 @@ class _SwitchTileState extends State<SwitchTile> {
           ),
           title: Text(
             widget.text,
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w900,
-            ),
+            style: ApplicationTypography.switchTile
           ),
           trailing: CupertinoSwitch(
             value: _isSwitched,

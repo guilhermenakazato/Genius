@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+import '../utils/application_typography.dart';
 
 class Input extends StatefulWidget {
   final String hint;
@@ -47,10 +48,7 @@ class InputState extends State<Input> {
               decoration: InputDecoration(
                 hintText: widget.hint,
                 border: InputBorder.none,
-                hintStyle: TextStyle(
-                  color: Color.fromARGB(200, 171, 132, 229),
-                  fontWeight: FontWeight.w900,
-                ),
+                hintStyle: ApplicationTypography.inputHint,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Theme.of(context).primaryColor,
@@ -66,12 +64,7 @@ class InputState extends State<Input> {
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Gotham',
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
-              ),
+              style: ApplicationTypography.input
             ),
           ),
         ),
@@ -79,7 +72,6 @@ class InputState extends State<Input> {
     );
   }
 
-  // 370, 250
   double _determineSize() {
     if (_selected) {
       return 370;

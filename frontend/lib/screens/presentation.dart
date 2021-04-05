@@ -3,9 +3,10 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../screens/question_science.dart';
 import '../utils/navigator_util.dart';
+import '../utils/application_typography.dart';
 
 class Presentation extends StatelessWidget {
-  final NavigatorUtil navigator = NavigatorUtil();
+  final navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class Presentation extends StatelessWidget {
         navigator.navigate(context, QuestionScience());
       },
       child: Scaffold(
-        backgroundColor: const Color(0xff000000),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Stack(
           children: [
             Positioned(
@@ -33,13 +34,7 @@ class Presentation extends StatelessWidget {
                     text: [
                       'Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas.'
                     ],
-                    textStyle: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: MediaQuery.of(context).size.height * 0.05,
-                      height: 2,
-                      fontFamily: 'Gotham',
-                      fontWeight: FontWeight.w900,
-                    ),
+                    textStyle: ApplicationTypography.presentationText(context),
                     totalRepeatCount: 1,
                     repeatForever: false,
                   ),

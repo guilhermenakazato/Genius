@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ListTileTitle extends StatelessWidget {
+import '../utils/application_typography.dart';
+
+class ConfigTitle extends StatelessWidget {
   final String text;
 
-  const ListTileTitle({Key key, this.text}) : super(key: key);
+  const ConfigTitle({Key key, this.text}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +15,7 @@ class ListTileTitle extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: Text(
           'Configurações da conta',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w900,
-          ),
+          style: ApplicationTypography.configTitle,
         ),
       ),
     );

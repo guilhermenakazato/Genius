@@ -10,10 +10,10 @@ import '../../screens/main/feed.dart';
 import '../../screens/main/profile.dart';
 import '../../screens/main/search.dart';
 import '../../screens/main/about.dart';
-import '../../utils/local_store.dart';
+import '../../models/token.dart';
 
 class MainScreen extends StatelessWidget {
-  final LocalStore _localStore = LocalStore();
+  final _tokenObject = Token();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class MainScreen extends StatelessWidget {
 
   Future<String> getData() async {
     final _webClient = LoginWebClient();
-    final _token = await _localStore.getToken();
+    final _token = await _tokenObject.getToken();
     final _user = await _webClient.getUserData(_token);
     return _user;
   }
@@ -57,7 +57,7 @@ class _MainScreenContentState extends State<_MainScreenContent> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       bottomNavigationBar: CurvedNavigationBar(
         height: 48,
         index: 2,

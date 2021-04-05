@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../utils/application_colors.dart';
+import '../utils/application_typography.dart';
+
 class SearchBar extends StatefulWidget {
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -16,7 +19,7 @@ class _SearchBarState extends State<SearchBar> {
       height: 56,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
-        color: Colors.white,
+        color: ApplicationColors.searchFieldColor,
         boxShadow: kElevationToShadow[6],
       ),
       child: Row(
@@ -51,7 +54,7 @@ class _SearchBarState extends State<SearchBar> {
                   padding: const EdgeInsets.all(16.0),
                   child: Icon(
                     _determineIcon(),
-                    color: Colors.black,
+                    color: ApplicationColors.searchFieldIconColor,
                   ),
                 ),
               ),
@@ -92,9 +95,7 @@ class _SearchBarState extends State<SearchBar> {
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
           hintText: 'Pesquisar',
-          hintStyle: TextStyle(
-            color: Colors.black,
-          ),
+          hintStyle: ApplicationTypography.searchFieldHint,
           border: InputBorder.none,
         ),
       );

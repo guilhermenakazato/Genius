@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import '../components/button_wrap.dart';
 import '../screens/intro_science.dart';
 import '../screens/signup/signup_intro.dart';
+import '../utils/application_typography.dart';
 
 class QuestionScience extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff000000),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: const EdgeInsets.only(top: 90.0),
         child: Stack(
@@ -23,8 +24,9 @@ class QuestionScience extends StatelessWidget {
                     height: 200.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image:
-                            const AssetImage('assets/iniciacao-cientifica.png'),
+                        image: const AssetImage(
+                          'assets/iniciacao-cientifica.png',
+                        ),
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -37,12 +39,7 @@ class QuestionScience extends StatelessWidget {
                 alignment: FractionalOffset.center,
                 child: Text(
                   'Você sabe o que é\niniciação científica?',
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontFamily: 'Gotham',
-                    fontWeight: FontWeight.w900,
-                    fontSize: 28,
-                  ),
+                  style: ApplicationTypography.questionScienceText,
                   textAlign: TextAlign.center,
                 ),
               ),

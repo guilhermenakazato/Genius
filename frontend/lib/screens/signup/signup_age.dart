@@ -5,6 +5,7 @@ import '../../components/floating_button.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_local.dart';
 import '../../utils/navigator_util.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpAge extends StatefulWidget {
   final User person;
@@ -23,12 +24,13 @@ class _SignUpAgeState extends State<SignUpAge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       floatingActionButton: FloatingButton(
         onPressed: () {
           _nextScreen(context);
         },
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,11 +38,7 @@ class _SignUpAgeState extends State<SignUpAge> {
             Text(
               'Qual a sua idade?',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.w900,
-                fontSize: 20,
-              ),
+              style: ApplicationTypography.primarySignUpText,
             ),
             Container(
               height: 100,
@@ -56,11 +54,7 @@ class _SignUpAgeState extends State<SignUpAge> {
                   Center(
                     child: Text(
                       number.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 20,
-                      ),
+                      style: ApplicationTypography.primarySignUpText,
                     ),
                   ),
                 ],

@@ -7,6 +7,7 @@ import '../../components/floating_button.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_type.dart';
 import '../../utils/navigator_util.dart';
+import '../../utils/application_typography.dart';
 
 class SignUpPassword extends StatefulWidget {
   final User person;
@@ -30,7 +31,7 @@ class _SignUpPasswordState extends State<SignUpPassword> {
           _verifyInput(context);
         },
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Align(
         child: Stack(
           alignment: FractionalOffset.center,
@@ -40,11 +41,7 @@ class _SignUpPasswordState extends State<SignUpPassword> {
               child: Text(
                 'Ótimo! Agora insira uma senha.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20,
-                ),
+                style: ApplicationTypography.primarySignUpText,
               ),
             ),
             Transform.translate(
@@ -86,7 +83,8 @@ class _SignUpPasswordState extends State<SignUpPassword> {
     } else if (_password.length <= 7) {
       _showSnackBar('Insira uma senha de pelo menos 8 caracteres!', context);
     } else if (_password.contains(' ')) {
-      _showSnackBar('A sua senha não pode conter um espaço em branco!', context);
+      _showSnackBar(
+          'A sua senha não pode conter um espaço em branco!', context);
     } else {
       widget.person.setPassword(_password);
       _navigator.navigate(context, SignUpType(widget.person));
