@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../components/button_wrap.dart';
 import '../screens/login.dart';
 import '../screens/presentation.dart';
+import '../utils/application_typography.dart';
 
 class AskUser extends StatelessWidget {
   @override
@@ -19,8 +20,16 @@ class AskUser extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset('assets/homem.png', width: 140, height: 140,),
-                    Image.asset('assets/mulher.png', width: 140, height: 140,),
+                    Image.asset(
+                      'assets/homem.png',
+                      width: 140,
+                      height: 140,
+                    ),
+                    Image.asset(
+                      'assets/mulher.png',
+                      width: 140,
+                      height: 140,
+                    ),
                   ],
                 ),
               ),
@@ -31,11 +40,7 @@ class AskUser extends StatelessWidget {
               alignment: FractionalOffset.center,
               child: Text(
                 'Você já é usuário\ndo Genius?',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: ApplicationTypography.askUserText,
                 textAlign: TextAlign.center,
               ),
             ),
