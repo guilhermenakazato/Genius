@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/ask_user.dart';
+import '../utils/application_typography.dart';
 
 class Welcome extends StatelessWidget {
   @override
@@ -19,14 +20,7 @@ class Welcome extends StatelessWidget {
             children: <Widget>[
                Text(
                 'Bem\nVindo!',
-                style: TextStyle(
-                  fontFamily: 'Gotham',
-                  fontSize: 70,
-                  letterSpacing: 1.5,
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w900,
-                  height: 1.0,
-                ),
+                style: ApplicationTypography.welcomeText,
                 textAlign: TextAlign.center,
               ),
               Container(
