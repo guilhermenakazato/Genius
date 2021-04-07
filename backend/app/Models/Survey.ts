@@ -5,6 +5,12 @@ export default class Survey extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public user_id: number
+
+  @column()
+  public link: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

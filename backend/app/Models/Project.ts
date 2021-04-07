@@ -12,10 +12,10 @@ export default class Projeto extends BaseModel {
   public tag: string
   
   @column()
-  public main_teacher: string
+  public main_teacher: number
 
   @column()
-  public second_teacher: string
+  public second_teacher: number
 
   @column()
   public institution: string
