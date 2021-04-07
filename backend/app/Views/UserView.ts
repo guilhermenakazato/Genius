@@ -1,16 +1,16 @@
 import Usuario from "App/Models/User"
 
 export default {
-    render(usuario: Usuario){
+    render(user: User){
         return {
-            id: usuario.id,
-            username: usuario.username,
-            email: usuario.email, 
-            type: usuario.type,
-            age: usuario.age,
-            local: usuario.local,
-            institution: usuario.institution,
-            formation: usuario.formation
+            id: user.id,
+            username: user.username,
+            email: user.email, 
+            type: user.type,
+            age: user.age,
+            local: user.local,
+            institution: user.institution,
+            formation: user.formation
         };
     }
 }

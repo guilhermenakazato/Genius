@@ -21,8 +21,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 import AuthController from 'App/Controllers/Http/AuthController'
-import UsuariosController from 'App/Controllers/Http/UsersController'
-import ProjetosController from 'App/Controllers/Http/ProjectsController'
+import UsersController from 'App/Controllers/Http/UsersController'
+import ProjectsController from 'App/Controllers/Http/ProjectsController'
 import ProjectsParticipantsController from 'App/Controllers/Http/ProjectsParticipantsController'
 import AchievementsController from 'App/Controllers/Http/AchievementsController'
 import SurveysController from 'App/Controllers/Http/SurveysController'
@@ -35,9 +35,9 @@ Route.get('health', async ({ response }) => {
     : response.badRequest(report)
 })
 
-Route.get('/usuarios', UsuariosController.index);
-Route.get("/usuario/:id", UsuariosController.get);
-Route.post("/usuario", UsuariosController.create);
+Route.get('/users', UsersController.index);
+Route.get("/user/:id", UsersController.get);
+Route.post("/user", UsersController.create);
 
 Route.post("/login", AuthController.login);
 Route.get("/token", AuthController.authenticateWithToken);
@@ -45,8 +45,8 @@ Route.get("/logout", AuthController.logout);
 Route.get("/getData", AuthController.getUserData);
 Route.get("/check", AuthController.checkTokenIsValid);
 
-Route.post("/projeto", ProjetosController.create)
-Route.get("/projetos", ProjetosController.index)
+Route.post("/project", ProjectsController.create)
+Route.get("/projects", ProjectsController.index)
 
 Route.post("/projects-participant", ProjectsParticipantsController.create)
 Route.get("/projects-participants", ProjectsParticipantsController.listAllParticipants)
