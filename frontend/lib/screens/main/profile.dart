@@ -16,7 +16,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final _tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
-  final _pages = ['Sobre mim', 'Meus projetos', 'Conquistas'];
+  final _pages = ['Sobre mim', 'Meus projetos', 'Conquistas', 'Questionários'];
 
   @override
   Widget build(BuildContext context) {
