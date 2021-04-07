@@ -4,20 +4,20 @@ import Usuario from "../../Models/User";
 
 export default {
     async index(){
-        const user = await Usuario.all();
+        const user = await User.all();
         return user;
     },
     async create({ request }: HttpContextContract){
         const data = request.all();
-        const usuario = await Usuario.create(data);
+        const user = await User.create(data);
         
-        console.log(usuario)
-        return UsuarioView.render(usuario);
+        console.log(user)
+        return UserView.render(user);
     },
     async get({params}: HttpContextContract){
         const {id} = params;
-        const user = await Usuario.findOrFail(id);
+        const user = await User.findOrFail(id);
 
-        return UsuarioView.render(user);
+        return UserView.render(user);
     },
 }

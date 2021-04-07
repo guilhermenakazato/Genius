@@ -1,15 +1,15 @@
 import Projeto from "App/Models/Project"
 
 export default {
-    render(projeto: Projeto){
+    render(project: Project){
         return {
-            id: projeto.id,
-            name: projeto.name,
-            tag: projeto.tag,
-            main_teacher: projeto.main_teacher,
-            second_teacher: !projeto.second_teacher ? "Sem coorientador" : projeto.second_teacher,
-            institution: projeto.institution,
-            start_date: projeto.start_date,
+            id: project.id,
+            name: project.name,
+            tag: project.tag,
+            main_teacher: project.main_teacher,
+            second_teacher: !project.second_teacher ? "Sem coorientador" : project.second_teacher,
+            institution: project.institution,
+            start_date: project.start_date,
         }
     }
 }
