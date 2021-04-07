@@ -42,7 +42,7 @@ Route.post("/user", UsersController.create);
 Route.post("/login", AuthController.login);
 Route.get("/token", AuthController.authenticateWithToken);
 Route.get("/logout", AuthController.logout);
-Route.get("/getData", AuthController.getUserData);
+Route.get("/get-data", AuthController.getUserData);
 Route.get("/check", AuthController.checkTokenIsValid);
 
 Route.post("/project", ProjectsController.create)
