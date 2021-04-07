@@ -5,7 +5,7 @@ export default class Partners extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id')
+      table.increments('id').primary()
       table.integer("follower").references("id").inTable("users")
       table.integer("following").references("id").inTable("users")
       table.unique(["follower", "following"])

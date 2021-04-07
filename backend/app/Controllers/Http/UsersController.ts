@@ -20,10 +20,4 @@ export default {
 
         return UsuarioView.render(user);
     },
-    async getId({params}: HttpContextContract){
-        const {email} = params;
-        const user = await Usuario.findByOrFail("email", email);
-        
-        return user.id;
-    }
 }

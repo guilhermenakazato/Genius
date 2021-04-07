@@ -21,8 +21,11 @@
 import Route from '@ioc:Adonis/Core/Route'
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 import AuthController from 'App/Controllers/Http/AuthController'
-import UsuariosController from 'App/Controllers/Http/UserController'
-import ProjetosController from 'App/Controllers/Http/ProjectController'
+import UsuariosController from 'App/Controllers/Http/UsersController'
+import ProjetosController from 'App/Controllers/Http/ProjectsController'
+import ProjectsParticipantsController from 'App/Controllers/Http/ProjectsParticipantsController'
+import AchievementsController from 'App/Controllers/Http/AchievementsController'
+import SurveysController from 'App/Controllers/Http/SurveysController'
  
 Route.get('health', async ({ response }) => {
   const report = await HealthCheck.getReport()
@@ -34,7 +37,6 @@ Route.get('health', async ({ response }) => {
 
 Route.get('/usuarios', UsuariosController.index);
 Route.get("/usuario/:id", UsuariosController.get);
-Route.get("/usuario/id/:email", UsuariosController.getId);
 Route.post("/usuario", UsuariosController.create);
 
 Route.post("/login", AuthController.login);
@@ -45,3 +47,15 @@ Route.get("/check", AuthController.checkTokenIsValid);
 
 Route.post("/projeto", ProjetosController.create)
 Route.get("/projetos", ProjetosController.index)
+
+Route.post("/projects-participant", ProjectsParticipantsController.create)
+Route.get("/projects-participants", ProjectsParticipantsController.listAllParticipants)
+
+Route.post("/achievement", AchievementsController.create)
+Route.get("/achievements", AchievementsController.listAllAchievements)
+
+Route.post("/survey", SurveysController.create)
+Route.get("/surveys", SurveysController.listAllSurveys)
+
+Route.post("/partner", SurveysController.create)
+Route.get("/partners", SurveysController.listAllSurveys)
