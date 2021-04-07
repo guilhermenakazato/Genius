@@ -27,4 +27,7 @@ class ApplicationColors {
   static const numberFollowCaptionProfileColor = Color(0xffffffff);
   static const profileTagsTextColor = Color(0xffffffff);
   static const selectedProfileInfoPageTitleColor = Color(0xffffffff);
+  static const baseLoadingColor = Color(0xFF3D3B8E);
+  static const highlightLoadingColor = Color(0xff4059F1);
+  static const shadowLoadingColor = Colors.black12;
 }

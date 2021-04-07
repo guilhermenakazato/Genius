@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +10,7 @@ import '../../screens/main/profile.dart';
 import '../../screens/main/search.dart';
 import '../../screens/main/about.dart';
 import '../../models/token.dart';
+import '../../components/skeleton_loading.dart';
 
 class MainScreen extends StatelessWidget {
   final _tokenObject = Token();
@@ -26,9 +26,7 @@ class MainScreen extends StatelessWidget {
             user: user,
           );
         } else {
-          return SpinKitFadingCube(
-            color: Theme.of(context).primaryColor,
-          );
+          return SkeletonLoading();
         }
       },
     );
