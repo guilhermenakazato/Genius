@@ -35,9 +35,11 @@ Route.get('health', async ({ response }) => {
     : response.badRequest(report)
 })
 
-Route.get('/users', UsersController.index);
-Route.get("/user/:id", UsersController.get);
+Route.get('/users', UsersController.listAllUsers);
+Route.get("/user/:id", UsersController.getUserById);
 Route.post("/user", UsersController.create);
+Route.delete("/user/:id", UsersController.deleteUser);
+Route.put("/user/:id", UsersController.updateUser); 
 
 Route.post("/login", AuthController.login);
 Route.get("/token", AuthController.authenticateWithToken);

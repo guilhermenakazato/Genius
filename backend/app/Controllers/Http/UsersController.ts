@@ -1,9 +1,10 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import UsuarioView from 'App/Views/UserView';
-import Usuario from "../../Models/User";
+import UserView from 'App/Views/UserView';
+import { DateTime } from 'luxon';
+import User from "../../Models/User";
 
 export default {
-    async index(){
+    async listAllUsers(){
         const user = await User.all();
         return user;
     },
@@ -14,10 +15,34 @@ export default {
         console.log(user)
         return UserView.render(user);
     },
-    async get({params}: HttpContextContract){
+    async getUserById({params}: HttpContextContract){
         const {id} = params;
         const user = await User.findOrFail(id);
 
         return UserView.render(user);
     },
+    async deleteUser({params}: HttpContextContract){
+        const {id} = params; 
+        const user = await User.findOrFail(id);
+
+        await user.delete();
+    },
+    async updateUser({params, request}: HttpContextContract){
+        const {id} = params;
+        const {username, email, password, type, age, local, formation, institution} = request.all()
+        const user = await User.findOrFail(id);
+        
+        user.username = username;
+        user.email = email;
+        user.password = password;
+        user.type = type;
+        user.age = age;
+        user.local = local;
+        user.formation = formation;
+        user.institution = institution;
+        user.updatedAt = DateTime.local()
+        
+        await user.save()
+        return user
+    }
 }
