@@ -40,9 +40,13 @@ class _ProfileState extends State<Profile> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    widget.user.username,
-                    style: ApplicationTypography.profileName,
+                  Container(
+                    width: 170,
+                    child: Text(
+                      widget.user.username,
+                      style: ApplicationTypography.profileName,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
