@@ -6,6 +6,7 @@ import '../../screens/signup/signup_institution.dart';
 import '../../utils/navigator_util.dart';
 import '../../utils/application_typography.dart';
 
+// TODO: arrumar tipografia dessa classe
 class SignUpFormation extends StatefulWidget {
   final User person;
 
@@ -53,27 +54,50 @@ class _SignUpFormationState extends State<SignUpFormation> {
               textAlign: TextAlign.center,
               style: ApplicationTypography.secondarySignUpText,
             ),
-            DropdownButton<String>(
-              value: formation,
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 24,
-              style: TextStyle(color: Theme.of(context).primaryColor),
-              underline: Container(
-                height: 2,
-                color: Theme.of(context).primaryColor,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: EdgeInsets.all(8),
+                width: 250,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                child: DropdownButton<String>(
+                  value: formation,
+                  isExpanded: true,
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.white,
+                  ),
+                  iconSize: 24,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                  underline: Container(),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      formation = newValue;
+                    });
+                  },
+                  items: items.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 12),
+                        child: Text(
+                          value,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Gotham',
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
-              onChanged: (String newValue) {
-                setState(() {
-                  formation = newValue;
-                });
-              },
-              items: items
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
             ),
           ],
         ),
