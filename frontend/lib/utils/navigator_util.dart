@@ -22,4 +22,8 @@ class NavigatorUtil {
       ModalRoute.withName('/'),
     );
   }
+
+  void goBack(BuildContext context) {
+    Navigator.pop(context);
+  }
 }

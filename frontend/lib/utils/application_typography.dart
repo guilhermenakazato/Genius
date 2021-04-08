@@ -208,4 +208,10 @@ class ApplicationTypography {
     color: Colors.grey.withOpacity(0.9),
     fontSize: 19,
   );
+
+  static final dropdownButton = TextStyle(
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Gotham',
+      color: ApplicationColors.primary,
+  );
 }
