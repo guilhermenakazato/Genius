@@ -6,7 +6,6 @@ import '../../screens/signup/signup_institution.dart';
 import '../../utils/navigator_util.dart';
 import '../../utils/application_typography.dart';
 
-// TODO: arrumar tipografia dessa classe
 class SignUpFormation extends StatefulWidget {
   final User person;
 
@@ -57,7 +56,7 @@ class _SignUpFormationState extends State<SignUpFormation> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 width: 250,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -69,12 +68,11 @@ class _SignUpFormationState extends State<SignUpFormation> {
                 child: DropdownButton<String>(
                   value: formation,
                   isExpanded: true,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_drop_down,
                     color: Colors.white,
                   ),
                   iconSize: 24,
-                  style: TextStyle(color: Theme.of(context).primaryColor),
                   underline: Container(),
                   onChanged: (String newValue) {
                     setState(() {
@@ -88,10 +86,7 @@ class _SignUpFormationState extends State<SignUpFormation> {
                         padding: EdgeInsets.only(left: 12),
                         child: Text(
                           value,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Gotham',
-                          ),
+                          style: ApplicationTypography.dropdownButton
                         ),
                       ),
                     );

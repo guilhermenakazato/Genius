@@ -28,10 +28,6 @@ class Config extends StatelessWidget {
           text: 'Notificações',
         ),
         ModListTile(
-          text: 'Editar perfil',
-          icon: Icons.edit,
-        ),
-        ModListTile(
           text: 'Excluir conta',
           icon: Icons.delete,
           type: 'warning',

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/application_colors.dart';
+import '../../utils/navigator_util.dart';
 import '../../components/gradient_button.dart';
 import '../../models/user.dart';
 import '../../utils/application_typography.dart';
+import 'edit_options.dart';
 
 class Profile extends StatefulWidget {
   final User user;
@@ -17,6 +19,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final _tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
   final _pages = ['Sobre mim', 'Meus projetos', 'Conquistas', 'Questionários'];
+  final _navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +62,10 @@ class _ProfileState extends State<Profile> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
-                          child: Text(widget.user.local,
-                              style: ApplicationTypography.profileCity),
+                          child: Text(
+                            widget.user.local,
+                            style: ApplicationTypography.profileCity,
+                          ),
                         ),
                       ],
                     ),
@@ -117,7 +122,9 @@ class _ProfileState extends State<Profile> {
                 height: 22,
               ),
               GradientButton(
-                onPressed: () {},
+                onPressed: () {
+                  _navigator.navigate(context, EditOptions());
+                },
                 text: 'Editar',
                 width: 72,
                 height: 32,
