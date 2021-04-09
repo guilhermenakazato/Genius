@@ -177,8 +177,10 @@ class _ProfileState extends State<Profile> {
                         right: 20,
                         left: 20,
                       ),
-                      child: Text(_tags[index],
-                          style: ApplicationTypography.profileTags),
+                      child: Text(
+                        _tags[index],
+                        style: ApplicationTypography.profileTags,
+                      ),
                     ),
                   ),
                 ),
@@ -202,8 +204,10 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 33, right: 25, left: 25),
-                  child: Text('MY MIND',
-                      style: ApplicationTypography.profileInfoTitle),
+                  child: Text(
+                    'MY MIND',
+                    style: ApplicationTypography.profileInfoTitle,
+                  ),
                 ),
                 Container(
                   height: 40,
