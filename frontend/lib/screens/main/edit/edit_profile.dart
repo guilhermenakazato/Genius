@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/application_typography.dart';
+
 class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,9 +12,7 @@ class EditProfile extends StatelessWidget {
           children: <Widget>[
             Text(
               'oi, perfil',
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-              ),
+              style: ApplicationTypography.testText
             ),
           ],
         ),

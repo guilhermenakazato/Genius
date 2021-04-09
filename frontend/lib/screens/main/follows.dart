@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/application_colors.dart';
-import 'edit/edit_profile.dart';
-import 'edit/edit_projects.dart';
-import 'edit/edit_conquistas.dart';
 import '../../utils/application_typography.dart';
+import '../../utils/application_colors.dart';
+import 'follows/followers.dart';
+import 'follows/following.dart';
 
-class EditOptions extends StatefulWidget {
+class Follows extends StatefulWidget {
   @override
-  _EditOptionsState createState() => _EditOptionsState();
+  _FollowsState createState() => _FollowsState();
 }
 
-class _EditOptionsState extends State<EditOptions>
+class _FollowsState extends State<Follows>
     with TickerProviderStateMixin {
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -40,9 +39,8 @@ class _EditOptionsState extends State<EditOptions>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.person),
                       Text(
-                        'Perfil',
+                        '0 seguidores',
                         style: ApplicationTypography.tabBarText
                       ),
                     ],
@@ -52,21 +50,8 @@ class _EditOptionsState extends State<EditOptions>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.book),
                       Text(
-                        'Projetos',
-                        style: ApplicationTypography.tabBarText
-                      ),
-                    ],
-                  ),
-                ),
-                Tab(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.emoji_events),
-                      Text(
-                        'Conquistas',
+                        '0 seguindo',
                         style: ApplicationTypography.tabBarText
                       ),
                     ],
@@ -80,9 +65,8 @@ class _EditOptionsState extends State<EditOptions>
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          EditProfile(),
-          EditProjects(),
-          EditConquistas(),
+          Followers(),
+          Following(),
         ],
       ),
     );

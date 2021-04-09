@@ -210,8 +210,14 @@ class ApplicationTypography {
   );
 
   static final dropdownButton = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontFamily: 'Gotham',
-      color: ApplicationColors.primary,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Gotham',
+    color: ApplicationColors.primary,
+  );
+
+  static final tabBarText = TextStyle(color: Colors.white);
+
+  static final testText = TextStyle(
+    color: ApplicationColors.primary,
   );
 }
