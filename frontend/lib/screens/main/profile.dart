@@ -6,6 +6,7 @@ import '../../components/gradient_button.dart';
 import '../../models/user.dart';
 import '../../utils/application_typography.dart';
 import 'edit_options.dart';
+import 'follows.dart';
 
 class Profile extends StatefulWidget {
   final User user;
@@ -79,42 +80,60 @@ class _ProfileState extends State<Profile> {
           padding: const EdgeInsets.only(
             right: 30.0,
             left: 30.0,
-            top: 15,
+            top: 8,
             bottom: 12,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    '17K',
-                    style: ApplicationTypography.numberFollowProfile,
+              InkWell(
+                onTap: () {
+                  _navigator.navigate(context, Follows());
+                },
+                borderRadius: BorderRadius.circular(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        '17K',
+                        style: ApplicationTypography.numberFollowProfile,
+                      ),
+                      Text(
+                        'seguidores',
+                        style: ApplicationTypography.numberFollowCaptionProfile,
+                      ),
+                    ],
                   ),
-                  Text(
-                    'followers',
-                    style: ApplicationTypography.numberFollowCaptionProfile,
-                  ),
-                ],
+                ),
               ),
               Container(
                 color: Colors.white,
                 width: 0.2,
                 height: 22,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    '387',
-                    style: ApplicationTypography.numberFollowProfile,
+              InkWell(
+                onTap: () {
+                  _navigator.navigate(context, Follows());
+                },
+                borderRadius: BorderRadius.circular(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        '387',
+                        style: ApplicationTypography.numberFollowProfile,
+                      ),
+                      Text(
+                        'seguindo',
+                        style: ApplicationTypography.numberFollowCaptionProfile,
+                      ),
+                    ],
                   ),
-                  Text(
-                    'following',
-                    style: ApplicationTypography.numberFollowCaptionProfile,
-                  ),
-                ],
+                ),
               ),
               Container(
                 color: Colors.white,

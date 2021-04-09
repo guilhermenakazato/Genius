@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/application_typography.dart';
-
-class EditConquistas extends StatelessWidget {
+class Following extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,8 +10,8 @@ class EditConquistas extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'oi, conquistas',
-              style: ApplicationTypography.testText
+              'vc ainda nao tá seguindo ngm, loser',
+              style: ApplicationTypography.testText,
             ),
           ],
         ),
