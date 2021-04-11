@@ -199,13 +199,7 @@ class ApplicationTypography {
     fontSize: 33,
   );
 
-  static final selectedProfileInfoPageTitle = TextStyle(
-    color: ApplicationColors.selectedProfileInfoPageTitleColor,
-    fontSize: 19,
-  );
-
-  static final notSelectedProfileInfoPageTitle = TextStyle(
-    color: Colors.grey.withOpacity(0.9),
+  static final profileInfoPageTitle = TextStyle(
     fontSize: 19,
   );
 

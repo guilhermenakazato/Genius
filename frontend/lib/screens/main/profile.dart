@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../utils/application_colors.dart';
 import '../../utils/navigator_util.dart';
 import '../../components/gradient_button.dart';
+import '../../components/circle_tab_indicator.dart';
 import '../../models/user.dart';
 import '../../utils/application_typography.dart';
 import 'edit_options.dart';
@@ -198,71 +199,72 @@ class _ProfileState extends State<Profile> {
                 top: Radius.circular(34),
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 33, right: 25, left: 25),
-                  child: Text(
-                    'MY MIND',
-                    style: ApplicationTypography.profileInfoTitle,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 33, right: 25, left: 25),
+                    child: Text(
+                      'MY MIND',
+                      style: ApplicationTypography.profileInfoTitle,
+                    ),
                   ),
-                ),
-                Container(
-                  height: 40,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _pages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          right: 13.0,
-                          top: 3,
-                          left: 13,
-                        ),
-                        child: _determineActiveListViewItem(index),
-                      );
-                    },
-                  ),
-                )
-              ],
+                  DefaultTabController(
+                    length: 4,
+                    child: Column(
+                        children: [
+                          TabBar(
+                            indicator: CircleTabIndicator(color: Colors.white, radius: 3),
+                            isScrollable: true,
+                            tabs: [
+                              Tab(
+                                child: Text(
+                                  'Sobre mim',
+                                  style: ApplicationTypography.profileInfoPageTitle,
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Meus projetos',
+                                  style: ApplicationTypography.profileInfoPageTitle,
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Conquistas',
+                                  style: ApplicationTypography.profileInfoPageTitle,
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Questionários',
+                                  style: ApplicationTypography.profileInfoPageTitle,
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            height: 300,
+                            child: TabBarView(
+                              children: <Widget>[
+                                Center(child: Text('oi')),
+                                Center(child: Text('oi')),
+                                Center(child: Text('oi')),
+                                Center(child: Text('oi')),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         )
       ],
     );
-  }
-
-  Widget _determineActiveListViewItem(int index) {
-    if (index == 1) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              _pages[index],
-              style: ApplicationTypography.selectedProfileInfoPageTitle,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: CircleAvatar(
-              radius: 2,
-              backgroundColor: Colors.white,
-            ),
-          )
-        ],
-      );
-    } else {
-      return Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Text(
-          _pages[index],
-          style: ApplicationTypography.notSelectedProfileInfoPageTitle,
-        ),
-      );
-    }
   }
 }
