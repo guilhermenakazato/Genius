@@ -11,7 +11,7 @@ class Followers extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'vc ainda nao tem seguidores, loser',
+              'vc ainda nao tem seguidores',
               style: ApplicationTypography.testText,
             ),
           ],

@@ -10,7 +10,7 @@ class Following extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'vc ainda nao tá seguindo ngm, loser',
+              'vc ainda nao tá seguindo ngm',
               style: ApplicationTypography.testText,
             ),
           ],
