@@ -20,7 +20,6 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final _tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
-  final _pages = ['Sobre mim', 'Meus projetos', 'Conquistas', 'Questionários'];
   final _navigator = NavigatorUtil();
 
   @override
@@ -89,7 +88,7 @@ class _ProfileState extends State<Profile> {
             children: <Widget>[
               InkWell(
                 onTap: () {
-                  _navigator.navigate(context, Follows());
+                  _navigator.navigate(context, Follows(user: widget.user,));
                 },
                 borderRadius: BorderRadius.circular(8),
                 child: Padding(
@@ -116,7 +115,7 @@ class _ProfileState extends State<Profile> {
               ),
               InkWell(
                 onTap: () {
-                  _navigator.navigate(context, Follows());
+                  _navigator.navigate(context, Follows(user: widget.user,));
                 },
                 borderRadius: BorderRadius.circular(8),
                 child: Padding(
