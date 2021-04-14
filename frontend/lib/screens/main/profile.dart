@@ -21,6 +21,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final _tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
   final _navigator = NavigatorUtil();
+  double _myMindPosition = 0.65;
 
   @override
   Widget build(BuildContext context) {
@@ -203,32 +204,45 @@ class _ProfileState extends State<Profile> {
       ),
       NotificationListener<DraggableScrollableNotification>(
         onNotification: (notification) {
-          print(notification);
+          setState(() {
+            _myMindPosition = notification.extent;
+          });
           return true;
         },
         child: DraggableScrollableSheet(
           initialChildSize: 0.65,
           minChildSize: 0.62,
           builder: (context, scrollController) {
-            return Expanded(
-              child: Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(top: 15),
-                decoration: BoxDecoration(
-                  color: ApplicationColors.cardColor,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(34),
-                  ),
+            return Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(top: 15),
+              decoration: BoxDecoration(
+                color: ApplicationColors.cardColor,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(34),
                 ),
+              ),
+              child: NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (overscroll) {
+                  overscroll.disallowGlow();
+                  return true;
+                },
                 child: SingleChildScrollView(
                   controller: scrollController,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Icon(
+                            _determineIconBasedOnMyMindPosition(),
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(
-                          top: 33,
                           right: 25,
                           left: 25,
                         ),
@@ -301,5 +315,13 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     ]);
+  }
+
+  IconData _determineIconBasedOnMyMindPosition() {
+    if (_myMindPosition > 0.65) {
+      return Icons.expand_more;
+    } else {
+      return Icons.expand_less;
+    }
   }
 }
