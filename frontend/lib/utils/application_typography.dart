@@ -115,6 +115,13 @@ class ApplicationTypography {
     fontSize: 16,
   );
 
+  static final specialAgeInput = TextStyle(
+    fontSize: 18,
+    color: ApplicationColors.primary,
+    fontFamily: 'Gotham',
+    fontWeight: FontWeight.w700,
+  );
+
   static final borderlessInput = TextStyle(
     fontSize: 20,
     color: Colors.white,
