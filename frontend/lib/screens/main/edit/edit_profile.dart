@@ -1,17 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../components/gradient_button.dart';
 import '../../../utils/application_typography.dart';
 import '../../../components/dropdown_button.dart';
 import '../../../components/input_with_animation.dart';
 
-class EditProfile extends StatelessWidget {
+class EditProfile extends StatefulWidget {
+  @override
+  _EditProfileState createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _residencyController = TextEditingController();
   final _institutionController = TextEditingController();
-  final _optionsController = 'Professor';
-  final _options = <String>['Estudante', 'Professor'];
+  final _typeOptions = <String>['Estudante', 'Professor'];
+  final _formationOptions = <String>[
+    'Primeiro grau completo',
+    'Primeiro grau incompleto',
+    'Segundo grau completo',
+    'Segundo grau incompleto',
+    'Ensino profissional de nível técnico completo',
+    'Ensino profissional de nível técnico incompleto',
+    'Graduação completa',
+    'Graduação incompleta',
+    'Especialização completa',
+    'Especialização incompleta',
+    'Mestrado completo',
+    'Mestrado incompleto',
+    'Doutorado completo',
+    'Doutorado incompleto'
+  ];
+
+  String _typeController;
+  String _formationController;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +78,7 @@ class EditProfile extends StatelessWidget {
                           'Idade',
                           style: ApplicationTypography.specialAgeInput,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -83,15 +107,36 @@ class EditProfile extends StatelessWidget {
                   label: 'Instituição',
                 ),
               ),
-              DropDownButton(
-                initialValue: _optionsController,
-                items: _options,
-                width: 325,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                child: DropDownButton(
+                  hint: 'Professor',
+                  items: _typeOptions,
+                  width: 325,
+                  onValueChanged: (String value) {
+                    _typeController = value;
+                  },
+                ),
               ),
-              DropDownButton(
-                initialValue: _optionsController,
-                items: _options,
-                width: 325,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                child: DropDownButton(
+                  hint: 'Primeiro grau completo',
+                  items: _formationOptions,
+                  width: 325,
+                  onValueChanged: (String value) {
+                    _formationController = value;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GradientButton(
+                  onPressed: () {},
+                  text: 'Salvar',
+                  width: 270,
+                  height: 50,
+                ),
               ),
             ],
           ),

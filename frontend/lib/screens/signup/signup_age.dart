@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/picker.dart';
 import '../../components/floating_button.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_local.dart';
@@ -18,7 +19,6 @@ class SignUpAge extends StatefulWidget {
 
 class _SignUpAgeState extends State<SignUpAge> {
   int _age = 0;
-  final _ages = [for(var i = 10; i <= 50; i++) i];
   final navigator = NavigatorUtil();
 
   @override
@@ -40,25 +40,10 @@ class _SignUpAgeState extends State<SignUpAge> {
               textAlign: TextAlign.center,
               style: ApplicationTypography.primarySignUpText,
             ),
-            Container(
-              height: 100,
-              width: 150,
-              child: CupertinoPicker(
-                itemExtent: 50,
-                backgroundColor: Colors.transparent,
-                onSelectedItemChanged: (int value) {
-                  _age = value;
-                },
-                children: <Widget>[
-                  for(var number in _ages)
-                  Center(
-                    child: Text(
-                      number.toString(),
-                      style: ApplicationTypography.primarySignUpText,
-                    ),
-                  ),
-                ],
-              ),
+            Picker(
+              onChanged: (int value) {
+                _age = value;
+              },
             ),
           ],
         ),
@@ -68,6 +53,7 @@ class _SignUpAgeState extends State<SignUpAge> {
 
   void _nextScreen(BuildContext context) {
     widget.person.setAge((_age + 10).toString());
+    debugPrint(widget.person.toString());
     navigator.navigate(context, SignUpLocal(widget.person));
   }
 }

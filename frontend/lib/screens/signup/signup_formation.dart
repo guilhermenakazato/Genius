@@ -7,7 +7,6 @@ import '../../screens/signup/signup_institution.dart';
 import '../../utils/navigator_util.dart';
 import '../../utils/application_typography.dart';
 
-// TODO: testar!!!!!
 class SignUpFormation extends StatefulWidget {
   final User person;
 
@@ -19,7 +18,7 @@ class SignUpFormation extends StatefulWidget {
 
 class _SignUpFormationState extends State<SignUpFormation> {
   final _navigator = NavigatorUtil();
-  final _formation = 'Primeiro grau completo';
+  String _formation;
   final _items = <String>[
     'Primeiro grau completo',
     'Primeiro grau incompleto',
@@ -55,7 +54,17 @@ class _SignUpFormationState extends State<SignUpFormation> {
               textAlign: TextAlign.center,
               style: ApplicationTypography.secondarySignUpText,
             ),
-            DropDownButton(items: _items, initialValue: _formation,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropDownButton(
+                items: _items,
+                hint: 'Primeiro grau completo',
+                width: 270,
+                onValueChanged: (String newValue) {
+                  _formation = newValue;
+                },
+              ),
+            ),
           ],
         ),
       ),
