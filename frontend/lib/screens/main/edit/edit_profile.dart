@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../components/picker.dart';
 import '../../../components/gradient_button.dart';
 import '../../../utils/application_typography.dart';
 import '../../../components/dropdown_button.dart';
@@ -36,6 +37,7 @@ class _EditProfileState extends State<EditProfile> {
 
   String _typeController;
   String _formationController;
+  int _ageController = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,19 @@ class _EditProfileState extends State<EditProfile> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/sem-foto.png'),
+                child: Stack(
+                  
+                  children: <Widget>[
+                    Positioned(
+                      child: Align(
+                        alignment: FractionalOffset.bottomCenter,
+                        child: CircleAvatar(
+                          radius: 40,
+                          backgroundImage: AssetImage('assets/sem-foto.png'),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
@@ -62,7 +74,7 @@ class _EditProfileState extends State<EditProfile> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
                 child: Container(
-                  height: 62,
+                  height: 95,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Theme.of(context).primaryColor,
@@ -75,8 +87,16 @@ class _EditProfileState extends State<EditProfile> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20.0),
                         child: Text(
-                          'Idade',
+                          'Idade:',
                           style: ApplicationTypography.specialAgeInput,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: Picker(
+                          onChanged: (int value) {
+                            _ageController = value + 10;
+                          },
                         ),
                       ),
                     ],
