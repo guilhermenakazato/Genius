@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genius/components/dropdown_button.dart';
 
 import '../../components/floating_button.dart';
 import '../../models/user.dart';
@@ -6,6 +7,7 @@ import '../../screens/signup/signup_institution.dart';
 import '../../utils/navigator_util.dart';
 import '../../utils/application_typography.dart';
 
+// TODO: testar!!!!!
 class SignUpFormation extends StatefulWidget {
   final User person;
 
@@ -17,8 +19,8 @@ class SignUpFormation extends StatefulWidget {
 
 class _SignUpFormationState extends State<SignUpFormation> {
   final _navigator = NavigatorUtil();
-  String formation = 'Primeiro grau completo';
-  final items = <String>[
+  final _formation = 'Primeiro grau completo';
+  final _items = <String>[
     'Primeiro grau completo',
     'Primeiro grau incompleto',
     'Segundo grau completo',
@@ -53,47 +55,7 @@ class _SignUpFormationState extends State<SignUpFormation> {
               textAlign: TextAlign.center,
               style: ApplicationTypography.secondarySignUpText,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                width: 250,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).primaryColor,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: DropdownButton<String>(
-                  value: formation,
-                  isExpanded: true,
-                  icon: Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.white,
-                  ),
-                  iconSize: 24,
-                  underline: Container(),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      formation = newValue;
-                    });
-                  },
-                  items: items.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 12),
-                        child: Text(
-                          value,
-                          style: ApplicationTypography.dropdownButton
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ),
-            ),
+            DropDownButton(items: _items, initialValue: _formation,),
           ],
         ),
       ),
@@ -101,7 +63,7 @@ class _SignUpFormationState extends State<SignUpFormation> {
   }
 
   void _nextScreen(BuildContext context) {
-    widget.person.setFormation(formation);
+    widget.person.setFormation(_formation);
     _navigator.navigate(context, SignUpInstitution(widget.person));
   }
 }
