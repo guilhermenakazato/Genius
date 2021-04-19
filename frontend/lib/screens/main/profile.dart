@@ -91,10 +91,11 @@ class _ProfileState extends State<Profile> {
                 InkWell(
                   onTap: () {
                     _navigator.navigate(
-                        context,
-                        Follows(
-                          user: widget.user,
-                        ));
+                      context,
+                      Follows(
+                        user: widget.user,
+                      ),
+                    );
                   },
                   borderRadius: BorderRadius.circular(8),
                   child: Padding(
@@ -123,10 +124,11 @@ class _ProfileState extends State<Profile> {
                 InkWell(
                   onTap: () {
                     _navigator.navigate(
-                        context,
-                        Follows(
-                          user: widget.user,
-                        ));
+                      context,
+                      Follows(
+                        user: widget.user,
+                      ),
+                    );
                   },
                   borderRadius: BorderRadius.circular(8),
                   child: Padding(
@@ -154,7 +156,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 GradientButton(
                   onPressed: () {
-                    _navigator.navigate(context, EditOptions());
+                    _navigator.navigate(context, EditOptions(user: widget.user,));
                   },
                   text: 'Editar',
                   width: 72,
