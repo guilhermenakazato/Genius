@@ -52,7 +52,7 @@ class InputWithAnimation extends StatelessWidget {
       ),
       decoration: InputDecoration(
         labelText: label,
-        contentPadding: EdgeInsets.fromLTRB(22, 20, 0, 20),
+        contentPadding: EdgeInsets.fromLTRB(22, 20, 22, 20),
         prefixIcon: _determineIfPrefixIconShouldAppear(context),
         suffixIcon: _determineIfSuffixIconShouldAppear(context),
         labelStyle: TextStyle(

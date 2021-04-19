@@ -5,8 +5,9 @@ import '../utils/application_typography.dart';
 
 class Picker extends StatefulWidget {
   final void Function(int) onChanged;
+  final int initialValue;
 
-  const Picker({Key key, @required this.onChanged}) : super(key: key);
+  const Picker({Key key, @required this.onChanged, this.initialValue = 0}) : super(key: key);
 
   @override
   _PickerState createState() => _PickerState();
@@ -22,6 +23,7 @@ class _PickerState extends State<Picker> {
       height: 100,
       width: 150,
       child: CupertinoPicker(
+        scrollController: FixedExtentScrollController(initialItem: widget.initialValue),
         itemExtent: 51,
         backgroundColor: Colors.transparent,
         onSelectedItemChanged: (int value) {

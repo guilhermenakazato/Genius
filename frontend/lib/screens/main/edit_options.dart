@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/user.dart';
 import '../../utils/application_colors.dart';
 import 'edit/edit_profile.dart';
 import 'edit/edit_projects.dart';
@@ -8,6 +9,10 @@ import 'edit/edit_surveys.dart';
 import '../../utils/application_typography.dart';
 
 class EditOptions extends StatefulWidget {
+  final User user;
+
+  const EditOptions({Key key, @required this.user}) : super(key: key);
+
   @override
   _EditOptionsState createState() => _EditOptionsState();
 }
@@ -57,7 +62,8 @@ class _EditOptionsState extends State<EditOptions>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(Icons.book),
-                        Text('Projetos', style: ApplicationTypography.tabBarText),
+                        Text('Projetos',
+                            style: ApplicationTypography.tabBarText),
                       ],
                     ),
                   ),
@@ -93,7 +99,9 @@ class _EditOptionsState extends State<EditOptions>
         body: TabBarView(
           controller: _tabController,
           children: <Widget>[
-            EditProfile(),
+            EditProfile(
+              user: widget.user,
+            ),
             EditProjects(),
             EditConquistas(),
             EditSurveys()
