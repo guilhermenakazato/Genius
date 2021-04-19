@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../utils/application_colors.dart';
 import '../../components/borderless_input.dart';
 import '../../components/gradient_button.dart';
 import '../../http/exceptions/http_exception.dart';
@@ -91,7 +93,7 @@ class _SignUpLocalContent extends StatelessWidget {
     final _local = _localController.text.trimLeft();
 
     if (_local.isEmpty) {
-      _showSnackBar('Preencha o campo de local!', context);
+      _showToast('Preencha o campo de local!');
     } else {
       person.setLocal(_local.trimRight());
       _realizeSignUp(person, context);
@@ -106,16 +108,14 @@ class _SignUpLocalContent extends StatelessWidget {
 
     _progress.show();
     _signed = await _webClient.signup(person).catchError((error) {
-      _showSnackBar(error.message, context);
+      _showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
-      _showSnackBar(
+      _showToast(
         'Erro: o tempo para fazer login excedeu o esperado.',
-        context,
       );
     }, test: (error) => error is TimeoutException).catchError((error) {
-      _showSnackBar(
+      _showToast(
         'Erro desconhecido.',
-        context,
       );
     }, test: (error) => error is Exception);
 
@@ -125,9 +125,15 @@ class _SignUpLocalContent extends StatelessWidget {
     }
   }
 
-  void _showSnackBar(String text, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(text),
-    ));
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
+    );
   }
 }

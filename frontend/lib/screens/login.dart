@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../utils/application_colors.dart';
 import 'main/main_screen.dart';
 import '../components/button.dart';
 import '../components/input.dart';
@@ -67,10 +69,9 @@ class _LoginStateContent extends StatelessWidget {
               ),
             ),
             Input(
-              controller: _emailController,
-              hint: 'E-mail',
-              type: TextInputType.emailAddress
-            ),
+                controller: _emailController,
+                hint: 'E-mail',
+                type: TextInputType.emailAddress),
             Input(
               controller: _passwordController,
               hint: 'Senha',
@@ -103,9 +104,9 @@ class _LoginStateContent extends StatelessWidget {
     final senha = _passwordController.text;
 
     if (email.contains(' ') || senha.contains(' ')) {
-      showSnackBar('Preencha os campos acima sem espaços em branco!', context);
+      _showToast('Preencha os campos acima sem espaços em branco!');
     } else if (email.isEmpty || senha.isEmpty) {
-      showSnackBar('Preencha os campos acima!', context);
+      _showToast('Preencha os campos acima!');
     } else {
       authenticate(email, senha, context);
     }
@@ -119,14 +120,13 @@ class _LoginStateContent extends StatelessWidget {
 
     var token = await _webClient.login(Auth(email, senha)).catchError((error) {
       progress.dismiss();
-      showSnackBar(error.message, context);
+      _showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      showSnackBar(
-          'Erro: o tempo para fazer login excedeu o esperado.', context);
+      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
-      showSnackBar('Erro desconhecido.', context);
+      _showToast('Erro desconhecido.');
     });
 
     var logged = await _webClient.userIsLogged(token.token);
@@ -143,9 +143,15 @@ class _LoginStateContent extends StatelessWidget {
     }
   }
 
-  void showSnackBar(String text, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(text),
-    ));
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
+    );
   }
 }

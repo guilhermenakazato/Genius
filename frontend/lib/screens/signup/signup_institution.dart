@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../utils/application_colors.dart';
 import '../../components/borderless_input.dart';
 import '../../components/floating_button.dart';
 import '../../models/user.dart';
@@ -48,18 +50,22 @@ class SignUpInstitution extends StatelessWidget {
     final _institution = _institutionController.text.trimLeft();
 
     if (_institution.isEmpty) {
-      _showSnackBar('Preencha o campo de instituição!', context);
+      _showToast('Preencha o campo de instituição!');
     } else {
       person.setInstitution(_institution);
       _navigator.navigate(context, SignUpAge(person));
     }
   }
 
-  void _showSnackBar(String text, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
-      ),
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
     );
   }
 }

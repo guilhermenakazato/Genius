@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../utils/application_colors.dart';
 import '../../components/borderless_button.dart';
 import '../../components/borderless_input.dart';
 import '../../components/floating_button.dart';
@@ -79,21 +81,27 @@ class _SignUpPasswordState extends State<SignUpPassword> {
     final _password = _passwordController.text.trimLeft();
 
     if (_password.isEmpty) {
-      _showSnackBar('Preencha o campo de senha!', context);
+      _showToast('Preencha o campo de senha!');
     } else if (_password.length <= 7) {
-      _showSnackBar('Insira uma senha de pelo menos 8 caracteres!', context);
+      _showToast('Insira uma senha de pelo menos 8 caracteres!');
     } else if (_password.contains(' ')) {
-      _showSnackBar(
-          'A sua senha não pode conter um espaço em branco!', context);
+      _showToast(
+          'A sua senha não pode conter um espaço em branco!');
     } else {
       widget.person.setPassword(_password);
       _navigator.navigate(context, SignUpType(widget.person));
     }
   }
 
-  void _showSnackBar(String text, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(text),
-    ));
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
+    );
   }
 }

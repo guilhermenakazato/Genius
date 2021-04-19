@@ -31,4 +31,5 @@ class ApplicationColors {
   static const shadowLoadingColor = Colors.black12;
   static const tabBarIndicatorColor = Color.fromRGBO(61, 59, 142, 0.5);
   static const addPhotoColor =  Color(0xFF3D3B8E);
+  static const toastColor = Color.fromRGBO(61, 59, 142, 0.5);
 }
