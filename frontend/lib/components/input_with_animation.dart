@@ -34,6 +34,7 @@ class InputWithAnimation extends StatelessWidget {
     return TextFormField(
       validator: validator,
       focusNode: node,
+      autofocus: false,
       readOnly: readonly,
       onTap: () {
         if (onTap != null) {
@@ -52,26 +53,8 @@ class InputWithAnimation extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         contentPadding: EdgeInsets.fromLTRB(22, 20, 0, 20),
-        prefixIcon: icon != null
-            ? Icon(
-                icon,
-                color: Theme.of(context).primaryColor,
-              )
-            : null,
-        suffixIcon: suffixIcon != null
-            ? Padding(
-                padding: const EdgeInsets.only(
-                  right: 8.0,
-                ),
-                child: IconButton(
-                  icon: Icon(suffixIcon),
-                  onPressed: () {
-                    onSuffixIconPress();
-                  },
-                  color: Theme.of(context).primaryColor,
-                ),
-              )
-            : null,
+        prefixIcon: _determineIfPrefixIconShouldAppear(context),
+        suffixIcon: _determineIfSuffixIconShouldAppear(context),
         labelStyle: TextStyle(
           color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.w900,
@@ -100,5 +83,35 @@ class InputWithAnimation extends StatelessWidget {
       ),
       keyboardType: type,
     );
+  }
+
+  Icon _determineIfPrefixIconShouldAppear(BuildContext context) {
+    if (icon != null) {
+      return Icon(
+        icon,
+        color: Theme.of(context).primaryColor,
+      );
+    }
+
+    return null;
+  }
+
+  Widget _determineIfSuffixIconShouldAppear(BuildContext context) {
+    if (suffixIcon != null) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          right: 8.0,
+        ),
+        child: IconButton(
+          icon: Icon(suffixIcon),
+          onPressed: () {
+            onSuffixIconPress();
+          },
+          color: Theme.of(context).primaryColor,
+        ),
+      );
+    }
+
+    return null;
   }
 }

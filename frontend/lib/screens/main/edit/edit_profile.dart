@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../utils/application_colors.dart';
 import '../../../components/picker.dart';
 import '../../../components/gradient_button.dart';
 import '../../../utils/application_typography.dart';
@@ -48,19 +49,22 @@ class _EditProfileState extends State<EditProfile> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
-                child: Stack(
-                  
-                  children: <Widget>[
-                    Positioned(
-                      child: Align(
-                        alignment: FractionalOffset.bottomCenter,
-                        child: CircleAvatar(
-                          radius: 40,
-                          backgroundImage: AssetImage('assets/sem-foto.png'),
+                child: CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage('assets/sem-foto.png'),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: GestureDetector(
+                      onTap: (){},
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: ApplicationColors.addPhotoColor,
                         ),
+                        child: Icon(Icons.add),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
               Padding(
