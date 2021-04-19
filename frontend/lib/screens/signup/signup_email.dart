@@ -1,7 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../utils/application_colors.dart';
 import '../../components/borderless_input.dart';
 import '../../components/floating_button.dart';
 import '../../models/user.dart';
@@ -57,18 +59,24 @@ class _SignUpEmailState extends State<SignUpEmail> {
     final _email = _emailController.text.trimLeft();
 
     if (_email.isEmpty) {
-      _showSnackBar('Preencha o campo email!', context);
+      _showToast('Preencha o campo email!');
     } else if (!EmailValidator.validate(_email)) {
-      _showSnackBar('Insira um e-mail válido!', context);
+      _showToast('Insira um e-mail válido!');
     } else {
       widget.person.setEmail(_email);
       navigator.navigate(context, SignUpPassword(widget.person));
     }
   }
-}
 
-void _showSnackBar(String text, BuildContext context) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text(text),
-  ));
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
+    );
+  }
 }
