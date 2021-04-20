@@ -12,6 +12,7 @@ class InputWithAnimation extends StatelessWidget {
   final Function onTap;
   final bool readonly;
   final FocusNode node;
+  final bool allowMultilines;
 
   const InputWithAnimation({
     Key key,
@@ -26,12 +27,21 @@ class InputWithAnimation extends StatelessWidget {
     this.onTap,
     this.readonly = false,
     this.node,
+    this.allowMultilines = false,
   }) : super(key: key);
+
+  int _verifyIfMultiLinesIsAllowed() {
+    if (allowMultilines) {
+      return null;
+    } else {
+      return 1;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: null,
+      maxLines: _verifyIfMultiLinesIsAllowed(),
       validator: validator,
       focusNode: node,
       autofocus: false,

@@ -1,5 +1,7 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
+import '../../../utils/application_typography.dart';
 import '../../../utils/application_colors.dart';
 import '../../../components/gradient_button.dart';
 import '../../../components/input_with_animation.dart';
@@ -94,16 +96,10 @@ class _EditProjectsState extends State<EditProjects> {
                   controller: _abstractController,
                   type: TextInputType.multiline,
                   label: 'Resumo',
+                  allowMultilines: true,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: InputWithAnimation(
-                  controller: _archivesController,
-                  type: TextInputType.name,
-                  label: 'Anexos',
-                ),
-              ),
+              _submitArchive(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GradientButton(
@@ -134,6 +130,38 @@ class _EditProjectsState extends State<EditProjects> {
     var archives = _archivesController.text;
 
     debugPrint(
-        '$title, $tags, $mainTeacher, $secondTeacher, $institution, $startDate, $participants, $abstractText, $archives');
+      '$title, $tags, $mainTeacher, $secondTeacher, $institution, $startDate, $participants, $abstractText, $archives',
+    );
+  }
+
+  Widget _submitArchive() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+      child: DottedBorder(
+        borderType: BorderType.RRect,
+        radius: Radius.circular(30),
+        dashPattern: [8, 4],
+        color: ApplicationColors.primary,
+        child: Container(
+          height: 250,
+          width: MediaQuery.of(context).size.height * 0.8,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.add,
+                size: 46,
+                color: ApplicationColors.primary,
+              ),
+              Text(
+                'Adicionar\nanexo',
+                textAlign: TextAlign.center,
+                style: ApplicationTypography.submitArchiveText
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
