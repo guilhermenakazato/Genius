@@ -53,7 +53,6 @@ class _SignUpAgeState extends State<SignUpAge> {
 
   void _nextScreen(BuildContext context) {
     widget.person.setAge((_age + 10).toString());
-    debugPrint(widget.person.toString());
     navigator.navigate(context, SignUpLocal(widget.person));
   }
 }
