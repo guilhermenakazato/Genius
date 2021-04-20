@@ -219,9 +219,16 @@ class ApplicationTypography {
     color: ApplicationColors.primary,
   );
 
-  static final tabBarText = TextStyle(color: Colors.white);
+  static final tabBarText = TextStyle(
+    color: Colors.white,
+  );
 
   static final testText = TextStyle(
     color: ApplicationColors.primary,
+  );
+
+  static final submitArchiveText = TextStyle(
+    color: ApplicationColors.primary,
+    fontWeight: FontWeight.w800,
   );
 }
