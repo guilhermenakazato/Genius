@@ -60,111 +60,116 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Align(
-          child: Column(
-            children: <Widget>[
-              _photoWidget(),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
-                child: InputWithAnimation(
-                  controller: _nameController,
-                  type: TextInputType.name,
-                  label: 'Nome completo',
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: ApplicationColors.splashColor,
+      ),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Align(
+            child: Column(
+              children: <Widget>[
+                _photoWidget(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
+                  child: InputWithAnimation(
+                    controller: _nameController,
+                    type: TextInputType.name,
+                    label: 'Nome completo',
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: Container(
-                  height: 95,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).primaryColor,
-                      width: 2,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                  child: Container(
+                    height: 95,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(32),
                     ),
-                    borderRadius: BorderRadius.circular(32),
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Text(
-                          'Idade:',
-                          style: ApplicationTypography.specialAgeInput,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            'Idade:',
+                            style: ApplicationTypography.specialAgeInput,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: Picker(
-                          onChanged: (int value) {
-                            _ageController = value + 10;
-                          },
-                          initialValue: int.parse(widget.user.age) - 10,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Picker(
+                            onChanged: (int value) {
+                              _ageController = value + 10;
+                            },
+                            initialValue: int.parse(widget.user.age) - 10,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: InputWithAnimation(
-                  controller: _emailController,
-                  type: TextInputType.emailAddress,
-                  label: 'Email',
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                  child: InputWithAnimation(
+                    controller: _emailController,
+                    type: TextInputType.emailAddress,
+                    label: 'Email',
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: InputWithAnimation(
-                  controller: _residencyController,
-                  type: TextInputType.streetAddress,
-                  label: 'Moradia',
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                  child: InputWithAnimation(
+                    controller: _residencyController,
+                    type: TextInputType.streetAddress,
+                    label: 'Moradia',
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: InputWithAnimation(
-                  controller: _institutionController,
-                  type: TextInputType.streetAddress,
-                  label: 'Instituição',
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                  child: InputWithAnimation(
+                    controller: _institutionController,
+                    type: TextInputType.streetAddress,
+                    label: 'Instituição',
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: DropDownButton(
-                  hint: widget.user.type,
-                  items: _typeOptions,
-                  width: 325,
-                  onValueChanged: (String value) {
-                    _typeController = value;
-                  },
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                  child: DropDownButton(
+                    hint: widget.user.type,
+                    items: _typeOptions,
+                    width: 325,
+                    onValueChanged: (String value) {
+                      _typeController = value;
+                    },
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: DropDownButton(
-                  hint: widget.user.formation,
-                  items: _formationOptions,
-                  width: 325,
-                  onValueChanged: (String value) {
-                    _formationController = value;
-                  },
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                  child: DropDownButton(
+                    hint: widget.user.formation,
+                    items: _formationOptions,
+                    width: 325,
+                    onValueChanged: (String value) {
+                      _formationController = value;
+                    },
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GradientButton(
-                  onPressed: () {
-                    _handleFormSubmit();
-                  },
-                  text: 'Salvar',
-                  width: 270,
-                  height: 50,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GradientButton(
+                    onPressed: () {
+                      _handleFormSubmit();
+                    },
+                    text: 'Salvar',
+                    width: 270,
+                    height: 50,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
