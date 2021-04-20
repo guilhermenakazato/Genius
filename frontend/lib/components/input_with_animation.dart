@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: organizar
 class InputWithAnimation extends StatelessWidget {
   final TextEditingController controller;
   final String label;

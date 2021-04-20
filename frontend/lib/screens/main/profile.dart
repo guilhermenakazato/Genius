@@ -156,7 +156,11 @@ class _ProfileState extends State<Profile> {
                 ),
                 GradientButton(
                   onPressed: () {
-                    _navigator.navigate(context, EditOptions(user: widget.user,));
+                    _navigator.navigate(
+                        context,
+                        EditOptions(
+                          user: widget.user,
+                        ));
                   },
                   text: 'Editar',
                   width: 72,
@@ -295,13 +299,41 @@ class _ProfileState extends State<Profile> {
                               ],
                             ),
                             Container(
-                              height: 300,
+                              height: MediaQuery.of(context).size.height * 0.738,
                               child: TabBarView(
                                 children: <Widget>[
-                                  Center(child: Text('oi')),
-                                  Center(child: Text('oi')),
-                                  Center(child: Text('oi')),
-                                  Center(child: Text('oi')),
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        for(int i = 0; i < 100; i++)
+                                        Text('oi'),
+                                      ],
+                                    ),
+                                  ),
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        for(int i = 0; i < 100; i++)
+                                        Text('oi'),
+                                      ],
+                                    ),
+                                  ),
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        for(int i = 0; i < 100; i++)
+                                        Text('oi'),
+                                      ],
+                                    ),
+                                  ),
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        for(int i = 0; i < 100; i++)
+                                        Text('oi'),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
