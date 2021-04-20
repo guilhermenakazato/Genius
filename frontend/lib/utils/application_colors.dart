@@ -19,6 +19,7 @@ class ApplicationColors {
   static const configTitle = Color(0xffffffff);
   static const searchFieldHintColor = Color(0xff000000);
   static const searchFieldIconColor = Color(0xff000000);
+  static const searchFieldTextColor = Color(0xff000000);
   static const searchFieldColor = Color(0xffffffff);
   static const floatingButtonColor = Colors.transparent;
   static const profileNameColor = Color(0xffffffff);

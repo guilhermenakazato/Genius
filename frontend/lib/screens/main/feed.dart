@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tcard/tcard.dart';
 
-import '../../screens/main/project/project_info.dart';
-import '../../utils/navigator_util.dart';
 import '../../utils/application_typography.dart';
+import '../../utils/navigator_util.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+
+import 'project/project_info.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -11,9 +12,6 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> with TickerProviderStateMixin {
-  final _controller = TCardController();
-  final _projects = [for (int i = 1; i < 20; i++) i];
-  int _index = 0;
   final navigator = NavigatorUtil();
 
   @override
@@ -21,20 +19,14 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
-        child: TCard(
-          controller: _controller,
-          onForward: (index, info) {
-            _index = index;
-            setState(() {});
-          },
-          onBack: (index) {
-            _index = index;
-            setState(() {});
-          },
-          size: Size(350, 550),
-          cards: [
-            for (var project in _projects)
-              Card(
+        child: Swiper(
+          itemCount: 100,
+          layout: SwiperLayout.STACK,
+          itemWidth: 300,
+          itemHeight: 500,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
                 ),
@@ -45,50 +37,64 @@ class _FeedState extends State<Feed> with TickerProviderStateMixin {
                   ),
                   child: InkWell(
                     onTap: () {
-                      if (_index + 1 == project) {
-                        navigator.navigate(
-                          context,
-                          ProjectInfo(
-                            number: project,
-                          ),
-                        );
-                      }
+                      navigator.navigate(
+                        context,
+                        ProjectInfo(
+                          number: index + 1,
+                        ),
+                      );
                     },
                     borderRadius: BorderRadius.circular(16.0),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30, left: 30),
-                          child: Container(
-                            width: double.infinity,
-                            child: Text(
-                              'Projeto $project',
-                              style: ApplicationTypography.cardTitle,
+                    child: Container(
+                      child: Stack(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30, left: 30),
+                                child: Container(
+                                  width: double.infinity,
+                                  child: Text(
+                                    'Projeto ' + (index + 1).toString(),
+                                    style: ApplicationTypography.cardTitle,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(40, 10, 30, 0),
+                                child: Text(
+                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in[...]',
+                                  style: ApplicationTypography.cardText,
+                                ),
+                              ),     
+                            ],
+                          ),
+                          Positioned(
+                            child: Align(
+                              alignment: FractionalOffset.bottomCenter,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.volunteer_activism),
+                                      onPressed: () {
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(40, 10, 30, 0),
-                          child: Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in[...]',
-                              style: ApplicationTypography.cardText,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 130, left: 220),
-                          child: IconButton(
-                            icon: const Icon(Icons.volunteer_activism),
-                            onPressed: () {
-                              setState(() {});
-                            },
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-          ],
+            );
+          },
         ),
       ),
     );
