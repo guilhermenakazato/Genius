@@ -69,7 +69,7 @@ class _SearchBarState extends State<SearchBar> {
     if (_folded) {
       return 56;
     } else {
-      return 324;
+      return 314;
     }
   }
 
@@ -92,6 +92,8 @@ class _SearchBarState extends State<SearchBar> {
   Widget _returnTextFieldIfNotFolded() {
     if (!_folded) {
       return TextField(
+        style: ApplicationTypography.searchField,
+        cursorColor: ApplicationColors.primary,
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
           hintText: 'Pesquisar',

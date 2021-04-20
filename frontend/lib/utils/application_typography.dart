@@ -164,7 +164,10 @@ class ApplicationTypography {
     fontWeight: FontWeight.w900,
   );
 
-  static final searchField = TextStyle();
+  static final searchField = TextStyle(
+    color: ApplicationColors.searchFieldTextColor,
+  );
+
   static final searchFieldHint = TextStyle(
     color: ApplicationColors.searchFieldHintColor,
   );
