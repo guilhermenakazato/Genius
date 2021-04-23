@@ -52,6 +52,8 @@ Route.get("/projects", ProjectsController.index)
 
 Route.post("/projects-participant", ProjectsParticipantsController.create)
 Route.get("/projects-participants", ProjectsParticipantsController.listAllParticipants)
+Route.get("/projects-of-user/:id", ProjectsParticipantsController.getProjectsOfAUser)
+Route.delete("/projects-participant/:id", ProjectsParticipantsController.deleteProjectParticipantRelationship)
 
 Route.post("/achievement", AchievementsController.create)
 Route.get("/achievements", AchievementsController.listAllAchievements)

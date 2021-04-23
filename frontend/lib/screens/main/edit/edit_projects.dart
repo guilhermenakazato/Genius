@@ -137,28 +137,32 @@ class _EditProjectsState extends State<EditProjects> {
   Widget _submitArchive() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-      child: DottedBorder(
-        borderType: BorderType.RRect,
-        radius: Radius.circular(30),
-        dashPattern: [8, 4],
-        color: ApplicationColors.primary,
-        child: Container(
-          height: 250,
-          width: MediaQuery.of(context).size.height * 0.8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.add,
-                size: 46,
-                color: ApplicationColors.primary,
-              ),
-              Text(
-                'Adicionar\nanexo',
-                textAlign: TextAlign.center,
-                style: ApplicationTypography.submitArchiveText
-              ),
-            ],
+      child: InkWell(
+        onTap: (){},
+        borderRadius: BorderRadius.circular(30),
+        child: DottedBorder(
+          borderType: BorderType.RRect,
+          radius: Radius.circular(30),
+          dashPattern: [8, 4],
+          color: ApplicationColors.primary,
+          child: Container(
+            height: 250,
+            width: MediaQuery.of(context).size.height * 0.8,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.add,
+                  size: 46,
+                  color: ApplicationColors.primary,
+                ),
+                Text(
+                  'Adicionar\nanexo',
+                  textAlign: TextAlign.center,
+                  style: ApplicationTypography.submitArchiveText
+                ),
+              ],
+            ),
           ),
         ),
       ),
