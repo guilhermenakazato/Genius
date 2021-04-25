@@ -1,16 +1,23 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import ProjetoView from 'App/Views/ProjectView';
+import User from 'App/Models/User';
+import UserView from 'App/Views/UserView';
 import Project from '../../Models/Project';
 
 export default {
-    async create({ request }: HttpContextContract){
-        const data = request.all()
-        const projeto = await Project.create(data);
+    async createProject({ request, params }: HttpContextContract){
+        const project = request.all()
+        const {userId} = params;
 
-        return ProjetoView.render(projeto);
+        const user = await User.findOrFail(userId)
+        await user.related("projects").create(project)
+        await user.preload("projects")
+
+        return UserView.render(user)
     },
-    async index(){
-        const data = await Project.all()
-        return data;
+    async listAllProjects(){
+        return await Project.all();
+    },
+    async getProjectById({params}: HttpContextContract){
+        
     }
 }

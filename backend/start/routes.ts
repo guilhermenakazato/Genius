@@ -25,6 +25,7 @@ import UsersController from 'App/Controllers/Http/UsersController'
 import ProjectsController from 'App/Controllers/Http/ProjectsController'
 import AchievementsController from 'App/Controllers/Http/AchievementsController'
 import SurveysController from 'App/Controllers/Http/SurveysController'
+import TagsController from 'App/Controllers/Http/TagsController'
  
 Route.get('health', async ({ response }) => {
   const report = await HealthCheck.getReport()
@@ -46,14 +47,21 @@ Route.get("/logout", AuthController.logout);
 Route.get("/get-data", AuthController.getUserData);
 Route.get("/check", AuthController.checkTokenIsValid);
 
-Route.post("/project", ProjectsController.create)
-Route.get("/projects", ProjectsController.index)
+Route.post("/project/:userId", ProjectsController.createProject)
+Route.get("/projects", ProjectsController.listAllProjects)
+Route.get("project/:id", ProjectsController.getProjectById)
 
-Route.post("/achievement", AchievementsController.create)
+Route.post("/achievement/:userId", AchievementsController.create)
 Route.get("/achievements", AchievementsController.listAllAchievements)
+Route.get("achievement/:id", AchievementsController.getAchievementById)
 
-Route.post("/survey", SurveysController.create)
+Route.post("/survey/:userId", SurveysController.create)
 Route.get("/surveys", SurveysController.listAllSurveys)
+Route.get("/survey/:id", SurveysController.getSurveyById)
 
 Route.post("/partner", SurveysController.create)
 Route.get("/partners", SurveysController.listAllSurveys)
+
+Route.post("/tag/:userId", TagsController.create)
+Route.get("/tags", TagsController.getAllTags)
+Route.get("tag/:id", TagsController.getTagById)

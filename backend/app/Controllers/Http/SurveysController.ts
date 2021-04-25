@@ -11,5 +11,8 @@ export default {
   },
   async listAllSurveys(){
     return await Survey.all()
+  },
+  async getSurveyById({params}: HttpContextContract){
+
   }
 }
