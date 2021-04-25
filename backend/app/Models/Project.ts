@@ -31,10 +31,14 @@ export default class Project extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @manyToMany(() => User)
+  @manyToMany(() => User, {
+    pivotTable: "user_projects"
+  })
   public participants: ManyToMany<typeof User>
 
-  @manyToMany(() => User)
+  @manyToMany(() => User, {
+    pivotTable: "saved_projects"
+  })
   public savedBy: ManyToMany<typeof User>
 
   @manyToMany(() => Tag)
