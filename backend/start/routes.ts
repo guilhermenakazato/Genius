@@ -40,6 +40,7 @@ Route.get("/user/:id", UsersController.getUserById);
 Route.post("/user", UsersController.create);
 Route.delete("/user/:id", UsersController.deleteUser);
 Route.put("/user/:id", UsersController.updateUser); 
+Route.post("/save-project", UsersController.saveProject)
 
 Route.post("/login", AuthController.login);
 Route.get("/token", AuthController.authenticateWithToken);
