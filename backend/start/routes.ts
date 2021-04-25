@@ -23,7 +23,6 @@ import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 import AuthController from 'App/Controllers/Http/AuthController'
 import UsersController from 'App/Controllers/Http/UsersController'
 import ProjectsController from 'App/Controllers/Http/ProjectsController'
-import ProjectsParticipantsController from 'App/Controllers/Http/ProjectsParticipantsController'
 import AchievementsController from 'App/Controllers/Http/AchievementsController'
 import SurveysController from 'App/Controllers/Http/SurveysController'
  
@@ -49,11 +48,6 @@ Route.get("/check", AuthController.checkTokenIsValid);
 
 Route.post("/project", ProjectsController.create)
 Route.get("/projects", ProjectsController.index)
-
-Route.post("/projects-participant", ProjectsParticipantsController.create)
-Route.get("/projects-participants", ProjectsParticipantsController.listAllParticipants)
-Route.get("/projects-of-user/:id", ProjectsParticipantsController.getProjectsOfAUser)
-Route.delete("/projects-participant/:id", ProjectsParticipantsController.deleteProjectParticipantRelationship)
 
 Route.post("/achievement", AchievementsController.create)
 Route.get("/achievements", AchievementsController.listAllAchievements)

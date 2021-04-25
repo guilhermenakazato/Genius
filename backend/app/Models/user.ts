@@ -4,9 +4,16 @@ import {
   column,
   beforeSave,
   BaseModel,
+  manyToMany,
+  ManyToMany,
+  hasMany,
+  HasMany,
 } from '@ioc:Adonis/Lucid/Orm'
+import Project from './Project'
+import Achievement from './Achievement'
+import Survey from './Survey'
 
-export default class user extends BaseModel {
+export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
@@ -44,9 +51,21 @@ export default class user extends BaseModel {
   public updatedAt: DateTime
 
   @beforeSave()
-  public static async hashPassword (user: user) {
+  public static async hashPassword (user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
   }
+
+  @manyToMany(() => Project)
+  public projects: ManyToMany<typeof Project>
+
+  @hasMany(() => Achievement)
+  public achievements: HasMany<typeof Achievement>
+
+  @hasMany(() => Survey)
+  public surveys: HasMany<typeof Survey>
+
+  @manyToMany(() => Project)
+  public saved: ManyToMany<typeof Project>
 }
