@@ -1,54 +1,18 @@
-import 'dart:convert';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../../http/webclients/login_webclient.dart';
-import '../../models/user.dart';
 import '../../screens/main/config.dart';
 import '../../screens/main/feed.dart';
 import '../../screens/main/profile.dart';
 import '../../screens/main/search.dart';
 import '../../screens/main/about.dart';
-import '../../models/token.dart';
-import '../../components/skeleton_loading.dart';
 
-class MainScreen extends StatelessWidget {
-  final _tokenObject = Token();
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getData(),
-      builder: (context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.hasData) {
-          final user = User.fromJson(jsonDecode(snapshot.data));
-          return _MainScreenContent(
-            user: user,
-          );
-        } else {
-          return SkeletonLoading();
-        }
-      },
-    );
-  }
-
-  Future<String> getData() async {
-    final _webClient = LoginWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
-  }
-}
-
-class _MainScreenContent extends StatefulWidget {
-  final User user;
-  const _MainScreenContent({Key key, this.user}) : super(key: key);
-
+class MainScreen extends StatefulWidget {
   @override
   _MainScreenContentState createState() => _MainScreenContentState();
 }
 
-class _MainScreenContentState extends State<_MainScreenContent> {
+class _MainScreenContentState extends State<MainScreen> {
   int _pageNumber = 2;
 
   @override
@@ -81,7 +45,7 @@ class _MainScreenContentState extends State<_MainScreenContent> {
   Widget _showPage(int index) {
     final _widgetList = <Widget>[
       About(),
-      Profile(user: widget.user),
+      Profile(),
       Feed(),
       Search(),
       Config(),

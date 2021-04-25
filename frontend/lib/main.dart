@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'screens/determine_first_screen.dart';
+
 import 'utils/application_themes.dart';
 
 void main() {
