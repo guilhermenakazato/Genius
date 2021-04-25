@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import UserView from 'App/Views/UserView';
+import Project from 'App/Models/Project';
 import { DateTime } from 'luxon';
 import User from "../../Models/User";
 
@@ -11,15 +11,19 @@ export default {
     async create({ request }: HttpContextContract){
         const data = request.all();
         const user = await User.create(data);
-        
-        console.log(user)
-        return UserView.render(user);
+                
+        return user
     },
     async getUserById({params}: HttpContextContract){
         const {id} = params;
         const user = await User.findOrFail(id);
 
-        return UserView.render(user);
+        await user.preload("achievements")
+        await user.preload("projects")
+        await user.preload("saved")
+        await user.preload("surveys")
+
+        return user
     },
     async deleteUser({params}: HttpContextContract){
         const {id} = params; 
@@ -43,6 +47,17 @@ export default {
         user.updatedAt = DateTime.local()
         
         await user.save()
+        return user
+    },
+    async saveProject({request}:HttpContextContract){
+        const {projectId, userId} = request.all()
+
+        const user = await User.findOrFail(userId)
+        const project = await Project.findOrFail(projectId)
+        await user.related("saved").save(project)
+
+        await user.preload("saved")
+
         return user
     }
 }

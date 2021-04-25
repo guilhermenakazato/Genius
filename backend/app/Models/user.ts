@@ -62,10 +62,14 @@ export default class User extends BaseModel {
   })
   public projects: ManyToMany<typeof Project>
 
-  @hasMany(() => Achievement)
+  @hasMany(() => Achievement, {
+    foreignKey: "user_id"
+  })
   public achievements: HasMany<typeof Achievement>
 
-  @hasMany(() => Survey)
+  @hasMany(() => Survey, {
+    foreignKey: "user_id"
+  })
   public surveys: HasMany<typeof Survey>
 
   @manyToMany(() => Project, {
