@@ -9,9 +9,6 @@ export default class Project extends BaseModel {
 
   @column()
   public name: string
-
-  @column()
-  public tag: string
   
   @column()
   public main_teacher: number

@@ -13,6 +13,11 @@ export default {
     return await Achievement.all()
   },
   async getAchievementById({params}: HttpContextContract){
+    const {id} = params 
+    const achievement = await Achievement.findOrFail(id)
 
+    await achievement.preload("user")
+
+    return achievement
   }
 }

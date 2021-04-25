@@ -1,6 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User';
-import UserView from 'App/Views/UserView';
 import Project from '../../Models/Project';
 
 export default {
@@ -12,12 +11,19 @@ export default {
         await user.related("projects").create(project)
         await user.preload("projects")
 
-        return UserView.render(user)
+        return user
     },
     async listAllProjects(){
         return await Project.all();
     },
     async getProjectById({params}: HttpContextContract){
-        
+        const {id} = params
+        const project = await Project.findOrFail(id)
+
+        await project.preload("participants")
+        await project.preload("savedBy")
+        await project.preload("tags")
+
+        return project
     }
 }
