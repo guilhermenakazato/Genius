@@ -7,7 +7,6 @@ export default class Projects extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.string("name", 300).notNullable().unique()
-      table.string("tag", 100).notNullable()
       table.integer("main_teacher").nullable().references("id").inTable("users")
       table.integer("second_teacher").nullable().references("id").inTable("users")
       table.string("institution", 300).notNullable()

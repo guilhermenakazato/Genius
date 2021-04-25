@@ -62,6 +62,6 @@ Route.get("/survey/:id", SurveysController.getSurveyById)
 Route.post("/partner", SurveysController.create)
 Route.get("/partners", SurveysController.listAllSurveys)
 
-Route.post("/tag/:userId", TagsController.create)
+Route.post("/tag", TagsController.create)
 Route.get("/tags", TagsController.getAllTags)
 Route.get("tag/:id", TagsController.getTagById)
