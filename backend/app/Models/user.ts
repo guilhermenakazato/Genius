@@ -57,7 +57,9 @@ export default class User extends BaseModel {
     }
   }
 
-  @manyToMany(() => Project)
+  @manyToMany(() => Project, {
+    pivotTable: "user_projects"
+  })
   public projects: ManyToMany<typeof Project>
 
   @hasMany(() => Achievement)
@@ -66,6 +68,8 @@ export default class User extends BaseModel {
   @hasMany(() => Survey)
   public surveys: HasMany<typeof Survey>
 
-  @manyToMany(() => Project)
+  @manyToMany(() => Project, {
+    pivotTable: "saved_projects"
+  })
   public saved: ManyToMany<typeof Project>
 }
