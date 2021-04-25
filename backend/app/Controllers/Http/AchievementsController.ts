@@ -11,5 +11,8 @@ export default {
   },
   async listAllAchievements(){
     return await Achievement.all()
+  },
+  async getAchievementById({params}: HttpContextContract){
+
   }
 }
