@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import '../../http/webclients/login_webclient.dart';
+import '../../models/token.dart';
 import '../../utils/application_colors.dart';
 import '../../utils/navigator_util.dart';
 import '../../components/gradient_button.dart';
@@ -9,16 +14,45 @@ import '../../utils/application_typography.dart';
 import 'edit_options.dart';
 import 'follows.dart';
 
-class Profile extends StatefulWidget {
+class Profile extends StatelessWidget {
+  final _tokenObject = Token();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: getData(),
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.hasData) {
+          final user = User.fromJson(jsonDecode(snapshot.data));
+
+          return _ProfileContent(
+            user: user,
+          );
+        } else {
+          return SpinKitFadingCube(color: ApplicationColors.primary);
+        }
+      },
+    );
+  }
+
+  Future<String> getData() async {
+    final _webClient = LoginWebClient();
+    final _token = await _tokenObject.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
+}
+
+class _ProfileContent extends StatefulWidget {
   final User user;
 
-  Profile({Key key, this.user}) : super(key: key);
+  _ProfileContent({Key key, this.user}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileState extends State<_ProfileContent> {
   final _tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
   final _navigator = NavigatorUtil();
   double _myMindPosition = 0.65;
@@ -258,7 +292,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       DefaultTabController(
-                        length: 4,
+                        length: 5,
                         child: Column(
                           children: [
                             TabBar(
@@ -267,70 +301,50 @@ class _ProfileState extends State<Profile> {
                                 radius: 3,
                               ),
                               isScrollable: true,
-                              tabs: [
-                                Tab(
-                                  child: Text(
-                                    'Sobre mim',
-                                    style: ApplicationTypography
-                                        .profileInfoPageTitle,
-                                  ),
-                                ),
-                                Tab(
-                                  child: Text(
-                                    'Meus projetos',
-                                    style: ApplicationTypography
-                                        .profileInfoPageTitle,
-                                  ),
-                                ),
-                                Tab(
-                                  child: Text(
-                                    'Conquistas',
-                                    style: ApplicationTypography
-                                        .profileInfoPageTitle,
-                                  ),
-                                ),
-                                Tab(
-                                  child: Text(
-                                    'Questionários',
-                                    style: ApplicationTypography
-                                        .profileInfoPageTitle,
-                                  ),
-                                )
-                              ],
+                              tabs: _tabs(),
                             ),
                             Container(
-                              height: MediaQuery.of(context).size.height * 0.738,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.738,
                               child: TabBarView(
                                 children: <Widget>[
                                   SingleChildScrollView(
                                     child: Column(
                                       children: <Widget>[
-                                        for(int i = 0; i < 100; i++)
-                                        Text('oi'),
+                                        for (int i = 0; i < 100; i++)
+                                          Text('oi'),
                                       ],
                                     ),
                                   ),
                                   SingleChildScrollView(
                                     child: Column(
                                       children: <Widget>[
-                                        for(int i = 0; i < 100; i++)
-                                        Text('oi'),
+                                        for (int i = 0; i < 100; i++)
+                                          Text('oi'),
                                       ],
                                     ),
                                   ),
                                   SingleChildScrollView(
                                     child: Column(
                                       children: <Widget>[
-                                        for(int i = 0; i < 100; i++)
-                                        Text('oi'),
+                                        for (int i = 0; i < 100; i++)
+                                          Text('oi'),
                                       ],
                                     ),
                                   ),
                                   SingleChildScrollView(
                                     child: Column(
                                       children: <Widget>[
-                                        for(int i = 0; i < 100; i++)
-                                        Text('oi'),
+                                        for (int i = 0; i < 100; i++)
+                                          Text('oi'),
+                                      ],
+                                    ),
+                                  ),
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: <Widget>[
+                                        for (int i = 0; i < 100; i++)
+                                          Text('oi'),
                                       ],
                                     ),
                                   ),
@@ -357,5 +371,40 @@ class _ProfileState extends State<Profile> {
     } else {
       return Icons.expand_less;
     }
+  }
+
+  List<Tab> _tabs() {
+    return [
+      Tab(
+        child: Text(
+          'Sobre mim',
+          style: ApplicationTypography.profileInfoPageTitle,
+        ),
+      ),
+      Tab(
+        child: Text(
+          'Meus projetos',
+          style: ApplicationTypography.profileInfoPageTitle,
+        ),
+      ),
+      Tab(
+        child: Text(
+          'Conquistas',
+          style: ApplicationTypography.profileInfoPageTitle,
+        ),
+      ),
+      Tab(
+        child: Text(
+          'Questionários',
+          style: ApplicationTypography.profileInfoPageTitle,
+        ),
+      ),
+      Tab(
+        child: Text(
+          'Salvos',
+          style: ApplicationTypography.profileInfoPageTitle,
+        ),
+      ),
+    ];
   }
 }

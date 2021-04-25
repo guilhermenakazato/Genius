@@ -11,7 +11,7 @@ class Feed extends StatefulWidget {
   _FeedState createState() => _FeedState();
 }
 
-class _FeedState extends State<Feed> with TickerProviderStateMixin {
+class _FeedState extends State<Feed> {
   final navigator = NavigatorUtil();
 
   @override
