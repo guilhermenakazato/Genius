@@ -11,10 +11,10 @@ export default class Project extends BaseModel {
   public name: string
   
   @column()
-  public main_teacher: number
+  public main_teacher: number | User
 
   @column()
-  public second_teacher: number
+  public second_teacher: number | User
 
   @column()
   public institution: string
