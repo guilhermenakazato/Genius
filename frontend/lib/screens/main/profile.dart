@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../../http/webclients/login_webclient.dart';
+import '../../http/webclients/user_webclient.dart';
 import '../../models/token.dart';
 import '../../utils/application_colors.dart';
 import '../../utils/navigator_util.dart';
@@ -36,7 +35,7 @@ class Profile extends StatelessWidget {
   }
 
   Future<String> getData() async {
-    final _webClient = LoginWebClient();
+    final _webClient = UserWebClient();
     final _token = await _tokenObject.getToken();
     final _user = await _webClient.getUserData(_token);
     return _user;

@@ -43,20 +43,6 @@ class LoginWebClient {
     throw HttpException('Unknown Error');
   }
 
-  Future<String> getUserData(String token) async {
-    final response = await client.get(
-      baseUrl + '/getData',
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    if (response.statusCode == 200) {
-      var data = response.body;
-      return data;
-    }
-
-    throw HttpException('Erro desconhecido..');
-  }
-
   void logout(String token) async {
     await client.get(
       baseUrl + '/logout',

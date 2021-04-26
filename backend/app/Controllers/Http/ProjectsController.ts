@@ -14,7 +14,23 @@ export default {
         return user
     },
     async listAllProjects(){
-        return await Project.all();
+        const projects = await Project.all()
+        
+        for(let i = 0; i < projects.length; i++){
+            await projects[i].preload("participants")
+            await projects[i].preload("tags")
+
+            var mainTeacherId = projects[i].main_teacher
+            projects[i].main_teacher = await User.findOrFail(mainTeacherId)
+
+            var secondTeacherId = projects[i].second_teacher
+            
+            if(secondTeacherId != null && secondTeacherId != undefined) {
+                projects[i].second_teacher = await User.findOrFail(secondTeacherId)
+            }
+        }
+
+        return projects;
     },
     async getProjectById({params}: HttpContextContract){
         const {id} = params

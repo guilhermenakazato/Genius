@@ -9,7 +9,7 @@ class SignUpWebClient {
     final userJson = jsonEncode(user.toJson());
 
     final response = await client.post(
-      baseUrl + '/usuario',
+      baseUrl + '/user',
       headers: {'Content-Type': 'application/json'},
       body: userJson,
     );
