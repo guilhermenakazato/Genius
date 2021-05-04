@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 import '../models/user.dart';
 import '../models/project.dart';
 
@@ -20,5 +22,15 @@ class Convert {
     } else {
       return User.fromJson(json);
     }
+  }
+
+  static List<User> convertToListOfParticipants(List list) {
+    final listOfUser = list;
+
+    final participants = listOfUser.map((dynamic json) {
+      return User.fromJson(json);
+    }).toList();
+
+    return participants;
   }
 }

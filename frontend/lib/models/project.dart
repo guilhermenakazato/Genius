@@ -7,9 +7,10 @@ class Project {
   final User mainTeacher;
   final secondTeacher;
   final String abstractText;
+  final List<User> participants;
 
   Project(this.id, this.name, this.mainTeacher, this.secondTeacher,
-      this.institution, this.startDate, this.abstractText);
+      this.institution, this.startDate, this.abstractText, this.participants);
 
   Project.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -19,7 +20,8 @@ class Project {
         startDate = json['start_date'],
         mainTeacher = User.fromJson(json['main_teacher']),
         secondTeacher =
-            Convert.convertJsonToUserWithVerification(json['second_teacher']);
+            Convert.convertJsonToUserWithVerification(json['second_teacher']),
+        participants = Convert.convertToListOfParticipants(json['participants']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
