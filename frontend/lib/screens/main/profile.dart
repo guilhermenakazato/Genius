@@ -64,304 +64,314 @@ class _ProfileState extends State<_ProfileContent> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(height: 50),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 28.0),
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/sem-foto.png'),
-                ),
+          _photoNameAndCity(),
+          _followersEditProfileAndFollowing(),
+          _tagsWidget(),
+        ],
+      ),
+
+      _draggableSheet(),
+    ]);
+  }
+
+  Widget _draggableSheet() {
+    return NotificationListener<DraggableScrollableNotification>(
+      onNotification: (notification) {
+        setState(() {
+          _myMindPosition = notification.extent;
+        });
+        return true;
+      },
+      child: DraggableScrollableSheet(
+        initialChildSize: 0.65,
+        minChildSize: 0.62,
+        builder: (context, scrollController) {
+          return Container(
+            width: double.infinity,
+            margin: EdgeInsets.only(top: 15),
+            decoration: BoxDecoration(
+              color: ApplicationColors.cardColor,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(34),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
+            ),
+            child: NotificationListener<OverscrollIndicatorNotification>(
+              onNotification: (overscroll) {
+                overscroll.disallowGlow();
+                return true;
+              },
+              child: SingleChildScrollView(
+                controller: scrollController,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      width: 170,
-                      child: Text(
-                        widget.user.username,
-                        style: ApplicationTypography.profileName,
-                        overflow: TextOverflow.ellipsis,
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Icon(
+                          _determineIconBasedOnMyMindPosition(),
+                        ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.location_on,
-                            color: Colors.white,
-                            size: 17,
+                      padding: const EdgeInsets.only(
+                        right: 25,
+                        left: 25,
+                      ),
+                      child: Text(
+                        'MY MIND',
+                        style: ApplicationTypography.profileInfoTitle,
+                      ),
+                    ),
+                    DefaultTabController(
+                      length: 5,
+                      child: Column(
+                        children: [
+                          TabBar(
+                            indicator: CircleTabIndicator(
+                              color: Colors.white,
+                              radius: 3,
+                            ),
+                            isScrollable: true,
+                            tabs: _tabs(),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              widget.user.local,
-                              style: ApplicationTypography.profileCity,
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.738,
+                            child: TabBarView(
+                              children: <Widget>[
+                                SingleChildScrollView(
+                                  child: Column(
+                                    children: <Widget>[
+                                      for (int i = 0; i < 100; i++) Text('oi'),
+                                    ],
+                                  ),
+                                ),
+                                SingleChildScrollView(
+                                  child: Column(
+                                    children: <Widget>[
+                                      for (int i = 0; i < 100; i++) Text('oi'),
+                                    ],
+                                  ),
+                                ),
+                                SingleChildScrollView(
+                                  child: Column(
+                                    children: <Widget>[
+                                      for (int i = 0; i < 100; i++) Text('oi'),
+                                    ],
+                                  ),
+                                ),
+                                SingleChildScrollView(
+                                  child: Column(
+                                    children: <Widget>[
+                                      for (int i = 0; i < 100; i++) Text('oi'),
+                                    ],
+                                  ),
+                                ),
+                                SingleChildScrollView(
+                                  child: Column(
+                                    children: <Widget>[
+                                      for (int i = 0; i < 100; i++) Text('oi'),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              right: 30.0,
-              left: 30.0,
-              top: 8,
-              bottom: 12,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                InkWell(
-                  onTap: () {
-                    _navigator.navigate(
-                      context,
-                      Follows(
-                        user: widget.user,
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          '17K',
-                          style: ApplicationTypography.numberFollowProfile,
-                        ),
-                        Text(
-                          'seguidores',
-                          style:
-                              ApplicationTypography.numberFollowCaptionProfile,
-                        ),
-                      ],
-                    ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _tagsWidget() {
+    return Container(
+      height: 44,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: _tags.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 5.0, left: 5),
+            child: InkWell(
+              onTap: () {},
+              borderRadius: BorderRadius.circular(50),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: ApplicationColors.cardColor,
+                    width: 3,
                   ),
                 ),
-                Container(
-                  color: Colors.white,
-                  width: 0.2,
-                  height: 22,
-                ),
-                InkWell(
-                  onTap: () {
-                    _navigator.navigate(
-                      context,
-                      Follows(
-                        user: widget.user,
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          '387',
-                          style: ApplicationTypography.numberFollowProfile,
-                        ),
-                        Text(
-                          'seguindo',
-                          style:
-                              ApplicationTypography.numberFollowCaptionProfile,
-                        ),
-                      ],
-                    ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 13.0,
+                    bottom: 5,
+                    right: 20,
+                    left: 20,
+                  ),
+                  child: Text(
+                    _tags[index],
+                    style: ApplicationTypography.profileTags,
                   ),
                 ),
-                Container(
-                  color: Colors.white,
-                  width: 0.2,
-                  height: 22,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _followersEditProfileAndFollowing() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 30.0,
+        left: 30.0,
+        top: 8,
+        bottom: 12,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          InkWell(
+            onTap: () {
+              _navigator.navigate(
+                context,
+                Follows(
+                  user: widget.user,
                 ),
-                GradientButton(
-                  onPressed: () {
-                    _navigator.navigate(
-                        context,
-                        EditOptions(
-                          user: widget.user,
-                        ));
-                  },
-                  text: 'Editar',
-                  width: 72,
-                  height: 32,
-                ),
-              ],
+              );
+            },
+            borderRadius: BorderRadius.circular(8),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '17K',
+                    style: ApplicationTypography.numberFollowProfile,
+                  ),
+                  Text(
+                    'seguidores',
+                    style: ApplicationTypography.numberFollowCaptionProfile,
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
-            height: 44,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _tags.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.only(right: 5.0, left: 5),
-                  child: InkWell(
-                    onTap: () {},
-                    borderRadius: BorderRadius.circular(50),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(
-                          color: ApplicationColors.cardColor,
-                          width: 3,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 13.0,
-                          bottom: 5,
-                          right: 20,
-                          left: 20,
-                        ),
-                        child: Text(
-                          _tags[index],
-                          style: ApplicationTypography.profileTags,
-                        ),
-                      ),
-                    ),
+            color: Colors.white,
+            width: 0.2,
+            height: 22,
+          ),
+          InkWell(
+            onTap: () {
+              _navigator.navigate(
+                context,
+                Follows(
+                  user: widget.user,
+                ),
+              );
+            },
+            borderRadius: BorderRadius.circular(8),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '387',
+                    style: ApplicationTypography.numberFollowProfile,
                   ),
-                );
-              },
+                  Text(
+                    'seguindo',
+                    style: ApplicationTypography.numberFollowCaptionProfile,
+                  ),
+                ],
+              ),
             ),
+          ),
+          Container(
+            color: Colors.white,
+            width: 0.2,
+            height: 22,
+          ),
+          GradientButton(
+            onPressed: () {
+              _navigator.navigate(
+                context,
+                EditOptions(
+                  user: widget.user,
+                ),
+              );
+            },
+            text: 'Editar',
+            width: 72,
+            height: 32,
           ),
         ],
       ),
-      NotificationListener<DraggableScrollableNotification>(
-        onNotification: (notification) {
-          setState(() {
-            _myMindPosition = notification.extent;
-          });
-          return true;
-        },
-        child: DraggableScrollableSheet(
-          initialChildSize: 0.65,
-          minChildSize: 0.62,
-          builder: (context, scrollController) {
-            return Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(top: 15),
-              decoration: BoxDecoration(
-                color: ApplicationColors.cardColor,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(34),
-                ),
-              ),
-              child: NotificationListener<OverscrollIndicatorNotification>(
-                onNotification: (overscroll) {
-                  overscroll.disallowGlow();
-                  return true;
-                },
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Icon(
-                            _determineIconBasedOnMyMindPosition(),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: 25,
-                          left: 25,
-                        ),
-                        child: Text(
-                          'MY MIND',
-                          style: ApplicationTypography.profileInfoTitle,
-                        ),
-                      ),
-                      DefaultTabController(
-                        length: 5,
-                        child: Column(
-                          children: [
-                            TabBar(
-                              indicator: CircleTabIndicator(
-                                color: Colors.white,
-                                radius: 3,
-                              ),
-                              isScrollable: true,
-                              tabs: _tabs(),
-                            ),
-                            Container(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.738,
-                              child: TabBarView(
-                                children: <Widget>[
-                                  SingleChildScrollView(
-                                    child: Column(
-                                      children: <Widget>[
-                                        for (int i = 0; i < 100; i++)
-                                          Text('oi'),
-                                      ],
-                                    ),
-                                  ),
-                                  SingleChildScrollView(
-                                    child: Column(
-                                      children: <Widget>[
-                                        for (int i = 0; i < 100; i++)
-                                          Text('oi'),
-                                      ],
-                                    ),
-                                  ),
-                                  SingleChildScrollView(
-                                    child: Column(
-                                      children: <Widget>[
-                                        for (int i = 0; i < 100; i++)
-                                          Text('oi'),
-                                      ],
-                                    ),
-                                  ),
-                                  SingleChildScrollView(
-                                    child: Column(
-                                      children: <Widget>[
-                                        for (int i = 0; i < 100; i++)
-                                          Text('oi'),
-                                      ],
-                                    ),
-                                  ),
-                                  SingleChildScrollView(
-                                    child: Column(
-                                      children: <Widget>[
-                                        for (int i = 0; i < 100; i++)
-                                          Text('oi'),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
+    );
+  }
+
+  Widget _photoNameAndCity() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 28.0),
+          child: CircleAvatar(
+            radius: 40,
+            backgroundImage: AssetImage('assets/sem-foto.png'),
+          ),
         ),
-      ),
-    ]);
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: 170,
+                child: Text(
+                  widget.user.username,
+                  style: ApplicationTypography.profileName,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.location_on,
+                      color: Colors.white,
+                      size: 17,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        widget.user.local,
+                        style: ApplicationTypography.profileCity,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   IconData _determineIconBasedOnMyMindPosition() {
