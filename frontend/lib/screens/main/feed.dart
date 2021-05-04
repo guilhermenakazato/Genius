@@ -90,14 +90,62 @@ class _FeedState extends State<_FeedContent> {
                           Column(
                             children: <Widget>[
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 30, left: 30),
+                                padding: const EdgeInsets.only(
+                                  top: 30,
+                                  left: 30,
+                                ),
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
                                     projects[index].name,
                                     style: ApplicationTypography.cardTitle,
                                   ),
+                                ),
+                              ),
+                              Container(
+                                height: 44,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      projects[index].participants.length,
+                                  itemBuilder: (BuildContext context,
+                                      int participantIndex) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          right: 5.0, left: 5),
+                                      child: InkWell(
+                                        onTap: () {},
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            border: Border.all(
+                                              color:
+                                                  ApplicationColors.cardColor,
+                                              width: 3,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 13.0,
+                                              bottom: 5,
+                                              right: 20,
+                                              left: 20,
+                                            ),
+                                            child: Text(
+                                              projects[index]
+                                                  .participants[
+                                                      participantIndex]
+                                                  .username,
+                                              style: ApplicationTypography
+                                                  .profileTags,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                               Padding(
