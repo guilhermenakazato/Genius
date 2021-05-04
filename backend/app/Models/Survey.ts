@@ -10,6 +10,9 @@ export default class Survey extends BaseModel {
   public user_id: number
 
   @column()
+  public name: string
+  
+  @column()
   public link: string
 
   @column.dateTime({ autoCreate: true })

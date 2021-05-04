@@ -7,6 +7,7 @@ export default class Surveys extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
       table.integer("user_id").notNullable().references("id").inTable("users")
+      table.string("name", 500).notNullable()
       table.string("link", 500).notNullable()
       table.timestamps(true)
     })

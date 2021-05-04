@@ -21,7 +21,12 @@ export default {
     }, 
     async getUserData({auth}: HttpContextContract){
         await auth.authenticate();
-        return auth.user?.$attributes;
+        await auth.user?.preload("achievements")
+        await auth.user?.preload("projects")
+        await auth.user?.preload("saved")
+        await auth.user?.preload("surveys")
+
+        return auth.user;
     },
     async checkTokenIsValid({auth}: HttpContextContract){
         return await auth.check();
