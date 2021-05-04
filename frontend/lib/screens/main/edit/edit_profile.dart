@@ -194,8 +194,6 @@ class _EditProfileState extends State<EditProfile> {
       institution: institution,
       formation: formation,
     );
-
-    debugPrint(person.toString());
   }
 
   Widget _photoWidget() {

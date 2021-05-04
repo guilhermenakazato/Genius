@@ -58,137 +58,148 @@ class _FeedState extends State<_FeedContent> {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
-        child: Swiper(
-          itemCount: projects.length,
-          layout: SwiperLayout.STACK,
-          itemWidth: 300,
-          itemHeight: 500,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.0),
-                    color: Theme.of(context).cardColor,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      navigator.navigate(
-                        context,
-                        ProjectInfo(
-                          number: index + 1,
-                        ),
-                      );
-                    },
-                    borderRadius: BorderRadius.circular(16.0),
-                    child: Container(
-                      child: Stack(
+        child: _carouselOfCards(),
+      ),
+    );
+  }
+
+  Widget _carouselOfCards() {
+    return Swiper(
+      itemCount: projects.length,
+      layout: SwiperLayout.STACK,
+      itemWidth: 300,
+      itemHeight: 500,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            child: Ink(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                color: Theme.of(context).cardColor,
+              ),
+              child: InkWell(
+                onTap: () {
+                  navigator.navigate(
+                    context,
+                    ProjectInfo(
+                      project: projects[index],
+                    ),
+                  );
+                },
+                borderRadius: BorderRadius.circular(16.0),
+                child: Container(
+                  child: Stack(
+                    children: <Widget>[
+                      Column(
                         children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 30,
-                                  left: 30,
-                                ),
-                                child: Container(
-                                  width: double.infinity,
-                                  child: Text(
-                                    projects[index].name,
-                                    style: ApplicationTypography.cardTitle,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 44,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount:
-                                      projects[index].participants.length,
-                                  itemBuilder: (BuildContext context,
-                                      int participantIndex) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 5.0, left: 5),
-                                      child: InkWell(
-                                        onTap: () {},
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            border: Border.all(
-                                              color:
-                                                  ApplicationColors.cardColor,
-                                              width: 3,
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                              top: 13.0,
-                                              bottom: 5,
-                                              right: 20,
-                                              left: 20,
-                                            ),
-                                            child: Text(
-                                              projects[index]
-                                                  .participants[
-                                                      participantIndex]
-                                                  .username,
-                                              style: ApplicationTypography
-                                                  .profileTags,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                  40,
-                                  10,
-                                  30,
-                                  0,
-                                ),
-                                child: Text(
-                                  projects[index].abstractText,
-                                  style: ApplicationTypography.cardText,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Positioned(
-                            child: Align(
-                              alignment: FractionalOffset.bottomCenter,
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(
-                                        Icons.volunteer_activism,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          _projectName(index),
+                          _participantsOfTheProject(index),
+                          _abstractText(index),
                         ],
                       ),
-                    ),
+                      _buttons(),
+                    ],
                   ),
                 ),
               ),
-            );
-          },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _projectName(int index) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 30,
+        left: 30,
+      ),
+      child: Container(
+        width: double.infinity,
+        child: Text(
+          projects[index].name,
+          style: ApplicationTypography.cardTitle,
+        ),
+      ),
+    );
+  }
+
+  Widget _abstractText(int index) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        40,
+        10,
+        30,
+        0,
+      ),
+      child: Text(
+        projects[index].abstractText,
+        style: ApplicationTypography.cardText,
+      ),
+    );
+  }
+
+  Widget _participantsOfTheProject(int index) {
+    return Container(
+      height: 44,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: projects[index].participants.length,
+        itemBuilder: (BuildContext context, int participantIndex) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 5.0, left: 5),
+            child: InkWell(
+              onTap: () {},
+              borderRadius: BorderRadius.circular(50),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: ApplicationColors.cardColor,
+                    width: 3,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 13.0,
+                    bottom: 5,
+                    right: 20,
+                    left: 20,
+                  ),
+                  child: Text(
+                    projects[index].participants[participantIndex].username,
+                    style: ApplicationTypography.profileTags,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buttons() {
+    return Positioned(
+      child: Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.volunteer_activism,
+                ),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );

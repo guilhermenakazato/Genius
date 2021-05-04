@@ -128,10 +128,6 @@ class _EditProjectsState extends State<EditProjects> {
     var participants = _participantsController.text;
     var abstractText = _abstractController.text;
     var archives = _archivesController.text;
-
-    debugPrint(
-      '$title, $tags, $mainTeacher, $secondTeacher, $institution, $startDate, $participants, $abstractText, $archives',
-    );
   }
 
   Widget _submitArchive() {
