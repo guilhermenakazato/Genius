@@ -11,6 +11,7 @@ export default class Projects extends BaseSchema {
       table.integer("second_teacher").nullable().references("id").inTable("users")
       table.string("institution", 300).notNullable()
       table.string("start_date", 30).notNullable()
+      table.string("abstract_text", 1000).notNullable()
       
       table.timestamps(true)
     })

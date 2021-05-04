@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+import '../../utils/convert.dart';
+import '../../models/project.dart';
 import '../../http/webclients/project_webclient.dart';
 import '../../utils/application_colors.dart';
 import '../../utils/application_typography.dart';
@@ -15,10 +17,11 @@ class Feed extends StatelessWidget {
       future: getProjects(),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
-          debugPrint(snapshot.data);
+          var projects =
+              Convert.convertStringToListofTypeProject(snapshot.data);
 
           return _FeedContent(
-            projects: snapshot.data,
+            projects: projects,
           );
         } else {
           return SpinKitFadingCube(color: ApplicationColors.primary);
@@ -36,7 +39,7 @@ class Feed extends StatelessWidget {
 }
 
 class _FeedContent extends StatefulWidget {
-  final String projects;
+  final List<Project> projects;
 
   const _FeedContent({Key key, this.projects}) : super(key: key);
 
@@ -46,7 +49,7 @@ class _FeedContent extends StatefulWidget {
 
 class _FeedState extends State<_FeedContent> {
   final navigator = NavigatorUtil();
-  final String projects;
+  final List<Project> projects;
 
   _FeedState(this.projects);
 
@@ -56,7 +59,7 @@ class _FeedState extends State<_FeedContent> {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
         child: Swiper(
-          itemCount: 100,
+          itemCount: projects.length,
           layout: SwiperLayout.STACK,
           itemWidth: 300,
           itemHeight: 500,
@@ -92,16 +95,20 @@ class _FeedState extends State<_FeedContent> {
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
-                                    'Projeto ' + (index + 1).toString(),
+                                    projects[index].name,
                                     style: ApplicationTypography.cardTitle,
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(40, 10, 30, 0),
+                                padding: const EdgeInsets.fromLTRB(
+                                  40,
+                                  10,
+                                  30,
+                                  0,
+                                ),
                                 child: Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in[...]',
+                                  projects[index].abstractText,
                                   style: ApplicationTypography.cardText,
                                 ),
                               ),
@@ -116,8 +123,9 @@ class _FeedState extends State<_FeedContent> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     IconButton(
-                                      icon:
-                                          const Icon(Icons.volunteer_activism),
+                                      icon: const Icon(
+                                        Icons.volunteer_activism,
+                                      ),
                                       onPressed: () {},
                                     ),
                                   ],
