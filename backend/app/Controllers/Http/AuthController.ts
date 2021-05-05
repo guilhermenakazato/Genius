@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import User from 'App/Models/User'
 
 export default {
     async login ({ request, auth }: HttpContextContract) {
@@ -26,6 +27,25 @@ export default {
         await auth.user?.preload("saved")
         await auth.user?.preload("surveys")
 
+        var projects = auth.user?.projects;
+        
+        projects?.forEach((project) => {
+            project.preload("participants");
+        })
+
+        if(projects != undefined){
+            for(let i = 0; i < projects.length; i++){
+                var mainTeacherId = projects[i].main_teacher
+                projects[i].main_teacher = await User.findOrFail(mainTeacherId)
+    
+                var secondTeacherId = projects[i].second_teacher
+                
+                if(secondTeacherId != null && secondTeacherId != undefined) {
+                    projects[i].second_teacher = await User.findOrFail(secondTeacherId)
+                }
+            }
+        }
+        
         return auth.user;
     },
     async checkTokenIsValid({auth}: HttpContextContract){
