@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/screens/main/user_info/projects_tab.dart';
 
+import '../../screens/main/user_info/about_me_tab.dart';
 import '../../http/webclients/user_webclient.dart';
 import '../../models/token.dart';
 import '../../utils/application_colors.dart';
@@ -69,7 +71,6 @@ class _ProfileState extends State<_ProfileContent> {
           _tagsWidget(),
         ],
       ),
-
       _draggableSheet(),
     ]);
   }
@@ -138,45 +139,7 @@ class _ProfileState extends State<_ProfileContent> {
                           ),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.738,
-                            child: TabBarView(
-                              children: <Widget>[
-                                SingleChildScrollView(
-                                  child: Column(
-                                    children: <Widget>[
-                                      for (int i = 0; i < 100; i++) Text('oi'),
-                                    ],
-                                  ),
-                                ),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    children: <Widget>[
-                                      for (int i = 0; i < 100; i++) Text('oi'),
-                                    ],
-                                  ),
-                                ),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    children: <Widget>[
-                                      for (int i = 0; i < 100; i++) Text('oi'),
-                                    ],
-                                  ),
-                                ),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    children: <Widget>[
-                                      for (int i = 0; i < 100; i++) Text('oi'),
-                                    ],
-                                  ),
-                                ),
-                                SingleChildScrollView(
-                                  child: Column(
-                                    children: <Widget>[
-                                      for (int i = 0; i < 100; i++) Text('oi'),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+                            child: _draggableSheetContent(),
                           ),
                         ],
                       ),
@@ -188,6 +151,36 @@ class _ProfileState extends State<_ProfileContent> {
           );
         },
       ),
+    );
+  }
+
+  Widget _draggableSheetContent() {
+    return TabBarView(
+      children: <Widget>[
+        AboutMeTab(user: widget.user,),
+        ProjectsTab(projects: widget.user.projects,),
+        SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              for (int i = 0; i < 100; i++) Text('oi'),
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              for (int i = 0; i < 100; i++) Text('oi'),
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              for (int i = 0; i < 100; i++) Text('oi'),
+            ],
+          ),
+        ),
+      ],
     );
   }
 

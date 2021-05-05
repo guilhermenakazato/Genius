@@ -1,16 +1,25 @@
+import '../utils/convert.dart';
+import 'project.dart';
+import 'achievement.dart';
+import 'survey.dart';
+
 class User {
   String username, email, password, type, age, local, institution, formation;
+  int id;
+  List<Project> projects;
+  List<Achievement> achievements;
+  List<Project> saved;
+  List<Survey> surveys;
 
-  User({
-    this.username,
-    this.email,
-    this.password,
-    this.type,
-    this.age,
-    this.local,
-    this.institution, 
-    this.formation
-  });
+  User(
+      {this.username,
+      this.email,
+      this.password,
+      this.type,
+      this.age,
+      this.local,
+      this.institution,
+      this.formation});
 
   void setUsername(String username) {
     this.username = username;
@@ -44,18 +53,24 @@ class User {
     this.formation = formation;
   }
 
-
   User.fromJson(Map<String, dynamic> json)
-      : username = json['username'],
+      : id = json['id'],
+        username = json['username'],
         email = json['email'],
         password = json['password'],
         type = json['type'],
         age = json['age'],
         local = json['local'],
         institution = json['institution'],
-        formation = json['formation'];
+        formation = json['formation'],
+        projects = Convert.convertToListOfProjects(json['projects']),
+        achievements =
+            Convert.convertToListOfAchievements(json['achievements']),
+        saved = Convert.convertToListOfSavedProjects(json['saved']),
+        surveys = Convert.convertToListOfSurveys(json['surveys']);
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'username': username,
         'email': email,
         'password': password,

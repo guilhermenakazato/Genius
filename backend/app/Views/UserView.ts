@@ -1,4 +1,4 @@
-import Usuario from "App/Models/User"
+import User from "App/Models/User"
 
 export default {
     render(user: User){
