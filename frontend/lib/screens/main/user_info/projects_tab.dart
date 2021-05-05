@@ -26,7 +26,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
       child: Column(
         children: <Widget>[
           _iconToChooseStyleOfProjects(),
-          _determineWhichLayoutShouldBeDisplayed(),
+          _determineWhichLayoutShouldBeDisplayed(context),
         ],
       ),
     );
@@ -63,32 +63,51 @@ class _ProjectsTabState extends State<ProjectsTab> {
     }
   }
 
-  Widget _determineWhichLayoutShouldBeDisplayed() {
+  Widget _determineWhichLayoutShouldBeDisplayed(BuildContext context) {
     if (card) {
       return _carouselOfCards();
     } else {
-      return _listOfCards();
+      return _listOfCards(context);
     }
   }
 
-  Widget _listOfCards() {
+  Widget _listOfCards(BuildContext context) {
     return SizedBox(
       height: 500,
-      child: ListView.builder(
-        itemCount: widget.projects.length,
-        itemBuilder: (context, index) {
-          return Container(
-            height: 50,
-            child: Card(
-              color: ApplicationColors.secondCardColor,
-              child: Center(
-                child: Text(
-                  widget.projects[index].name,
+      child: MediaQuery.removePadding(
+        removeTop: true,
+        context: context,
+        child: ListView.builder(
+          itemCount: widget.projects.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 8.0, left: 8),
+              child: Container(
+                height: 50,
+                child: Card(
+                  child: Ink(
+                    color: ApplicationColors.secondCardColor,
+                    child: InkWell(
+                      onTap: () {
+                        navigator.navigate(
+                          context,
+                          ProjectInfo(
+                            project: widget.projects[index],
+                          ),
+                        );
+                      },
+                      child: Center(
+                        child: Text(
+                          widget.projects[index].name,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
