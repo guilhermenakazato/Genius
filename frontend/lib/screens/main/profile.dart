@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/screens/main/user_info/projects_tab.dart';
 
+import '../../screens/main/user_info/projects_tab.dart';
 import '../../screens/main/user_info/about_me_tab.dart';
 import '../../http/webclients/user_webclient.dart';
 import '../../models/token.dart';
@@ -14,6 +14,8 @@ import '../../models/user.dart';
 import '../../utils/application_typography.dart';
 import 'edit_options.dart';
 import 'follows.dart';
+import 'user_info/saved_tab.dart';
+import 'user_info/surveys_tab.dart';
 
 class Profile extends StatelessWidget {
   final _tokenObject = Token();
@@ -157,14 +159,11 @@ class _ProfileState extends State<_ProfileContent> {
   Widget _draggableSheetContent() {
     return TabBarView(
       children: <Widget>[
-        AboutMeTab(user: widget.user,),
-        ProjectsTab(projects: widget.user.projects,),
-        SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              for (int i = 0; i < 100; i++) Text('oi'),
-            ],
-          ),
+        AboutMeTab(
+          user: widget.user,
+        ),
+        ProjectsTab(
+          projects: widget.user.projects,
         ),
         SingleChildScrollView(
           child: Column(
@@ -173,13 +172,8 @@ class _ProfileState extends State<_ProfileContent> {
             ],
           ),
         ),
-        SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              for (int i = 0; i < 100; i++) Text('oi'),
-            ],
-          ),
-        ),
+        SurveysTab(surveys: widget.user.surveys),
+        SavedTab(savedProjects: widget.user.saved,)
       ],
     );
   }
