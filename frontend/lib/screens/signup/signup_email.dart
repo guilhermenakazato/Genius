@@ -7,9 +7,9 @@ import '../../utils/application_colors.dart';
 import '../../components/borderless_input.dart';
 import '../../components/floating_button.dart';
 import '../../models/user.dart';
-import '../../screens/signup/signup_password.dart';
 import '../../utils/navigator_util.dart';
 import '../../utils/application_typography.dart';
+import 'signup_username.dart';
 
 class SignUpEmail extends StatefulWidget {
   final User person;
@@ -64,7 +64,7 @@ class _SignUpEmailState extends State<SignUpEmail> {
       _showToast('Insira um e-mail válido!');
     } else {
       widget.person.setEmail(_email);
-      navigator.navigate(context, SignUpPassword(widget.person));
+      navigator.navigate(context, SignUpUsername(widget.person));
     }
   }
 

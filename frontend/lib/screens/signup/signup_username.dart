@@ -1,24 +1,26 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../utils/application_colors.dart';
 import '../../components/borderless_input.dart';
-import '../../components/floating_button.dart';
-import '../../models/user.dart';
-import '../../screens/signup/signup_email.dart';
-import '../../utils/navigator_util.dart';
 import '../../utils/application_typography.dart';
+import '../../components/floating_button.dart';
+import '../../utils/application_colors.dart';
+import '../../utils/navigator_util.dart';
+import '../../models/user.dart';
+import 'signup_password.dart';
 
-class SignUpName extends StatefulWidget {
+class SignUpUsername extends StatefulWidget {
+  final User person;
+
+  SignUpUsername(this.person);
+
   @override
-  _SignUpNameState createState() => _SignUpNameState();
+  _SignUpUsernameState createState() => _SignUpUsernameState();
 }
 
-class _SignUpNameState extends State<SignUpName> {
-  final _nomeController = TextEditingController();
+class _SignUpUsernameState extends State<SignUpUsername> {
   final _navigator = NavigatorUtil();
-  final person = User();
+  final _usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class _SignUpNameState extends State<SignUpName> {
                   child: Container(
                     width: double.infinity,
                     child: Text(
-                      'Qual é o seu nome?',
+                      'Legal! Agora, digite um\nnome de usuário.',
                       textAlign: TextAlign.center,
                       style: ApplicationTypography.primarySignUpText,
                     ),
@@ -49,8 +51,8 @@ class _SignUpNameState extends State<SignUpName> {
                 ),
               ),
               BorderlessInput(
-                hint: 'Nome + sobrenome',
-                controller: _nomeController,
+                hint: '@nome',
+                controller: _usernameController,
                 type: TextInputType.name,
               ),
             ],
@@ -61,13 +63,13 @@ class _SignUpNameState extends State<SignUpName> {
   }
 
   void _verifyInput(BuildContext context) {
-    final _name = _nomeController.text.trimLeft();
+    final _name = _usernameController.text.trimLeft();
 
     if (_name.isEmpty) {
       _showToast('Preencha o campo nome!');
     } else {
-      person.setName(_name.trimRight());
-      _navigator.navigate(context, SignUpEmail(person));
+      widget.person.setUsername(_name.trimRight());
+      _navigator.navigate(context, SignUpPassword(widget.person));
     }
   }
 
