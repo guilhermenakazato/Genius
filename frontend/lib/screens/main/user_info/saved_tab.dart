@@ -23,12 +23,41 @@ class _SavedTabState extends State<SavedTab> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: <Widget>[
-          _iconToChooseStyleOfProjects(),
-          _determineWhichLayoutShouldBeDisplayed(context),
-        ],
+        children: <Widget>[_determineWhichWidgetsShouldBeDisplayed(context)],
       ),
     );
+  }
+
+  dynamic _determineWhichWidgetsShouldBeDisplayed(BuildContext context) {
+    if (widget.savedProjects.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 8.0, left: 8),
+        child: SizedBox(
+          width: 300,
+          height: 450,
+          child: Card(
+            elevation: 0,
+            color: ApplicationColors.secondCardColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            child: Container(
+              child: Center(
+                child: Text(
+                  'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    } else {
+      return [
+        _iconToChooseStyleOfProjects(),
+        _determineWhichLayoutShouldBeDisplayed(context)
+      ];
+    }
   }
 
   Widget _iconToChooseStyleOfProjects() {
@@ -71,30 +100,6 @@ class _SavedTabState extends State<SavedTab> {
   }
 
   Widget _listOfCards(BuildContext context) {
-    if (widget.savedProjects.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.only(right: 8.0, left: 8),
-        child: SizedBox(
-          height: 50,
-          child: Card(
-            elevation: 0,
-            color: ApplicationColors.secondCardColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Container(
-              child: Center(
-                child: Text(
-                  'Você ainda não tem nenhum projeto salvo :(',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
     return SizedBox(
       height: 500,
       child: MediaQuery.removePadding(
@@ -136,33 +141,6 @@ class _SavedTabState extends State<SavedTab> {
   }
 
   Widget _carouselOfCards() {
-    if (widget.savedProjects.isEmpty) {
-      return Column(
-        children: [
-          SizedBox(
-            width: 300,
-            height: 450,
-            child: Card(
-              elevation: 0,
-              color: ApplicationColors.secondCardColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Container(
-                child: Center(
-                  child: Text(
-                    'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Container(height: 70),
-        ],
-      );
-    }
-
     return SizedBox(
       width: 300,
       height: 500,

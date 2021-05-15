@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../utils/application_typography.dart';
 import '../../../models/user.dart';
 
 class AboutMeTab extends StatelessWidget {
@@ -10,59 +11,66 @@ class AboutMeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Text(
-              user.username,
-              textAlign: TextAlign.start,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 12.0, top: 8),
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: _determineWhichIconShouldBeDisplayed(),
+                ),
+                Container(
+                  child: Text(
+                    user.type,
+                    textAlign: TextAlign.start,
+                    style: ApplicationTypography.aboutMeText,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Container(
-            width: double.infinity,
-            child: Text(
-              user.email,
-              textAlign: TextAlign.start,
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Icon(Icons.work),
+                ),
+                Container(
+                  child: Text(
+                    user.institution,
+                    textAlign: TextAlign.start,
+                    style: ApplicationTypography.aboutMeText,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Container(
-            width: double.infinity,
-            child: Text(
-              user.type,
-              textAlign: TextAlign.start,
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Icon(Icons.school),
+                ),
+                Container(
+                  child: Text(
+                    user.formation,
+                    textAlign: TextAlign.start,
+                    style: ApplicationTypography.aboutMeText,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Container(
-            width: double.infinity,
-            child: Text(
-              user.age,
-              textAlign: TextAlign.start,
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            child: Text(
-              user.local,
-              textAlign: TextAlign.start,
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            child: Text(
-              user.institution,
-              textAlign: TextAlign.start,
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            child: Text(
-              user.formation,
-              textAlign: TextAlign.start,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  Widget _determineWhichIconShouldBeDisplayed() {
+    if (user.type == 'Estudante') {
+      return Icon(Icons.sticky_note_2);
+    } else {
+      return Icon(Icons.square_foot);
+    }
   }
 }

@@ -25,11 +25,47 @@ class _ProjectsTabState extends State<ProjectsTab> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          _iconToChooseStyleOfProjects(),
-          _determineWhichLayoutShouldBeDisplayed(context),
+          _determineWhichWidgetsShouldBeDisplayed(context),
         ],
       ),
     );
+  }
+
+  dynamic _determineWhichWidgetsShouldBeDisplayed(BuildContext context) {
+    if (widget.projects.isEmpty) {
+      return Column(
+        children: [
+          SizedBox(
+            width: 300,
+            height: 450,
+            child: Card(
+              elevation: 0,
+              color: ApplicationColors.secondCardColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  child: Center(
+                    child: Text(
+                      'Parece que você ainda não criou nenhum projeto. Que tal criar um para divulgar seus projetos incríveis? :)',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(height: 70),
+        ],
+      );
+    } else {
+      return [
+        _iconToChooseStyleOfProjects(),
+        _determineWhichLayoutShouldBeDisplayed(context)
+      ];
+    }
   }
 
   Widget _iconToChooseStyleOfProjects() {

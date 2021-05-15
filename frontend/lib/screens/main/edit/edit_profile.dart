@@ -22,7 +22,8 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.user.username);
+    _nameController = TextEditingController(text: widget.user.name);
+    _usernameController = TextEditingController(text: widget.user.username);
     _emailController = TextEditingController(text: widget.user.email);
     _residencyController = TextEditingController(text: widget.user.local);
     _institutionController =
@@ -32,6 +33,7 @@ class _EditProfileState extends State<EditProfile> {
     _formationController = widget.user.formation;
   }
 
+  TextEditingController _usernameController;
   TextEditingController _nameController;
   TextEditingController _emailController;
   TextEditingController _residencyController;
@@ -76,6 +78,14 @@ class _EditProfileState extends State<EditProfile> {
                     controller: _nameController,
                     type: TextInputType.name,
                     label: 'Nome completo',
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                  child: InputWithAnimation(
+                    controller: _usernameController,
+                    type: TextInputType.name,
+                    label: 'Nome de usuário',
                   ),
                 ),
                 Padding(
@@ -177,7 +187,8 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void _handleFormSubmit() {
-    var username = _nameController.text;
+    var name = _nameController.text;
+    var username = _usernameController.text;
     var email = _emailController.text;
     var type = _typeController;
     var age = _ageController.toString();
@@ -186,6 +197,7 @@ class _EditProfileState extends State<EditProfile> {
     var formation = _formationController;
 
     var person = User(
+      name: name,
       username: username,
       email: email,
       type: type,
