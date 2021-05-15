@@ -33,9 +33,10 @@ export default {
     },
     async updateUser({params, request}: HttpContextContract){
         const {id} = params;
-        const {username, email, password, type, age, local, formation, institution} = request.all()
+        const {name, username, email, password, type, age, local, formation, institution} = request.all()
         const user = await User.findOrFail(id);
         
+        user.name = name;
         user.username = username;
         user.email = email;
         user.password = password;

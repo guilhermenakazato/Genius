@@ -4,7 +4,15 @@ import 'achievement.dart';
 import 'survey.dart';
 
 class User {
-  String username, email, password, type, age, local, institution, formation;
+  String name,
+      username,
+      email,
+      password,
+      type,
+      age,
+      local,
+      institution,
+      formation;
   int id;
   List<Project> projects;
   List<Achievement> achievements;
@@ -12,7 +20,8 @@ class User {
   List<Survey> surveys;
 
   User(
-      {this.username,
+      {this.name,
+      this.username,
       this.email,
       this.password,
       this.type,
@@ -20,6 +29,10 @@ class User {
       this.local,
       this.institution,
       this.formation});
+
+  void setName(String name) {
+    this.name = name;
+  }
 
   void setUsername(String username) {
     this.username = username;
@@ -55,6 +68,7 @@ class User {
 
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
+        name = json['name'],
         username = json['username'],
         email = json['email'],
         password = json['password'],
@@ -70,7 +84,7 @@ class User {
         surveys = Convert.convertToListOfSurveys(json['surveys']);
 
   Map<String, dynamic> toJson() => {
-        'id': id,
+        'name': name,
         'username': username,
         'email': email,
         'password': password,

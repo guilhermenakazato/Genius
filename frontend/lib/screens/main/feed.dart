@@ -58,9 +58,21 @@ class _FeedState extends State<_FeedContent> {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15),
-        child: _carouselOfCards(),
+        child: _verifyWhichWidgetShouldBeDisplayed(),
       ),
     );
+  }
+
+  Widget _verifyWhichWidgetShouldBeDisplayed() {
+    if (projects.isEmpty) {
+      return _noProjectWidget();
+    } else {
+      return _carouselOfCards();
+    }
+  }
+
+  Widget _noProjectWidget() {
+    return Container();
   }
 
   Widget _carouselOfCards() {
