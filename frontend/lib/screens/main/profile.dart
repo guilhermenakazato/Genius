@@ -340,15 +340,19 @@ class _ProfileState extends State<_ProfileContent> {
                 child: Row(
                   children: <Widget>[
                     Icon(
-                      Icons.location_on,
+                      Icons.person_pin,
                       color: Colors.white,
                       size: 17,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        widget.user.local,
-                        style: ApplicationTypography.profileCity,
+                      child: Container(
+                        width: 150,
+                        child: Text(
+                          widget.user.name,
+                          style: ApplicationTypography.profileCity,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ],

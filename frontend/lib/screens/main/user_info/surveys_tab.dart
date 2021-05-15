@@ -23,6 +23,46 @@ class _SurveysTabState extends State<SurveysTab> {
 
   @override
   Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: _determineWhichWidgetShouldBeDisplayed(),
+    );
+  }
+
+  Widget _determineWhichWidgetShouldBeDisplayed() {
+    if (widget.surveys.isEmpty) {
+      return Column(
+        children: [
+          SizedBox(
+            width: 300,
+            height: 450,
+            child: Card(
+              elevation: 0,
+              color: ApplicationColors.secondCardColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  child: Center(
+                    child: Text(
+                      'Parece que você ainda não criou nenhum questionário. Que tal criar um? :) Eles são ótimos para coleta de dados!',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(height: 70),
+        ],
+      );
+    } else {
+      _listOfSurveys();
+    }
+  }
+
+  Widget _listOfSurveys() {
     return Column(
       children: [
         Padding(
@@ -43,8 +83,10 @@ class _SurveysTabState extends State<SurveysTab> {
                 body: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0, bottom: 8, top: 8),
-                    child: Text('Link do seu questionário: ${entry.value.link}'),
+                    padding:
+                        const EdgeInsets.only(left: 16.0, bottom: 8, top: 8),
+                    child:
+                        Text('Link do seu questionário: ${entry.value.link}'),
                   ),
                 ),
                 headerBuilder: (BuildContext context, bool isExpanded) {
