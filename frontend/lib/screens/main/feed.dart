@@ -72,7 +72,39 @@ class _FeedState extends State<_FeedContent> {
   }
 
   Widget _noProjectWidget() {
-    return Container();
+    return Theme(
+      data: Theme.of(context).copyWith(
+        cardColor: Colors.transparent,
+      ),
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: ApplicationColors.secondCardColor,
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: () {},
+          child: SizedBox(
+            width: 300,
+            height: 450,
+            child: Card(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: Container(
+                child: Center(
+                  child: Text(
+                    'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _carouselOfCards() {
