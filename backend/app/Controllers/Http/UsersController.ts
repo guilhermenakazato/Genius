@@ -33,7 +33,7 @@ export default {
     },
     async updateUser({params, request}: HttpContextContract){
         const {id} = params;
-        const {name, username, email, password, type, age, local, formation, institution} = request.all()
+        const {name, username, email, password, type, age, local, formation, institution, bio} = request.all()
         const user = await User.findOrFail(id);
         
         user.name = name;
@@ -45,6 +45,7 @@ export default {
         user.local = local;
         user.formation = formation;
         user.institution = institution;
+        user.bio = bio;
         user.updatedAt = DateTime.local()
         
         await user.save()

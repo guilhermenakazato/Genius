@@ -45,6 +45,9 @@ export default class User extends BaseModel {
   public formation: string
 
   @column()
+  public bio: string
+
+  @column()
   public rememberMeToken?: string
 
   @column.dateTime({ autoCreate: true })
