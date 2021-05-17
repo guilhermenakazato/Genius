@@ -234,6 +234,6 @@ class ApplicationTypography {
 
   static final aboutMeText = TextStyle(
     fontWeight: FontWeight.bold,
-    fontSize: 28,
+    fontSize: 16,
   );
 }

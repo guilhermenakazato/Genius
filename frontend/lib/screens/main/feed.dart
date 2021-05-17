@@ -95,8 +95,8 @@ class _FeedState extends State<_FeedContent> {
               child: Container(
                 child: Center(
                   child: Text(
-                    'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)',
-                    textAlign: TextAlign.center,
+                    'Parece que ainda não tem nenhum projeto no Genius. Que tal criar um? :)',
+                    textAlign: TextAlign.center
                   ),
                 ),
               ),
