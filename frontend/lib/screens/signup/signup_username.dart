@@ -63,12 +63,16 @@ class _SignUpUsernameState extends State<SignUpUsername> {
   }
 
   void _verifyInput(BuildContext context) {
-    final _name = _usernameController.text.trimLeft();
+    var _username = _usernameController.text.trimLeft();
 
-    if (_name.isEmpty) {
+    if (_username.isEmpty) {
       _showToast('Preencha o campo nome!');
     } else {
-      widget.person.setUsername(_name.trimRight());
+      if(!_username.startsWith('@')){
+        _username = '@' + _username;
+      }
+
+      widget.person.setUsername(_username.trimRight());
       _navigator.navigate(context, SignUpPassword(widget.person));
     }
   }

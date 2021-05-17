@@ -58,7 +58,7 @@ class _SurveysTabState extends State<SurveysTab> {
         ],
       );
     } else {
-      _listOfSurveys();
+      return _listOfSurveys();
     }
   }
 
