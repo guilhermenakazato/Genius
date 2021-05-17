@@ -4,6 +4,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../components/borderless_button.dart';
 import '../utils/application_colors.dart';
 import 'main/main_screen.dart';
 import '../components/button.dart';
@@ -44,54 +45,93 @@ class _LoginStateBody extends StatelessWidget {
   }
 }
 
-class _LoginStateContent extends StatelessWidget {
+class _LoginStateContent extends StatefulWidget {
+  @override
+  __LoginStateContentState createState() => __LoginStateContentState();
+}
+
+class __LoginStateContentState extends State<_LoginStateContent> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _obscure = true;
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Transform.translate(
-              offset: Offset(0, -10),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
-                child: Container(
-                  width: double.infinity,
-                  child: Text(
-                    'Login',
-                    style: ApplicationTypography.loginTitle,
-                    textAlign: TextAlign.center,
-                  ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Positioned(
+          child: Align(
+            alignment: FractionalOffset.center,
+            child: SingleChildScrollView(
+              child: Container(
+                height: 400,
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                      child: Container(
+                        width: double.infinity,
+                        child: Text(
+                          'Login',
+                          style: ApplicationTypography.loginTitle,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    Input(
+                        controller: _emailController,
+                        hint: 'E-mail',
+                        type: TextInputType.emailAddress),
+                    Input(
+                      controller: _passwordController,
+                      hint: 'Senha',
+                      obscure: _obscure,
+                      type: TextInputType.text,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Button(
+                        text: 'Login',
+                        width: 150,
+                        height: 50,
+                        onClick: () {
+                          handleLogin(context);
+                        },
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
-            Input(
-                controller: _emailController,
-                hint: 'E-mail',
-                type: TextInputType.emailAddress),
-            Input(
-              controller: _passwordController,
-              hint: 'Senha',
-              obscure: true,
-              type: TextInputType.text,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Button(
-                text: 'Login',
-                width: 150,
-                height: 50,
-                onClick: () {
-                  handleLogin(context);
-                },
-              ),
-            )
-          ],
+          ),
         ),
-      ),
+        Positioned(
+          child: Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0, left: 8, bottom: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BorderlessButton(
+                    onPressed: () {
+                      setState(() {
+                        _obscure = !_obscure;
+                      });
+                    },
+                    text: 'Mostrar\nsenha',
+                  ),
+                  BorderlessButton(
+                    onPressed: () {},
+                    text: 'Esqueci\na senha',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 
