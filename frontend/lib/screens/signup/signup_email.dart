@@ -37,12 +37,15 @@ class _SignUpEmailState extends State<SignUpEmail> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Prazer em te conhecer,\n' +
-                  widget.person.username +
-                  '!\nQual o seu email?',
-              textAlign: TextAlign.center,
-              style: ApplicationTypography.primarySignUpText,
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0, left: 12),
+              child: Text(
+                'Prazer em te conhecer, ' +
+                    widget.person.name +
+                    '!\nQual o seu email?',
+                textAlign: TextAlign.center,
+                style: ApplicationTypography.primarySignUpText,
+              ),
             ),
             BorderlessInput(
               hint: 'Email',
