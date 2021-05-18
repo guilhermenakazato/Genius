@@ -45,25 +45,56 @@ class AboutMeTab extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.school),
-                ),
-                Container(
-                  child: Text(
-                    user.formation,
-                    textAlign: TextAlign.start,
-                    style: ApplicationTypography.aboutMeText,
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Icon(Icons.school),
                   ),
-                ),
-              ],
+                  Container(
+                    child: Text(
+                      user.formation,
+                      textAlign: TextAlign.start,
+                      style: ApplicationTypography.aboutMeText,
+                    ),
+                  ),
+                ],
+              ),
             ),
+            _bio(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _bio() {
+    if (user.bio.isNotEmpty && user.bio != null) {
+      return Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: Divider(
+              color: Colors.white,
+              height: 15,
+              thickness: 2,
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            child: Text(
+              user.bio,
+              textAlign: TextAlign.start,
+              style: ApplicationTypography.aboutMeText,
+            ),
+          )
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget _determineWhichIconShouldBeDisplayed() {

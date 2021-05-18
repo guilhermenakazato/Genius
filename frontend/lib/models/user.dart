@@ -97,7 +97,7 @@ class User {
         'local': local,
         'institution': institution,
         'formation': formation,
-        'bio': 'bio',
+        'bio': bio,
       };
 
   @override
