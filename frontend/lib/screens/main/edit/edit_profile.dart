@@ -1,9 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../http/exceptions/http_exception.dart';
 import '../../../models/token.dart';
 import '../../../http/webclients/user_webclient.dart';
 import '../../../models/user.dart';
@@ -53,6 +57,162 @@ class _EditProfileState extends State<EditProfile> {
   int _ageController;
   final _tokenObject = Token();
 
+  @override
+  Widget build(BuildContext context) {
+    return ProgressHUD(
+      borderColor: Theme.of(context).primaryColor,
+      indicatorWidget: SpinKitPouringHourglass(
+        color: Theme.of(context).primaryColor,
+      ),
+      child: FutureBuilder(
+        future: getData(),
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.hasData) {
+            final user = User.fromJson(jsonDecode(snapshot.data));
+            _fillInputs(user);
+
+            return Theme(
+              data: Theme.of(context).copyWith(
+                splashColor: ApplicationColors.splashColor,
+              ),
+              child: Scaffold(
+                body: SingleChildScrollView(
+                  child: Align(
+                    child: Column(
+                      children: <Widget>[
+                        _photoWidget(),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
+                          child: InputWithAnimation(
+                            controller: _nameController,
+                            type: TextInputType.name,
+                            label: 'Nome completo',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                          child: InputWithAnimation(
+                            controller: _usernameController,
+                            type: TextInputType.name,
+                            label: 'Nome de usuário',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                          child: Container(
+                            height: 95,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Text(
+                                    'Idade:',
+                                    style:
+                                        ApplicationTypography.specialAgeInput,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20.0),
+                                  child: Picker(
+                                    onChanged: (int value) {
+                                      _ageController = value + 10;
+                                    },
+                                    initialValue: int.parse(user.age) - 10,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                          child: InputWithAnimation(
+                            controller: _emailController,
+                            type: TextInputType.emailAddress,
+                            label: 'Email',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                          child: InputWithAnimation(
+                            controller: _residencyController,
+                            type: TextInputType.streetAddress,
+                            label: 'Moradia',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                          child: InputWithAnimation(
+                            controller: _institutionController,
+                            type: TextInputType.streetAddress,
+                            label: 'Instituição',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                          child: DropDownButton(
+                            hint: user.type,
+                            items: _typeOptions,
+                            width: 325,
+                            onValueChanged: (String value) {
+                              _typeController = value;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                          child: DropDownButton(
+                            hint: user.formation,
+                            items: _formationOptions,
+                            width: 325,
+                            onValueChanged: (String value) {
+                              _formationController = value;
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                          child: InputWithAnimation(
+                            controller: _bioController,
+                            type: TextInputType.multiline,
+                            label: 'Bio',
+                            allowMultilines: true,
+                            maxChar: 180,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GradientButton(
+                            onPressed: () {
+                              _handleFormSubmit(user, context);
+                              setState(() {});
+                            },
+                            text: 'Salvar',
+                            width: 270,
+                            height: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return SpinKitFadingCube(color: ApplicationColors.primary);
+          }
+        },
+      ),
+    );
+  }
+
   Future<String> getData() async {
     final _webClient = UserWebClient();
     final _token = await _tokenObject.getToken();
@@ -72,156 +232,7 @@ class _EditProfileState extends State<EditProfile> {
     _formationController = user.formation;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getData(),
-      builder: (context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.hasData) {
-          final user = User.fromJson(jsonDecode(snapshot.data));
-          _fillInputs(user);
-
-          return Theme(
-            data: Theme.of(context).copyWith(
-              splashColor: ApplicationColors.splashColor,
-            ),
-            child: Scaffold(
-              body: SingleChildScrollView(
-                child: Align(
-                  child: Column(
-                    children: <Widget>[
-                      _photoWidget(),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
-                        child: InputWithAnimation(
-                          controller: _nameController,
-                          type: TextInputType.name,
-                          label: 'Nome completo',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: InputWithAnimation(
-                          controller: _usernameController,
-                          type: TextInputType.name,
-                          label: 'Nome de usuário',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: Container(
-                          height: 95,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Text(
-                                  'Idade:',
-                                  style: ApplicationTypography.specialAgeInput,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20.0),
-                                child: Picker(
-                                  onChanged: (int value) {
-                                    _ageController = value + 10;
-                                  },
-                                  initialValue: int.parse(user.age) - 10,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: InputWithAnimation(
-                          controller: _emailController,
-                          type: TextInputType.emailAddress,
-                          label: 'Email',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: InputWithAnimation(
-                          controller: _residencyController,
-                          type: TextInputType.streetAddress,
-                          label: 'Moradia',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: InputWithAnimation(
-                          controller: _institutionController,
-                          type: TextInputType.streetAddress,
-                          label: 'Instituição',
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: DropDownButton(
-                          hint: user.type,
-                          items: _typeOptions,
-                          width: 325,
-                          onValueChanged: (String value) {
-                            _typeController = value;
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: DropDownButton(
-                          hint: user.formation,
-                          items: _formationOptions,
-                          width: 325,
-                          onValueChanged: (String value) {
-                            _formationController = value;
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: InputWithAnimation(
-                          controller: _bioController,
-                          type: TextInputType.multiline,
-                          label: 'Bio',
-                          allowMultilines: true,
-                          maxChar: 180,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GradientButton(
-                          onPressed: () {
-                            _handleFormSubmit(user);
-                            setState(() {});
-                          },
-                          text: 'Salvar',
-                          width: 270,
-                          height: 50,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        } else {
-          return SpinKitFadingCube(color: ApplicationColors.primary);
-        }
-      },
-    );
-  }
-
-  void _handleFormSubmit(User user) {
+  void _handleFormSubmit(User user, BuildContext context) {
     var name = _nameController.text;
     var username = _usernameController.text;
     var email = _emailController.text;
@@ -245,11 +256,27 @@ class _EditProfileState extends State<EditProfile> {
       password: user.password,
     );
 
-    updateUserData(person);
+    updateUserData(person, user.id, context);
   }
 
-  void updateUserData(User user){
+  void updateUserData(User user, int userId, BuildContext context) async {
+    final _webClient = UserWebClient();
+    final progress = ProgressHUD.of(context);
 
+    progress.show();
+    await _webClient.updateUser(user, userId).catchError((error) {
+      progress.dismiss();
+      _showToast(error.message);
+    }, test: (error) => error is HttpException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+    }, test: (error) => error is TimeoutException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro desconhecido.');
+    });
+
+    _showToast('Perfil atualizado com sucesso!');
+    progress.dismiss();
   }
 
   Widget _photoWidget() {
@@ -272,6 +299,18 @@ class _EditProfileState extends State<EditProfile> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
     );
   }
 }
