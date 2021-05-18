@@ -37,6 +37,8 @@ Route.get('health', async ({ response }) => {
 
 Route.get('/users', UsersController.listAllUsers);
 Route.get("/user/:id", UsersController.getUserById);
+Route.get("/user-email/:email", UsersController.verifyIfEmailAlreadyExists);
+Route.get("/user-username/:username", UsersController.verifyIfUsernameAlreadyExists);
 Route.post("/user", UsersController.create);
 Route.delete("/user/:id", UsersController.deleteUser);
 Route.put("/user/:id", UsersController.updateUser); 

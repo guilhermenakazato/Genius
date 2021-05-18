@@ -61,5 +61,17 @@ export default {
         await user.preload("saved")
 
         return user
+    },
+    async verifyIfUsernameAlreadyExists({params}: HttpContextContract){
+        const {username} = params
+        const user = await User.findByOrFail("username", username);
+        
+        return user;
+    },
+    async verifyIfEmailAlreadyExists({params}: HttpContextContract){
+        const {email} = params
+        const user = await User.findByOrFail("email", email);
+
+        return user;
     }
 }
