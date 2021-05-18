@@ -12,23 +12,26 @@ class User {
       age,
       local,
       institution,
-      formation;
+      formation,
+      bio;
   int id;
   List<Project> projects;
   List<Achievement> achievements;
   List<Project> saved;
   List<Survey> surveys;
 
-  User(
-      {this.name,
-      this.username,
-      this.email,
-      this.password,
-      this.type,
-      this.age,
-      this.local,
-      this.institution,
-      this.formation});
+  User({
+    this.name,
+    this.username,
+    this.email,
+    this.password,
+    this.type,
+    this.age,
+    this.local,
+    this.institution,
+    this.formation,
+    this.bio,
+  });
 
   void setName(String name) {
     this.name = name;
@@ -77,6 +80,7 @@ class User {
         local = json['local'],
         institution = json['institution'],
         formation = json['formation'],
+        bio = json['bio'],
         projects = Convert.convertToListOfProjects(json['projects']),
         achievements =
             Convert.convertToListOfAchievements(json['achievements']),
@@ -93,10 +97,11 @@ class User {
         'local': local,
         'institution': institution,
         'formation': formation,
+        'bio': 'bio',
       };
 
   @override
   String toString() {
-    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, institution: $institution, formação: $formation}';
+    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, institution: $institution, formação: $formation, bio: $bio}';
   }
 }
