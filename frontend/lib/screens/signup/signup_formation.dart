@@ -43,7 +43,7 @@ class _SignUpFormationState extends State<SignUpFormation> {
       floatingActionButton: FloatingButton(
         onPressed: () {
           _nextScreen(context);
-        },
+        },icon: Icons.arrow_forward_ios,
       ),
       body: Align(
         child: Column(

@@ -23,7 +23,7 @@ class SignUpInstitution extends StatelessWidget {
       floatingActionButton: FloatingButton(
         onPressed: () {
           _verifyInput(context);
-        },
+        },icon: Icons.arrow_forward_ios,
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(

@@ -28,7 +28,7 @@ class _SignUpAgeState extends State<SignUpAge> {
       floatingActionButton: FloatingButton(
         onPressed: () {
           _nextScreen(context);
-        },
+        }, icon: Icons.arrow_forward_ios,
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(
