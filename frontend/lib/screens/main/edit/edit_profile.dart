@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../utils/navigator_util.dart';
 import '../../../http/exceptions/http_exception.dart';
 import '../../../models/token.dart';
@@ -56,8 +58,8 @@ class _EditProfileState extends State<EditProfile> {
   String _formationController;
   int _ageController;
   final _tokenObject = Token();
-
   final _navigator = NavigatorUtil();
+  final _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -80,127 +82,164 @@ class _EditProfileState extends State<EditProfile> {
               child: Scaffold(
                 body: SingleChildScrollView(
                   child: Align(
-                    child: Column(
-                      children: <Widget>[
-                        _photoWidget(),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
-                          child: InputWithAnimation(
-                            controller: _nameController,
-                            type: TextInputType.name,
-                            label: 'Nome completo',
+                    child: Form(
+                      key: _key,
+                      child: Column(
+                        children: <Widget>[
+                          _photoWidget(),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
+                            child: InputWithAnimation(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Por favor, escreva algo.';
+                                }
+                                return null;
+                              },
+                              controller: _nameController,
+                              type: TextInputType.name,
+                              label: 'Nome completo',
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                          child: InputWithAnimation(
-                            controller: _usernameController,
-                            type: TextInputType.name,
-                            label: 'Nome de usuário',
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: InputWithAnimation(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Por favor, escreva algo.';
+                                }
+                                return null;
+                              },
+                              controller: _usernameController,
+                              type: TextInputType.name,
+                              label: 'Nome de usuário',
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                          child: Container(
-                            height: 95,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Theme.of(context).primaryColor,
-                                width: 2,
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: Container(
+                              height: 95,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(32),
                               ),
-                              borderRadius: BorderRadius.circular(32),
-                            ),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Text(
-                                    'Idade:',
-                                    style:
-                                        ApplicationTypography.specialAgeInput,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Text(
+                                      'Idade:',
+                                      style:
+                                          ApplicationTypography.specialAgeInput,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20.0),
-                                  child: Picker(
-                                    onChanged: (int value) {
-                                      _ageController = value + 10;
-                                    },
-                                    initialValue: int.parse(user.age) - 10,
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: Picker(
+                                      onChanged: (int value) {
+                                        _ageController = value + 10;
+                                      },
+                                      initialValue: int.parse(user.age) - 10,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                          child: InputWithAnimation(
-                            controller: _emailController,
-                            type: TextInputType.emailAddress,
-                            label: 'Email',
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: InputWithAnimation(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Por favor, escreva algo.';
+                                } else if (!EmailValidator.validate(value)) {
+                                  return 'Insira um e-mail válido.';
+                                }
+                                return null;
+                              },
+                              controller: _emailController,
+                              type: TextInputType.emailAddress,
+                              label: 'Email',
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                          child: InputWithAnimation(
-                            controller: _residencyController,
-                            type: TextInputType.streetAddress,
-                            label: 'Moradia',
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: InputWithAnimation(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Por favor, escreva algo.';
+                                }
+                                return null;
+                              },
+                              controller: _residencyController,
+                              type: TextInputType.streetAddress,
+                              label: 'Moradia',
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                          child: InputWithAnimation(
-                            controller: _institutionController,
-                            type: TextInputType.streetAddress,
-                            label: 'Instituição',
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: InputWithAnimation(
+                              validator: (value) {
+                                if (value.isEmpty) {
+                                  return 'Por favor, escreva algo.';
+                                }
+                                return null;
+                              },
+                              controller: _institutionController,
+                              type: TextInputType.streetAddress,
+                              label: 'Instituição',
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                          child: DropDownButton(
-                            hint: user.type,
-                            items: _typeOptions,
-                            width: 325,
-                            onValueChanged: (String value) {
-                              _typeController = value;
-                            },
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: DropDownButton(
+                              hint: user.type,
+                              items: _typeOptions,
+                              width: 325,
+                              onValueChanged: (String value) {
+                                _typeController = value;
+                              },
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                          child: DropDownButton(
-                            hint: user.formation,
-                            items: _formationOptions,
-                            width: 325,
-                            onValueChanged: (String value) {
-                              _formationController = value;
-                            },
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: DropDownButton(
+                              hint: user.formation,
+                              items: _formationOptions,
+                              width: 325,
+                              onValueChanged: (String value) {
+                                _formationController = value;
+                              },
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                          child: InputWithAnimation(
-                            controller: _bioController,
-                            type: TextInputType.multiline,
-                            label: 'Bio',
-                            allowMultilines: true,
-                            maxChar: 180,
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: InputWithAnimation(
+                              controller: _bioController,
+                              type: TextInputType.multiline,
+                              label: 'Bio',
+                              allowMultilines: true,
+                              maxChar: 180,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GradientButton(
-                            onPressed: () {
-                              _handleFormSubmit(user, context);
-                            },
-                            text: 'Salvar',
-                            width: 270,
-                            height: 50,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GradientButton(
+                              onPressed: () {
+                                if (_key.currentState.validate()) {
+                                  _handleFormSubmit(user, context);
+                                }
+                              },
+                              text: 'Salvar',
+                              width: 270,
+                              height: 50,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
