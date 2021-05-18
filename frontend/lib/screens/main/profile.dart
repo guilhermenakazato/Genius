@@ -298,7 +298,7 @@ class _ProfileState extends State<_ProfileContent> {
               _navigator.navigate(
                 context,
                 EditOptions(
-                  user: widget.user,
+                  id: widget.user.id,
                 ),
               );
             },

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../models/user.dart';
 import '../../utils/application_colors.dart';
 import 'edit/edit_profile.dart';
 import 'edit/edit_projects.dart';
@@ -9,9 +8,9 @@ import 'edit/edit_surveys.dart';
 import '../../utils/application_typography.dart';
 
 class EditOptions extends StatefulWidget {
-  final User user;
+  final int id;
 
-  const EditOptions({Key key, @required this.user}) : super(key: key);
+  const EditOptions({Key key, @required this.id}) : super(key: key);
 
   @override
   _EditOptionsState createState() => _EditOptionsState();
@@ -100,7 +99,7 @@ class _EditOptionsState extends State<EditOptions>
           controller: _tabController,
           children: <Widget>[
             EditProfile(
-              user: widget.user,
+              id: widget.id,
             ),
             EditProjects(),
             EditConquistas(),
