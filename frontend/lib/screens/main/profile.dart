@@ -173,7 +173,9 @@ class _ProfileState extends State<_ProfileContent> {
           ),
         ),
         SurveysTab(surveys: widget.user.surveys),
-        SavedTab(savedProjects: widget.user.saved,)
+        SavedTab(
+          savedProjects: widget.user.saved,
+        )
       ],
     );
   }
