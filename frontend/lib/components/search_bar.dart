@@ -33,7 +33,7 @@ class _SearchBarState extends State<SearchBar> {
           AnimatedContainer(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
-              color: Theme.of(context).textTheme.bodyText1.color,
+              color: ApplicationColors.searchButtonColor
             ),
             duration: Duration(milliseconds: 400),
             child: Material(

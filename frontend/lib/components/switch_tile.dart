@@ -24,16 +24,15 @@ class _SwitchTileState extends State<SwitchTile> {
   Widget build(BuildContext context) {
     return MergeSemantics(
       child: Ink(
-        color: ApplicationColors.switchTileColor,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+            color: ApplicationColors.switchTileColor),
         child: ListTile(
           leading: Icon(
             widget.icon,
             color: Theme.of(context).primaryColor,
           ),
-          title: Text(
-            widget.text,
-            style: ApplicationTypography.switchTile
-          ),
+          title: Text(widget.text, style: ApplicationTypography.switchTile),
           trailing: CupertinoSwitch(
             value: _isSwitched,
             activeColor: Theme.of(context).primaryColor,

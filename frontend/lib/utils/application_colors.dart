@@ -17,10 +17,11 @@ class ApplicationColors {
   ];
 
   static const configTitle = Color(0xffffffff);
-  static const searchFieldHintColor = Color(0xff000000);
-  static const searchFieldIconColor = Color(0xff000000);
-  static const searchFieldTextColor = Color(0xff000000);
-  static const searchFieldColor = Color(0xffffffff);
+  static const searchFieldHintColor = Color(0xffffffff);
+  static const searchFieldIconColor = Color(0xffffffff);
+  static const searchFieldTextColor = Color(0xFF3D3B8E);
+  static const searchFieldColor = Color(0xFF3D3B8E);
+  static const searchButtonColor = Color(0xFF3D3B8E);
   static const floatingButtonColor = Colors.transparent;
   static const profileNameColor = Color(0xffffffff);
   static const profileCityColor = Color(0xffffffff);
