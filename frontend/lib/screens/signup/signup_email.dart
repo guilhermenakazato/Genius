@@ -1,8 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../http/webclients/signup_webclient.dart';
 import '../../utils/application_colors.dart';
 import '../../components/borderless_input.dart';
 import '../../components/floating_button.dart';
@@ -26,39 +29,42 @@ class _SignUpEmailState extends State<SignUpEmail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingButton(
-        onPressed: () {
-          _verifyInput(context);
-        }, icon: Icons.arrow_forward_ios,
-      ),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Align(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 12.0, left: 12),
-              child: Text(
-                'Prazer em te conhecer, ' +
-                    widget.person.name +
-                    '!\nQual o seu email?',
-                textAlign: TextAlign.center,
-                style: ApplicationTypography.primarySignUpText,
+    return ProgressHUD(
+      child: Scaffold(
+        floatingActionButton: FloatingButton(
+          onPressed: () {
+            _verifyInput(context);
+          },
+          icon: Icons.arrow_forward_ios,
+        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Align(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 12.0, left: 12),
+                child: Text(
+                  'Prazer em te conhecer, ' +
+                      widget.person.name +
+                      '!\nQual o seu email?',
+                  textAlign: TextAlign.center,
+                  style: ApplicationTypography.primarySignUpText,
+                ),
               ),
-            ),
-            BorderlessInput(
-              hint: 'Email',
-              controller: _emailController,
-              type: TextInputType.emailAddress,
-            )
-          ],
+              BorderlessInput(
+                hint: 'Email',
+                controller: _emailController,
+                type: TextInputType.emailAddress,
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void _verifyInput(BuildContext context) {
+  void _verifyInput(BuildContext context) async {
     final _email = _emailController.text.trimLeft();
 
     if (_email.isEmpty) {
@@ -66,8 +72,16 @@ class _SignUpEmailState extends State<SignUpEmail> {
     } else if (!EmailValidator.validate(_email)) {
       _showToast('Insira um e-mail válido!');
     } else {
-      widget.person.setEmail(_email);
-      navigator.navigate(context, SignUpUsername(widget.person));
+      final _webClient = SignUpWebClient();
+      var emailAlreadyExists =
+          await _webClient.verifyIfEmailAlreadyExists(_email);
+
+      if (emailAlreadyExists) {
+        _showToast('Ops! Esse email já está cadastrado no Genius.');
+      } else {
+        widget.person.setEmail(_email);
+        navigator.navigate(context, SignUpUsername(widget.person));
+      }
     }
   }
 

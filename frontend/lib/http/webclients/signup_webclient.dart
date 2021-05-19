@@ -21,7 +21,35 @@ class SignUpWebClient {
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
+  Future<bool> verifyIfUsernameAlreadyExists(String username) async {
+    final response = await client.get(
+      baseUrl + '/user-username/$username',
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 404) {
+      return false;
+    }
+
+    throw HttpException('Erro desconhecido...');
+  }
+
+  Future<bool> verifyIfEmailAlreadyExists(String email) async {
+    final response = await client.get(
+      baseUrl + '/user-email/$email',
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 404) {
+      return false;
+    }
+
+    throw HttpException('Erro desconhecido...');
+  }
+
   static final Map<int, String> _statusCodeResponses = {
-    500: 'Erro ao realizar cadastro: email já existente.',
+    
   };
 }
