@@ -107,6 +107,8 @@ class _EditProfileState extends State<EditProfile> {
                               validator: (value) {
                                 if (value.isEmpty) {
                                   return 'Por favor, escreva algo.';
+                                } else if (value == '@') {
+                                  return 'Escreva um nome de usuário.';
                                 }
                                 return null;
                               },
