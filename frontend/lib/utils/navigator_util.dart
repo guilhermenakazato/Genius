@@ -7,6 +7,12 @@ class NavigatorUtil {
     }));
   }
 
+  void navigateAndReload(BuildContext context, Widget widget, Function function) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return widget;
+    })).then((value) => function());
+  }
+
   void navigateAndRemove(BuildContext context, Widget widget) {
     Navigator.pushAndRemoveUntil(
       context,

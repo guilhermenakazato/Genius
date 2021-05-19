@@ -18,39 +18,13 @@ import 'user_info/saved_tab.dart';
 import 'user_info/surveys_tab.dart';
 
 class Profile extends StatelessWidget {
-  final _tokenObject = Token();
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getData(),
-      builder: (context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.hasData) {
-          final user = User.fromJson(jsonDecode(snapshot.data));
-
-          return _ProfileContent(
-            user: user,
-          );
-        } else {
-          return SpinKitFadingCube(color: ApplicationColors.primary);
-        }
-      },
-    );
-  }
-
-  Future<String> getData() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    return _ProfileContent();
   }
 }
 
 class _ProfileContent extends StatefulWidget {
-  final User user;
-
-  _ProfileContent({Key key, this.user}) : super(key: key);
-
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -59,25 +33,51 @@ class _ProfileState extends State<_ProfileContent> {
   final _tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
   final _navigator = NavigatorUtil();
   double _myMindPosition = 0.65;
+  final _tokenObject = Token();
+  Future<String> _userData;
+
+  @override
+  void initState() {
+    _userData = getData();
+    super.initState();
+  }
+
+  Future<String> getData() async {
+    final _webClient = UserWebClient();
+    final _token = await _tokenObject.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(height: 50),
-          _photoNameAndCity(),
-          _followersEditProfileAndFollowing(),
-          _tagsWidget(),
-        ],
-      ),
-      _draggableSheet(),
-    ]);
+    return FutureBuilder(
+      future: _userData,
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.hasData) {
+          final user = User.fromJson(jsonDecode(snapshot.data));
+
+          return Stack(children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Container(height: 50),
+                _photoNameAndCity(user),
+                _followersEditProfileAndFollowing(user),
+                _tagsWidget(),
+              ],
+            ),
+            _draggableSheet(user),
+          ]);
+        } else {
+          return SpinKitFadingCube(color: ApplicationColors.primary);
+        }
+      },
+    );
   }
 
-  Widget _draggableSheet() {
+  Widget _draggableSheet(User user) {
     return NotificationListener<DraggableScrollableNotification>(
       onNotification: (notification) {
         setState(() {
@@ -141,7 +141,7 @@ class _ProfileState extends State<_ProfileContent> {
                           ),
                           Container(
                             height: MediaQuery.of(context).size.height * 0.738,
-                            child: _draggableSheetContent(),
+                            child: _draggableSheetContent(user),
                           ),
                         ],
                       ),
@@ -156,14 +156,14 @@ class _ProfileState extends State<_ProfileContent> {
     );
   }
 
-  Widget _draggableSheetContent() {
+  Widget _draggableSheetContent(User user) {
     return TabBarView(
       children: <Widget>[
         AboutMeTab(
-          user: widget.user,
+          user: user,
         ),
         ProjectsTab(
-          projects: widget.user.projects,
+          projects: user.projects,
         ),
         SingleChildScrollView(
           child: Column(
@@ -172,9 +172,9 @@ class _ProfileState extends State<_ProfileContent> {
             ],
           ),
         ),
-        SurveysTab(surveys: widget.user.surveys),
+        SurveysTab(surveys: user.surveys),
         SavedTab(
-          savedProjects: widget.user.saved,
+          savedProjects: user.saved,
         )
       ],
     );
@@ -220,7 +220,7 @@ class _ProfileState extends State<_ProfileContent> {
     );
   }
 
-  Widget _followersEditProfileAndFollowing() {
+  Widget _followersEditProfileAndFollowing(User user) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 30.0,
@@ -236,7 +236,7 @@ class _ProfileState extends State<_ProfileContent> {
               _navigator.navigate(
                 context,
                 Follows(
-                  user: widget.user,
+                  user: user,
                 ),
               );
             },
@@ -268,7 +268,7 @@ class _ProfileState extends State<_ProfileContent> {
               _navigator.navigate(
                 context,
                 Follows(
-                  user: widget.user,
+                  user: user,
                 ),
               );
             },
@@ -297,12 +297,15 @@ class _ProfileState extends State<_ProfileContent> {
           ),
           GradientButton(
             onPressed: () {
-              _navigator.navigate(
-                context,
-                EditOptions(
-                  id: widget.user.id,
-                ),
-              );
+              _navigator.navigateAndReload(
+                  context,
+                  EditOptions(
+                    id: user.id,
+                  ), () {
+                setState(() {
+                  _userData = getData();
+                });
+              });
             },
             text: 'Editar',
             width: 72,
@@ -313,7 +316,7 @@ class _ProfileState extends State<_ProfileContent> {
     );
   }
 
-  Widget _photoNameAndCity() {
+  Widget _photoNameAndCity(User user) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -332,7 +335,7 @@ class _ProfileState extends State<_ProfileContent> {
               Container(
                 width: 170,
                 child: Text(
-                  widget.user.username,
+                  user.username,
                   style: ApplicationTypography.profileName,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -351,7 +354,7 @@ class _ProfileState extends State<_ProfileContent> {
                       child: Container(
                         width: 150,
                         child: Text(
-                          widget.user.name,
+                          user.name,
                           style: ApplicationTypography.profileCity,
                           overflow: TextOverflow.ellipsis,
                         ),
