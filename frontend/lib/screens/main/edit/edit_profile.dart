@@ -109,6 +109,8 @@ class _EditProfileState extends State<EditProfile> {
                                   return 'Por favor, escreva algo.';
                                 } else if (value == '@') {
                                   return 'Escreva um nome de usuário.';
+                                } else if (value.contains(' ')) {
+                                  return 'Remova os espaços em branco.';
                                 }
                                 return null;
                               },

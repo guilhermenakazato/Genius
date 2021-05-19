@@ -85,6 +85,9 @@ class _SignUpUsernameState extends State<SignUpUsername> {
     } else if (_username == '@') {
       progress.dismiss();
       _showToast('Insira um nome de usuário!');
+    } else if (_username.contains(' ')) {
+      progress.dismiss();
+      _showToast('Remova os espaços em branco!');
     } else {
       if (!_username.startsWith('@')) {
         _username = '@' + _username;
