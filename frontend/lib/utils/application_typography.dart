@@ -160,7 +160,7 @@ class ApplicationTypography {
 
   static final configTitle = TextStyle(
     color: ApplicationColors.configTitle,
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: FontWeight.w900,
   );
 

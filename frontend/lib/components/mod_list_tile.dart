@@ -8,19 +8,24 @@ class ModListTile extends StatelessWidget {
   final IconData icon;
   final Function function;
   final String type;
+  final String position;
 
   const ModListTile({
     Key key,
     @required this.text,
     @required this.icon,
     this.function,
-    this.type,
+    this.type = 'center',
+    this.position,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Ink(
-      color: ApplicationColors.switchTileColor,
+      decoration: BoxDecoration(
+        borderRadius: _determineBorderRadius(),
+        color: ApplicationColors.switchTileColor,
+      ),
       child: InkWell(
         onTap: () {
           if (function != null) {
@@ -32,7 +37,6 @@ class ModListTile extends StatelessWidget {
             icon,
             color: _changeColorIfTypeIsWarning(context),
           ),
-          
           title: Text(
             text,
             style: ApplicationTypography.listTileText(
@@ -49,6 +53,22 @@ class ModListTile extends StatelessWidget {
       return ApplicationColors.atentionColor;
     } else {
       return Theme.of(context).primaryColor;
+    }
+  }
+
+  BorderRadius _determineBorderRadius() {
+    if (position == 'top') {
+      return BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      );
+    } else if (position == 'bottom') {
+      return BorderRadius.only(
+        bottomLeft: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      );
+    } else {
+      return null;
     }
   }
 }

@@ -20,8 +20,11 @@ class Config extends StatelessWidget {
         Container(
           height: 40,
         ),
-        ConfigTitle(
-          text: 'Configurações',
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0, top: 10, bottom: 7),
+          child: ConfigTitle(
+            text: 'Configurações',
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -30,20 +33,22 @@ class Config extends StatelessWidget {
               icon: Icons.notifications,
               text: 'Notificações',
             ),
-            ModListTile(
-              text: 'Excluir conta',
-              icon: Icons.delete,
-              type: 'warning',
-            ),
           ]),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(children: <Widget>[
             ModListTile(
+              text: 'Excluir conta',
+              icon: Icons.delete,
+              type: 'warning',
+              position: 'top'
+            ),
+            ModListTile(
               text: 'Sair',
               type: 'warning',
               icon: Icons.login,
+              position: 'bottom',
               function: () async {
                 _webClient.logout(await _tokenObject.getToken());
                 _tokenObject.removeToken();

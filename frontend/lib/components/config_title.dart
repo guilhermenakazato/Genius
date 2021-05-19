@@ -14,7 +14,7 @@ class ConfigTitle extends StatelessWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          'Configurações da conta',
+          'CONFIGURAÇÕES DA CONTA',
           style: ApplicationTypography.configTitle,
         ),
       ),
