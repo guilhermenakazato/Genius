@@ -12,7 +12,7 @@ class Search extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 32.0, left: 16),
+            padding: const EdgeInsets.only(top: 40.0, left: 10),
             child: SearchBar(),
           ),
           TagBar(),
