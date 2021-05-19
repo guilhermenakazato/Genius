@@ -32,6 +32,7 @@ class ModListTile extends StatelessWidget {
             icon,
             color: _changeColorIfTypeIsWarning(context),
           ),
+          
           title: Text(
             text,
             style: ApplicationTypography.listTileText(
