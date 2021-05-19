@@ -17,30 +17,40 @@ class Config extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 40),
+        Container(
+          height: 40,
         ),
         ConfigTitle(
           text: 'Configurações',
         ),
-        SwitchTile(
-          icon: Icons.notifications,
-          text: 'Notificações',
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: <Widget>[
+            SwitchTile(
+              icon: Icons.notifications,
+              text: 'Notificações',
+            ),
+            ModListTile(
+              text: 'Excluir conta',
+              icon: Icons.delete,
+              type: 'warning',
+            ),
+          ]),
         ),
-        ModListTile(
-          text: 'Excluir conta',
-          icon: Icons.delete,
-          type: 'warning',
-        ),
-        ModListTile(
-          text: 'Sair',
-          type: 'warning',
-          icon: Icons.login,
-          function: () async {
-            _webClient.logout(await _tokenObject.getToken());
-            _tokenObject.removeToken();
-            _navigator.navigateAndRemove(context, Welcome());
-          },
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: <Widget>[
+            ModListTile(
+              text: 'Sair',
+              type: 'warning',
+              icon: Icons.login,
+              function: () async {
+                _webClient.logout(await _tokenObject.getToken());
+                _tokenObject.removeToken();
+                _navigator.navigateAndRemove(context, Welcome());
+              },
+            ),
+          ]),
         ),
       ],
     );
