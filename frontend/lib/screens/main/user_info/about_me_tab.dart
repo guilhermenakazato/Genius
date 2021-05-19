@@ -53,7 +53,7 @@ class AboutMeTab extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Icon(Icons.school),
                   ),
-                  Container(
+                  Expanded(
                     child: Text(
                       user.formation,
                       textAlign: TextAlign.start,
@@ -71,27 +71,30 @@ class AboutMeTab extends StatelessWidget {
   }
 
   Widget _bio() {
-    if (user.bio.isNotEmpty && user.bio != null) {
-      return Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12.0),
-            child: Divider(
-              color: Colors.white,
-              height: 15,
-              thickness: 2,
+    if (user.bio != null) {
+      if (user.bio.isNotEmpty) {
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: Divider(
+                color: Colors.white,
+                height: 15,
+                thickness: 2,
+              ),
             ),
-          ),
-          Container(
-            width: double.infinity,
-            child: Text(
-              user.bio,
-              textAlign: TextAlign.start,
-              style: ApplicationTypography.aboutMeText,
-            ),
-          )
-        ],
-      );
+            Container(
+              width: double.infinity,
+              child: Text(
+                user.bio,
+                textAlign: TextAlign.start,
+                style: ApplicationTypography.aboutMeText,
+              ),
+            )
+          ],
+        );
+      }
+      return Container();
     } else {
       return Container();
     }
