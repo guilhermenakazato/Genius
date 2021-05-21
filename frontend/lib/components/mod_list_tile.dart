@@ -24,9 +24,10 @@ class ModListTile extends StatelessWidget {
     return Ink(
       decoration: BoxDecoration(
         borderRadius: _determineBorderRadius(),
-        color: ApplicationColors.switchTileColor,
+        color: ApplicationColors.tileColor,
       ),
       child: InkWell(
+        borderRadius: _determineBorderRadius(),
         onTap: () {
           if (function != null) {
             function();
