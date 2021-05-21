@@ -36,4 +36,6 @@ class ApplicationColors {
   static const toastColor = Color.fromRGBO(61, 59, 142, 0.5);
   static const splashColor = Color(0x40CCCCCC);
   static const secondCardColor = Color.fromRGBO(49, 47, 114, 0.5);
+
+  static const checkboxColor = Color(0xFF3D3B8E);
 }
