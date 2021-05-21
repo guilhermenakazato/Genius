@@ -27,6 +27,7 @@ class _SignUpNameState extends State<SignUpName> {
         onPressed: () {
           _verifyInput(context);
         },icon: Icons.arrow_forward_ios,
+        text: 'Prosseguir',
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(

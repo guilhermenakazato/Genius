@@ -7,8 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:genius/http/webclients/signup_webclient.dart';
-
+import '../../../http/webclients/signup_webclient.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../http/exceptions/http_exception.dart';
 import '../../../models/token.dart';

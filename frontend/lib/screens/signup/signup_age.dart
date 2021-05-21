@@ -29,6 +29,7 @@ class _SignUpAgeState extends State<SignUpAge> {
         onPressed: () {
           _nextScreen(context);
         }, icon: Icons.arrow_forward_ios,
+        text: 'Prosseguir',
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Align(

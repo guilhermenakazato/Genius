@@ -44,6 +44,7 @@ class _SignUpFormationState extends State<SignUpFormation> {
         onPressed: () {
           _nextScreen(context);
         },icon: Icons.arrow_forward_ios,
+        text: 'Prosseguir',
       ),
       body: Align(
         child: Column(

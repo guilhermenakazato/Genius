@@ -5,8 +5,10 @@ import '../utils/application_colors.dart';
 class FloatingButton extends StatelessWidget {
   final Function onPressed;
   final IconData icon;
+  final String text;
 
-  const FloatingButton({Key key, @required this.onPressed, @required this.icon}) : super(key: key);
+  const FloatingButton({Key key, @required this.onPressed, @required this.icon, @required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class FloatingButton extends StatelessWidget {
       onPressed: () {
         onPressed();
       },
-      tooltip: 'Prosseguir',
+      tooltip: text,
       child: Icon(
         icon,
         color: Theme.of(context).primaryColor,
