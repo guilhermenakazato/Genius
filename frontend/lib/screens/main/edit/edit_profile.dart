@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:genius/http/webclients/signup_webclient.dart';
 
 import '../../../utils/navigator_util.dart';
 import '../../../http/exceptions/http_exception.dart';
@@ -304,15 +305,47 @@ class _EditProfileState extends State<EditProfile> {
       password: user.password,
     );
 
-    updateUserData(person, user.id, context);
+    updateUserData(person, user, user.id, context);
   }
 
-  void updateUserData(User user, int userId, BuildContext context) async {
-    final _webClient = UserWebClient();
+  void updateUserData(User newUserData, User oldUserData, int userId,
+      BuildContext context) async {
+    final _webClientToVerifyData = SignUpWebClient();
     final progress = ProgressHUD.of(context);
 
     progress.show();
-    await _webClient.updateUser(user, userId).catchError((error) {
+
+    var usernameAlreadyExists = false;
+    var emailAlreadyExists = false;
+
+    if (oldUserData.username != newUserData.username) {
+      usernameAlreadyExists = await _webClientToVerifyData
+          .verifyIfUsernameAlreadyExists(newUserData.username);
+    } else if (oldUserData.email != newUserData.email) {
+      emailAlreadyExists = await _webClientToVerifyData.verifyIfEmailAlreadyExists(newUserData.email);
+    }
+
+    if (usernameAlreadyExists) {
+      progress.dismiss();
+      _showToast('Ops! Alguém já está registrado com esse nome de usuário.');
+    } else if (emailAlreadyExists) {
+      progress.dismiss();
+      _showToast('Ops! Alguém já está registrado com esse e-mail.');
+    } else {
+      updateUser(newUserData, userId, context);
+
+      _showToast('Perfil atualizado com sucesso!');
+      progress.dismiss();
+
+      _navigator.goBack(context);
+    }
+  }
+
+  void updateUser(User newUserData, int userId, BuildContext context) async {
+    final _webClient = UserWebClient();
+    final progress = ProgressHUD.of(context);
+
+    await _webClient.updateUser(newUserData, userId).catchError((error) {
       progress.dismiss();
       _showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
@@ -322,11 +355,6 @@ class _EditProfileState extends State<EditProfile> {
       progress.dismiss();
       _showToast('Erro desconhecido.');
     });
-
-    _showToast('Perfil atualizado com sucesso!');
-    progress.dismiss();
-
-    _navigator.goBack(context);
   }
 
   Widget _photoWidget() {
