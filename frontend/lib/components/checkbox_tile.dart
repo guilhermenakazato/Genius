@@ -31,6 +31,7 @@ class _CheckboxTileState extends State<CheckboxTile> {
         color: ApplicationColors.tileColor,
       ),
       child: CheckboxListTile(
+        activeColor: ApplicationColors.checkboxColor,
         title: Text(widget.text),
         value: checked,
         onChanged: (bool value) {

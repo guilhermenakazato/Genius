@@ -42,7 +42,7 @@ class _EditConquistasState extends State<EditConquistas> {
             setState(() {});
           },
           icon: Icons.military_tech,
-          text: 'Quero colocar minha posição',
+          text: 'Quero colocar minha posição!',
         ),
       );
     } else {
