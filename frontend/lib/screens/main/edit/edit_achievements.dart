@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../../components/checkbox_tile.dart';
 import '../../../components/gradient_button.dart';
 import '../../../components/input_with_animation.dart';
 import '../../../components/dropdown_button.dart';
 import '../../../components/floating_button.dart';
 
-// TODO: adicionar mais condições
 class EditConquistas extends StatefulWidget {
   @override
   _EditConquistasState createState() => _EditConquistasState();
@@ -25,28 +25,58 @@ class _EditConquistasState extends State<EditConquistas> {
   ];
 
   bool showPositionField = false;
-  bool showCustomizedTypeField = false;
 
   @override
   void initState() {
-    _shouldShowPositionField();
-    _shouldShowCustomizedTypeField();
     super.initState();
   }
 
-  void _shouldShowPositionField() {
-    if (_typeController == 'Medalha') {
-      showPositionField = true;
+  Widget _shouldShowPositionQuestionField() {
+    if (_typeController == 'Medalha' || _typeController == 'Outro') {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(16, 5.0, 16, 5),
+        child: CheckboxTile(
+          onChanged: (value) {
+            showPositionField = value;
+
+            setState(() {});
+          },
+          icon: Icons.military_tech,
+          text: 'Quero colocar minha posição',
+        ),
+      );
     } else {
-      showPositionField = false;
+      return Container();
     }
   }
 
-  void _shouldShowCustomizedTypeField() {
-    if (_typeController == 'Outro') {
-      showCustomizedTypeField = true;
+  Widget _shouldShowPositionField() {
+    if (showPositionField) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+        child: InputWithAnimation(
+          controller: _positionController,
+          type: TextInputType.text,
+          label: 'Posição conquistada',
+        ),
+      );
     } else {
-      showCustomizedTypeField = false;
+      return Container();
+    }
+  }
+
+  Widget _shouldShowCustomizedTypeField() {
+    if (_typeController == 'Outro') {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+        child: InputWithAnimation(
+          controller: _customizedTypeController,
+          type: TextInputType.text,
+          label: 'Tipo da conquista',
+        ),
+      );
+    } else {
+      return Container();
     }
   }
 
@@ -74,7 +104,7 @@ class _EditConquistasState extends State<EditConquistas> {
 
                   setState(() {
                     _shouldShowCustomizedTypeField();
-                    _shouldShowPositionField();
+                    _shouldShowPositionQuestionField();
                   });
                 },
               ),
@@ -96,24 +126,9 @@ class _EditConquistasState extends State<EditConquistas> {
                 label: 'Instituição da conquista',
               ),
             ),
-            if (showPositionField)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: InputWithAnimation(
-                  controller: _positionController,
-                  type: TextInputType.text,
-                  label: 'Posição conquistada',
-                ),
-              ),
-            if(showCustomizedTypeField)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _customizedTypeController,
-                type: TextInputType.text,
-                label: 'Tipo customizado',
-              ),
-            ),
+            _shouldShowCustomizedTypeField(),
+            _shouldShowPositionQuestionField(),
+            _shouldShowPositionField(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GradientButton(

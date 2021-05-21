@@ -8,7 +8,7 @@ class ApplicationColors {
   static const navigatorBackgroundColor = Color(0xFF312F72);
   static const cardColor = Color(0xFF3D3B8E);
   static const secondaryTextColor = Color(0xFFEEE5D6);
-  static const switchTileColor = Color(0xff202020);
+  static const tileColor = Color(0xff202020);
   static const gradientButtonTextColor = Color(0xffffffff);
 
   static const gradientButtonColors = <Color>[

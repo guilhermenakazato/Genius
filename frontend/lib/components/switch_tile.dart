@@ -25,9 +25,13 @@ class _SwitchTileState extends State<SwitchTile> {
     return MergeSemantics(
       child: Ink(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-            color: ApplicationColors.switchTileColor),
+          borderRadius: BorderRadius.all(
+            Radius.circular(16),
+          ),
+          color: ApplicationColors.tileColor,
+        ),
         child: ListTile(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           leading: Icon(
             widget.icon,
             color: Theme.of(context).primaryColor,
