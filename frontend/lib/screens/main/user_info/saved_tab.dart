@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
-import '../../../components/data_not_found.dart';
+import '../../../components/genius_card.dart';
+import '../../../components/genius_card_config.dart';
+import '../../../components/data_not_found_card.dart';
 import '../../../models/project.dart';
 import '../../../screens/main/project/project_info.dart';
 import '../../../utils/application_colors.dart';
@@ -34,7 +35,10 @@ class _SavedTabState extends State<SavedTab> {
     if (widget.savedProjects.isEmpty) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0, left: 8),
-        child: DataNotFound(text: 'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)'),
+        child: DataNotFoundCard(
+            color: ApplicationColors.secondCardColor,
+            text:
+                'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)'),
       );
     } else {
       return [
@@ -128,50 +132,30 @@ class _SavedTabState extends State<SavedTab> {
     return SizedBox(
       width: 300,
       height: 500,
-      child: Swiper(
-        scrollDirection: Axis.vertical,
-        itemCount: widget.savedProjects.length,
-        itemWidth: 300,
-        itemHeight: 500,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.0),
-                  color: ApplicationColors.secondCardColor,
+      child: GeniusCardConfig(
+        builder: (BuildContext context, int index) {
+          return GeniusCard(
+            onTap: () {
+              navigator.navigate(
+                context,
+                ProjectInfo(
+                  project: widget.savedProjects[index],
                 ),
-                child: InkWell(
-                  onTap: () {
-                    navigator.navigate(
-                      context,
-                      ProjectInfo(
-                        project: widget.savedProjects[index],
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Container(
-                    child: Stack(
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            _projectName(index),
-                            _participantsOfTheProject(index),
-                            _abstractText(index),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              );
+            },
+            cardColor: ApplicationColors.searchButtonColor,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  _projectName(index),
+                  _participantsOfTheProject(index),
+                  _abstractText(index),
+                ],
               ),
-            ),
+            ],
           );
         },
+        itemsToCount: widget.savedProjects,
       ),
     );
   }
