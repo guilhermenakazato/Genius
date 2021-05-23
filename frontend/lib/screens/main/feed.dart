@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:genius/components/genius_card.dart';
+import 'package:genius/components/genius_card_config.dart';
 
-import '../../components/data_not_found.dart';
+import '../../components/data_not_found_card.dart';
 import '../../utils/convert.dart';
 import '../../models/project.dart';
 import '../../http/webclients/project_webclient.dart';
@@ -85,56 +86,38 @@ class _FeedState extends State<_FeedContent> {
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: () {},
-          child: DataNotFound(text: 'Parece que ainda não tem nenhum projeto no Genius. Que tal criar um? :)'),
+          child: DataNotFoundCard(
+              text:
+                  'Parece que ainda não tem nenhum projeto no Genius. Que tal criar um? :)'),
         ),
       ),
     );
   }
 
   Widget _carouselOfCards() {
-    return Swiper(
-      itemCount: projects.length,
-      layout: SwiperLayout.STACK,
-      itemWidth: 300,
-      itemHeight: 500,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Ink(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
-                color: Theme.of(context).cardColor,
+    return GeniusCardConfig(
+      itemsToCount: projects,
+      builder: (BuildContext context, int index) {
+        return GeniusCard(
+          onTap: () {
+            navigator.navigate(
+              context,
+              ProjectInfo(
+                project: projects[index],
               ),
-              child: InkWell(
-                onTap: () {
-                  navigator.navigate(
-                    context,
-                    ProjectInfo(
-                      project: projects[index],
-                    ),
-                  );
-                },
-                borderRadius: BorderRadius.circular(16.0),
-                child: Container(
-                  child: Stack(
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          _projectName(index),
-                          _participantsOfTheProject(index),
-                          _abstractText(index),
-                        ],
-                      ),
-                      _buttons(),
-                    ],
-                  ),
-                ),
-              ),
+            );
+          },
+          cardColor: Theme.of(context).cardColor,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                _projectName(index),
+                _participantsOfTheProject(index),
+                _abstractText(index),
+              ],
             ),
-          ),
+            _buttons(),
+          ],
         );
       },
     );

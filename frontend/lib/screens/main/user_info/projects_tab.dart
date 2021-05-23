@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
-import '../../../components/data_not_found.dart';
+import '../../../components/genius_card.dart';
+import '../../../components/genius_card_config.dart';
+import '../../../components/data_not_found_card.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../screens/main/project/project_info.dart';
 import '../../../utils/application_colors.dart';
@@ -36,7 +37,11 @@ class _ProjectsTabState extends State<ProjectsTab> {
     if (widget.projects.isEmpty) {
       return Column(
         children: [
-          DataNotFound(text: 'Parece que você ainda não criou nenhum projeto. Que tal criar um para divulgar seus projetos incríveis? :)',),
+          DataNotFoundCard(
+            color: ApplicationColors.secondCardColor,
+            text:
+                'Parece que você ainda não criou nenhum projeto. Que tal criar um para divulgar seus projetos incríveis? :)',
+          ),
           Container(height: 70),
         ],
       );
@@ -132,50 +137,31 @@ class _ProjectsTabState extends State<ProjectsTab> {
     return SizedBox(
       width: 300,
       height: 500,
-      child: Swiper(
-        scrollDirection: Axis.vertical,
-        itemCount: widget.projects.length,
-        itemWidth: 300,
-        itemHeight: 500,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.0),
-                  color: ApplicationColors.secondCardColor,
+      child: GeniusCardConfig(
+        cardDirection: Axis.vertical,
+        builder: (BuildContext context, int index) {
+          return GeniusCard(
+            onTap: () {
+              navigator.navigate(
+                context,
+                ProjectInfo(
+                  project: widget.projects[index],
                 ),
-                child: InkWell(
-                  onTap: () {
-                    navigator.navigate(
-                      context,
-                      ProjectInfo(
-                        project: widget.projects[index],
-                      ),
-                    );
-                  },
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Container(
-                    child: Stack(
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            _projectName(index),
-                            _participantsOfTheProject(index),
-                            _abstractText(index),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              );
+            },
+            cardColor: ApplicationColors.secondCardColor,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  _projectName(index),
+                  _participantsOfTheProject(index),
+                  _abstractText(index),
+                ],
               ),
-            ),
+            ],
           );
         },
+        itemsToCount: widget.projects,
       ),
     );
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../utils/application_colors.dart';
 
-class DataNotFound extends StatelessWidget {
+class DataNotFoundCard extends StatelessWidget {
   final String text;
+  final Color color;
 
-  const DataNotFound({Key key, @required this.text}) : super(key: key);
+  const DataNotFoundCard({Key key, @required this.text, this.color = Colors.transparent}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class DataNotFound extends StatelessWidget {
       height: 450,
       child: Card(
         elevation: 0,
-        color: ApplicationColors.secondCardColor,
+        color: color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
@@ -22,7 +22,7 @@ class DataNotFound extends StatelessWidget {
           child: Container(
             child: Center(
               child: Text(
-                text, 
+                text,
                 textAlign: TextAlign.center,
               ),
             ),

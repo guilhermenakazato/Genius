@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../components/data_not_found.dart';
+import '../../../components/data_not_found_card.dart';
 import '../../../utils/application_colors.dart';
 
 import '../../../models/survey.dart';
@@ -33,7 +33,8 @@ class _SurveysTabState extends State<SurveysTab> {
     if (widget.surveys.isEmpty) {
       return Column(
         children: [
-          DataNotFound(
+          DataNotFoundCard(
+            color: ApplicationColors.secondCardColor,
             text:
                 'Parece que você ainda não criou nenhum questionário. Que tal criar um? :) Eles são ótimos para coleta de dados!'
           ),
