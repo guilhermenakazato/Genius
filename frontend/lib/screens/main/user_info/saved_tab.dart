@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:genius/models/project.dart';
-import 'package:genius/screens/main/project/project_info.dart';
-import 'package:genius/utils/application_colors.dart';
-import 'package:genius/utils/application_typography.dart';
-import 'package:genius/utils/navigator_util.dart';
+
+import '../../../components/data_not_found.dart';
+import '../../../models/project.dart';
+import '../../../screens/main/project/project_info.dart';
+import '../../../utils/application_colors.dart';
+import '../../../utils/application_typography.dart';
+import '../../../utils/navigator_util.dart';
 
 class SavedTab extends StatefulWidget {
   final List<Project> savedProjects;
@@ -32,25 +34,7 @@ class _SavedTabState extends State<SavedTab> {
     if (widget.savedProjects.isEmpty) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0, left: 8),
-        child: SizedBox(
-          width: 300,
-          height: 450,
-          child: Card(
-            elevation: 0,
-            color: ApplicationColors.secondCardColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Container(
-              child: Center(
-                child: Text(
-                  'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        ),
+        child: DataNotFound(text: 'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)'),
       );
     } else {
       return [

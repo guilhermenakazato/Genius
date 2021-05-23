@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../utils/application_colors.dart';
 
 import '../../../components/checkbox_tile.dart';
 import '../../../components/gradient_button.dart';
@@ -82,63 +83,68 @@ class _EditConquistasState extends State<EditConquistas> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingButton(
-        onPressed: () {},
-        icon: Icons.add,
-        text: 'Adicionar',
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: ApplicationColors.splashColor,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
-              child: DropDownButton(
-                hint: 'Medalha',
-                items: _typeOptions,
-                width: 325,
-                onValueChanged: (String value) {
-                  _typeController = value;
+      child: Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingButton(
+          onPressed: () {},
+          icon: Icons.add,
+          text: 'Adicionar',
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
+                child: DropDownButton(
+                  hint: 'Medalha',
+                  items: _typeOptions,
+                  width: 325,
+                  onValueChanged: (String value) {
+                    _typeController = value;
 
-                  setState(() {
-                    _shouldShowCustomizedTypeField();
-                    _shouldShowPositionQuestionField();
-                  });
-                },
+                    setState(() {
+                      _shouldShowCustomizedTypeField();
+                      _shouldShowPositionQuestionField();
+                    });
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _nameController,
-                type: TextInputType.multiline,
-                label: 'Nome da conquista',
-                allowMultilines: true,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                child: InputWithAnimation(
+                  controller: _nameController,
+                  type: TextInputType.multiline,
+                  label: 'Nome da conquista',
+                  allowMultilines: true,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _institutionController,
-                type: TextInputType.name,
-                label: 'Instituição da conquista',
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                child: InputWithAnimation(
+                  controller: _institutionController,
+                  type: TextInputType.name,
+                  label: 'Instituição da conquista',
+                ),
               ),
-            ),
-            _shouldShowCustomizedTypeField(),
-            _shouldShowPositionQuestionField(),
-            _shouldShowPositionField(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GradientButton(
-                onPressed: () {},
-                text: 'Salvar',
-                width: 270,
-                height: 50,
+              _shouldShowCustomizedTypeField(),
+              _shouldShowPositionQuestionField(),
+              _shouldShowPositionField(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GradientButton(
+                  onPressed: () {},
+                  text: 'Salvar',
+                  width: 270,
+                  height: 50,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

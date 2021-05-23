@@ -38,4 +38,6 @@ class ApplicationColors {
   static const secondCardColor = Color.fromRGBO(49, 47, 114, 0.5);
 
   static const checkboxColor = Color(0xFF3D3B8E);
+
+  static const notFoundColor = Color(0xff696969);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../components/data_not_found.dart';
 import '../../../utils/application_colors.dart';
 
 import '../../../models/survey.dart';
@@ -32,27 +33,9 @@ class _SurveysTabState extends State<SurveysTab> {
     if (widget.surveys.isEmpty) {
       return Column(
         children: [
-          SizedBox(
-            width: 300,
-            height: 450,
-            child: Card(
-              elevation: 0,
-              color: ApplicationColors.secondCardColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      'Parece que você ainda não criou nenhum questionário. Que tal criar um? :) Eles são ótimos para coleta de dados!',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          DataNotFound(
+            text:
+                'Parece que você ainda não criou nenhum questionário. Que tal criar um? :) Eles são ótimos para coleta de dados!'
           ),
           Container(height: 70),
         ],
@@ -83,10 +66,14 @@ class _SurveysTabState extends State<SurveysTab> {
                 body: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16.0, bottom: 8, top: 8),
-                    child:
-                        Text('Link do seu questionário: ${entry.value.link}'),
+                    padding: const EdgeInsets.only(
+                      left: 16.0,
+                      bottom: 8,
+                      top: 8,
+                    ),
+                    child: Text(
+                      'Link do seu questionário: ${entry.value.link}',
+                    ),
                   ),
                 ),
                 headerBuilder: (BuildContext context, bool isExpanded) {

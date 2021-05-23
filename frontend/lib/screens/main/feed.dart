@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+import '../../components/data_not_found.dart';
 import '../../utils/convert.dart';
 import '../../models/project.dart';
 import '../../http/webclients/project_webclient.dart';
@@ -84,24 +85,7 @@ class _FeedState extends State<_FeedContent> {
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: () {},
-          child: SizedBox(
-            width: 300,
-            height: 450,
-            child: Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Container(
-                child: Center(
-                  child: Text(
-                    'Parece que ainda não tem nenhum projeto no Genius. Que tal criar um? :)',
-                    textAlign: TextAlign.center
-                  ),
-                ),
-              ),
-            ),
-          ),
+          child: DataNotFound(text: 'Parece que ainda não tem nenhum projeto no Genius. Que tal criar um? :)'),
         ),
       ),
     );
