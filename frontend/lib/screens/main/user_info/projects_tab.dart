@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
+import '../../../components/data_not_found.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../screens/main/project/project_info.dart';
 import '../../../utils/application_colors.dart';
@@ -35,28 +36,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
     if (widget.projects.isEmpty) {
       return Column(
         children: [
-          SizedBox(
-            width: 300,
-            height: 450,
-            child: Card(
-              elevation: 0,
-              color: ApplicationColors.secondCardColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  child: Center(
-                    child: Text(
-                      'Parece que você ainda não criou nenhum projeto. Que tal criar um para divulgar seus projetos incríveis? :)',
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          DataNotFound(text: 'Parece que você ainda não criou nenhum projeto. Que tal criar um para divulgar seus projetos incríveis? :)',),
           Container(height: 70),
         ],
       );

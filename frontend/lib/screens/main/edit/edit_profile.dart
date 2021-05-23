@@ -8,7 +8,6 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../http/webclients/signup_webclient.dart';
-import '../../../utils/navigator_util.dart';
 import '../../../http/exceptions/http_exception.dart';
 import '../../../models/token.dart';
 import '../../../http/webclients/user_webclient.dart';
@@ -58,7 +57,6 @@ class _EditProfileState extends State<EditProfile> {
   String _formationController;
   int _ageController;
   final _tokenObject = Token();
-  final _navigator = NavigatorUtil();
   final _key = GlobalKey<FormState>();
 
   @override
@@ -335,8 +333,6 @@ class _EditProfileState extends State<EditProfile> {
 
       _showToast('Perfil atualizado com sucesso!');
       progress.dismiss();
-
-      _navigator.goBack(context);
     }
   }
 
