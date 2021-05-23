@@ -11,21 +11,15 @@
 | ├── start/routes/cart.ts
 | ├── start/routes/customer.ts
 |
-| and then import them inside `start/routes/index.ts` as follows
+| and then import them inside `start/routes.ts` as follows
 |
-| import './cart'
-| import './customer'
+| import './routes/cart'
+| import './routes/customer'
 |
 */
 
 import Route from '@ioc:Adonis/Core/Route'
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
-import AuthController from 'App/Controllers/Http/AuthController'
-import UsersController from 'App/Controllers/Http/UsersController'
-import ProjectsController from 'App/Controllers/Http/ProjectsController'
-import AchievementsController from 'App/Controllers/Http/AchievementsController'
-import SurveysController from 'App/Controllers/Http/SurveysController'
-import TagsController from 'App/Controllers/Http/TagsController'
  
 Route.get('health', async ({ response }) => {
   const report = await HealthCheck.getReport()
@@ -35,36 +29,36 @@ Route.get('health', async ({ response }) => {
     : response.badRequest(report)
 })
 
-Route.get('/users', UsersController.listAllUsers);
-Route.get("/user/:id", UsersController.getUserById);
-Route.get("/user-email/:email", UsersController.verifyIfEmailAlreadyExists);
-Route.get("/user-username/:username", UsersController.verifyIfUsernameAlreadyExists);
-Route.post("/user", UsersController.create);
-Route.delete("/user/:id", UsersController.deleteUser);
-Route.put("/user/:id", UsersController.updateUser); 
-Route.post("/save-project", UsersController.saveProject)
+Route.get('/users', 'UsersController.listAllUsers');
+Route.get("/user/:id", 'UsersController.getUserById');
+Route.get("/user-email/:email", 'UsersController.verifyIfEmailAlreadyExists');
+Route.get("/user-username/:username", 'UsersController.verifyIfUsernameAlreadyExists');
+Route.post("/user",'UsersController.create');
+Route.delete("/user/:id", 'UsersController.deleteUser');
+Route.put("/user/:id", 'UsersController.updateUser'); 
+Route.post("/save-project", 'UsersController.saveProject')
 
-Route.post("/login", AuthController.login);
-Route.get("/token", AuthController.authenticateWithToken);
-Route.get("/logout", AuthController.logout);
-Route.get("/get-data", AuthController.getUserData);
-Route.get("/check", AuthController.checkTokenIsValid);
+Route.post("/login", 'AuthController.login');
+Route.get("/token", 'AuthController.authenticateWithToken');
+Route.get("/logout", 'AuthController.logout');
+Route.get("/get-data", 'AuthController.getUserData');
+Route.get("/check", 'AuthController.checkTokenIsValid');
 
-Route.post("/project/:userId", ProjectsController.createProject)
-Route.get("/projects", ProjectsController.listAllProjects)
-Route.get("project/:id", ProjectsController.getProjectById)
+Route.post("/project/:userId", 'ProjectsController.createProject')
+Route.get("/projects", 'ProjectsController.listAllProjects')
+Route.get("project/:id", 'ProjectsController.getProjectById')
 
-Route.post("/achievement/:userId", AchievementsController.create)
-Route.get("/achievements", AchievementsController.listAllAchievements)
-Route.get("achievement/:id", AchievementsController.getAchievementById)
+Route.post("/achievement/:userId", 'AchievementsController.create')
+Route.get("/achievements", 'AchievementsController.listAllAchievements')
+Route.get("achievement/:id", 'AchievementsController.getAchievementById')
 
-Route.post("/survey/:userId", SurveysController.create)
-Route.get("/surveys", SurveysController.listAllSurveys)
-Route.get("/survey/:id", SurveysController.getSurveyById)
+Route.post("/survey/:userId", 'SurveysController.create')
+Route.get("/surveys", 'SurveysController.listAllSurveys')
+Route.get("/survey/:id", 'SurveysController.getSurveyById')
 
-Route.post("/partner", SurveysController.create)
-Route.get("/partners", SurveysController.listAllSurveys)
+//Route.post("/partner", SurveysController.create)
+//Route.get("/partners", SurveysController.listAllSurveys)
 
-Route.post("/tag", TagsController.create)
-Route.get("/tags", TagsController.getAllTags)
-Route.get("tag/:id", TagsController.getTagById)
+Route.post("/tag", 'TagsController.create')
+Route.get("/tags", 'TagsController.getAllTags')
+Route.get("tag/:id", 'TagsController.getTagById')

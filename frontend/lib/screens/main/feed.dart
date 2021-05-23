@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:genius/components/genius_card.dart';
 import 'package:genius/components/genius_card_config.dart';
 
@@ -97,6 +98,7 @@ class _FeedState extends State<_FeedContent> {
   Widget _carouselOfCards() {
     return GeniusCardConfig(
       itemsToCount: projects,
+      layout: SwiperLayout.STACK,
       builder: (BuildContext context, int index) {
         return GeniusCard(
           onTap: () {

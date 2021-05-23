@@ -46,10 +46,10 @@ class _ProjectsTabState extends State<ProjectsTab> {
         ],
       );
     } else {
-      return [
+      return Column(children: [
         _iconToChooseStyleOfProjects(),
         _determineWhichLayoutShouldBeDisplayed(context)
-      ];
+      ],);
     }
   }
 
@@ -133,6 +133,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
     );
   }
 
+  // TODO: arrumar erro aqui (deu nulo tentando chamar length)
   Widget _carouselOfCards() {
     return SizedBox(
       width: 300,
