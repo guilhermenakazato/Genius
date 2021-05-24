@@ -200,7 +200,6 @@ class _ProjectsTabState extends State<ProjectsTab> {
     );
   }
 
-  // TODO: arrumar erro aqui (deu nulo tentando chamar length)
   Widget _participantsOfTheProject(int index) {
     debugPrint(widget.projects[index].toString());
     return Container(
