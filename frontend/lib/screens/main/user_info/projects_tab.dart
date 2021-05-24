@@ -33,7 +33,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
     );
   }
 
-  dynamic _determineWhichWidgetsShouldBeDisplayed(BuildContext context) {
+  Widget _determineWhichWidgetsShouldBeDisplayed(BuildContext context) {
     if (widget.projects.isEmpty) {
       return Column(
         children: [
@@ -46,10 +46,12 @@ class _ProjectsTabState extends State<ProjectsTab> {
         ],
       );
     } else {
-      return Column(children: [
-        _iconToChooseStyleOfProjects(),
-        _determineWhichLayoutShouldBeDisplayed(context)
-      ],);
+      return Column(
+        children: [
+          _iconToChooseStyleOfProjects(),
+          _determineWhichLayoutShouldBeDisplayed(context)
+        ],
+      );
     }
   }
 
@@ -106,6 +108,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
               child: Container(
                 height: 50,
                 child: Card(
+                  elevation: 0,
                   child: Ink(
                     color: ApplicationColors.secondCardColor,
                     child: InkWell(
@@ -133,7 +136,6 @@ class _ProjectsTabState extends State<ProjectsTab> {
     );
   }
 
-  // TODO: arrumar erro aqui (deu nulo tentando chamar length)
   Widget _carouselOfCards() {
     return SizedBox(
       width: 300,
@@ -162,7 +164,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
             ],
           );
         },
-        itemsToCount: widget.projects,
+        itemCount: widget.projects.length,
       ),
     );
   }
@@ -198,7 +200,9 @@ class _ProjectsTabState extends State<ProjectsTab> {
     );
   }
 
+  // TODO: arrumar erro aqui (deu nulo tentando chamar length)
   Widget _participantsOfTheProject(int index) {
+    debugPrint(widget.projects[index].toString());
     return Container(
       height: 44,
       child: ListView.builder(

@@ -31,7 +31,7 @@ class _SavedTabState extends State<SavedTab> {
     );
   }
 
-  dynamic _determineWhichWidgetsShouldBeDisplayed(BuildContext context) {
+  Widget _determineWhichWidgetsShouldBeDisplayed(BuildContext context) {
     if (widget.savedProjects.isEmpty) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0, left: 8),
@@ -41,10 +41,10 @@ class _SavedTabState extends State<SavedTab> {
                 'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)'),
       );
     } else {
-      return [
+      return Column(children: [
         _iconToChooseStyleOfProjects(),
         _determineWhichLayoutShouldBeDisplayed(context)
-      ];
+      ],);
     }
   }
 
@@ -101,6 +101,7 @@ class _SavedTabState extends State<SavedTab> {
               child: Container(
                 height: 50,
                 child: Card(
+                  elevation: 0,
                   child: Ink(
                     color: ApplicationColors.secondCardColor,
                     child: InkWell(
@@ -133,6 +134,7 @@ class _SavedTabState extends State<SavedTab> {
       width: 300,
       height: 500,
       child: GeniusCardConfig(
+        cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {
           return GeniusCard(
             onTap: () {
@@ -143,7 +145,7 @@ class _SavedTabState extends State<SavedTab> {
                 ),
               );
             },
-            cardColor: ApplicationColors.searchButtonColor,
+            cardColor: ApplicationColors.secondCardColor,
             children: <Widget>[
               Column(
                 children: <Widget>[
@@ -155,7 +157,7 @@ class _SavedTabState extends State<SavedTab> {
             ],
           );
         },
-        itemsToCount: widget.savedProjects,
+        itemCount: widget.savedProjects.length,
       ),
     );
   }

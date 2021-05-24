@@ -102,6 +102,6 @@ class User {
 
   @override
   String toString() {
-    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, institution: $institution, formação: $formation, bio: $bio}';
+    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, institution: $institution, formação: $formation, bio: $bio, projects: $projects}';
   }
 }

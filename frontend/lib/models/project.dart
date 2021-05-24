@@ -21,7 +21,8 @@ class Project {
         mainTeacher = User.fromJson(json['main_teacher']),
         secondTeacher =
             Convert.convertJsonToUserWithVerification(json['second_teacher']),
-        participants = Convert.convertToListOfParticipants(json['participants']);
+        participants =
+            Convert.convertToListOfParticipants(json['participants']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -31,4 +32,9 @@ class Project {
         'main_teacher': mainTeacher.toJson(),
         'second_teacher': secondTeacher.toJson(),
       };
+
+  @override
+  String toString() {
+    return 'Project: {id: $id, name: $name, abstractText: $abstractText, institution: $institution, startDate: $startDate, mainTeacher: $mainTeacher, secondTeacher: $secondTeacher, participants: $participants}';
+  }
 }
