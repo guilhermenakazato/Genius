@@ -1,6 +1,14 @@
-import 'package:flutter/material.dart';
-import '../../../utils/application_colors.dart';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import '../../../components/data_not_found.dart';
+import '../../../models/achievement.dart';
+import '../../../models/user.dart';
+import '../../../http/webclients/user_webclient.dart';
+import '../../../models/token.dart';
+import '../../../utils/application_colors.dart';
 import '../../../components/checkbox_tile.dart';
 import '../../../components/gradient_button.dart';
 import '../../../components/input_with_animation.dart';
@@ -26,10 +34,112 @@ class _EditConquistasState extends State<EditConquistas> {
   ];
 
   bool showPositionField = false;
+  Future<String> _userData;
+  final _tokenObject = Token();
 
   @override
   void initState() {
+    _userData = getData();
     super.initState();
+  }
+
+  Future<String> getData() async {
+    final _webClient = UserWebClient();
+    final _token = await _tokenObject.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _userData,
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.hasData) {
+          final user = User.fromJson(jsonDecode(snapshot.data));
+          final achievements = user.achievements;
+
+          return Theme(
+            data: Theme.of(context).copyWith(
+              splashColor: ApplicationColors.splashColor,
+            ),
+            child: Scaffold(
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerFloat,
+              floatingActionButton: FloatingButton(
+                onPressed: () {},
+                icon: Icons.add,
+                text: 'Adicionar',
+              ),
+              body: _verifyWhichWidgetShouldBeDisplayed(achievements),
+            ),
+          );
+        } else {
+          return SpinKitFadingCube(color: ApplicationColors.primary);
+        }
+      },
+    );
+  }
+
+  Widget _verifyWhichWidgetShouldBeDisplayed(List<Achievement> achievements) {
+    if (achievements.isEmpty) {
+      return DataNotFound(
+        text: 'Você ainda não tem\nnenhuma conquista',
+      );
+    } else {
+      return SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
+              child: DropDownButton(
+                hint: 'Medalha',
+                items: _typeOptions,
+                width: 325,
+                onValueChanged: (String value) {
+                  _typeController = value;
+
+                  setState(() {
+                    _shouldShowCustomizedTypeField();
+                    _shouldShowPositionQuestionField();
+                  });
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+              child: InputWithAnimation(
+                controller: _nameController,
+                type: TextInputType.multiline,
+                label: 'Nome da conquista',
+                allowMultilines: true,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+              child: InputWithAnimation(
+                controller: _institutionController,
+                type: TextInputType.name,
+                label: 'Instituição da conquista',
+              ),
+            ),
+            _shouldShowCustomizedTypeField(),
+            _shouldShowPositionQuestionField(),
+            _shouldShowPositionField(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GradientButton(
+                onPressed: () {},
+                text: 'Salvar',
+                width: 270,
+                height: 50,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   Widget _shouldShowPositionQuestionField() {
@@ -79,74 +189,5 @@ class _EditConquistasState extends State<EditConquistas> {
     } else {
       return Container();
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        splashColor: ApplicationColors.splashColor,
-      ),
-      child: Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingButton(
-          onPressed: () {},
-          icon: Icons.add,
-          text: 'Adicionar',
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
-                child: DropDownButton(
-                  hint: 'Medalha',
-                  items: _typeOptions,
-                  width: 325,
-                  onValueChanged: (String value) {
-                    _typeController = value;
-
-                    setState(() {
-                      _shouldShowCustomizedTypeField();
-                      _shouldShowPositionQuestionField();
-                    });
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: InputWithAnimation(
-                  controller: _nameController,
-                  type: TextInputType.multiline,
-                  label: 'Nome da conquista',
-                  allowMultilines: true,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                child: InputWithAnimation(
-                  controller: _institutionController,
-                  type: TextInputType.name,
-                  label: 'Instituição da conquista',
-                ),
-              ),
-              _shouldShowCustomizedTypeField(),
-              _shouldShowPositionQuestionField(),
-              _shouldShowPositionField(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GradientButton(
-                  onPressed: () {},
-                  text: 'Salvar',
-                  width: 270,
-                  height: 50,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

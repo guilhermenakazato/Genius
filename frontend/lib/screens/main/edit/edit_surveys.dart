@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../components/data_not_found.dart';
 import '../../../models/survey.dart';
 import '../../../models/user.dart';
 import '../../../models/token.dart';
@@ -68,33 +69,11 @@ class _EditSurveysState extends State<EditSurveys> {
 
   Widget _verifyWhichWidgetShouldBeDisplayed(List<Survey> surveys) {
     if (surveys.isEmpty) {
-      return Align(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Transform.translate(
-              offset: Offset(0,-30),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.sentiment_very_dissatisfied,
-                    size: 100,
-                    color: ApplicationColors.notFoundColor,
-                  ),
-                  Text(
-                    'Você ainda não tem\nnenhum questionário',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: ApplicationColors.notFoundColor),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+      return DataNotFound(
+        text: 'Você ainda não tem\nnenhum questionário',
       );
     } else {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
