@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ApplicationColors {
+  static const appBarColor = Colors.transparent;
   static const primary = Color(0xffab84e5);
   static const accent = Color(0xffab84e5);
   static const atentionColor = Color(0xFFF44336);
@@ -36,8 +37,6 @@ class ApplicationColors {
   static const toastColor = Color.fromRGBO(61, 59, 142, 0.5);
   static const splashColor = Color(0x40CCCCCC);
   static const secondCardColor = Color.fromRGBO(49, 47, 114, 0.5);
-
   static const checkboxColor = Color(0xFF3D3B8E);
-
   static const notFoundColor = Color(0xff696969);
 }
