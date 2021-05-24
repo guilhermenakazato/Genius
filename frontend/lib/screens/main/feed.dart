@@ -97,7 +97,7 @@ class _FeedState extends State<_FeedContent> {
 
   Widget _carouselOfCards() {
     return GeniusCardConfig(
-      itemsToCount: projects,
+      itemCount: projects.length,
       layout: SwiperLayout.STACK,
       builder: (BuildContext context, int index) {
         return GeniusCard(
