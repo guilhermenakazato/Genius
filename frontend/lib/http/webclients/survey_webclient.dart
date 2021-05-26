@@ -41,8 +41,14 @@ class SurveyWebClient {
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
-  Future<void> deleteSurvey(int surveyId) {
+  Future<void> deleteSurvey(int surveyId) async {
+    final response = await client.delete(baseUrl + '/survey/$surveyId');
 
+    if (response.statusCode == 200) {
+      return response.body;
+    }
+
+    throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
   static final Map<int, String> _statusCodeResponses = {

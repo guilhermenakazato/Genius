@@ -14,6 +14,7 @@ import '../../../../components/gradient_button.dart';
 import '../../../../components/input_with_animation.dart';
 
 // TODO: organizar o showToast
+// TODO: organizar lista de expansíveis em componente
 class SurveyForm extends StatefulWidget {
   final String type;
   final Survey survey;

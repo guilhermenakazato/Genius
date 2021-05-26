@@ -150,19 +150,32 @@ class _EditSurveysState extends State<EditSurveys> {
                                   builder: (
                                     BuildContext context,
                                   ) =>
-                                      WarningDialog(
-                                    content:
-                                        'Caso exclua, não há como recuperá-lo!',
-                                    title: 'Excluir questionário?',
-                                    acceptFunction: () {
-                                      _deleteSurvey(entry.value.id, context);
-                                    },
-                                    cancelFunction: () {
-                                      navigator.goBack(context);
-                                    },
-                                    acceptText: 'Excluir',
+                                      ProgressHUD(
+                                    borderColor: Theme.of(context).primaryColor,
+                                    indicatorWidget: SpinKitPouringHourglass(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    child: Builder(
+                                      builder: (context) => WarningDialog(
+                                        content:
+                                            'Caso exclua, não há como recuperá-lo!',
+                                        title: 'Excluir questionário?',
+                                        acceptFunction: () {
+                                          _deleteSurvey(
+                                              entry.value.id, context);
+                                        },
+                                        cancelFunction: () {
+                                          navigator.goBack(context);
+                                        },
+                                        acceptText: 'Excluir',
+                                      ),
+                                    ),
                                   ),
-                                ).whenComplete(() => setState(() {}));
+                                ).then(
+                                  (value) => setState(() {
+                                    _userData = getData();
+                                  }),
+                                );
                               },
                               text: 'Excluir',
                               color: ApplicationColors.atentionColor,
@@ -211,8 +224,6 @@ class _EditSurveysState extends State<EditSurveys> {
     );
   }
 
-
-  // TODO :arrumar isso e implementar exclusão
   void _deleteSurvey(int surveyId, BuildContext context) async {
     final _webClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
