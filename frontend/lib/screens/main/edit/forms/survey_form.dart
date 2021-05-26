@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
 
+import '../../../../models/survey.dart';
 import '../../../../utils/application_colors.dart';
 import '../../../../components/gradient_button.dart';
 import '../../../../components/input_with_animation.dart';
 
-class SurveyForm extends StatelessWidget {
+class SurveyForm extends StatefulWidget {
+  final String type;
+  final Survey survey;
+
+  SurveyForm({Key key, this.type = 'normal', this.survey}) : super(key: key);
+
+  @override
+  _SurveyFormState createState() => _SurveyFormState();
+}
+
+class _SurveyFormState extends State<SurveyForm> {
   final _titleController = TextEditingController();
   final _urlController = TextEditingController();
+
+  @override
+  void initState() {
+    _verifyIfFieldsShouldBeFilled();
+    super.initState();
+  }
+
+  void _verifyIfFieldsShouldBeFilled() {
+    if (widget.type == 'edit') {
+      _titleController.text = widget.survey.name;
+      _urlController.text = widget.survey.link;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +38,7 @@ class SurveyForm extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ApplicationColors.appBarColor,
         elevation: 0,
-        title: Text('Crie um questionário'),
+        title: Text(_determineTitleText()),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -49,5 +73,13 @@ class SurveyForm extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _determineTitleText() {
+    if (widget.type == 'edit') {
+      return 'Edite o questionário';
+    } else {
+      return 'Crie um questionário';
+    }
   }
 }
