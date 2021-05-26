@@ -42,4 +42,11 @@ export default class SurveysController {
 
     return survey
   }
+
+  async deleteSurvey({params}: HttpContextContract) {
+    const {id} = params
+    const survey = await Survey.findOrFail(id);
+
+    await survey.delete()
+  }
 }

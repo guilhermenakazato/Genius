@@ -1,7 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../http/exceptions/http_exception.dart';
+import '../../../http/webclients/survey_webclient.dart';
+import '../../../components/warning_dialog.dart';
 import '../../../components/borderless_button.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../components/data_not_found.dart';
@@ -138,7 +144,26 @@ class _EditSurveysState extends State<EditSurveys> {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: BorderlessButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (
+                                    BuildContext context,
+                                  ) =>
+                                      WarningDialog(
+                                    content:
+                                        'Caso exclua, não há como recuperá-lo!',
+                                    title: 'Excluir questionário?',
+                                    acceptFunction: () {
+                                      _deleteSurvey(entry.value.id, context);
+                                    },
+                                    cancelFunction: () {
+                                      navigator.goBack(context);
+                                    },
+                                    acceptText: 'Excluir',
+                                  ),
+                                ).whenComplete(() => setState(() {}));
+                              },
                               text: 'Excluir',
                               color: ApplicationColors.atentionColor,
                             ),
@@ -183,6 +208,42 @@ class _EditSurveysState extends State<EditSurveys> {
           ),
         ),
       ],
+    );
+  }
+
+
+  // TODO :arrumar isso e implementar exclusão
+  void _deleteSurvey(int surveyId, BuildContext context) async {
+    final _webClient = SurveyWebClient();
+    final progress = ProgressHUD.of(context);
+
+    progress.show();
+
+    await _webClient.deleteSurvey(surveyId).catchError((error) {
+      progress.dismiss();
+      _showToast(error.message);
+    }, test: (error) => error is HttpException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+    }, test: (error) => error is TimeoutException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro desconhecido.');
+    });
+
+    progress.dismiss();
+    _showToast('Questionário deletado com sucesso.');
+    navigator.goBack(context);
+  }
+
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
     );
   }
 }

@@ -120,7 +120,7 @@ class _SurveyFormState extends State<SurveyForm> {
 
     progress.show();
 
-    await _webClient.createProject(survey, widget.userId).catchError((error) {
+    await _webClient.createSurvey(survey, widget.userId).catchError((error) {
       progress.dismiss();
       _showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
@@ -143,7 +143,7 @@ class _SurveyFormState extends State<SurveyForm> {
 
     progress.show();
 
-    await _webClient.updateProject(survey, oldSurveyId).catchError((error) {
+    await _webClient.updateSurvey(survey, oldSurveyId).catchError((error) {
       progress.dismiss();
       _showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {

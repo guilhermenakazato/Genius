@@ -56,6 +56,7 @@ Route.post("/survey/:userId", 'SurveysController.create')
 Route.get("/surveys", 'SurveysController.listAllSurveys')
 Route.get("/survey/:id", 'SurveysController.getSurveyById')
 Route.put("/survey/:id", 'SurveysController.updateSurvey')
+Route.delete("/survey/:id", 'SurveysController.deleteSurvey')
 
 //Route.post("/partner", SurveysController.create)
 //Route.get("/partners", SurveysController.listAllSurveys)

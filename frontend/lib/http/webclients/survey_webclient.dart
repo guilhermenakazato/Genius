@@ -5,7 +5,7 @@ import '../exceptions/http_exception.dart';
 import '../webclient.dart';
 
 class SurveyWebClient {
-  Future<void> updateProject(Survey survey, surveyId) async {
+  Future<void> updateSurvey(Survey survey, surveyId) async {
     final surveyJson = jsonEncode(survey.toJson());
 
     final response = await client.put(
@@ -23,7 +23,7 @@ class SurveyWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<void> createProject(Survey survey, int userId) async {
+  Future<void> createSurvey(Survey survey, int userId) async {
     final surveyJson = jsonEncode(survey.toJson());
 
     final response = await client.post(
@@ -39,6 +39,10 @@ class SurveyWebClient {
     }
 
     throw HttpException(_statusCodeResponses[response.statusCode]);
+  }
+
+  Future<void> deleteSurvey(int surveyId) {
+
   }
 
   static final Map<int, String> _statusCodeResponses = {
