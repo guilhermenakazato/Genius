@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Survey from 'App/Models/Survey';
 import User from 'App/Models/User';
+import { DateTime } from 'luxon';
 
 export default class SurveysController {
   async create({request, params}: HttpContextContract){
@@ -23,6 +24,21 @@ export default class SurveysController {
     const survey = await Survey.findOrFail(id)
 
     await survey.load("user")
+
+    return survey
+  }
+
+  async updateSurvey({params, request}: HttpContextContract) {
+    const {id} = params
+    const {link, name} = request.all();
+
+    const survey = await Survey.findOrFail(id);
+
+    survey.link = link 
+    survey.name = name
+    survey.updatedAt = DateTime.local()
+
+    await survey.save()
 
     return survey
   }
