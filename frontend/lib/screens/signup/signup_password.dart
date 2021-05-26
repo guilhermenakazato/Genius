@@ -68,6 +68,7 @@ class _SignUpPasswordState extends State<SignUpPassword> {
                       });
                     },
                     text: 'Mostrar\nsenha',
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),

@@ -109,8 +109,8 @@ class ApplicationTypography {
     fontWeight: FontWeight.w900,
   );
 
-  static final borderlessButton = TextStyle(
-    color: ApplicationColors.primary,
+  static final borderlessButton = (Color color) => TextStyle(
+    color: color,
     fontWeight: FontWeight.w900,
     fontSize: 16,
   );

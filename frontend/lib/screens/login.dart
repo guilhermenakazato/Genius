@@ -120,11 +120,13 @@ class __LoginStateContentState extends State<_LoginStateContent> {
                         _obscure = !_obscure;
                       });
                     },
+                    color: Theme.of(context).primaryColor,
                     text: 'Mostrar\nsenha',
                   ),
                   BorderlessButton(
                     onPressed: () {},
                     text: 'Esqueci\na senha',
+                    color: Theme.of(context).primaryColor,
                   ),
                 ],
               ),
