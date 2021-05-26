@@ -13,6 +13,7 @@ import '../../../utils/application_colors.dart';
 import '../../../components/floating_button.dart';
 import 'forms/survey_form.dart';
 
+// TODO: arrumar texto do questionário e do card no meio do card
 class EditSurveys extends StatefulWidget {
   @override
   _EditSurveysState createState() => _EditSurveysState();
@@ -60,12 +61,23 @@ class _EditSurveysState extends State<EditSurveys> {
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: FloatingButton(
                 onPressed: () {
-                  navigator.navigate(context, SurveyForm());
+                  navigator.navigateAndReload(
+                    context,
+                    SurveyForm(userId: user.id),
+                    () {
+                      setState(
+                        () {
+                          _userData = getData();
+                        },
+                      );
+                    },
+                  );
                 },
                 icon: Icons.add,
                 text: 'Adicionar',
               ),
-              body: _verifyWhichWidgetShouldBeDisplayed(surveys, isOpen),
+              body:
+                  _verifyWhichWidgetShouldBeDisplayed(surveys, isOpen, user.id),
             ),
           );
         } else {
@@ -76,17 +88,20 @@ class _EditSurveysState extends State<EditSurveys> {
   }
 
   Widget _verifyWhichWidgetShouldBeDisplayed(
-      List<Survey> surveys, List<bool> isOpen) {
+    List<Survey> surveys,
+    List<bool> isOpen,
+    int userId,
+  ) {
     if (surveys.isEmpty) {
       return DataNotFound(
         text: 'Você ainda não tem\nnenhum questionário',
       );
     } else {
-      return _listOfSurveys(surveys, isOpen);
+      return _listOfSurveys(surveys, isOpen, userId);
     }
   }
 
-  Widget _listOfSurveys(List<Survey> surveys, List<bool> isOpen) {
+  Widget _listOfSurveys(List<Survey> surveys, List<bool> isOpen, int userId) {
     return Column(
       children: [
         Padding(
@@ -121,10 +136,29 @@ class _EditSurveysState extends State<EditSurveys> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: BorderlessButton(
+                              onPressed: () {},
+                              text: 'Excluir',
+                              color: ApplicationColors.atentionColor,
+                            ),
+                          ),
+                          Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: BorderlessButton(
                               onPressed: () {
-                                navigator.navigate(context, SurveyForm(type: 'edit', survey: entry.value,),);
+                                navigator.navigateAndReload(
+                                  context,
+                                  SurveyForm(
+                                    type: 'edit',
+                                    survey: entry.value,
+                                  ),
+                                  () {
+                                    setState(() {
+                                      _userData = getData();
+                                    });
+                                  },
+                                );
                               },
                               text: 'Editar',
                               color: ApplicationColors.editButtonColor,
