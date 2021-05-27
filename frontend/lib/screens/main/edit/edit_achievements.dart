@@ -47,7 +47,6 @@ class _EditConquistasState extends State<EditConquistas> {
           final user = User.fromJson(jsonDecode(snapshot.data));
           final achievements = user.achievements;
 
-          debugPrint(achievements.toString());
           return Theme(
             data: Theme.of(context).copyWith(
               splashColor: ApplicationColors.splashColor,
@@ -78,7 +77,10 @@ class _EditConquistasState extends State<EditConquistas> {
         text: 'Você ainda não tem\nnenhuma conquista',
       );
     } else {
-      return _listOfCards(achievements);
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: _listOfCards(achievements),
+      );
     }
   }
 
@@ -86,11 +88,8 @@ class _EditConquistasState extends State<EditConquistas> {
     return ListView.builder(
       itemCount: achievements.length,
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 4, top: 4),
-          child: AchievementCard(
-            achievement: achievements[index],
-          ),
+        return AchievementCard(
+          achievement: achievements[index],
         );
       },
     );
