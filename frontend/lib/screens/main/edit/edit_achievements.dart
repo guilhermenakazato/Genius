@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../../../components/achievement_card.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../components/data_not_found.dart';
 import '../../../models/achievement.dart';
@@ -46,6 +47,7 @@ class _EditConquistasState extends State<EditConquistas> {
           final user = User.fromJson(jsonDecode(snapshot.data));
           final achievements = user.achievements;
 
+          debugPrint(achievements.toString());
           return Theme(
             data: Theme.of(context).copyWith(
               splashColor: ApplicationColors.splashColor,
@@ -76,7 +78,21 @@ class _EditConquistasState extends State<EditConquistas> {
         text: 'Você ainda não tem\nnenhuma conquista',
       );
     } else {
-      return Container();
+      return _listOfCards(achievements);
     }
+  }
+
+  Widget _listOfCards(List<Achievement> achievements) {
+    return ListView.builder(
+      itemCount: achievements.length,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 4, top: 4),
+          child: AchievementCard(
+            achievement: achievements[index],
+          ),
+        );
+      },
+    );
   }
 }

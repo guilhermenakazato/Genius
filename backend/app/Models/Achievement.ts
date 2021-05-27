@@ -21,6 +21,11 @@ export default class Achievement extends BaseModel {
   @column()
   public type: string
 
+  @column({
+    columnName: 'customized-type'
+  })
+  public customizedType: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

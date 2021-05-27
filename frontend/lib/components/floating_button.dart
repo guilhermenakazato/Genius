@@ -13,6 +13,7 @@ class FloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      elevation: 0,
       backgroundColor: ApplicationColors.floatingButtonColor,
       shape: OutlineInputBorder(
         borderSide: BorderSide(
