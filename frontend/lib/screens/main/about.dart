@@ -34,16 +34,52 @@ class About extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20, bottom: 8),
-            child: Text(
-              'Equipe',
-              style: ApplicationTypography.teamMembersTitle,
+            child: Center(
+              child: Text(
+                'EQUIPE',
+                style: ApplicationTypography.teamMembersTitle,
+              ),
             ),
           ),
-          _Team(name: 'Gabriela Prado'),
-          _Team(name: 'Guilherme Nakazato'),
-          _Team(name: 'Sidney Sousa'),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20, left: 15),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: AssetImage('assets/sem-foto.png'),
+                    ),
+                  ),
+                  _Team(name: 'Gabriela \nPrado'),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: AssetImage('assets/sem-foto.png'),
+                    ),
+                  ),
+                  _Team(name: 'Guilherme \nNakazato'),
+                ],
+              ),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 32),
+            padding: const EdgeInsets.only(bottom: 60.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: CircleAvatar(
+                    radius: 25,
+                    backgroundImage: AssetImage('assets/sem-foto.png'),
+                  ),
+                ),
+                _Team(name: 'Sidney \nSousa'),
+              ],
+            ),
           ),
         ],
       ),
@@ -58,7 +94,7 @@ class _Team extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(left: 15),
       child: Text(name, style: ApplicationTypography.teamMembers),
     );
   }
