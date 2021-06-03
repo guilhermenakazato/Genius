@@ -93,13 +93,13 @@ class ApplicationTypography {
 
   static final teamMembers = TextStyle(
     color: ApplicationColors.primary,
-    fontSize: 24,
+    fontSize: 15,
     fontWeight: FontWeight.w900,
   );
 
   static final teamMembersTitle = TextStyle(
     color: ApplicationColors.primary,
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: FontWeight.w900,
   );
 
