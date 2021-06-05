@@ -8,9 +8,14 @@ class SwitchTile extends StatefulWidget {
   final IconData icon;
   final String text;
   final Function function;
+  final String position;
 
   const SwitchTile(
-      {Key key, @required this.icon, @required this.text, this.function})
+      {Key key,
+      @required this.icon,
+      @required this.text,
+      this.function,
+      this.position})
       : super(key: key);
 
   @override
@@ -25,13 +30,13 @@ class _SwitchTileState extends State<SwitchTile> {
     return MergeSemantics(
       child: Ink(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(16),
-          ),
+          borderRadius: _determineBorderRadius(),
           color: ApplicationColors.tileColor,
         ),
         child: ListTile(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: _determineBorderRadius(),
+          ),
           leading: Icon(
             widget.icon,
             color: Theme.of(context).primaryColor,
@@ -54,5 +59,21 @@ class _SwitchTileState extends State<SwitchTile> {
         ),
       ),
     );
+  }
+
+  BorderRadius _determineBorderRadius() {
+    if (widget.position == 'top') {
+      return BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      );
+    } else if (widget.position == 'bottom') {
+      return BorderRadius.only(
+        bottomLeft: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      );
+    } else {
+      return null;
+    }
   }
 }

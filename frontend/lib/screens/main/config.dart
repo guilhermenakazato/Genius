@@ -28,34 +28,44 @@ class Config extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: <Widget>[
-            SwitchTile(
-              icon: Icons.notifications,
-              text: 'Notificações',
-            ),
-          ]),
+          child: Column(
+            children: <Widget>[
+              SwitchTile(
+                icon: Icons.notifications,
+                text: 'Notificações',
+                position: 'top',
+              ),
+              ModListTile(
+                text: 'Contatar os desenvolvedores',
+                icon: Icons.email,
+                position: 'bottom',
+              ),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: <Widget>[
-            ModListTile(
-              text: 'Excluir conta',
-              icon: Icons.delete,
-              type: 'warning',
-              position: 'top'
-            ),
-            ModListTile(
-              text: 'Sair',
-              type: 'warning',
-              icon: Icons.login,
-              position: 'bottom',
-              function: () async {
-                _webClient.logout(await _tokenObject.getToken());
-                _tokenObject.removeToken();
-                _navigator.navigateAndRemove(context, Welcome());
-              },
-            ),
-          ]),
+          child: Column(
+            children: <Widget>[
+              ModListTile(
+                text: 'Excluir conta',
+                icon: Icons.delete,
+                type: 'warning',
+                position: 'top',
+              ),
+              ModListTile(
+                text: 'Sair',
+                type: 'warning',
+                icon: Icons.login,
+                position: 'bottom',
+                function: () async {
+                  _webClient.logout(await _tokenObject.getToken());
+                  _tokenObject.removeToken();
+                  _navigator.navigateAndRemove(context, Welcome());
+                },
+              ),
+            ],
+          ),
         ),
       ],
     );

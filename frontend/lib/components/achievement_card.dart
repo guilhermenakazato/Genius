@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../utils/application_colors.dart';
 import '../models/achievement.dart';
-import 'borderless_button.dart';
 
 class AchievementCard extends StatelessWidget {
   final Achievement achievement;
