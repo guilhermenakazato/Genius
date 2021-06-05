@@ -21,24 +21,37 @@ class AchievementCard extends StatelessWidget {
             onTap: () {},
             child: Column(
               children: <Widget>[
-                _determineCardType(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    IconButton(
-                      icon: const Icon(
-                        Icons.edit_outlined,
+                    Icon(Icons.grade_outlined, size: 70),
+                    Expanded(
+                      child: Text(
+                        _determineCardText(),
                       ),
-                      onPressed: () {},
-                      color: ApplicationColors.editButtonColor,
                     ),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.close_outlined,
+                     SizedBox(
+                  width: 50,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.edit_outlined,
+                        ),
+                        onPressed: () {},
+                        color: ApplicationColors.editButtonColor,
                       ),
-                      onPressed: () {},
-                      color: ApplicationColors.atentionColor,
-                    ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.close_outlined,
+                        ),
+                        onPressed: () {},
+                        color: ApplicationColors.atentionColor,
+                      ),
+                    ],
+                  ),
+                ),
                   ],
                 ),
               ],
@@ -49,96 +62,39 @@ class AchievementCard extends StatelessWidget {
     );
   }
 
-  Widget _determineCardType() {
+  String _determineCardText() {
     switch (achievement.type) {
       case 'Medalha':
-        return _medalCard();
+        return _medalText();
         break;
       case 'Certificado':
-        return _certificateCard();
+        return _certificateText();
         break;
       case 'Honra ao mérito':
-        return _honorCard();
+        return _honorText();
         break;
       case 'Outro':
-        return _otherTypeCard();
+        return _otherTypeText();
         break;
       default:
-        return Container();
+        return '';
     }
   }
 
-  Widget _medalCard() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [Icon(Icons.grade_outlined, size: 70)],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  'Medalha • ${achievement.name} • ${achievement.institution} ${_returnPositionIfExists()}',
-                  textAlign: TextAlign.start,
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+  String _medalText() {
+    return 'Medalha • ${achievement.name} • ${achievement.institution} ${_returnPositionIfExists()}';
   }
 
-  Widget _certificateCard() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Text(
-              'Certificado • ${achievement.name} • ${achievement.institution}',
-              textAlign: TextAlign.start,
-            ),
-          ),
-        ],
-      ),
-    );
+  String _certificateText() {
+    return 'Certificado • ${achievement.name} • ${achievement.institution}';
   }
 
-  Widget _honorCard() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Text(
-              'Honra ao Mérito • ${achievement.name} • ${achievement.institution}',
-            ),
-          ),
-        ],
-      ),
-    );
+  String _honorText() {
+    return 'Honra ao Mérito • ${achievement.name} • ${achievement.institution}';
   }
 
-  Widget _otherTypeCard() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            child: Text(
-              '${achievement.customizedType} • ${achievement.name} • ${achievement.institution} ${_returnPositionIfExists()}',
-            ),
-          ),
-        ],
-      ),
-    );
+  String _otherTypeText() {
+    return '${achievement.customizedType} • ${achievement.name} • ${achievement.institution} ${_returnPositionIfExists()}';
   }
 
   String _returnPositionIfExists() {

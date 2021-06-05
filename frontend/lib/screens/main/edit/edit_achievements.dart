@@ -77,15 +77,13 @@ class _EditConquistasState extends State<EditConquistas> {
         text: 'Você ainda não tem\nnenhuma conquista',
       );
     } else {
-      return Padding(
-        padding: const EdgeInsets.all(10),
-        child: _listOfCards(achievements),
-      );
+      return _listOfCards(achievements);
     }
   }
 
   Widget _listOfCards(List<Achievement> achievements) {
     return ListView.builder(
+      padding: EdgeInsets.all(8),
       itemCount: achievements.length,
       itemBuilder: (context, index) {
         return AchievementCard(
