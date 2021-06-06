@@ -30,28 +30,28 @@ class AchievementCard extends StatelessWidget {
                         _determineCardText(),
                       ),
                     ),
-                     SizedBox(
-                  width: 50,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.edit_outlined,
-                        ),
-                        onPressed: () {},
-                        color: ApplicationColors.editButtonColor,
+                    SizedBox(
+                      width: 50,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: const Icon(
+                              Icons.edit_outlined,
+                            ),
+                            onPressed: () {},
+                            color: ApplicationColors.editButtonColor,
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.close_outlined,
+                            ),
+                            onPressed: () {},
+                            color: ApplicationColors.atentionColor,
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.close_outlined,
-                        ),
-                        onPressed: () {},
-                        color: ApplicationColors.atentionColor,
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
                   ],
                 ),
               ],

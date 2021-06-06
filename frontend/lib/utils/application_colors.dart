@@ -32,7 +32,7 @@ class ApplicationColors {
   static const baseLoadingColor = Color(0xFF3D3B8E);
   static const highlightLoadingColor = Color(0xff4059F1);
   static const shadowLoadingColor = Colors.black12;
-  static const tabBarIndicatorColor = Color(0xFF3D3B8E);
+  static const tabBarIndicatorColor = Color.fromRGBO(49, 47, 114, 0.8);
   static const addPhotoColor = Color(0xFF3D3B8E);
   static const toastColor = Color.fromRGBO(61, 59, 142, 0.5);
   static const splashColor = Color(0x40CCCCCC);
