@@ -126,24 +126,50 @@ class _EditSurveysState extends State<EditSurveys> {
                 isExpanded: isOpen[entry.key],
                 body: Align(
                   alignment: Alignment.centerLeft,
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 16.0,
-                          bottom: 4,
-                          top: 4,
-                        ),
-                        child: Text(
-                          'Link do seu questionário: ${entry.value.link}',
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 12,
+                            bottom: 8,
+                            top: 8,
+                          ),
+                          child: Text(
+                            'Link do seu questionário: ${entry.value.link}',
+                          ),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: BorderlessButton(
+                      SizedBox(
+                        width: 100,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: const Icon(
+                                Icons.edit_outlined,
+                              ),
+                              onPressed: () {
+                                navigator.navigateAndReload(
+                                  context,
+                                  SurveyForm(
+                                    type: 'edit',
+                                    survey: entry.value,
+                                  ),
+                                  () {
+                                    setState(() {
+                                      _userData = getData();
+                                    });
+                                  },
+                                );
+                              },
+                              color: ApplicationColors.editButtonColor,
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.close_outlined,
+                              ),
                               onPressed: () {
                                 showDialog(
                                   context: context,
@@ -162,10 +188,14 @@ class _EditSurveysState extends State<EditSurveys> {
                                         title: 'Excluir questionário?',
                                         acceptFunction: () {
                                           _deleteSurvey(
-                                              entry.value.id, context);
+                                            entry.value.id,
+                                            context,
+                                          );
                                         },
                                         cancelFunction: () {
-                                          navigator.goBack(context);
+                                          navigator.goBack(
+                                            context,
+                                          );
                                         },
                                         acceptText: 'Excluir',
                                       ),
@@ -177,33 +207,11 @@ class _EditSurveysState extends State<EditSurveys> {
                                   }),
                                 );
                               },
-                              text: 'Excluir',
                               color: ApplicationColors.atentionColor,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: BorderlessButton(
-                              onPressed: () {
-                                navigator.navigateAndReload(
-                                  context,
-                                  SurveyForm(
-                                    type: 'edit',
-                                    survey: entry.value,
-                                  ),
-                                  () {
-                                    setState(() {
-                                      _userData = getData();
-                                    });
-                                  },
-                                );
-                              },
-                              text: 'Editar',
-                              color: ApplicationColors.editButtonColor,
-                            ),
-                          ),
-                        ],
-                      )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

@@ -45,12 +45,12 @@ class About extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Column(
                     children: [
                       CircleAvatar(
                         radius: 25,
@@ -62,10 +62,7 @@ class About extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+                  Column(
                     children: [
                       CircleAvatar(
                         radius: 25,
@@ -77,10 +74,7 @@ class About extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+                  Column(
                     children: [
                       CircleAvatar(
                         radius: 25,
@@ -92,8 +86,8 @@ class About extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
