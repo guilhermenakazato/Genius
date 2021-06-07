@@ -201,7 +201,6 @@ class _ProjectsTabState extends State<ProjectsTab> {
   }
 
   Widget _participantsOfTheProject(int index) {
-    debugPrint(widget.projects[index].toString());
     return Container(
       height: 44,
       child: ListView.builder(

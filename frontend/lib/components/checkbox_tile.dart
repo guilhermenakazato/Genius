@@ -6,20 +6,28 @@ class CheckboxTile extends StatefulWidget {
   final IconData icon;
   final String text;
   final void Function(bool) onChanged;
+  final bool initialValue;
 
-  const CheckboxTile(
-      {Key key,
-      @required this.icon,
-      @required this.text,
-      @required this.onChanged})
-      : super(key: key);
+  const CheckboxTile({
+    Key key,
+    @required this.icon,
+    @required this.text,
+    @required this.onChanged,
+    @required this.initialValue,
+  }) : super(key: key);
 
   @override
   _CheckboxTileState createState() => _CheckboxTileState();
 }
 
 class _CheckboxTileState extends State<CheckboxTile> {
-  bool checked = false;
+  @override
+  void initState() {
+    checked = widget.initialValue;
+    super.initState();
+  }
+
+  bool checked;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +39,9 @@ class _CheckboxTileState extends State<CheckboxTile> {
         color: ApplicationColors.tileColor,
       ),
       child: CheckboxListTile(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
         activeColor: ApplicationColors.checkboxColor,
         title: Text(widget.text),
         value: checked,

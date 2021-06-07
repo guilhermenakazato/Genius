@@ -30,14 +30,14 @@ export default class AchievementsController {
 
   async updateAchievement({params, request}: HttpContextContract) {
     const {id} = params;
-    const {institution, name, position, type, customizedType} = request.all()
+    const {institution, name, position, type, customized_type} = request.all()
 
     const achievement = await Achievement.findOrFail(id);
     achievement.institution = institution;
     achievement.name = name;
     achievement.position = position;
     achievement.type = type;
-    achievement.customizedType = customizedType;
+    achievement.customizedType = customized_type;
     achievement.updatedAt = DateTime.local()
 
     await achievement.save()

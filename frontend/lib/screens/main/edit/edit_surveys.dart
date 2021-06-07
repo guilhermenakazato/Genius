@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../../http/exceptions/http_exception.dart';
 import '../../../http/webclients/survey_webclient.dart';
 import '../../../components/warning_dialog.dart';
-import '../../../components/borderless_button.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../components/data_not_found.dart';
 import '../../../models/survey.dart';
@@ -122,7 +121,7 @@ class _EditSurveysState extends State<EditSurveys> {
             children: surveys.asMap().entries.map<ExpansionPanel>((entry) {
               return ExpansionPanel(
                 canTapOnHeader: true,
-                backgroundColor: ApplicationColors.secondCardColor,
+                backgroundColor: ApplicationColors.cardColor,
                 isExpanded: isOpen[entry.key],
                 body: Align(
                   alignment: Alignment.centerLeft,

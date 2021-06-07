@@ -5,8 +5,10 @@ import '../models/achievement.dart';
 
 class AchievementCard extends StatelessWidget {
   final Achievement achievement;
+  final Function onDelete, onEdit;
 
-  const AchievementCard({Key key, this.achievement}) : super(key: key);
+  const AchievementCard({Key key, this.achievement, this.onDelete, this.onEdit})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,10 @@ class AchievementCard extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.grade_outlined, size: 70),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(Icons.grade_outlined, size: 70),
+                    ),
                     Expanded(
                       child: Text(
                         _determineCardText(),
@@ -39,14 +44,22 @@ class AchievementCard extends StatelessWidget {
                             icon: const Icon(
                               Icons.edit_outlined,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (onEdit != null) {
+                                onEdit();
+                              }
+                            },
                             color: ApplicationColors.editButtonColor,
                           ),
                           IconButton(
                             icon: const Icon(
                               Icons.close_outlined,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (onDelete != null) {
+                                onDelete();
+                              }
+                            },
                             color: ApplicationColors.atentionColor,
                           ),
                         ],

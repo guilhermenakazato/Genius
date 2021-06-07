@@ -36,7 +36,6 @@ class _SurveyFormState extends State<SurveyForm> {
   @override
   void initState() {
     _verifyIfFieldsShouldBeFilled();
-    debugPrint('user id: ${widget.userId}');
     super.initState();
   }
 
