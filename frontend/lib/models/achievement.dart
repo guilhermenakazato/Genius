@@ -2,7 +2,13 @@ class Achievement {
   final String institution, name, position, type, customizedType;
   int id;
 
-  Achievement(this.institution, this.name, this.position, this.type, this.customizedType);
+  Achievement({
+    this.institution,
+    this.name,
+    this.position,
+    this.type,
+    this.customizedType,
+  });
 
   Achievement.fromJson(Map<String, dynamic> json)
       : institution = json['institution'],
@@ -17,10 +23,10 @@ class Achievement {
         'name': name,
         'institution': institution,
         'type': type,
-        'customized-type': customizedType
+        'customized_type': customizedType
       };
 
-      @override
+  @override
   String toString() {
     return 'Achievement: {id: $id, name: $name, position: $position, institution: $institution, customizedType: $customizedType, type: $type}';
   }

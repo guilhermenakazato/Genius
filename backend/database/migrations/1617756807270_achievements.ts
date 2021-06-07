@@ -11,7 +11,7 @@ export default class Achievements extends BaseSchema {
       table.string("name", 300).notNullable()
       table.string("position", 300).nullable()
       table.string("type", 300).nullable()
-      table.string("customized-type").nullable()
+      table.string("customized_type").nullable()
       table.timestamps(true)
     })
   }

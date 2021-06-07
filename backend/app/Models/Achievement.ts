@@ -22,7 +22,7 @@ export default class Achievement extends BaseModel {
   public type: string
 
   @column({
-    columnName: 'customized-type'
+    columnName: 'customized_type'
   })
   public customizedType: string
 

@@ -1,8 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../http/exceptions/http_exception.dart';
+import '../../../components/warning_dialog.dart';
+import '../../../http/webclients/achievement_webclient.dart';
 import '../../../components/achievement_card.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../components/data_not_found.dart';
@@ -56,7 +61,17 @@ class _EditConquistasState extends State<EditConquistas> {
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: FloatingButton(
                 onPressed: () {
-                  navigator.navigate(context, AchievementForm());
+                  navigator.navigateAndReload(
+                    context,
+                    AchievementForm(
+                      userId: user.id,
+                    ),
+                    () {
+                      setState(() {
+                        _userData = getData();
+                      });
+                    },
+                  );
                 },
                 icon: Icons.add,
                 text: 'Adicionar',
@@ -88,8 +103,94 @@ class _EditConquistasState extends State<EditConquistas> {
       itemBuilder: (context, index) {
         return AchievementCard(
           achievement: achievements[index],
+          onDelete: () {
+            showDialog(
+              context: context,
+              builder: (
+                BuildContext context,
+              ) =>
+                  ProgressHUD(
+                borderColor: Theme.of(context).primaryColor,
+                indicatorWidget: SpinKitPouringHourglass(
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: Builder(
+                  builder: (context) => WarningDialog(
+                    content: 'Caso exclua, não há como recuperá-lo!',
+                    title: 'Excluir questionário?',
+                    acceptFunction: () {
+                      _deleteAchievement(
+                        achievements[index].id,
+                        context,
+                      );
+                    },
+                    cancelFunction: () {
+                      navigator.goBack(
+                        context,
+                      );
+                    },
+                    acceptText: 'Excluir',
+                  ),
+                ),
+              ),
+            ).then(
+              (value) => setState(() {
+                _userData = getData();
+              }),
+            );
+          },
+          onEdit: () {
+            navigator.navigateAndReload(
+              context,
+              AchievementForm(
+                type: 'edit',
+                achievement: achievements[index],
+              ),
+              () {
+                setState(
+                  () {
+                    _userData = getData();
+                  },
+                );
+              },
+            );
+          },
         );
       },
+    );
+  }
+
+  void _deleteAchievement(int achievementId, BuildContext context) async {
+    final _webClient = AchievementWebClient();
+    final progress = ProgressHUD.of(context);
+
+    progress.show();
+
+    await _webClient.deleteAchievement(achievementId).catchError((error) {
+      progress.dismiss();
+      _showToast(error.message);
+    }, test: (error) => error is HttpException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+    }, test: (error) => error is TimeoutException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro desconhecido.');
+    });
+
+    progress.dismiss();
+    _showToast('Questionário deletado com sucesso.');
+    navigator.goBack(context);
+  }
+
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
     );
   }
 }
