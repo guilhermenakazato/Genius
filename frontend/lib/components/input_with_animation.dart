@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class InputWithAnimation extends StatelessWidget {
   final TextEditingController controller;
@@ -14,6 +15,7 @@ class InputWithAnimation extends StatelessWidget {
   final FocusNode node;
   final bool allowMultilines;
   final int maxChar;
+  final List<TextInputFormatter> formatters;
 
   const InputWithAnimation({
     Key key,
@@ -30,6 +32,7 @@ class InputWithAnimation extends StatelessWidget {
     this.node,
     this.allowMultilines = false,
     this.maxChar,
+    this.formatters,
   }) : super(key: key);
 
   int _verifyIfMultiLinesIsAllowed() {
@@ -43,6 +46,7 @@ class InputWithAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      inputFormatters: formatters,
       maxLines: _verifyIfMultiLinesIsAllowed(),
       maxLength: maxChar,
       validator: validator,
@@ -54,7 +58,6 @@ class InputWithAnimation extends StatelessWidget {
           onTap();
         }
       },
-      textCapitalization: TextCapitalization.words,
       obscureText: obscure,
       controller: controller,
       cursorColor: Theme.of(context).primaryColor,
