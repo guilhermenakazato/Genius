@@ -1,22 +1,38 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:genius/components/gradient_button.dart';
-import 'package:genius/components/input_with_animation.dart';
+import 'package:flutter_mentions/flutter_mentions.dart';
+import 'package:pattern_formatter/pattern_formatter.dart';
 
+import '../../../../components/autocomplete_input.dart';
 import '../../../../utils/application_colors.dart';
 import '../../../../utils/application_typography.dart';
+import '../../../../components/gradient_button.dart';
+import '../../../../components/input_with_animation.dart';
 
-class ProjectForm extends StatelessWidget {
+class ProjectForm extends StatefulWidget {
+  @override
+  _ProjectFormState createState() => _ProjectFormState();
+}
+
+class _ProjectFormState extends State<ProjectForm> {
   final _titleController = TextEditingController();
-  final _tagsController = TextEditingController();
   final _mainTeacherController = TextEditingController();
   final _secondTeacherController = TextEditingController();
-
   final _institutionController = TextEditingController();
   final _startDateController = TextEditingController();
-  final _participantsController = TextEditingController();
   final _abstractController = TextEditingController();
-  final _archivesController = TextEditingController();
+
+  final GlobalKey<FlutterMentionsState> _tagsKey =
+      GlobalKey<FlutterMentionsState>();
+
+  final GlobalKey<FlutterMentionsState> _mainTeacherKey =
+      GlobalKey<FlutterMentionsState>();
+
+  final GlobalKey<FlutterMentionsState> _secondTeacherKey =
+      GlobalKey<FlutterMentionsState>();
+
+  final GlobalKey<FlutterMentionsState> _participantsKey =
+      GlobalKey<FlutterMentionsState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,26 +55,38 @@ class ProjectForm extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _tagsController,
-                type: TextInputType.text,
+              child: AutoCompleteInput(
+                keyController: _tagsKey,
                 label: 'Tags',
+                data: [
+                  {'id': '1', 'display': 'Ciência_da_computação'},
+                  {'id': '2', 'display': 'Ciências_da_Natureza'}
+                ],
+                triggerChar: '#',
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _mainTeacherController,
-                type: TextInputType.name,
+              child: AutoCompleteInput(
+                keyController: _mainTeacherKey,
                 label: 'Orientador',
+                data: [
+                  {'id': '1', 'display': 'Sidney'},
+                  {'id': '2', 'display': 'Leandro'}
+                ],
+                triggerChar: '@',
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _secondTeacherController,
-                type: TextInputType.name,
+              child: AutoCompleteInput(
+                keyController: _secondTeacherKey,
                 label: 'Coorientador',
+                data: [
+                  {'id': '1', 'display': 'Marcia'},
+                  {'id': '2', 'display': 'Fábio'}
+                ],
+                triggerChar: '@',
               ),
             ),
             Padding(
@@ -75,14 +103,21 @@ class ProjectForm extends StatelessWidget {
                 controller: _startDateController,
                 type: TextInputType.datetime,
                 label: 'Data de início',
+                formatters: [
+                  DateInputFormatter(),
+                ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _participantsController,
-                type: TextInputType.name,
+              child: AutoCompleteInput(
+                keyController: _participantsKey,
                 label: 'Participantes',
+                data: [
+                  {'id': '1', 'display': 'Guilherme'},
+                  {'id': '2', 'display': 'Gabriela'}
+                ],
+                triggerChar: '@',
               ),
             ),
             Padding(
@@ -113,15 +148,17 @@ class ProjectForm extends StatelessWidget {
   }
 
   void _handleFormSubmit() {
-    var title = _titleController.text;
-    var tags = _tagsController.text;
-    var mainTeacher = _mainTeacherController.text;
-    var secondTeacher = _secondTeacherController.text;
-    var institution = _institutionController.text;
-    var startDate = _startDateController.text;
-    var participants = _participantsController.text;
-    var abstractText = _abstractController.text;
-    var archives = _archivesController.text;
+    var tagsText = _tagsKey.currentState.controller.text;
+    var participantsText = _participantsKey.currentState.controller.text;
+
+    var tags = tagsText.trim().split(' ');
+    tags = tags.toSet().toList();
+
+    var participants = participantsText.trim().split(' ');
+    participants = participants.toSet().toList();
+
+    debugPrint(tags.toString());
+    debugPrint(participants.toString());
   }
 
   Widget _submitArchive(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/determine_first_screen.dart';
 
 import 'utils/application_themes.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 
 void main() {
   runApp(Genius());
@@ -10,9 +11,11 @@ void main() {
 class Genius extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ApplicationThemes.defaultTheme,
-      home: DetermineFirstScreen(),
+    return Portal(
+      child: MaterialApp(
+        theme: ApplicationThemes.defaultTheme,
+        home: DetermineFirstScreen(),
+      ),
     );
   }
 }
