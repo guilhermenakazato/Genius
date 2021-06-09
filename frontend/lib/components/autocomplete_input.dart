@@ -6,6 +6,7 @@ class AutoCompleteInput extends StatelessWidget {
   final GlobalKey<FlutterMentionsState> keyController;
   final List<Map<String, dynamic>> data;
   final String triggerChar;
+  final String hint;
 
   const AutoCompleteInput({
     Key key,
@@ -13,6 +14,7 @@ class AutoCompleteInput extends StatelessWidget {
     this.keyController,
     @required this.data,
     @required this.triggerChar,
+    @required this.hint,
   }) : super(key: key);
 
   @override
@@ -30,6 +32,7 @@ class AutoCompleteInput extends StatelessWidget {
       ),
       decoration: InputDecoration(
         labelText: label,
+        hintText: hint,
         contentPadding: EdgeInsets.fromLTRB(22, 20, 22, 20),
         labelStyle: TextStyle(
           color: Theme.of(context).primaryColor,

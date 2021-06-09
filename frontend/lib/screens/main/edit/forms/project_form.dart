@@ -57,6 +57,7 @@ class _ProjectFormState extends State<ProjectForm> {
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
                 keyController: _tagsKey,
+                hint: '#tag',
                 label: 'Tags',
                 data: [
                   {'id': '1', 'display': 'Ciência_da_computação'},
@@ -68,6 +69,7 @@ class _ProjectFormState extends State<ProjectForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
+                hint: '@usuario ou Nome completo',
                 keyController: _mainTeacherKey,
                 label: 'Orientador',
                 data: [
@@ -80,6 +82,7 @@ class _ProjectFormState extends State<ProjectForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
+                hint: '@usuario ou Nome completo',
                 keyController: _secondTeacherKey,
                 label: 'Coorientador',
                 data: [
@@ -111,6 +114,7 @@ class _ProjectFormState extends State<ProjectForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
+                hint: '@usuario',
                 keyController: _participantsKey,
                 label: 'Participantes',
                 data: [
