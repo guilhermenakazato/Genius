@@ -8,31 +8,28 @@ import '../../../../utils/application_colors.dart';
 import '../../../../utils/application_typography.dart';
 import '../../../../components/gradient_button.dart';
 import '../../../../components/input_with_animation.dart';
+import '../../../../models/user.dart';
 
 class ProjectForm extends StatefulWidget {
+  final User user;
+
+  const ProjectForm({Key key, @required this.user}) : super(key: key);
+
   @override
   _ProjectFormState createState() => _ProjectFormState();
 }
 
 class _ProjectFormState extends State<ProjectForm> {
   final _titleController = TextEditingController();
-  final _mainTeacherController = TextEditingController();
-  final _secondTeacherController = TextEditingController();
   final _institutionController = TextEditingController();
   final _startDateController = TextEditingController();
   final _abstractController = TextEditingController();
 
-  final GlobalKey<FlutterMentionsState> _tagsKey =
-      GlobalKey<FlutterMentionsState>();
+  final _tagsKey = GlobalKey<FlutterMentionsState>();
+  final _mainTeacherKey = GlobalKey<FlutterMentionsState>();
+  final _secondTeacherKey = GlobalKey<FlutterMentionsState>();
 
-  final GlobalKey<FlutterMentionsState> _mainTeacherKey =
-      GlobalKey<FlutterMentionsState>();
-
-  final GlobalKey<FlutterMentionsState> _secondTeacherKey =
-      GlobalKey<FlutterMentionsState>();
-
-  final GlobalKey<FlutterMentionsState> _participantsKey =
-      GlobalKey<FlutterMentionsState>();
+  final _participantsKey = GlobalKey<FlutterMentionsState>();
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +111,7 @@ class _ProjectFormState extends State<ProjectForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
+                defaultText: widget.user.username + ' ',
                 hint: '@usuario',
                 keyController: _participantsKey,
                 label: 'Participantes',

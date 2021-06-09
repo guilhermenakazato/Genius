@@ -55,7 +55,7 @@ class _EditProjectsState extends State<EditProjects> {
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: FloatingButton(
                 onPressed: () {
-                  navigator.navigate(context, ProjectForm());
+                  navigator.navigate(context, ProjectForm(user: user,));
                 },
                 icon: Icons.add,
                 text: 'Adicionar',
