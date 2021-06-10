@@ -33,7 +33,7 @@ Route.get('/users', 'UsersController.listAllUsers');
 Route.get("/user/:id", 'UsersController.getUserById');
 Route.get("/user-email/:email", 'UsersController.verifyIfEmailAlreadyExists');
 Route.get("/user-username/:username", 'UsersController.verifyIfUsernameAlreadyExists');
-Route.post("/user",'UsersController.create');
+Route.post("/user",'UsersController.createUser');
 Route.delete("/user/:id", 'UsersController.deleteUser');
 Route.put("/user/:id", 'UsersController.updateUser'); 
 Route.post("/save-project", 'UsersController.saveProject')
@@ -48,13 +48,13 @@ Route.post("/project/:userId", 'ProjectsController.createProject')
 Route.get("/projects", 'ProjectsController.listAllProjects')
 Route.get("project/:id", 'ProjectsController.getProjectById')
 
-Route.post("/achievement/:userId", 'AchievementsController.create')
+Route.post("/achievement/:userId", 'AchievementsController.createAchievement')
 Route.get("/achievements", 'AchievementsController.listAllAchievements')
 Route.get("achievement/:id", 'AchievementsController.getAchievementById')
 Route.put("achievement/:id", 'AchievementsController.updateAchievement')
 Route.delete('/achievement/:id', 'AchievementsController.deleteAchievement')
 
-Route.post("/survey/:userId", 'SurveysController.create')
+Route.post("/survey/:userId", 'SurveysController.createSurvey')
 Route.get("/surveys", 'SurveysController.listAllSurveys')
 Route.get("/survey/:id", 'SurveysController.getSurveyById')
 Route.put("/survey/:id", 'SurveysController.updateSurvey')
@@ -63,6 +63,6 @@ Route.delete("/survey/:id", 'SurveysController.deleteSurvey')
 //Route.post("/partner", SurveysController.create)
 //Route.get("/partners", SurveysController.listAllSurveys)
 
-Route.post("/tag", 'TagsController.create')
+Route.post("/tag", 'TagsController.createTag')
 Route.get("/tags", 'TagsController.getAllTags')
 Route.get("tag/:id", 'TagsController.getTagById')

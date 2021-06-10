@@ -2,7 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Tag from 'App/Models/Tag'
 
 export default class TagsController {
-  async create({request}: HttpContextContract){
+  async createTag({request}: HttpContextContract){
     const tagData = request.all()
     const tag = await Tag.create(tagData)
     

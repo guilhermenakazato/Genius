@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genius/utils/application_colors.dart';
 
 class Tag extends StatelessWidget {
   final String text;
@@ -10,6 +11,7 @@ class Tag extends StatelessWidget {
     return ActionChip(
       onPressed: () {},
       label: Text(text),
+      backgroundColor: ApplicationColors.tileColor,
     );
   }
 }

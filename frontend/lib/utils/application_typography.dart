@@ -202,15 +202,22 @@ class ApplicationTypography {
 
   static final profileTags = TextStyle(
     color: ApplicationColors.profileTagsTextColor,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Gotham',
   );
 
   static final profileInfoTitle = TextStyle(
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w900,
+    fontFamily: 'Gotham',
     fontSize: 33,
+    color: Colors.white,
   );
 
   static final profileInfoPageTitle = TextStyle(
     fontSize: 19,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Gotham',
+    color: Colors.white,
   );
 
   static final dropdownButton = TextStyle(
@@ -233,7 +240,7 @@ class ApplicationTypography {
   );
 
   static final aboutMeText = TextStyle(
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w300,
     fontSize: 16,
   );
 }

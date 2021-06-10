@@ -27,20 +27,23 @@
             <p>
                 A organização do projeto Genius é feito em duas pastas: <a onclick="glowStyle(this)" href="#backend"><span class="glow">backend</span></a> 
                 e <a onclick="glowStyle(this)" href="#frontend"><span class="glow">frontend</span></a>. 
-                Na frontend, as pastas mais importantes são a <span class="glow">lib</span> (onde todas as classes Flutter ficam) 
-                e a <span class="glow">assets</span> (onde todas as fotos são configuradas),
+                Na frontend, as pastas mais importantes são a <span class="glow">lib</span> (onde todas as classes Flutter ficam), 
+                a <span class="glow">assets</span> (onde todas as fotos são configuradas) e a <span class="glow">fonts</span> (onde todas as fontes ficam),
                 enquanto que na backend as pastas mais importantes são <span class="glow">start</span> 
-                (onde as rotas são configuradas), <span class="glow">database</span> (onde o banco de dados SQL é configurado) 
+                (onde as rotas de acesso ao BD são configuradas), <span class="glow">database</span> (onde o banco de dados é configurado) 
                 e <span class="glow">app</span> (onde as ações executadas em cada rota são configuradas).
             </p>
             <p>É importante ressaltar
                 que dentro da pasta lib há 5 pastas importantes: components, http, models, screens e utils. Na components, são 
-                armazenados componentes reutilizáveis; na http, são colocados códigos referentes às requisições HTTP dentro do app Flutter;
+                armazenados componentes reutilizáveis; na http, são colocados códigos referentes à configuração de requisições HTTP dentro do app Flutter;
                 na models, são guardados os models, classes que representam uma tabela de dados; na screens, estão todos os códigos referentes às
                 telas do Genius e, por fim, na utils, são colocados métodos que podem vir a ser úteis durante o desenvolvimento. Dentro da pasta screens, 
                 há 2 sub-pastas importantes: signup e main. Na signup, está todo o código referente ao cadastro do usuário, enquanto que na main está todo o código
-                relacionado a tela principal do Genius, onde se situa o Feed. E, por fim, dentro da pasta main, há a sub-pasta project, onde é armazenado o código referente
-                à criação de projetos dentro do app, além do código de mostrar as informações do app ao clicar no Card do Feed.</p>
+                relacionado à tela principal do Genius, onde se situa o Feed. Dentro da pasta main, há 4 sub-pastas: project, follows, edit e user_info.
+                Na edit, fica todo o código referente à edição de perfil do usuário, ou seja, informações do usuário, questionários do usuário, projetos do usuário e conquistas do usuário.
+                Na follows, fica o código que constrói todo o layout das telas de seguidores.  Na project, é armazenado o código referente
+                à criação de projetos dentro do app, além do código de mostrar as informações do app ao clicar no Card do Feed. 
+                E, por, fim, na pasta user_info, fica todo o código que constrói o layout das informações que aparecem no perfil, como o "Sobre mim" e "Meus projetos".</p>
         </div>
 
         <div class="classes">
@@ -49,18 +52,29 @@
                 <p>Na pasta backend, temos as seguintes classes:</p>
                 <ul>
                     <div class="divisao-um">
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievements-controller">AchievementsController</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#auth-controller">AuthController</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#projetos-controller">ProjetosController</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#usuarios-controller">UsuariosController</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#projeto">Projeto</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#usuario">Usuario</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#projeto-view">ProjetoView</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-controller">ProjectsController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#surveys-controller">SurveysController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tags-controller">TagsController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#users-controller">UsersController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-bd-model">Achievement</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-bd-model">Project</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#survey-bd-model">Survey</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tag-bd-montel">Tag</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#user-bd-model">User</a></li>
+
                     </div>
                     <div class="divisao-dois">
-                        <li class="glow"><a onclick="glowStyle(this)" href="#usuario-view">UsuarioView</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#usuarios-schema">UsuariosSchema</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#api-tokens">ApiTokens</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#projetos">Projetos</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#users-schema">UsersSchema</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#api-tokens-schema">ApiTokens</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-schema">Projects</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievements-schema">Achievements</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#surveys-schema">Surveys</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tags-schema">Tags</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-users-schema">ProjectsUsers</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#saved-projects-schema">SavedProjects</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-tags-schema">ProjectsTags</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#routes">Routes</a></li>
                     </div>
                 </ul>
@@ -69,48 +83,94 @@
                 <p>Já na pasta frontend, temos as seguintes classes:</p>
                 <ul>
                     <div class="divisao-um">
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-card">AchievementCard</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#autocomplete-input">AutoCompleteInput</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#borderless-button">BorderlessButton</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#borderless-input">BorderlessInput</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#button-wrap">ButtonWrap</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#button">Button</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#checkbox-tile">CheckboxTile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#circle-tab-indicator">CircleTabIndicator</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#config-title">ConfigTitle</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#data-notfound-card">DataNotFoundCard</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#data-notfound">DataNotFound</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#dropdown-button">DropDownButton</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#floating-button">FloatingButton</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#genius-card-config">GeniusCardConfig</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#genius-card">GeniusCard</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#gradient-button">GeniusCard</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#input-with-animation">InputWithAnimation</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#input">Input</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#list-tile-title">ListTileTitle</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#mod-list-tile">ModListTile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#picker">Picker</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#search-bar">SearchBar</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#switch-tile">SwitchTile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tag-bar">TagBar</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tag">Tag</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#warning-dialog">WarningDialog</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#http-exception">HttpException</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#logging-interceptors">LoggingInterceptors</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-web-client">CadastroWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-web-client">AchievementWebClient</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#login-web-client">LoginWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-web-client">ProjectWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#survey-web-client">SurveyWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#user-web-client">UserWebClient</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#web-client">WebClient</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#auth">Auth</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#token">Token</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#user">User</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#create-project">CreateProject</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#project-info">ProjectInfo</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#config">Config</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#feed">Feed</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-app-model">Achievement</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#auth-app-model">Auth</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-app-model">Project</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#survey-app-model">Survey</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#token-app-model">Token</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#user-app-model">User</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-form">AchievementForm</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-form">ProjectForm</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#survey-form">SurveyForm</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-achievements">EditAchievements</a></li>
                     </div>
                     <div class="divisao-dois">
-                        <li class="glow"><a onclick="glowStyle(this)" href="#perfil">Perfil</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#pesquisa">Pesquisa</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#sobre">Sobre</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#tela-principal">TelaPrincipal</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-age">CadastroAge</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-email">CadastroEmail</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-intro">CadastroIntro</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-nome">CadastroNome</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-senha">CadastroSenha</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-type">CadastroType</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#bem-vindo">BemVindo</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#iniciacao-cientifica">IniciacaoCientifica</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-profile">EditProfile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-projects">EditProjects</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-surveys">EditSurveys</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#followers">Followers</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#following">Following</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#create-project">CreateProject</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-info">ProjectInfo</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#about-me-tab">AboutMeTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievements-tab">AchievementsTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-surveys">ProjectsTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#saved-tab">SavedTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#surveys-tab">SurveysTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#about">About</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#config">Config</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-options">EditOptions</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#feed">Feed</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#follows">Follows</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#feed">MainScreen</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#profile">Profile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#search">Search</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-age">SignUpAge</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-email">SignUpEmail</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-formation">SignUpFormation</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-institution">SignUpInstitution</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-intro">SignUpIntro</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-local">SignUpLocal</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-name">SignUpName</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-password">SignUpPassword</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-type">SignUpType</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-username">SignUpUsername</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#ask-user">AskUser</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#determine-first-screen">DetermineFirstScreen</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#intro-science">IntroScience</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#login">Login</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#pergunta-usuario">PerguntaUsuario</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#prazer-genius">PrazerGenius</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#sabe-iniciacao">SabeIniciacao</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#local-store">LocalStore</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#navigator-util">NavigatorUtil</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#genius">Genius</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#presentation">Presentation</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#question-science">QuestionScience</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#welcome">Welcome</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#welcome">ApplicationColors</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#welcome">ApplicationThemes</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#welcome">ApplicationTypography</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#welcome">Convert</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#welcome">NavigatorUtil</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#welcome">Genius</a></li>
                     </div>
                 </ul>
             </div>
@@ -119,6 +179,21 @@
         <div class="descricao-classes">
             <div class="backend">
                 <h2 id="backend">Backend</h3>
+                
+                    <div>
+                        <h3 id="achievements-controller">Classe: AchievementsController</h3>
+                        <h4>Caminho: backend\app\Controllers\Http\AchievementsController.ts</h4> 
+                        <p>Classe responsável por receber as requisições referentes às conquistas.</p>
+    
+                        <h3>Métodos da classe:</h3>
+                        <ul>
+                            <li>createAchievement: recebe uma conquista pelo método POST e a cria. Para mais informações sobre os dados de uma conquista, olhe o model Achievement.</li>
+                            <li>listAllAchievements: lista todas as conquistas existentes no BD.</li>
+                            <li>getAchievementById: recebe o id de uma conquista. Se ela existir no BD, retorna seus dados.</li>
+                            <li>updateAchievement: recebe o id de uma conquista e os dados a serem atualizados. Se a conquista existir no BD, retorna os dados já atualizados.</li>
+                            <li>deleteAchievement: recebe o id de uma conquista. Se a conquista existir no BD, será excluída.</li>
+                        </ul>
+                    </div>
 
                 <div>
                     <h3 id="auth-controller">Classe: AuthController</h3>
@@ -128,27 +203,58 @@
                     <h3>Métodos da classe:</h3>
                     <ul>
                         <li>login: recebe o email e a senha do usuário. Se os dados estiverem corretos, retorna um token de autenticação.</li>
-                        <li>token: recebe o token de autenticação disponibilizado pelo método login e verifica se está correto. Se estiver, autentica o usuário com sucesso.</li>
+                        <li>authenticateWithToken: recebe o token de autenticação disponibilizado pelo método login e verifica se está correto. Se estiver, autentica o usuário com sucesso.</li>
                         <li>logout: desloga o usuário e desvalida o token da sessão.</li>
-                        <li>getData: verifica se o token é válido. Se for válido, retorna os dados do usuário logado.</li>
+                        <li>getUserData: verifica se o token é válido. Se for válido, retorna os dados do usuário logado.</li>
+                        <li>loadTeachersOfAProjectFromId: recebe projetos de um usuário. Após isso, vê se os projetos têm ou não coorientador e orientador </li>
+                        <li>checkTokenIsValid: recebe um token e verifica se ele é válido ou não, retornando um bool de acordo com o resultado.</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 id="projetos-controller">Classe: ProjetosController</h3>
-                    <h4>Caminho: backend\app\Controllers\Http\ProjetosController.ts</h4> 
+                    <h3 id="projects-controller">Classe: ProjectsController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\ProjectsController.ts</h4> 
                     <p>Classe responsável por receber as requisições referentes aos projetos.</p>
 
                     <h3>Métodos da classe:</h3>
                     <ul>
-                        <li>create: recebe um projeto e o cria. Para mais informações sobre os dados de um projeto, olhar o model Projeto.</li>
-                        <li>index: lista todos os projetos existentes na tabela de dados.</li>
+                        <li>createProject: recebe um projeto e o cria. Para mais informações sobre os dados de um projeto, olhar o model Projeto.</li>
+                        <li>listAllProjects: lista todos os projetos existentes na tabela de dados.</li>
+                        <li>getProjectById: recebe o id de um projeto através de parâmetros HTTP. Caso o projeto exista, é retornado como dado.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="surveys-controller">Classe: SurveysController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\SurveysController.ts</h4> 
+                    <p>Classe responsável por receber as requisições referentes aos questionários.</p>
+
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createSurvey: recebe um questionário pelo método POST e o cria. Para mais informações sobre os dados de um questionário, olhe o model Survey.</li>
+                        <li>listAllSurveys: lista todos os questionários existentes no BD.</li>
+                        <li>getSurveyById: recebe o id de um questionário. Se ele existir no BD, retorna seus dados.</li>
+                        <li>updateSurvey: recebe o id de um questionário e os dados a serem atualizados. Se o questionário existir no BD, retorna os dados já atualizados.</li>
+                        <li>deleteSurvey: recebe o id de um questionário. Se o questionário existir no BD, será excluído.</li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h3 id="usuarios-controller">Classe: UsuariosController</h3>
-                    <h4>Caminho: backend\app\Controllers\Http\UsuariosController.ts</h4> 
+                    <h3 id="tags-controller">Classe: TagsController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\TagsController.ts</h4> 
+                    <p>Classe responsável por receber as requisições referentes às tags.</p>
+
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createTag: recebe uma tag pelo método POST e o cria. Para mais informações sobre os dados de um questionário, olhe o model Tag.</li>
+                        <li>listAllTags: lista todas as tags existentes no BD.</li>
+                        <li>getTagById: recebe o id de uma tag. Se ela existir no BD, retorna seus dados.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="users-controller">Classe: UsersController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\UsersController.ts</h4> 
                     <p>Classe responsável por receber as requisições referentes aos usuários.</p>
                     
                     <h3>Métodos da classe:</h3>

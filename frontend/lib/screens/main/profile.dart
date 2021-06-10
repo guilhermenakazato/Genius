@@ -119,8 +119,7 @@ class _ProfileState extends State<_ProfileContent> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                        right: 25,
-                        left: 25,
+                      left: 15,
                       ),
                       child: Text(
                         'MY MIND',
