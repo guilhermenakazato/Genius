@@ -28,7 +28,7 @@ class Project {
         abstractText = json['abstract_text'],
         institution = json['institution'],
         startDate = json['start_date'],
-        mainTeacher = User.fromJson(json['main_teacher']),
+        mainTeacher = Convert.convertJsonToUserWithVerification(json['main_teacher']),
         secondTeacher =
             Convert.convertJsonToUserWithVerification(json['second_teacher']),
         participants =

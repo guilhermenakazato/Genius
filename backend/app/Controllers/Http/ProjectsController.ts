@@ -22,10 +22,12 @@ export default class ProjectsController {
             await projects[i].load("tags")
 
             var mainTeacherId = projects[i].main_teacher
-            projects[i].main_teacher = await User.findOrFail(mainTeacherId)
-
             var secondTeacherId = projects[i].second_teacher
-            
+
+            if(mainTeacherId != null && mainTeacherId != undefined) {
+                projects[i].main_teacher = await User.findOrFail(mainTeacherId)
+            }
+
             if(secondTeacherId != null && secondTeacherId != undefined) {
                 projects[i].second_teacher = await User.findOrFail(secondTeacherId)
             }

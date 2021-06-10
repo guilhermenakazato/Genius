@@ -19,7 +19,7 @@ class Convert {
 
   static dynamic convertJsonToUserWithVerification(Map<String, dynamic> json) {
     if (json == null) {
-      return 'Sem coorientador';
+      return null;
     } else {
       return User.fromJson(json);
     }
