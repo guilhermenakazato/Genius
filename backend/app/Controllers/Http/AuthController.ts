@@ -14,7 +14,6 @@ export default class AuthController {
 
   async authenticateWithToken({ auth }: HttpContextContract) {
     await auth.authenticate()
-    console.log(auth.user)
 
     return {
       message: 'Login realizado com sucesso!',
@@ -53,9 +52,11 @@ export default class AuthController {
   async loadTeachersOfAProjectFromId(projects: ManyToMany<typeof Project, LucidModel>) {
     for (let i = 0; i < projects.length; i++) {
       var mainTeacherId = projects[i].main_teacher
-      projects[i].main_teacher = await User.findOrFail(mainTeacherId)
-
       var secondTeacherId = projects[i].second_teacher
+
+      if (mainTeacherId != null && mainTeacherId != undefined) {
+        projects[i].main_teacher = await User.findOrFail(mainTeacherId)
+      }
 
       if (secondTeacherId != null && secondTeacherId != undefined) {
         projects[i].second_teacher = await User.findOrFail(secondTeacherId)
