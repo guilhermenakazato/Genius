@@ -9,7 +9,7 @@ export default class UsersController {
         return user;
     }
 
-    async create({ request }: HttpContextContract){
+    async createUser({ request }: HttpContextContract){
         const data = request.all();
         const user = await User.create(data);
                 

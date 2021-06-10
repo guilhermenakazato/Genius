@@ -4,7 +4,7 @@ import User from 'App/Models/User';
 import { DateTime } from 'luxon';
 
 export default class SurveysController {
-  async create({request, params}: HttpContextContract){
+  async createSurvey({request, params}: HttpContextContract){
     const survey = request.all();
     const {userId} = params;
 

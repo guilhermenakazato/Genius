@@ -4,7 +4,7 @@ import User from 'App/Models/User'
 import { DateTime } from 'luxon'
 
 export default class AchievementsController {
-  async create({request, params}: HttpContextContract){
+  async createAchievement({request, params}: HttpContextContract){
     const achievement = request.all()
     const {userId} = params
 
