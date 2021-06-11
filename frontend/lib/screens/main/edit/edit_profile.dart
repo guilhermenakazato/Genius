@@ -283,7 +283,7 @@ class _EditProfileState extends State<EditProfile> {
     var residency = _residencyController.text;
     var institution = _institutionController.text;
     var formation = _formationController;
-    var bio = _bioController.text;
+    var bio = _bioController.text.trim();
 
     if (!username.startsWith('@')) {
       username = '@' + username;

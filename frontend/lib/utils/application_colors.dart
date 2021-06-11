@@ -36,8 +36,11 @@ class ApplicationColors {
   static const addPhotoColor = Color(0xFF312F72);
   static const toastColor = Color.fromRGBO(61, 59, 142, 0.5);
   static const splashColor = Color(0x40CCCCCC);
-  static const secondCardColor = Color.fromRGBO(49, 47, 114, 0.5);
+  static const secondCardColor = Color.fromRGBO(37, 35, 87, 0.5);
   static const checkboxColor = Color(0xFF312F72);
   static const notFoundColor = Color(0xff696969);
   static const editButtonColor = Colors.white;
+
+  static const inputHintColor = Color.fromARGB(200, 156, 153, 214);
+  static const tabBarIconAndTextActiveColor = Colors.white;
 }

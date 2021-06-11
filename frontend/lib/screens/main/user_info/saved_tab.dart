@@ -36,15 +36,18 @@ class _SavedTabState extends State<SavedTab> {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0, left: 8),
         child: DataNotFoundCard(
-            color: ApplicationColors.secondCardColor,
-            text:
-                'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)'),
+          color: ApplicationColors.secondCardColor,
+          text:
+              'Parece que você ainda não salvou nenhum projeto. Que tal navegar pelo feed e salvar um? :)',
+        ),
       );
     } else {
-      return Column(children: [
-        _iconToChooseStyleOfProjects(),
-        _determineWhichLayoutShouldBeDisplayed(context)
-      ],);
+      return Column(
+        children: [
+          _iconToChooseStyleOfProjects(),
+          _determineWhichLayoutShouldBeDisplayed(context)
+        ],
+      );
     }
   }
 

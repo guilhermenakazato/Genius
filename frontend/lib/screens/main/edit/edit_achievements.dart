@@ -102,6 +102,7 @@ class _EditConquistasState extends State<EditConquistas> {
       itemCount: achievements.length,
       itemBuilder: (context, index) {
         return AchievementCard(
+          type: 'edit',
           achievement: achievements[index],
           onDelete: () {
             showDialog(

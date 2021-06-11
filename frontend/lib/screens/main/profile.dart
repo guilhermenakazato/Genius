@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/screens/main/user_info/achievements_tab.dart';
 
 import '../../screens/main/user_info/projects_tab.dart';
 import '../../screens/main/user_info/about_me_tab.dart';
@@ -119,7 +120,7 @@ class _ProfileState extends State<_ProfileContent> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                      left: 15,
+                        left: 15,
                       ),
                       child: Text(
                         'MY MIND',
@@ -164,14 +165,12 @@ class _ProfileState extends State<_ProfileContent> {
         ProjectsTab(
           projects: user.projects,
         ),
-        SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              for (int i = 0; i < 100; i++) Text('oi'),
-            ],
-          ),
+        AchievementsTab(
+          achievements: user.achievements,
         ),
-        SurveysTab(surveys: user.surveys),
+        SurveysTab(
+          surveys: user.surveys,
+        ),
         SavedTab(
           savedProjects: user.saved,
         )
@@ -200,15 +199,12 @@ class _ProfileState extends State<_ProfileContent> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 13.0,
-                    bottom: 5,
-                    right: 20,
-                    left: 20,
-                  ),
-                  child: Text(
-                    _tags[index],
-                    style: ApplicationTypography.profileTags,
+                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  child: Center(
+                    child: Text(
+                      _tags[index],
+                      style: ApplicationTypography.profileTags,
+                    ),
                   ),
                 ),
               ),
