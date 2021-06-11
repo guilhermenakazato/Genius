@@ -1,6 +1,6 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/bottom_navbar.dart';
 import '../../screens/main/config.dart';
 import '../../screens/main/feed.dart';
 import '../../screens/main/profile.dart';
@@ -20,23 +20,13 @@ class _MainScreenContentState extends State<MainScreen> {
     return Scaffold(
       extendBody: true,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 48,
-        index: 2,
-        color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-        backgroundColor: Colors.transparent,
-        items: <Widget>[
-          Icon(Icons.emoji_objects, size: 24, color: Colors.white),
-          Icon(Icons.person, size: 24, color: Colors.white),
-          Icon(Icons.psychology, size: 24, color: Colors.white),
-          Icon(Icons.search, size: 24, color: Colors.white),
-          Icon(Icons.app_settings_alt, size: 24, color: Colors.white),
-        ],
-        onTap: (index) {
+      bottomNavigationBar: BottomNavBar(
+        onChange: (index) {
           setState(() {
             _pageNumber = index;
           });
         },
+        value: _pageNumber,
       ),
       body: _showPage(_pageNumber),
     );

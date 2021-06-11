@@ -5,9 +5,10 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../components/survey_expandable_card.dart';
+import '../../../components/warning_dialog.dart';
 import '../../../http/exceptions/http_exception.dart';
 import '../../../http/webclients/survey_webclient.dart';
-import '../../../components/warning_dialog.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../components/data_not_found.dart';
 import '../../../models/survey.dart';
@@ -28,7 +29,6 @@ class _EditSurveysState extends State<EditSurveys> {
   Future<User> _userData;
   final _tokenObject = Token();
   final navigator = NavigatorUtil();
-  List<bool> isOpen;
 
   @override
   void initState() {
@@ -42,8 +42,6 @@ class _EditSurveysState extends State<EditSurveys> {
 
     dynamic _user = await _webClient.getUserData(_token);
     _user = User.fromJson(jsonDecode(_user));
-
-    isOpen = List<bool>.filled(_user.surveys.length, false);
 
     return _user;
   }
@@ -81,8 +79,7 @@ class _EditSurveysState extends State<EditSurveys> {
                 icon: Icons.add,
                 text: 'Adicionar',
               ),
-              body:
-                  _verifyWhichWidgetShouldBeDisplayed(surveys, isOpen, user.id),
+              body: _verifyWhichWidgetShouldBeDisplayed(surveys, user.id),
             ),
           );
         } else {
@@ -94,7 +91,6 @@ class _EditSurveysState extends State<EditSurveys> {
 
   Widget _verifyWhichWidgetShouldBeDisplayed(
     List<Survey> surveys,
-    List<bool> isOpen,
     int userId,
   ) {
     if (surveys.isEmpty) {
@@ -102,129 +98,68 @@ class _EditSurveysState extends State<EditSurveys> {
         text: 'Você ainda não tem\nnenhum questionário',
       );
     } else {
-      return _listOfSurveys(surveys, isOpen, userId);
+      return _listOfSurveys(surveys, userId);
     }
   }
 
-  Widget _listOfSurveys(List<Survey> surveys, List<bool> isOpen, int userId) {
+  Widget _listOfSurveys(List<Survey> surveys, int userId) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 5, right: 8.0, left: 8),
-          child: ExpansionPanelList(
-            elevation: 0,
-            expansionCallback: (int index, bool isExpanded) {
-              setState(() {
-                isOpen[index] = !isExpanded;
-              });
-            },
-            children: surveys.asMap().entries.map<ExpansionPanel>((entry) {
-              return ExpansionPanel(
-                canTapOnHeader: true,
-                backgroundColor: ApplicationColors.cardColor,
-                isExpanded: isOpen[entry.key],
-                body: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 12,
-                            bottom: 8,
-                            top: 8,
-                          ),
-                          child: Text(
-                            'Link do seu questionário: ${entry.value.link}',
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              icon: const Icon(
-                                Icons.edit_outlined,
-                              ),
-                              onPressed: () {
-                                navigator.navigateAndReload(
-                                  context,
-                                  SurveyForm(
-                                    type: 'edit',
-                                    survey: entry.value,
-                                  ),
-                                  () {
-                                    setState(() {
-                                      _userData = getData();
-                                    });
-                                  },
-                                );
-                              },
-                              color: ApplicationColors.editButtonColor,
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.close_outlined,
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (
-                                    BuildContext context,
-                                  ) =>
-                                      ProgressHUD(
-                                    borderColor: Theme.of(context).primaryColor,
-                                    indicatorWidget: SpinKitPouringHourglass(
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                    child: Builder(
-                                      builder: (context) => WarningDialog(
-                                        content:
-                                            'Caso exclua, não há como recuperá-lo!',
-                                        title: 'Excluir questionário?',
-                                        acceptFunction: () {
-                                          _deleteSurvey(
-                                            entry.value.id,
-                                            context,
-                                          );
-                                        },
-                                        cancelFunction: () {
-                                          navigator.goBack(
-                                            context,
-                                          );
-                                        },
-                                        acceptText: 'Excluir',
-                                      ),
-                                    ),
-                                  ),
-                                ).then(
-                                  (value) => setState(() {
-                                    _userData = getData();
-                                  }),
-                                );
-                              },
-                              color: ApplicationColors.atentionColor,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+          child: SurveyExpandableCard(
+            surveys: surveys,
+            type: 'edit',
+            onEdit: (survey) {
+              navigator.navigateAndReload(
+                context,
+                SurveyForm(
+                  type: 'edit',
+                  survey: survey,
                 ),
-                headerBuilder: (BuildContext context, bool isExpanded) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(entry.value.name),
-                    ),
-                  );
+                () {
+                  setState(() {
+                    _userData = getData();
+                  });
                 },
               );
-            }).toList(),
+            },
+            onDelete: (survey) {
+              showDialog(
+                context: context,
+                builder: (
+                  BuildContext context,
+                ) =>
+                    ProgressHUD(
+                  borderColor: Theme.of(context).primaryColor,
+                  indicatorWidget: SpinKitPouringHourglass(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: Builder(
+                    builder: (context) => WarningDialog(
+                      content: 'Caso exclua, não há como recuperá-lo!',
+                      title: 'Excluir questionário?',
+                      acceptFunction: () {
+                        _deleteSurvey(
+                          survey.id,
+                          context,
+                        );
+                      },
+                      cancelFunction: () {
+                        navigator.goBack(
+                          context,
+                        );
+                      },
+                      acceptText: 'Excluir',
+                    ),
+                  ),
+                ),
+              ).then(
+                (value) => setState(() {
+                  _userData = getData();
+                }),
+              );
+            },
           ),
         ),
       ],

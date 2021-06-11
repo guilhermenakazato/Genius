@@ -30,6 +30,7 @@ class AchievementCard extends StatelessWidget {
           color: color,
           child: InkWell(
             onTap: () {},
+            borderRadius: BorderRadius.circular(4),
             child: Column(
               children: <Widget>[
                 Row(
@@ -37,7 +38,13 @@ class AchievementCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Icon(Icons.grade_outlined, size: 70),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                        child: Icon(Icons.grade_outlined, size: 70),
+                      ),
                     ),
                     Expanded(
                       child: Padding(
