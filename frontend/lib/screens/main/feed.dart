@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:genius/components/genius_card.dart';
-import 'package:genius/components/genius_card_config.dart';
 
+import '../../components/genius_card.dart';
+import '../../components/genius_card_config.dart';
 import '../../components/data_not_found_card.dart';
 import '../../utils/convert.dart';
 import '../../models/project.dart';
@@ -75,23 +75,10 @@ class _FeedState extends State<_FeedContent> {
   }
 
   Widget _noProjectWidget() {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        cardColor: Colors.transparent,
-      ),
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: ApplicationColors.secondCardColor,
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(16),
-          onTap: () {},
-          child: DataNotFoundCard(
-              text:
-                  'Parece que ainda não tem nenhum projeto no Genius. Que tal criar um? :)'),
-        ),
-      ),
+    return DataNotFoundCard(
+      text:
+          'Parece que ainda não tem nenhum projeto no Genius. Que tal criar um? :)',
+      color: ApplicationColors.secondCardColor,
     );
   }
 

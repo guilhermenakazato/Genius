@@ -319,7 +319,8 @@ class _EditProfileState extends State<EditProfile> {
       usernameAlreadyExists = await _webClientToVerifyData
           .verifyIfUsernameAlreadyExists(newUserData.username);
     } else if (oldUserData.email != newUserData.email) {
-      emailAlreadyExists = await _webClientToVerifyData.verifyIfEmailAlreadyExists(newUserData.email);
+      emailAlreadyExists = await _webClientToVerifyData
+          .verifyIfEmailAlreadyExists(newUserData.email);
     }
 
     if (usernameAlreadyExists) {
@@ -367,7 +368,10 @@ class _EditProfileState extends State<EditProfile> {
                 borderRadius: BorderRadius.circular(30),
                 color: ApplicationColors.addPhotoColor,
               ),
-              child: Icon(Icons.add),
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
