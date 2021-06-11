@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'application_colors.dart';
 
 class ApplicationTypography {
+  static final appBar = TextStyle(
+    color: Colors.white,
+    fontFamily: 'Gotham',
+    fontWeight: FontWeight.w300,
+    fontSize: 20,
+  );
+
   static final welcomeTitle = TextStyle(
     fontFamily: 'Gotham',
     fontSize: 70,
@@ -110,10 +117,10 @@ class ApplicationTypography {
   );
 
   static final borderlessButton = (Color color) => TextStyle(
-    color: color,
-    fontWeight: FontWeight.w900,
-    fontSize: 16,
-  );
+        color: color,
+        fontWeight: FontWeight.w900,
+        fontSize: 16,
+      );
 
   static final specialAgeInput = TextStyle(
     fontSize: 18,
@@ -131,7 +138,7 @@ class ApplicationTypography {
 
   static final borderlessInputHint = TextStyle(
     fontSize: 20,
-    color: Color.fromARGB(200, 171, 132, 229),
+    color: ApplicationColors.inputHintColor,
     fontWeight: FontWeight.w900,
   );
 
@@ -154,7 +161,7 @@ class ApplicationTypography {
     letterSpacing: 1.2,
   );
   static final inputHint = TextStyle(
-    color: Color.fromARGB(200, 171, 132, 229),
+    color: ApplicationColors.inputHintColor,
     fontWeight: FontWeight.w900,
   );
 

@@ -178,14 +178,14 @@ class _FeedState extends State<_FeedContent> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: 13.0,
-                    bottom: 5,
                     right: 20,
                     left: 20,
                   ),
-                  child: Text(
-                    projects[index].participants[participantIndex].username,
-                    style: ApplicationTypography.profileTags,
+                  child: Center(
+                    child: Text(
+                      projects[index].participants[participantIndex].username,
+                      style: ApplicationTypography.profileTags,
+                    ),
                   ),
                 ),
               ),

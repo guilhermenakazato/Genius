@@ -39,6 +39,7 @@ class _EditOptionsState extends State<EditOptions>
           child: Container(
             child: SafeArea(
               child: TabBar(
+                labelColor: ApplicationColors.tabBarIconAndTextActiveColor,
                 isScrollable: true,
                 controller: _tabController,
                 indicatorSize: TabBarIndicatorSize.tab,
@@ -60,9 +61,13 @@ class _EditOptionsState extends State<EditOptions>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.book),
-                        Text('Projetos',
-                            style: ApplicationTypography.tabBarText),
+                        Icon(
+                          Icons.book,
+                        ),
+                        Text(
+                          'Projetos',
+                          style: ApplicationTypography.tabBarText,
+                        ),
                       ],
                     ),
                   ),

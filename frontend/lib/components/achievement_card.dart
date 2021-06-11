@@ -6,9 +6,17 @@ import '../models/achievement.dart';
 class AchievementCard extends StatelessWidget {
   final Achievement achievement;
   final Function onDelete, onEdit;
+  final Color color;
+  final String type;
 
-  const AchievementCard({Key key, this.achievement, this.onDelete, this.onEdit})
-      : super(key: key);
+  const AchievementCard({
+    Key key,
+    @required this.achievement,
+    this.onDelete,
+    this.onEdit,
+    this.color = ApplicationColors.cardColor,
+    this.type,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +27,7 @@ class AchievementCard extends StatelessWidget {
         child: Card(
           margin: EdgeInsets.zero,
           elevation: 0,
+          color: color,
           child: InkWell(
             onTap: () {},
             child: Column(
@@ -31,40 +40,14 @@ class AchievementCard extends StatelessWidget {
                       child: Icon(Icons.grade_outlined, size: 70),
                     ),
                     Expanded(
-                      child: Text(
-                        _determineCardText(),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          _determineCardText(),
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      width: 50,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.edit_outlined,
-                            ),
-                            onPressed: () {
-                              if (onEdit != null) {
-                                onEdit();
-                              }
-                            },
-                            color: ApplicationColors.editButtonColor,
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.close_outlined,
-                            ),
-                            onPressed: () {
-                              if (onDelete != null) {
-                                onDelete();
-                              }
-                            },
-                            color: ApplicationColors.atentionColor,
-                          ),
-                        ],
-                      ),
-                    ),
+                    _determineIfShouldAllowEdition(),
                   ],
                 ),
               ],
@@ -119,6 +102,47 @@ class AchievementCard extends StatelessWidget {
       }
     } else {
       return '';
+    }
+  }
+
+  Widget _editionWidget() {
+    return SizedBox(
+      width: 50,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: const Icon(
+              Icons.edit_outlined,
+            ),
+            onPressed: () {
+              if (onEdit != null) {
+                onEdit();
+              }
+            },
+            color: ApplicationColors.editButtonColor,
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.close_outlined,
+            ),
+            onPressed: () {
+              if (onDelete != null) {
+                onDelete();
+              }
+            },
+            color: ApplicationColors.atentionColor,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _determineIfShouldAllowEdition() {
+    if (type == 'edit') {
+      return _editionWidget();
+    } else {
+      return Container();
     }
   }
 }
