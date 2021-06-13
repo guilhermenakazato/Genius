@@ -44,7 +44,7 @@ Route.get("/logout", 'AuthController.logout');
 Route.get("/get-data", 'AuthController.getUserData');
 Route.get("/check", 'AuthController.checkTokenIsValid');
 
-Route.post("/project/:userId", 'ProjectsController.createProject')
+Route.post("/project/:creatorId", 'ProjectsController.createProject')
 Route.get("/projects", 'ProjectsController.listAllProjects')
 Route.get("project/:id", 'ProjectsController.getProjectById')
 

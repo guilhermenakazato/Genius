@@ -10,7 +10,13 @@ export default class TagsController {
   }
 
   async getAllTags(){
-    return await Tag.all()
+    const tags = await Tag.all()
+
+    for(let i = 0; i < tags.length; i++) {
+      await tags[i].load("projects")
+    }
+
+    return tags
   }
   
   async getTagById({params}: HttpContextContract){

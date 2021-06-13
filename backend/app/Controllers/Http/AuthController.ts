@@ -29,9 +29,11 @@ export default class AuthController {
     await auth.user?.load('achievements')
     await auth.user?.load('projects', (project) => {
       project.preload('participants')
+      project.preload('tags')
     })
     await auth.user?.load('saved', (saved) => {
       saved.preload('participants')
+      saved.preload('tags')
     })
     await auth.user?.load('surveys')
 
@@ -51,15 +53,15 @@ export default class AuthController {
 
   async loadTeachersOfAProjectFromId(projects: ManyToMany<typeof Project, LucidModel>) {
     for (let i = 0; i < projects.length; i++) {
-      var mainTeacherId = projects[i].main_teacher
-      var secondTeacherId = projects[i].second_teacher
+      var mainTeacherUsername = projects[i].main_teacher
+      var secondTeacherUsername = projects[i].second_teacher
 
-      if (mainTeacherId != null && mainTeacherId != undefined) {
-        projects[i].main_teacher = await User.findOrFail(mainTeacherId)
+      if (mainTeacherUsername != null && mainTeacherUsername != undefined) {
+        projects[i].main_teacher = await User.findByOrFail("username", mainTeacherUsername)
       }
 
-      if (secondTeacherId != null && secondTeacherId != undefined) {
-        projects[i].second_teacher = await User.findOrFail(secondTeacherId)
+      if (secondTeacherUsername != null && secondTeacherUsername != undefined) {
+        projects[i].second_teacher = await User.findByOrFail("username", secondTeacherUsername)
       }
     }
 
