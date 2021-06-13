@@ -18,10 +18,17 @@ export default class ProjectsController {
       participants,
     } = request.all()
 
+    if(main_teacher != undefined && main_teacher != null) {
+      participants.push(main_teacher)
+    }
+
+    if(second_teacher != undefined && second_teacher != null) {
+      participants.push(second_teacher)
+    }
+
     const { creatorId } = params
     const { allExists, username } = await this.allParticipantsExist(participants)
 
-    console.log(allExists)
     if (allExists) {
       const project = new Project()
       project.name = name
@@ -52,6 +59,90 @@ export default class ProjectsController {
     }
   }
 
+  async updateProject({ request, params, response }: HttpContextContract) {
+    const { id } = params
+    const {
+      name,
+      tags,
+      main_teacher,
+      second_teacher,
+      main_teacher_name,
+      second_teacher_name,
+      institution,
+      start_date,
+      abstract_text,
+      participants,
+    } = request.all()
+
+    if(main_teacher != undefined && main_teacher != null) {
+      participants.push(main_teacher)
+    }
+
+    if(second_teacher != undefined && second_teacher != null) {
+      participants.push(second_teacher)
+    }
+
+    const { allExists, username } = await this.allParticipantsExist(participants)
+    if (allExists) {
+      const project = await Project.findOrFail(id)
+      project.name = name
+      project.main_teacher = main_teacher
+      project.second_teacher = second_teacher
+      project.main_teacher_name = main_teacher_name
+      project.second_teacher_name = second_teacher_name
+      project.institution = institution
+      project.start_date = start_date
+      project.abstractText = abstract_text
+
+      await project.save()
+
+      await this.updateProjectParticipantRelationship(participants, project)
+      await this.updateProjectTagRelationship(tags, project)
+
+      await project.load('participants')
+      await project.load('tags')
+
+      return project
+    } else {
+      return response.status(404).send({
+        error: `Usuário ${username} não existe`,
+      })
+    }
+  }
+
+  async listAllProjects() {
+    const projects = await Project.all()
+
+    for (let i = 0; i < projects.length; i++) {
+      await projects[i].load('participants')
+      await projects[i].load('tags')
+
+      var mainTeacherUsername = projects[i].main_teacher
+      var secondTeacherUsername = projects[i].second_teacher
+
+      if (mainTeacherUsername != null && mainTeacherUsername != undefined) {
+        projects[i].main_teacher = await User.findByOrFail('username', mainTeacherUsername)
+      }
+
+      if (secondTeacherUsername != null && secondTeacherUsername != undefined) {
+        projects[i].second_teacher = await User.findByOrFail('username', secondTeacherUsername)
+      }
+    }
+
+    return projects
+  }
+
+  async getProjectById({ params }: HttpContextContract) {
+    const { id } = params
+    const project = await Project.findOrFail(id)
+
+    await project.load('participants')
+    await project.load('savedBy')
+    await project.load('tags')
+
+    return project
+  }
+
   async allParticipantsExist(participants: string[]) {
     for (let i = 0; i < participants.length; i++) {
       const user = await User.findBy('username', participants[i])
@@ -75,8 +166,7 @@ export default class ProjectsController {
 
         await newTag.save()
         await newTag.related('projects').save(project)
-      }
-      else if (tag instanceof Tag) {
+      } else if (tag instanceof Tag) {
         await tag.related('projects').save(project)
       }
     }
@@ -92,36 +182,38 @@ export default class ProjectsController {
     }
   }
 
-  async listAllProjects() {
-    const projects = await Project.all()
+  async updateProjectTagRelationship(tags: string[], project: Project) {
+    let arrayOfTagIds: number[] = []
 
-    for (let i = 0; i < projects.length; i++) {
-      await projects[i].load('participants')
-      await projects[i].load('tags')
+    for (let i = 0; i < tags.length; i++) {
+      const tag = await Tag.findBy('name', tags[i])
 
-      var mainTeacherUsername = projects[i].main_teacher
-      var secondTeacherUsername = projects[i].second_teacher
+      if (tag == null) {
+        const newTag = new Tag()
 
-      if (mainTeacherUsername != null && mainTeacherUsername != undefined) {
-        projects[i].main_teacher = await User.findByOrFail("username", mainTeacherUsername)
-      }
+        newTag.name = tags[i]
 
-      if (secondTeacherUsername != null && secondTeacherUsername != undefined) {
-        projects[i].second_teacher = await User.findByOrFail("username", secondTeacherUsername)
+        await newTag.save()
+        arrayOfTagIds.push(newTag.id)
+      } else if (tag instanceof Tag) {
+        arrayOfTagIds.push(tag.id)
       }
     }
 
-    return projects
+    await project.related('tags').sync(arrayOfTagIds)
   }
 
-  async getProjectById({ params }: HttpContextContract) {
-    const { id } = params
-    const project = await Project.findOrFail(id)
+  async updateProjectParticipantRelationship(participants: string[], project: Project) {
+    let arrayOfParticipantIds: number[] = []
 
-    await project.load('participants')
-    await project.load('savedBy')
-    await project.load('tags')
+    for (let i = 0; i < participants.length; i++) {
+      const user = await User.findByOrFail('username', participants[i])
 
-    return project
+      if (user instanceof User) {
+        arrayOfParticipantIds.push(user.id)
+      }
+    }
+
+    await project.related('participants').sync(arrayOfParticipantIds)
   }
 }
