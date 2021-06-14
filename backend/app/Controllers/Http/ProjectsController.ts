@@ -110,6 +110,22 @@ export default class ProjectsController {
     }
   }
 
+  async updateDeleteRequests({params}: HttpContextContract) {
+    const {projectId, userId} = params;
+
+    const project = await Project.findOrFail(projectId)
+    const participants = await project.related("deleteRequests").query().wherePivot("user_id", userId)
+    
+    if(participants.length == 0){
+      await project.related("deleteRequests").attach([userId])
+    } else {
+      await project.related("deleteRequests").detach([userId])
+    }
+
+    await project.load("deleteRequests")
+    return project
+  }  
+
   async listAllProjects() {
     const projects = await Project.all()
 
