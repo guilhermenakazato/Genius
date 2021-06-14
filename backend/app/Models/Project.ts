@@ -49,4 +49,9 @@ export default class Project extends BaseModel {
 
   @manyToMany(() => Tag)
   public tags: ManyToMany<typeof Tag>
+
+  @manyToMany(() => User, {
+    pivotTable: 'delete_requests'
+  })
+  public deleteRequests: ManyToMany<typeof User>
 }

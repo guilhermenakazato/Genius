@@ -48,6 +48,7 @@ Route.post("/project/:creatorId", 'ProjectsController.createProject')
 Route.get("/projects", 'ProjectsController.listAllProjects')
 Route.get("project/:id", 'ProjectsController.getProjectById')
 Route.put("project/:id", 'ProjectsController.updateProject')
+Route.put("project/:projectId/:userId", 'ProjectsController.updateDeleteRequests')
 
 Route.post("/achievement/:userId", 'AchievementsController.createAchievement')
 Route.get("/achievements", 'AchievementsController.listAllAchievements')
