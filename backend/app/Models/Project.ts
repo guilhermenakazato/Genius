@@ -14,10 +14,10 @@ export default class Project extends BaseModel {
   public abstractText: string
   
   @column()
-  public main_teacher: string | User
+  public main_teacher: string
 
   @column()
-  public second_teacher: string | User
+  public second_teacher: string
 
   @column()
   public main_teacher_name: string

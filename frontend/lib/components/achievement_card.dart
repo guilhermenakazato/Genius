@@ -38,13 +38,7 @@ class AchievementCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
-                        ),
-                        child: Icon(Icons.grade_outlined, size: 70),
-                      ),
+                      child: Icon(Icons.grade_outlined, size: 70),
                     ),
                     Expanded(
                       child: Padding(
@@ -118,27 +112,47 @@ class AchievementCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-            icon: const Icon(
-              Icons.edit_outlined,
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Ink(
+              decoration: ShapeDecoration(
+                shape: CircleBorder(),
+                color: ApplicationColors.iconButtonColor,
+              ),
+              child: IconButton(
+                splashRadius: 24,
+                icon: const Icon(
+                  Icons.edit_outlined,
+                ),
+                onPressed: () {
+                  if (onEdit != null) {
+                    onEdit();
+                  }
+                },
+                color: ApplicationColors.editButtonColor,
+              ),
             ),
-            onPressed: () {
-              if (onEdit != null) {
-                onEdit();
-              }
-            },
-            color: ApplicationColors.editButtonColor,
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.close_outlined,
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Ink(
+              decoration: ShapeDecoration(
+                color: ApplicationColors.iconButtonColor,
+                shape: CircleBorder(),
+              ),
+              child: IconButton(
+                splashRadius: 24,
+                icon: const Icon(
+                  Icons.close_outlined,
+                ),
+                onPressed: () {
+                  if (onDelete != null) {
+                    onDelete();
+                  }
+                },
+                color: ApplicationColors.atentionColor,
+              ),
             ),
-            onPressed: () {
-              if (onDelete != null) {
-                onDelete();
-              }
-            },
-            color: ApplicationColors.atentionColor,
           ),
         ],
       ),

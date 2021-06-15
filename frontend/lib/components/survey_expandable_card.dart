@@ -80,27 +80,47 @@ class _SurveyExpandableCardState extends State<SurveyExpandableCard> {
 
   Widget _editWidget(MapEntry<int, Survey> entry) {
     return SizedBox(
-      width: 100,
+      width: 130,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-            icon: const Icon(
-              Icons.edit_outlined,
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Ink(
+              decoration: ShapeDecoration(
+                color: ApplicationColors.iconButtonColor,
+                shape: CircleBorder(),
+              ),
+              child: IconButton(
+                splashRadius: 24,
+                icon: const Icon(
+                  Icons.edit_outlined,
+                ),
+                onPressed: () {
+                  widget.onEdit(entry.value);
+                },
+                color: ApplicationColors.editButtonColor,
+              ),
             ),
-            onPressed: () {
-              widget.onEdit(entry.value);
-            },
-            color: ApplicationColors.editButtonColor,
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.close_outlined,
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Ink(
+              decoration: ShapeDecoration(
+                color: ApplicationColors.iconButtonColor,
+                shape: CircleBorder(),
+              ),
+              child: IconButton(
+                splashRadius: 24,
+                icon: const Icon(
+                  Icons.close_outlined,
+                ),
+                onPressed: () {
+                  widget.onDelete(entry.value);
+                },
+                color: ApplicationColors.atentionColor,
+              ),
             ),
-            onPressed: () {
-              widget.onDelete(entry.value);
-            },
-            color: ApplicationColors.atentionColor,
           ),
         ],
       ),

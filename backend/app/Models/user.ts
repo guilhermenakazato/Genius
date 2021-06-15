@@ -12,6 +12,7 @@ import {
 import Project from './Project'
 import Achievement from './Achievement'
 import Survey from './Survey'
+import Tag from './Tag'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -82,4 +83,9 @@ export default class User extends BaseModel {
     pivotTable: "saved_projects"
   })
   public saved: ManyToMany<typeof Project>
+
+  @manyToMany(() => Tag, {
+    pivotTable: "users_tags"
+  })
+  public tags: ManyToMany<typeof Tag>
 }

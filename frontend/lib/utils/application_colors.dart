@@ -43,4 +43,5 @@ class ApplicationColors {
 
   static const inputHintColor = Color.fromARGB(200, 156, 153, 214);
   static const tabBarIconAndTextActiveColor = Colors.white;
+  static const iconButtonColor = Color.fromRGBO(37, 35, 87, 1);
 }

@@ -132,17 +132,6 @@ export default class ProjectsController {
     for (let i = 0; i < projects.length; i++) {
       await projects[i].load('participants')
       await projects[i].load('tags')
-
-      var mainTeacherUsername = projects[i].main_teacher
-      var secondTeacherUsername = projects[i].second_teacher
-
-      if (mainTeacherUsername != null && mainTeacherUsername != undefined) {
-        projects[i].main_teacher = await User.findByOrFail('username', mainTeacherUsername)
-      }
-
-      if (secondTeacherUsername != null && secondTeacherUsername != undefined) {
-        projects[i].second_teacher = await User.findByOrFail('username', secondTeacherUsername)
-      }
     }
 
     return projects

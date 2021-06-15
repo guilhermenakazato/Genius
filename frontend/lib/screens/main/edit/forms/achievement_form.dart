@@ -52,8 +52,6 @@ class _AchievementFormState extends State<AchievementForm> {
       _nameController.text = widget.achievement.name;
       _typeController = widget.achievement.type;
 
-      debugPrint(_typeController);
-
       switch (widget.achievement.type) {
         case 'Medalha':
           if (widget.achievement.position != null) {
