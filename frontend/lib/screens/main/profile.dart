@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/models/tag.dart';
 import 'package:genius/screens/main/user_info/achievements_tab.dart';
 
 import '../../screens/main/user_info/projects_tab.dart';
@@ -31,7 +32,6 @@ class _ProfileContent extends StatefulWidget {
 }
 
 class _ProfileState extends State<_ProfileContent> {
-  final _tags = ['girls', 'flutter', 'matemática', 'ciências da saúde'];
   final _navigator = NavigatorUtil();
   double _myMindPosition = 0.65;
   final _tokenObject = Token();
@@ -66,7 +66,7 @@ class _ProfileState extends State<_ProfileContent> {
                 Container(height: 50),
                 _photoNameAndCity(user),
                 _followersEditProfileAndFollowing(user),
-                _tagsWidget(),
+                _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(user.tags),
               ],
             ),
             _draggableSheet(user),
@@ -178,12 +178,27 @@ class _ProfileState extends State<_ProfileContent> {
     );
   }
 
-  Widget _tagsWidget() {
+  Widget _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
+    List<Tag> tags,
+  ) {
+    if (tags.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 22.0, left: 4, right: 4),
+        child: Text(
+          'Você ainda não tem nenhum assunto favorito.',
+        ),
+      );
+    } else {
+      return _tagsWidget(tags);
+    }
+  }
+
+  Widget _tagsWidget(List<Tag> tags) {
     return Container(
       height: 44,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: _tags.length,
+        itemCount: tags.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.only(right: 5.0, left: 5),
@@ -202,7 +217,7 @@ class _ProfileState extends State<_ProfileContent> {
                   padding: const EdgeInsets.only(left: 20.0, right: 20),
                   child: Center(
                     child: Text(
-                      _tags[index],
+                      tags[index].name,
                       style: ApplicationTypography.profileTags,
                     ),
                   ),
