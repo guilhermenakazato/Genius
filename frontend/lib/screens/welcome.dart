@@ -29,7 +29,6 @@ class Welcome extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: const AssetImage('assets/mulher-cfolha.png'),
-                    fit: BoxFit.fill,
                   ),
                 ),
               ),
