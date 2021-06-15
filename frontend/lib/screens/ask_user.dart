@@ -12,49 +12,45 @@ class AskUser extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: <Widget>[
-          Positioned(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 192.0),
-              child: Align(
-                alignment: FractionalOffset.center,
-                child: Row(
+          Transform.translate(
+            offset: Offset(0, -30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset(
-                      'assets/homem.png',
-                      width: 140,
-                      height: 140,
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Image.asset(
+                        'assets/homem.png',
+                        width: 110,
+                        height: 110,
+                      ),
                     ),
-                    Image.asset(
-                      'assets/mulher.png',
-                      width: 140,
-                      height: 140,
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Image.asset(
+                        'assets/mulher.png',
+                        width: 110,
+                        height: 110,
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ),
-          Positioned(
-            child: Align(
-              alignment: FractionalOffset.center,
-              child: Text(
-                'Você já é usuário\ndo Genius?',
-                style: ApplicationTypography.askUserText,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          Positioned(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 136.0),
-              child: Align(
-                alignment: FractionalOffset.center,
-                child: ButtonWrap(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Você já é usuário\ndo Genius?',
+                    style: ApplicationTypography.askUserText,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                ButtonWrap(
                   yesScreen: Login(),
                   noScreen: Presentation(),
                 ),
-              ),
+              ],
             ),
           ),
         ],
