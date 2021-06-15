@@ -4,9 +4,13 @@ import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../../components/autocomplete_input.dart';
+import '../../../models/tag.dart';
 import '../../../http/webclients/signup_webclient.dart';
 import '../../../http/exceptions/http_exception.dart';
 import '../../../models/token.dart';
@@ -29,6 +33,8 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  String _tagsInitText = '';
+
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -58,6 +64,21 @@ class _EditProfileState extends State<EditProfile> {
   int _ageController;
   final _tokenObject = Token();
   final _key = GlobalKey<FormState>();
+  final _tagsKey = GlobalKey<FlutterMentionsState>();
+  Future<String> _userData;
+
+  @override
+  void initState() {
+    _userData = getData();
+    super.initState();
+  }
+
+  Future<String> getData() async {
+    final _webClient = UserWebClient();
+    final _token = await _tokenObject.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +88,7 @@ class _EditProfileState extends State<EditProfile> {
         color: Theme.of(context).primaryColor,
       ),
       child: FutureBuilder(
-        future: getData(),
+        future: _userData,
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
             final user = User.fromJson(jsonDecode(snapshot.data));
@@ -219,6 +240,21 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                            child: AutoCompleteInput(
+                              position: SuggestionPosition.Top,
+                              defaultText: _tagsInitText,
+                              keyController: _tagsKey,
+                              hint: '#tag',
+                              label: 'Favoritos',
+                              data: [
+                                {'id': '1', 'display': 'Ciência_da_computação'},
+                                {'id': '2', 'display': 'Ciências_da_Natureza'}
+                              ],
+                              triggerChar: '#',
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
                             child: InputWithAnimation(
                               controller: _bioController,
                               type: TextInputType.multiline,
@@ -255,13 +291,6 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Future<String> getData() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
-  }
-
   void _fillInputs(User user) {
     _nameController.text = user.name;
     _usernameController.text = user.username;
@@ -272,9 +301,23 @@ class _EditProfileState extends State<EditProfile> {
     _typeController = user.type;
     _ageController = int.parse(user.age);
     _formationController = user.formation;
+    _tagsInitText = _transformListOfTagsIntoStringOfTags(user.tags);
+  }
+
+  String _transformListOfTagsIntoStringOfTags(List<Tag> tags) {
+    var _stringOfTags = '';
+
+    tags.forEach((tag) {
+      _stringOfTags += tag.name;
+      _stringOfTags += ' ';
+    });
+
+    return _stringOfTags;
   }
 
   void _handleFormSubmit(User user, BuildContext context) {
+    var tagsText = _tagsKey.currentState.controller.text;
+
     var name = _nameController.text;
     var username = _usernameController.text;
     var email = _emailController.text;
@@ -285,24 +328,45 @@ class _EditProfileState extends State<EditProfile> {
     var formation = _formationController;
     var bio = _bioController.text.trim();
 
+    var tags = tagsText.trim().split(' ');
+    tags = tags.toSet().toList();
+
     if (!username.startsWith('@')) {
       username = '@' + username;
     }
 
-    var person = User(
-      name: name,
-      username: username,
-      email: email,
-      type: type,
-      age: age,
-      local: residency,
-      institution: institution,
-      formation: formation,
-      bio: bio,
-      password: user.password,
-    );
+    final tagVerificationPassed = _verifyTags(tags);
 
-    updateUserData(person, user, user.id, context);
+    if (tagVerificationPassed) {
+      var person = User(
+        name: name,
+        username: username,
+        email: email,
+        type: type,
+        age: age,
+        local: residency,
+        institution: institution,
+        formation: formation,
+        bio: bio,
+        password: user.password,
+        tags: tags,
+      );
+
+      updateUserData(person, user, user.id, context);
+    }
+  }
+
+  bool _verifyTags(List<String> tags) {
+    var verification = true;
+
+    tags.forEach((tag) {
+      if (!tag.startsWith('#')) {
+        _showToast('A tag $tag está sem #!');
+        verification = false;
+      }
+    });
+
+    return verification;
   }
 
   void updateUserData(User newUserData, User oldUserData, int userId,

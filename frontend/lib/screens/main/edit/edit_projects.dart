@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
-import '../../../models/tag.dart';
 import '../../../screens/main/project/project_info.dart';
 import '../../../utils/application_typography.dart';
 import '../../../utils/navigator_util.dart';

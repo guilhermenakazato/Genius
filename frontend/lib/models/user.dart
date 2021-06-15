@@ -19,6 +19,7 @@ class User {
   List<Achievement> achievements;
   List<Project> saved;
   List<Survey> surveys;
+  final tags;
 
   User({
     this.name,
@@ -31,6 +32,7 @@ class User {
     this.institution,
     this.formation,
     this.bio,
+    this.tags,
   });
 
   void setName(String name) {
@@ -85,7 +87,8 @@ class User {
         achievements =
             Convert.convertToListOfAchievements(json['achievements']),
         saved = Convert.convertToListOfSavedProjects(json['saved']),
-        surveys = Convert.convertToListOfSurveys(json['surveys']);
+        surveys = Convert.convertToListOfSurveys(json['surveys']),
+        tags = Convert.convertToListOfTags(json['tags']);
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -98,6 +101,7 @@ class User {
         'institution': institution,
         'formation': formation,
         'bio': bio,
+        'tags': tags,
       };
 
   @override

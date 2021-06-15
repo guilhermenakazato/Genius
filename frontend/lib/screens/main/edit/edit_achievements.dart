@@ -19,7 +19,6 @@ import '../../../utils/application_colors.dart';
 import '../../../components/floating_button.dart';
 import 'forms/achievement_form.dart';
 
-// TODO: botar design da edição de conquistas
 class EditConquistas extends StatefulWidget {
   @override
   _EditConquistasState createState() => _EditConquistasState();

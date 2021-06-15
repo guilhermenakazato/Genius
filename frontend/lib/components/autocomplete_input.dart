@@ -8,6 +8,7 @@ class AutoCompleteInput extends StatelessWidget {
   final String triggerChar;
   final String hint;
   final String defaultText;
+  final SuggestionPosition position;
 
   const AutoCompleteInput({
     Key key,
@@ -16,7 +17,7 @@ class AutoCompleteInput extends StatelessWidget {
     @required this.data,
     @required this.triggerChar,
     @required this.hint,
-    this.defaultText,
+    this.defaultText, this.position = SuggestionPosition.Bottom,
   }) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class AutoCompleteInput extends StatelessWidget {
       defaultText: defaultText,
       maxLines: null,
       keyboardType: TextInputType.multiline,
-      suggestionPosition: SuggestionPosition.Bottom,
+      suggestionPosition: position,
       key: keyController,
       cursorColor: Theme.of(context).primaryColor,
       style: TextStyle(
