@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Project from './Project'
+import User from './User'
 
 export default class Tag extends BaseModel {
   @column({ isPrimary: true })
@@ -17,4 +18,7 @@ export default class Tag extends BaseModel {
 
   @manyToMany(() => Project)
   public projects: ManyToMany<typeof Project>
+
+  @manyToMany(() => User)
+  public users: ManyToMany<typeof User>
 }

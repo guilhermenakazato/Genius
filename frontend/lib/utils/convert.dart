@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:genius/models/achievement.dart';
-
+import '../models/achievement.dart';
+import '../models/tag.dart';
 import '../models/survey.dart';
 import '../models/user.dart';
 import '../models/project.dart';
@@ -17,19 +17,11 @@ class Convert {
     return projects;
   }
 
-  static dynamic convertJsonToUserWithVerification(Map<String, dynamic> json) {
-    if (json == null) {
-      return null;
-    } else {
-      return User.fromJson(json);
-    }
-  }
-
-  static List<User> convertToListOfParticipants(List list) {
+  static List<User> convertToListOfUsers(List list) {
     if (list == null) {
       return null;
-    } 
-    
+    }
+
     final participants = list.map((dynamic json) {
       return User.fromJson(json);
     }).toList();
@@ -82,6 +74,18 @@ class Convert {
       }).toList();
 
       return achievements;
+    }
+  }
+
+  static List<Tag> convertToListOfTags(List list) {
+    if (list == null) {
+      return list;
+    } else {
+      final tags = list.map((dynamic json) {
+        return Tag.fromJson(json);
+      }).toList();
+
+      return tags;
     }
   }
 }

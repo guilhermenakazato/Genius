@@ -1,13 +1,16 @@
 import '../models/user.dart';
 import '../utils/convert.dart';
+import 'tag.dart';
 
 class Project {
   final int id;
   final String name, institution, startDate, mainTeacherName, secondTeacherName;
-  final User mainTeacher;
+  final mainTeacher;
   final secondTeacher;
   final String abstractText;
   final List<User> participants;
+  final List<User> deleteRequests;
+  final List<Tag> tags;
 
   Project(
     this.id,
@@ -20,6 +23,8 @@ class Project {
     this.participants,
     this.mainTeacherName,
     this.secondTeacherName,
+    this.deleteRequests,
+    this.tags,
   );
 
   Project.fromJson(Map<String, dynamic> json)
@@ -28,21 +33,21 @@ class Project {
         abstractText = json['abstract_text'],
         institution = json['institution'],
         startDate = json['start_date'],
-        mainTeacher = Convert.convertJsonToUserWithVerification(json['main_teacher']),
-        secondTeacher =
-            Convert.convertJsonToUserWithVerification(json['second_teacher']),
-        participants =
-            Convert.convertToListOfParticipants(json['participants']),
+        mainTeacher = json['main_teacher'],
+        secondTeacher = json['second_teacher'],
+        participants = Convert.convertToListOfUsers(json['participants']),
         mainTeacherName = json['main_teacher_name'],
-        secondTeacherName = json['second_teacher_name'];
+        secondTeacherName = json['second_teacher_name'],
+        deleteRequests = Convert.convertToListOfUsers(json['deleteRequests']),
+        tags = Convert.convertToListOfTags(json['tags']);
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
         'institution': institution,
         'start_date': startDate,
-        'main_teacher': mainTeacher.toJson(),
-        'second_teacher': secondTeacher.toJson(),
+        'main_teacher': mainTeacher,
+        'second_teacher': secondTeacher,
         'main_teacher_name': mainTeacherName,
         'second_teacher_name': secondTeacherName,
       };

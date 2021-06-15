@@ -3,23 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
+import '../../../../models/tag.dart';
 import '../../../../components/autocomplete_input.dart';
 import '../../../../utils/application_colors.dart';
 import '../../../../utils/application_typography.dart';
 import '../../../../components/gradient_button.dart';
 import '../../../../components/input_with_animation.dart';
 import '../../../../models/user.dart';
+import '../../../../models/project.dart';
 
 class ProjectForm extends StatefulWidget {
   final User user;
+  final String type;
+  final Project project;
 
-  const ProjectForm({Key key, @required this.user}) : super(key: key);
+  const ProjectForm({
+    Key key,
+    @required this.user,
+    this.type,
+    this.project,
+  }) : super(key: key);
 
   @override
   _ProjectFormState createState() => _ProjectFormState();
 }
 
 class _ProjectFormState extends State<ProjectForm> {
+  String _tagsInitState = '';
+  String _usernamesInitState = '';
+
   final _titleController = TextEditingController();
   final _institutionController = TextEditingController();
   final _startDateController = TextEditingController();
@@ -28,8 +40,52 @@ class _ProjectFormState extends State<ProjectForm> {
   final _tagsKey = GlobalKey<FlutterMentionsState>();
   final _mainTeacherKey = GlobalKey<FlutterMentionsState>();
   final _secondTeacherKey = GlobalKey<FlutterMentionsState>();
-
   final _participantsKey = GlobalKey<FlutterMentionsState>();
+
+  @override
+  void initState() {
+    _verifyIfShouldFillFormOrNot();
+    super.initState();
+  }
+
+  void _verifyIfShouldFillFormOrNot() {
+    if (widget.type == 'edit') {
+      _tagsInitState = _transformListOfTagsIntoStringOfTags(
+        widget.project.tags,
+      );
+
+      _usernamesInitState = _transformListOfUsersIntoStringOfUsernames(
+        widget.project.participants,
+      );
+
+      _titleController.text = widget.project.name;
+      _institutionController.text = widget.project.institution;
+      _startDateController.text = widget.project.startDate;
+      _abstractController.text = widget.project.abstractText;
+    }
+  }
+
+  String _transformListOfUsersIntoStringOfUsernames(List<User> users) {
+    var _stringOfUsers = '';
+
+    users.forEach((user) {
+      _stringOfUsers += user.username;
+      _stringOfUsers += ' ';
+    });
+
+    return _stringOfUsers;
+  }
+
+  String _transformListOfTagsIntoStringOfTags(List<Tag> tags) {
+    var _stringOfTags = '';
+
+    tags.forEach((tag) {
+      _stringOfTags += tag.name;
+      _stringOfTags += ' ';
+    });
+
+    return _stringOfTags;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +93,7 @@ class _ProjectFormState extends State<ProjectForm> {
       appBar: AppBar(
         backgroundColor: ApplicationColors.appBarColor,
         elevation: 0,
-        title: Text('Crie um projeto'),
+        title: Text(_defineAppBarText()),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,6 +109,7 @@ class _ProjectFormState extends State<ProjectForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
+                defaultText: _defineDefaultTagsText(),
                 keyController: _tagsKey,
                 hint: '#tag',
                 label: 'Tags',
@@ -66,6 +123,7 @@ class _ProjectFormState extends State<ProjectForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
+                defaultText: _defineDefaultMainTeacherText(),
                 hint: '@usuario ou Nome completo',
                 keyController: _mainTeacherKey,
                 label: 'Orientador',
@@ -79,6 +137,7 @@ class _ProjectFormState extends State<ProjectForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
+                defaultText: _defineDefaultSecondTeacherText(),
                 hint: '@usuario ou Nome completo',
                 keyController: _secondTeacherKey,
                 label: 'Coorientador',
@@ -111,7 +170,7 @@ class _ProjectFormState extends State<ProjectForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
               child: AutoCompleteInput(
-                defaultText: widget.user.username + ' ',
+                defaultText: _defineDefaultParticipantsText(),
                 hint: '@usuario',
                 keyController: _participantsKey,
                 label: 'Participantes',
@@ -196,5 +255,57 @@ class _ProjectFormState extends State<ProjectForm> {
         ),
       ),
     );
+  }
+
+  String _defineAppBarText() {
+    if (widget.type == 'edit') {
+      return 'Edite o projeto';
+    } else {
+      return 'Crie um projeto';
+    }
+  }
+
+  String _defineDefaultParticipantsText() {
+    if (widget.type == 'edit') {
+      return _usernamesInitState;
+    } else {
+      return widget.user.username + ' ';
+    }
+  }
+
+  String _defineDefaultTagsText() {
+    if (widget.type == 'edit') {
+      return _tagsInitState;
+    } else {
+      return null;
+    }
+  }
+
+  String _defineDefaultMainTeacherText() {
+    if (widget.type == 'edit') {
+      if (widget.project.mainTeacher != null) {
+        return widget.project.mainTeacher;
+      } else if (widget.project.mainTeacherName != null) {
+        return widget.project.mainTeacherName;
+      } else {
+        return '';
+      }
+    } else {
+      return null;
+    }
+  }
+
+  String _defineDefaultSecondTeacherText() {
+    if (widget.type == 'edit') {
+      if (widget.project.secondTeacher != null) {
+        return widget.project.secondTeacher;
+      } else if (widget.project.secondTeacherName != null) {
+        return widget.project.secondTeacherName;
+      } else {
+        return '';
+      }
+    } else {
+      return null;
+    }
   }
 }
