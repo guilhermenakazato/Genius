@@ -513,22 +513,25 @@ class _ProjectFormState extends State<ProjectForm> {
     final _webClient = ProjectWebClient();
     final progress = ProgressHUD.of(context);
 
-    progress.show();
+    var updateTestsPassed = await _webClient
+            .updateProject(project, oldProjectId)
+            .catchError((error) {
+          progress.dismiss();
+          _showToast(error.message);
+        }, test: (error) => error is HttpException).catchError((error) {
+          progress.dismiss();
+          _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+        }, test: (error) => error is TimeoutException).catchError((error) {
+          progress.dismiss();
+          _showToast('Erro desconhecido.');
+        }) ??
+        false;
 
-    await _webClient.updateSurvey(project, oldProjectId).catchError((error) {
+    if (updateTestsPassed) {
       progress.dismiss();
-      _showToast(error.message);
-    }, test: (error) => error is HttpException).catchError((error) {
-      progress.dismiss();
-      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
-    }, test: (error) => error is TimeoutException).catchError((error) {
-      progress.dismiss();
-      _showToast('Erro desconhecido.');
-    });
-
-    progress.dismiss();
-    _showToast('Projeto atualizado com sucesso.');
-    navigator.goBack(context);
+      _showToast('Projeto atualizado com sucesso.');
+      navigator.goBack(context);
+    }
   }
 
   Widget _submitArchive(BuildContext context) {

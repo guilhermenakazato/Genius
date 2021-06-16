@@ -35,7 +35,7 @@ class ProjectWebClient {
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
-  Future<void> updateSurvey(Project project, projectId) async {
+  Future<bool> updateProject(Project project, projectId) async {
     final projectJson = jsonEncode(project.toJson());
 
     final response = await client.put(
@@ -47,10 +47,12 @@ class ProjectWebClient {
     );
 
     if (response.statusCode == 200) {
-      return response.body;
+      return true;
+    } else if (response.statusCode == 404) {
+      throw HttpException(jsonDecode(response.body)['error']);
     }
-
-    throw HttpException('Erro desconhecido..');
+ 
+    throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
   Future<bool> verifyIfProjectTitleAlreadyExists(String title) async {
