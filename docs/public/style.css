@@ -296,3 +296,7 @@ p.legenda::first-letter {
 p.legenda {
   text-align: center;
 }
+
+li {
+  margin-bottom: 2px;
+}
