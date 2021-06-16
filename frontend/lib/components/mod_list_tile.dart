@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genius/utils/application_typography.dart';
 
+import '../utils/application_typography.dart';
 import '../utils/application_colors.dart';
 
 class ModListTile extends StatelessWidget {

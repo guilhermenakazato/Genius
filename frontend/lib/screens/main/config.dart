@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genius/models/token.dart';
 
+import '../../models/token.dart';
 import '../../components/config_title.dart';
 import '../../components/mod_list_tile.dart';
 import '../../components/switch_tile.dart';

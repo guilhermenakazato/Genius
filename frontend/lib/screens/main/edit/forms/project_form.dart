@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:genius/http/exceptions/http_exception.dart';
-import 'package:genius/http/webclients/project_webclient.dart';
-import 'package:genius/utils/navigator_util.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
+import '../../../../http/exceptions/http_exception.dart';
+import '../../../../http/webclients/project_webclient.dart';
+import '../../../../utils/navigator_util.dart';
 import '../../../../models/tag.dart';
 import '../../../../components/autocomplete_input.dart';
 import '../../../../utils/application_colors.dart';

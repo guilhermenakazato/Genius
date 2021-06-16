@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/models/tag.dart';
-import 'package:genius/screens/main/user_info/achievements_tab.dart';
 
+import '../../models/tag.dart';
+import '../../screens/main/user_info/achievements_tab.dart';
 import '../../screens/main/user_info/projects_tab.dart';
 import '../../screens/main/user_info/about_me_tab.dart';
 import '../../http/webclients/user_webclient.dart';

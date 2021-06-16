@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:genius/http/exceptions/http_exception.dart';
-import 'package:genius/http/webclients/achievement_webclient.dart';
-import 'package:genius/models/achievement.dart';
 
+import '../../../../http/exceptions/http_exception.dart';
+import '../../../../http/webclients/achievement_webclient.dart';
+import '../../../../models/achievement.dart';
 import '../../../../utils/navigator_util.dart';
 import '../../../../utils/application_colors.dart';
 import '../../../../components/checkbox_tile.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genius/utils/application_colors.dart';
+
+import '../utils/application_colors.dart';
 
 class Tag extends StatelessWidget {
   final String text;
