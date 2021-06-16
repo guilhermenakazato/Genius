@@ -1,6 +1,13 @@
+import 'dart:async';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:genius/http/exceptions/http_exception.dart';
+import 'package:genius/http/webclients/project_webclient.dart';
+import 'package:genius/utils/navigator_util.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
 import '../../../../models/tag.dart';
@@ -41,6 +48,8 @@ class _ProjectFormState extends State<ProjectForm> {
   final _mainTeacherKey = GlobalKey<FlutterMentionsState>();
   final _secondTeacherKey = GlobalKey<FlutterMentionsState>();
   final _participantsKey = GlobalKey<FlutterMentionsState>();
+
+  final navigator = NavigatorUtil();
 
   @override
   void initState() {
@@ -208,7 +217,15 @@ class _ProjectFormState extends State<ProjectForm> {
     );
   }
 
-  void _handleFormSubmit() {
+  void _handleFormSubmit() async {
+    // name (unique), institution, startDate (use verification), mainTeacher, secondTeacher, mainTeacherName, secondTeacherName, participants, tags, abstractText
+    var name = _titleController.text;
+    var institution = _institutionController.text;
+    var startDate = _startDateController.text;
+    var mainTeacher = _mainTeacherKey.currentState.controller.text;
+    var secondTeacher = _secondTeacherKey.currentState.controller.text;
+    var abstractText = _abstractController.text;
+
     var tagsText = _tagsKey.currentState.controller.text;
     var participantsText = _participantsKey.currentState.controller.text;
 
@@ -218,8 +235,162 @@ class _ProjectFormState extends State<ProjectForm> {
     var participants = participantsText.trim().split(' ');
     participants = participants.toSet().toList();
 
-    debugPrint(tags.toString());
-    debugPrint(participants.toString());
+    var projectTitleExists =
+        await _projectTitleAlreadyExists(name, widget.project);
+
+    final tagsVerificationPassed = _tagsStructureIsCorrect(tags);
+    final participantsVerificationPassed =
+        _participantsStructureIsCorrect(participants);
+    final dateVerificationPassed = _dateIsValid(startDate);
+
+    if (projectTitleExists) {
+      _showToast(
+        'Ops! Parece que alguém já está usando o título de projeto que você tentou colocar.',
+      );
+    } else if (tagsVerificationPassed &&
+        participantsVerificationPassed &&
+        dateVerificationPassed) {
+      var project = Project();
+      debugPrint(project.toString());
+    }
+  }
+
+  bool _dateIsValid(String date) {
+    var dateArray = date.split('/');
+    var day = dateArray[0];
+    var month = dateArray[1];
+    var year = dateArray[2];
+
+    var formattedDate = year + '-' + month + '-' + day;
+    var newDate = DateTime.tryParse(formattedDate);
+
+    if (newDate == null) {
+      _showToast('Formato de data inválido.');
+      return false;
+    } else {
+      var greaterThanNow = DateTime.now().isBefore(newDate);
+
+      if (greaterThanNow) {
+        _showToast('Ops! Parece que um viajante do tempo passou por aqui');
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  Future<bool> _projectTitleAlreadyExists(
+    String title,
+    Project oldProjectData,
+  ) async {
+    var projectTitleAlreadyExists = false;
+    var _webClientToVerifyData = ProjectWebClient();
+
+    if (widget.type == 'edit') {
+      if (oldProjectData.name != title) {
+        projectTitleAlreadyExists =
+            await _webClientToVerifyData.verifyIfProjectTitleAlreadyExists(
+          title,
+        );
+      }
+    } else {
+      projectTitleAlreadyExists =
+          await _webClientToVerifyData.verifyIfProjectTitleAlreadyExists(
+        title,
+      );
+    }
+
+    return projectTitleAlreadyExists;
+  }
+
+  bool _participantsStructureIsCorrect(List<String> participants) {
+    var verification = true;
+
+    if (participants.length == 1 &&
+        (participants[0] == ' ' || participants[0] == '')) {
+      participants.clear();
+    }
+
+    if (participants.isEmpty) {
+      _showToast('Seu projeto tem que ter pelo menos um participante!');
+      verification = false;
+    } else {
+      participants.forEach((participant) {
+        if (!participant.startsWith('@')) {
+          _showToast('O participante $participant está sem @!');
+          verification = false;
+        }
+      });
+    }
+
+    return verification;
+  }
+
+  bool _tagsStructureIsCorrect(List<String> tags) {
+    var verification = true;
+
+    if (tags.length == 1 && (tags[0] == ' ' || tags[0] == '')) {
+      tags.clear();
+    }
+
+    if (tags.isNotEmpty) {
+      tags.forEach((tag) {
+        if (!tag.startsWith('#')) {
+          _showToast('A tag $tag está sem #!');
+          verification = false;
+        }
+      });
+    }
+
+    return verification;
+  }
+
+  void _createProject(Project project, BuildContext context) async {
+    final _webClient = ProjectWebClient();
+    final progress = ProgressHUD.of(context);
+
+    progress.show();
+
+    await _webClient.createSurvey(project, widget.user.id).catchError((error) {
+      progress.dismiss();
+      _showToast(error.message);
+    }, test: (error) => error is HttpException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+    }, test: (error) => error is TimeoutException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro desconhecido.');
+    });
+
+    progress.dismiss();
+    _showToast('Projeto criado com sucesso.');
+    navigator.goBack(context);
+  }
+
+  void _updateSurvey(
+    Project project,
+    int oldProjectId,
+    BuildContext context,
+  ) async {
+    final _webClient = ProjectWebClient();
+    final progress = ProgressHUD.of(context);
+
+    progress.show();
+
+    await _webClient.updateSurvey(project, oldProjectId).catchError((error) {
+      progress.dismiss();
+      _showToast(error.message);
+    }, test: (error) => error is HttpException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+    }, test: (error) => error is TimeoutException).catchError((error) {
+      progress.dismiss();
+      _showToast('Erro desconhecido.');
+    });
+
+    progress.dismiss();
+    _showToast('Projeto atualizado com sucesso.');
+    navigator.goBack(context);
   }
 
   Widget _submitArchive(BuildContext context) {
@@ -307,5 +478,17 @@ class _ProjectFormState extends State<ProjectForm> {
     } else {
       return null;
     }
+  }
+
+  void _showToast(String text) {
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: ApplicationColors.toastColor,
+      textColor: Colors.white,
+      fontSize: 14.0,
+    );
   }
 }

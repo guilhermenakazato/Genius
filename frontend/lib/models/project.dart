@@ -12,7 +12,7 @@ class Project {
   final List<User> deleteRequests;
   final List<Tag> tags;
 
-  Project(
+  Project({
     this.id,
     this.name,
     this.mainTeacher,
@@ -25,7 +25,7 @@ class Project {
     this.secondTeacherName,
     this.deleteRequests,
     this.tags,
-  );
+  });
 
   Project.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -42,7 +42,6 @@ class Project {
         tags = Convert.convertToListOfTags(json['tags']);
 
   Map<String, dynamic> toJson() => {
-        'id': id,
         'name': name,
         'institution': institution,
         'start_date': startDate,
@@ -50,6 +49,9 @@ class Project {
         'second_teacher': secondTeacher,
         'main_teacher_name': mainTeacherName,
         'second_teacher_name': secondTeacherName,
+        'participants': participants, 
+        'tags': tags,
+        'abstract_text': abstractText
       };
 
   @override

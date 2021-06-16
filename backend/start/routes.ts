@@ -49,6 +49,7 @@ Route.get("/projects", 'ProjectsController.listAllProjects')
 Route.get("project/:id", 'ProjectsController.getProjectById')
 Route.put("project/:id", 'ProjectsController.updateProject')
 Route.put("project/:projectId/:userId", 'ProjectsController.updateDeleteRequests')
+Route.post("verify", 'ProjectsController.verifyIfProjectTitleAlreadyExists')
 
 Route.post("/achievement/:userId", 'AchievementsController.createAchievement')
 Route.get("/achievements", 'AchievementsController.listAllAchievements')
