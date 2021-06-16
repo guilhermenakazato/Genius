@@ -18,11 +18,11 @@ export default class ProjectsController {
       participants,
     } = request.all()
 
-    if(main_teacher != undefined && main_teacher != null) {
+    if (main_teacher != undefined && main_teacher != null) {
       participants.push(main_teacher)
     }
 
-    if(second_teacher != undefined && second_teacher != null) {
+    if (second_teacher != undefined && second_teacher != null) {
       participants.push(second_teacher)
     }
 
@@ -43,7 +43,9 @@ export default class ProjectsController {
       await project.save()
 
       await this.createProjectParticipantRelationship(participants, project)
-      await this.createProjectTagRelationship(tags, project)
+      if (!(tags == null)) {
+        await this.createProjectTagRelationship(tags, project)
+      }
 
       const creator = await User.findOrFail(creatorId)
       await creator.related('projects').save(project)
@@ -74,11 +76,12 @@ export default class ProjectsController {
       participants,
     } = request.all()
 
-    if(main_teacher != undefined && main_teacher != null) {
+    console.log(main_teacher)
+    if (main_teacher != undefined && main_teacher != null) {
       participants.push(main_teacher)
     }
 
-    if(second_teacher != undefined && second_teacher != null) {
+    if (second_teacher != undefined && second_teacher != null) {
       participants.push(second_teacher)
     }
 
@@ -97,7 +100,9 @@ export default class ProjectsController {
       await project.save()
 
       await this.updateProjectParticipantRelationship(participants, project)
-      await this.updateProjectTagRelationship(tags, project)
+      if (!(tags == null)) {
+        await this.updateProjectTagRelationship(tags, project)
+      }
 
       await project.load('participants')
       await project.load('tags')
@@ -110,21 +115,24 @@ export default class ProjectsController {
     }
   }
 
-  async updateDeleteRequests({params}: HttpContextContract) {
-    const {projectId, userId} = params;
+  async updateDeleteRequests({ params }: HttpContextContract) {
+    const { projectId, userId } = params
 
     const project = await Project.findOrFail(projectId)
-    const participants = await project.related("deleteRequests").query().wherePivot("user_id", userId)
-    
-    if(participants.length == 0){
-      await project.related("deleteRequests").attach([userId])
+    const participants = await project
+      .related('deleteRequests')
+      .query()
+      .wherePivot('user_id', userId)
+
+    if (participants.length == 0) {
+      await project.related('deleteRequests').attach([userId])
     } else {
-      await project.related("deleteRequests").detach([userId])
+      await project.related('deleteRequests').detach([userId])
     }
 
-    await project.load("deleteRequests")
+    await project.load('deleteRequests')
     return project
-  }  
+  }
 
   async listAllProjects() {
     const projects = await Project.all()
@@ -151,7 +159,7 @@ export default class ProjectsController {
   async verifyIfProjectTitleAlreadyExists({ request }: HttpContextContract) {
     const { project_title } = request.all()
 
-    const project = await Project.findByOrFail('name', project_title);
+    const project = await Project.findByOrFail('name', project_title)
 
     return project
   }

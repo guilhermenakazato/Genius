@@ -1,6 +1,5 @@
 import '../models/user.dart';
 import '../utils/convert.dart';
-import 'tag.dart';
 
 class Project {
   final int id;
@@ -8,9 +7,9 @@ class Project {
   final mainTeacher;
   final secondTeacher;
   final String abstractText;
-  final List<User> participants;
+  final List<dynamic> participants;
   final List<User> deleteRequests;
-  final List<Tag> tags;
+  final List<dynamic> tags;
 
   Project({
     this.id,

@@ -36,4 +36,14 @@ class UserWebClient {
 
     throw HttpException('Erro desconhecido..');
   }
+
+  Future<String> getAllUsers() async {
+    final response = await client.get(baseUrl + '/users');
+
+    if (response.statusCode == 200) {
+      return response.body;
+    }
+
+    throw HttpException('Erro desconhecido..');
+  }
 }

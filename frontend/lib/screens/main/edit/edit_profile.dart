@@ -8,6 +8,8 @@ import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:genius/http/webclients/tags_webclient.dart';
+import 'package:genius/utils/convert.dart';
 
 import '../../../components/autocomplete_input.dart';
 import '../../../models/tag.dart';
@@ -65,19 +67,37 @@ class _EditProfileState extends State<EditProfile> {
   final _tokenObject = Token();
   final _key = GlobalKey<FormState>();
   final _tagsKey = GlobalKey<FlutterMentionsState>();
-  Future<String> _userData;
 
   @override
   void initState() {
-    _userData = getData();
+    _getProfileData();
     super.initState();
   }
 
-  Future<String> getData() async {
+  Future<List<dynamic>> _getProfileData() {
+    var responses = Future.wait([
+      _getUserData(),
+      _getTagsData(),
+    ]);
+
+    return responses;
+  }
+
+  Future<User> _getUserData() async {
     final _webClient = UserWebClient();
     final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
+    final _userJson = await _webClient.getUserData(_token);
+    final _user = User.fromJson(jsonDecode(_userJson));
+
     return _user;
+  }
+
+  Future<List<Tag>> _getTagsData() async {
+    final webClient = TagsWebClient();
+    final tags = await webClient.getAllTags();
+    final tagsList = Convert.convertToListOfTags(jsonDecode(tags));
+
+    return tagsList;
   }
 
   @override
@@ -88,11 +108,14 @@ class _EditProfileState extends State<EditProfile> {
         color: Theme.of(context).primaryColor,
       ),
       child: FutureBuilder(
-        future: _userData,
-        builder: (context, AsyncSnapshot<String> snapshot) {
+        future: _getProfileData(),
+        builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasData) {
-            final user = User.fromJson(jsonDecode(snapshot.data));
+            final user = snapshot.data[0];
+            final tags = snapshot.data[1];
+
             _fillInputs(user);
+            final tagsMap = _defineAutocomplete(tags);
 
             return Theme(
               data: Theme.of(context).copyWith(
@@ -246,10 +269,7 @@ class _EditProfileState extends State<EditProfile> {
                               keyController: _tagsKey,
                               hint: '#tag',
                               label: 'Favoritos',
-                              data: [
-                                {'id': '1', 'display': 'Ciência_da_computação'},
-                                {'id': '2', 'display': 'Ciências_da_Natureza'}
-                              ],
+                              data: tagsMap,
                               triggerChar: '#',
                             ),
                           ),
@@ -289,6 +309,21 @@ class _EditProfileState extends State<EditProfile> {
         },
       ),
     );
+  }
+
+  List<Map<String, dynamic>> _defineAutocomplete(List<Tag> tags) {
+    var listOfTagsWithMap = <Map<String, dynamic>>[];
+
+    tags.forEach((tag) {
+      var map = <String, dynamic>{};
+
+      map['display'] = tag.name.replaceAll('#', '');
+      map['id'] = tag.id.toString();
+
+      listOfTagsWithMap.add(map);
+    });
+
+    return listOfTagsWithMap;
   }
 
   void _fillInputs(User user) {
