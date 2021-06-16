@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../../../http/webclients/user_webclient.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
 import '../../../../http/exceptions/http_exception.dart';
@@ -18,6 +21,8 @@ import '../../../../components/gradient_button.dart';
 import '../../../../components/input_with_animation.dart';
 import '../../../../models/user.dart';
 import '../../../../models/project.dart';
+import '../../../../http/webclients/tags_webclient.dart';
+import '../../../../utils/convert.dart';
 
 class ProjectForm extends StatefulWidget {
   final User user;
@@ -55,6 +60,28 @@ class _ProjectFormState extends State<ProjectForm> {
   void initState() {
     _verifyIfShouldFillFormOrNot();
     super.initState();
+  }
+
+  Future<List<dynamic>> _getProjectFormData() {
+    var responses = Future.wait([_getUsersData(), _getTagsData()]);
+
+    return responses;
+  }
+
+  Future<List<User>> _getUsersData() async {
+    final webClient = UserWebClient();
+    final users = await webClient.getAllUsers();
+    final usersList = Convert.convertToListOfUsers(jsonDecode(users));
+
+    return usersList;
+  }
+
+  Future<List<Tag>> _getTagsData() async {
+    final webClient = TagsWebClient();
+    final tags = await webClient.getAllTags();
+    final tagsList = Convert.convertToListOfTags(jsonDecode(tags));
+
+    return tagsList;
   }
 
   void _verifyIfShouldFillFormOrNot() {
@@ -98,133 +125,167 @@ class _ProjectFormState extends State<ProjectForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ApplicationColors.appBarColor,
-        elevation: 0,
-        title: Text(_defineAppBarText()),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
-              child: InputWithAnimation(
-                controller: _titleController,
-                type: TextInputType.name,
-                label: 'Título do projeto',
-              ),
+    return FutureBuilder(
+      future: _getProjectFormData(),
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+        if (snapshot.hasData) {
+          var usersList = [];
+          usersList = _defineUserAutocomplete(snapshot.data[0]);
+
+          var tagsList = [];
+          tagsList = _defineTagAutocomplete(snapshot.data[1]);
+
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: ApplicationColors.appBarColor,
+              elevation: 0,
+              title: Text(_defineAppBarText()),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: AutoCompleteInput(
-                defaultText: _defineDefaultTagsText(),
-                keyController: _tagsKey,
-                hint: '#tag',
-                label: 'Tags',
-                data: [
-                  {'id': '1', 'display': 'Ciência_da_computação'},
-                  {'id': '2', 'display': 'Ciências_da_Natureza'}
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
+                    child: InputWithAnimation(
+                      controller: _titleController,
+                      type: TextInputType.name,
+                      label: 'Título do projeto',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                    child: AutoCompleteInput(
+                      defaultText: _defineDefaultTagsText(),
+                      keyController: _tagsKey,
+                      hint: '#tag',
+                      label: 'Tags',
+                      data: tagsList,
+                      type: 'tag',
+                      triggerChar: '#',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                    child: AutoCompleteInput(
+                      defaultText: _defineDefaultMainTeacherText(),
+                      hint: '@usuario ou Nome completo',
+                      keyController: _mainTeacherKey,
+                      label: 'Orientador',
+                      data: usersList,
+                      triggerChar: '@',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                    child: AutoCompleteInput(
+                      defaultText: _defineDefaultSecondTeacherText(),
+                      hint: '@usuario ou Nome completo',
+                      keyController: _secondTeacherKey,
+                      label: 'Coorientador',
+                      data: usersList,
+                      triggerChar: '@',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                    child: InputWithAnimation(
+                      controller: _institutionController,
+                      type: TextInputType.name,
+                      label: 'Instituição',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                    child: InputWithAnimation(
+                      controller: _startDateController,
+                      type: TextInputType.datetime,
+                      label: 'Data de início',
+                      formatters: [
+                        DateInputFormatter(),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                    child: AutoCompleteInput(
+                      defaultText: _defineDefaultParticipantsText(),
+                      hint: '@usuario',
+                      keyController: _participantsKey,
+                      label: 'Participantes',
+                      data: usersList,
+                      triggerChar: '@',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                    child: InputWithAnimation(
+                      controller: _abstractController,
+                      type: TextInputType.multiline,
+                      label: 'Resumo',
+                      allowMultilines: true,
+                    ),
+                  ),
+                  _submitArchive(context),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GradientButton(
+                      onPressed: () {
+                        _handleFormSubmit();
+                      },
+                      text: 'Salvar',
+                      width: 270,
+                      height: 50,
+                    ),
+                  ),
                 ],
-                triggerChar: '#',
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: AutoCompleteInput(
-                defaultText: _defineDefaultMainTeacherText(),
-                hint: '@usuario ou Nome completo',
-                keyController: _mainTeacherKey,
-                label: 'Orientador',
-                data: [
-                  {'id': '1', 'display': 'Sidney'},
-                  {'id': '2', 'display': 'Leandro'}
-                ],
-                triggerChar: '@',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: AutoCompleteInput(
-                defaultText: _defineDefaultSecondTeacherText(),
-                hint: '@usuario ou Nome completo',
-                keyController: _secondTeacherKey,
-                label: 'Coorientador',
-                data: [
-                  {'id': '1', 'display': 'Marcia'},
-                  {'id': '2', 'display': 'Fábio'}
-                ],
-                triggerChar: '@',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _institutionController,
-                type: TextInputType.name,
-                label: 'Instituição',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _startDateController,
-                type: TextInputType.datetime,
-                label: 'Data de início',
-                formatters: [
-                  DateInputFormatter(),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: AutoCompleteInput(
-                defaultText: _defineDefaultParticipantsText(),
-                hint: '@usuario',
-                keyController: _participantsKey,
-                label: 'Participantes',
-                data: [
-                  {'id': '1', 'display': 'Guilherme'},
-                  {'id': '2', 'display': 'Gabriela'}
-                ],
-                triggerChar: '@',
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-              child: InputWithAnimation(
-                controller: _abstractController,
-                type: TextInputType.multiline,
-                label: 'Resumo',
-                allowMultilines: true,
-              ),
-            ),
-            _submitArchive(context),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GradientButton(
-                onPressed: () {
-                  _handleFormSubmit();
-                },
-                text: 'Salvar',
-                width: 270,
-                height: 50,
-              ),
-            ),
-          ],
-        ),
-      ),
+          );
+        } else {
+          return SpinKitFadingCube(color: ApplicationColors.primary);
+        }
+      },
     );
   }
 
+  List<Map<String, dynamic>> _defineTagAutocomplete(List<Tag> tags) {
+    var listOfTagsWithMap = <Map<String, dynamic>>[];
+
+    tags.forEach((tag) {
+      var map = <String, dynamic>{};
+
+      map['display'] = tag.name.replaceAll('#', '');
+      map['id'] = tag.id.toString();
+
+      listOfTagsWithMap.add(map);
+    });
+
+    return listOfTagsWithMap;
+  }
+
+  List<Map<String, dynamic>> _defineUserAutocomplete(List<User> users) {
+    var listOfUsersWithMap = <Map<String, dynamic>>[];
+
+    users.forEach((user) {
+      var map = <String, dynamic>{};
+
+      map['display'] = user.username.replaceAll('@', '');
+      map['id'] = user.id.toString();
+      map['name'] = user.name;
+
+      listOfUsersWithMap.add(map);
+    });
+
+    return listOfUsersWithMap;
+  }
+
   void _handleFormSubmit() async {
-    // name (unique), institution, startDate (use verification), mainTeacher, secondTeacher, mainTeacherName, secondTeacherName, participants, tags, abstractText
-    var name = _titleController.text;
-    var institution = _institutionController.text;
-    var startDate = _startDateController.text;
-    var mainTeacher = _mainTeacherKey.currentState.controller.text;
-    var secondTeacher = _secondTeacherKey.currentState.controller.text;
-    var abstractText = _abstractController.text;
+    var name = _titleController.text.trim();
+    var institution = _institutionController.text.trim();
+    var startDate = _startDateController.text.trim();
+    var mainTeacher = _mainTeacherKey.currentState.controller.text.trim();
+    var secondTeacher = _secondTeacherKey.currentState.controller.text.trim();
+    var abstractText = _abstractController.text.trim();
 
     var tagsText = _tagsKey.currentState.controller.text;
     var participantsText = _participantsKey.currentState.controller.text;
@@ -250,8 +311,48 @@ class _ProjectFormState extends State<ProjectForm> {
     } else if (tagsVerificationPassed &&
         participantsVerificationPassed &&
         dateVerificationPassed) {
-      var project = Project();
-      debugPrint(project.toString());
+      var mainTeacherText;
+      var secondTeacherText;
+      var mainTeacherNameText;
+      var secondTeacherNameText;
+
+      if (mainTeacher.contains('@')) {
+        mainTeacherText = mainTeacher;
+        mainTeacherNameText = null;
+      } else {
+        mainTeacherText = null;
+        mainTeacherNameText = mainTeacher;
+      }
+
+      if (secondTeacher.contains('@') && secondTeacher != null) {
+        secondTeacherText = secondTeacher;
+        secondTeacherNameText = null;
+      } else if (secondTeacher != null && secondTeacher != '') {
+        secondTeacherText = null;
+        secondTeacherNameText = secondTeacher;
+      } else {
+        secondTeacherText = null;
+        secondTeacherNameText = null;
+      }
+
+      var project = Project(
+        name: name,
+        institution: institution,
+        startDate: startDate,
+        participants: participants,
+        tags: tags,
+        abstractText: abstractText,
+        mainTeacher: mainTeacherText,
+        mainTeacherName: mainTeacherNameText,
+        secondTeacher: secondTeacherText,
+        secondTeacherName: secondTeacherNameText,
+      );
+
+      if (widget.type == 'edit') {
+        _updateProject(project, widget.project.id, context);
+      } else {
+        _createProject(project, context);
+      }
     }
   }
 
@@ -347,27 +448,27 @@ class _ProjectFormState extends State<ProjectForm> {
 
   void _createProject(Project project, BuildContext context) async {
     final _webClient = ProjectWebClient();
-    final progress = ProgressHUD.of(context);
+    // final progress = ProgressHUD.of(context);
 
-    progress.show();
+    // progress.show();
 
     await _webClient.createSurvey(project, widget.user.id).catchError((error) {
-      progress.dismiss();
+      // progress.dismiss();
       _showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
-      progress.dismiss();
+      // progress.dismiss();
       _showToast('Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
-      progress.dismiss();
+      // progress.dismiss();
       _showToast('Erro desconhecido.');
     });
 
-    progress.dismiss();
+    // progress.dismiss();
     _showToast('Projeto criado com sucesso.');
     navigator.goBack(context);
   }
 
-  void _updateSurvey(
+  void _updateProject(
     Project project,
     int oldProjectId,
     BuildContext context,

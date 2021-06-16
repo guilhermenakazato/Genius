@@ -6,6 +6,6 @@ class Tag {
 
   @override
   String toString() {
-    return 'Project: {id: $id, name: $name}';
+    return 'Tag: {id: $id, name: $name}';
   }
 }

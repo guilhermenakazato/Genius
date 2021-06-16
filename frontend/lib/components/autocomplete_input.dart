@@ -9,6 +9,7 @@ class AutoCompleteInput extends StatelessWidget {
   final String hint;
   final String defaultText;
   final SuggestionPosition position;
+  final String type;
 
   const AutoCompleteInput({
     Key key,
@@ -17,7 +18,9 @@ class AutoCompleteInput extends StatelessWidget {
     @required this.data,
     @required this.triggerChar,
     @required this.hint,
-    this.defaultText, this.position = SuggestionPosition.Bottom,
+    this.defaultText,
+    this.position = SuggestionPosition.Bottom,
+    this.type,
   }) : super(key: key);
 
   @override
@@ -83,17 +86,29 @@ class AutoCompleteInput extends StatelessWidget {
                   ),
                 ),
                 padding: EdgeInsets.all(12),
-                child: Column(
-                  children: [
-                    Text(data['display']),
-                    Text(data['id']),
-                  ],
-                ),
+                child: _determineWhichAutocompleteShouldDisplay(data),
               ),
             );
           },
         ),
       ],
     );
+  }
+
+  Widget _determineWhichAutocompleteShouldDisplay(Map<String, dynamic> data) {
+    if (type == 'tag') {
+      return Column(
+        children: [
+          Text('#' + data['display']),
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          Text('@' + data['display']),
+          Text(data['name'])
+        ],
+      );
+    }
   }
 }
