@@ -148,6 +148,14 @@ export default class ProjectsController {
     return project
   }
 
+  async verifyIfProjectTitleAlreadyExists({ request }: HttpContextContract) {
+    const { project_title } = request.all()
+
+    const project = await Project.findByOrFail('name', project_title);
+
+    return project
+  }
+
   async allParticipantsExist(participants: string[]) {
     for (let i = 0; i < participants.length; i++) {
       const user = await User.findBy('username', participants[i])

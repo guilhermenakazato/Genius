@@ -359,12 +359,20 @@ class _EditProfileState extends State<EditProfile> {
   bool _verifyTags(List<String> tags) {
     var verification = true;
 
-    tags.forEach((tag) {
-      if (!tag.startsWith('#')) {
-        _showToast('A tag $tag está sem #!');
-        verification = false;
-      }
-    });
+    if (tags.length == 1 && (tags[0] == ' ' || tags[0] == '')) {
+      tags.clear();
+    }
+
+    debugPrint(tags.toString());
+    debugPrint(tags.isEmpty.toString());
+    if (tags.isNotEmpty) {
+      tags.forEach((tag) {
+        if (!tag.startsWith('#')) {
+          _showToast('A tag $tag está sem #!');
+          verification = false;
+        }
+      });
+    }
 
     return verification;
   }
