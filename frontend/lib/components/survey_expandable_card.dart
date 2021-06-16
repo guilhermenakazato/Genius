@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genius/models/survey.dart';
-import 'package:genius/utils/application_colors.dart';
+import '../models/survey.dart';
+import '../utils/application_colors.dart';
 
 class SurveyExpandableCard extends StatefulWidget {
   final List<Survey> surveys;

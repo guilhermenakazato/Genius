@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genius/components/dropdown_button.dart';
 
+import '../../components/dropdown_button.dart';
 import '../../components/floating_button.dart';
 import '../../models/user.dart';
 import '../../screens/signup/signup_institution.dart';

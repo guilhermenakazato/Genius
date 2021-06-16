@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:genius/http/webclients/signup_webclient.dart';
 
+import '../../http/webclients/signup_webclient.dart';
 import '../../components/borderless_input.dart';
 import '../../utils/application_typography.dart';
 import '../../components/floating_button.dart';
