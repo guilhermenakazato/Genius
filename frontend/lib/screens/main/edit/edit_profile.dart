@@ -398,8 +398,6 @@ class _EditProfileState extends State<EditProfile> {
       tags.clear();
     }
 
-    debugPrint(tags.toString());
-    debugPrint(tags.isEmpty.toString());
     if (tags.isNotEmpty) {
       tags.forEach((tag) {
         if (!tag.startsWith('#')) {

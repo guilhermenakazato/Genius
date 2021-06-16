@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../../../http/webclients/user_webclient.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
+import '../../../../http/webclients/user_webclient.dart';
 import '../../../../http/exceptions/http_exception.dart';
 import '../../../../http/webclients/project_webclient.dart';
 import '../../../../utils/navigator_util.dart';
@@ -125,126 +124,134 @@ class _ProjectFormState extends State<ProjectForm> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _getProjectFormData(),
-      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-        if (snapshot.hasData) {
-          var usersList = [];
-          usersList = _defineUserAutocomplete(snapshot.data[0]);
+    return ProgressHUD(
+      borderColor: Theme.of(context).primaryColor,
+      indicatorWidget: SpinKitPouringHourglass(
+        color: Theme.of(context).primaryColor,
+      ),
+      child: Builder(
+        builder: (loaderContext) => FutureBuilder(
+          future: _getProjectFormData(),
+          builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
+            if (snapshot.hasData) {
+              var usersList = [];
+              usersList = _defineUserAutocomplete(snapshot.data[0]);
 
-          var tagsList = [];
-          tagsList = _defineTagAutocomplete(snapshot.data[1]);
+              var tagsList = [];
+              tagsList = _defineTagAutocomplete(snapshot.data[1]);
 
-          return Scaffold(
-            appBar: AppBar(
-              backgroundColor: ApplicationColors.appBarColor,
-              elevation: 0,
-              title: Text(_defineAppBarText()),
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
-                    child: InputWithAnimation(
-                      controller: _titleController,
-                      type: TextInputType.name,
-                      label: 'Título do projeto',
-                    ),
+              return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: ApplicationColors.appBarColor,
+                  elevation: 0,
+                  title: Text(_defineAppBarText()),
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
+                        child: InputWithAnimation(
+                          controller: _titleController,
+                          type: TextInputType.name,
+                          label: 'Título do projeto',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: AutoCompleteInput(
+                          defaultText: _defineDefaultTagsText(),
+                          keyController: _tagsKey,
+                          hint: '#tag',
+                          label: 'Tags',
+                          data: tagsList,
+                          type: 'tag',
+                          triggerChar: '#',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: AutoCompleteInput(
+                          defaultText: _defineDefaultMainTeacherText(),
+                          hint: '@usuario ou Nome completo',
+                          keyController: _mainTeacherKey,
+                          label: 'Orientador',
+                          data: usersList,
+                          triggerChar: '@',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: AutoCompleteInput(
+                          defaultText: _defineDefaultSecondTeacherText(),
+                          hint: '@usuario ou Nome completo',
+                          keyController: _secondTeacherKey,
+                          label: 'Coorientador',
+                          data: usersList,
+                          triggerChar: '@',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: InputWithAnimation(
+                          controller: _institutionController,
+                          type: TextInputType.name,
+                          label: 'Instituição',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: InputWithAnimation(
+                          controller: _startDateController,
+                          type: TextInputType.datetime,
+                          label: 'Data de início',
+                          formatters: [
+                            DateInputFormatter(),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: AutoCompleteInput(
+                          defaultText: _defineDefaultParticipantsText(),
+                          hint: '@usuario',
+                          keyController: _participantsKey,
+                          label: 'Participantes',
+                          data: usersList,
+                          triggerChar: '@',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: InputWithAnimation(
+                          controller: _abstractController,
+                          type: TextInputType.multiline,
+                          label: 'Resumo',
+                          allowMultilines: true,
+                        ),
+                      ),
+                      _submitArchive(context),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GradientButton(
+                          onPressed: () {
+                            _handleFormSubmit(loaderContext);
+                          },
+                          text: 'Salvar',
+                          width: 270,
+                          height: 50,
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                    child: AutoCompleteInput(
-                      defaultText: _defineDefaultTagsText(),
-                      keyController: _tagsKey,
-                      hint: '#tag',
-                      label: 'Tags',
-                      data: tagsList,
-                      type: 'tag',
-                      triggerChar: '#',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                    child: AutoCompleteInput(
-                      defaultText: _defineDefaultMainTeacherText(),
-                      hint: '@usuario ou Nome completo',
-                      keyController: _mainTeacherKey,
-                      label: 'Orientador',
-                      data: usersList,
-                      triggerChar: '@',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                    child: AutoCompleteInput(
-                      defaultText: _defineDefaultSecondTeacherText(),
-                      hint: '@usuario ou Nome completo',
-                      keyController: _secondTeacherKey,
-                      label: 'Coorientador',
-                      data: usersList,
-                      triggerChar: '@',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                    child: InputWithAnimation(
-                      controller: _institutionController,
-                      type: TextInputType.name,
-                      label: 'Instituição',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                    child: InputWithAnimation(
-                      controller: _startDateController,
-                      type: TextInputType.datetime,
-                      label: 'Data de início',
-                      formatters: [
-                        DateInputFormatter(),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                    child: AutoCompleteInput(
-                      defaultText: _defineDefaultParticipantsText(),
-                      hint: '@usuario',
-                      keyController: _participantsKey,
-                      label: 'Participantes',
-                      data: usersList,
-                      triggerChar: '@',
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                    child: InputWithAnimation(
-                      controller: _abstractController,
-                      type: TextInputType.multiline,
-                      label: 'Resumo',
-                      allowMultilines: true,
-                    ),
-                  ),
-                  _submitArchive(context),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GradientButton(
-                      onPressed: () {
-                        _handleFormSubmit();
-                      },
-                      text: 'Salvar',
-                      width: 270,
-                      height: 50,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        } else {
-          return SpinKitFadingCube(color: ApplicationColors.primary);
-        }
-      },
+                ),
+              );
+            } else {
+              return SpinKitFadingCube(color: ApplicationColors.primary);
+            }
+          },
+        ),
+      ),
     );
   }
 
@@ -279,7 +286,10 @@ class _ProjectFormState extends State<ProjectForm> {
     return listOfUsersWithMap;
   }
 
-  void _handleFormSubmit() async {
+  void _handleFormSubmit(BuildContext context) async {
+    final progress = ProgressHUD.of(context);
+    progress.show();
+
     var name = _titleController.text.trim();
     var institution = _institutionController.text.trim();
     var startDate = _startDateController.text.trim();
@@ -299,12 +309,21 @@ class _ProjectFormState extends State<ProjectForm> {
     var projectTitleExists =
         await _projectTitleAlreadyExists(name, widget.project);
 
-    final tagsVerificationPassed = _tagsStructureIsCorrect(tags);
-    final participantsVerificationPassed =
-        _participantsStructureIsCorrect(participants);
-    final dateVerificationPassed = _dateIsValid(startDate);
+    final tagsVerificationPassed = _tagsStructureIsCorrect(
+      tags,
+      context,
+    );
+    final participantsVerificationPassed = _participantsStructureIsCorrect(
+      participants,
+      context,
+    );
+    final dateVerificationPassed = _dateIsValid(
+      startDate,
+      context,
+    );
 
     if (projectTitleExists) {
+      progress.dismiss();
       _showToast(
         'Ops! Parece que alguém já está usando o título de projeto que você tentou colocar.',
       );
@@ -356,7 +375,9 @@ class _ProjectFormState extends State<ProjectForm> {
     }
   }
 
-  bool _dateIsValid(String date) {
+  bool _dateIsValid(String date, BuildContext context) {
+    final progress = ProgressHUD.of(context);
+
     var dateArray = date.split('/');
     var day = dateArray[0];
     var month = dateArray[1];
@@ -367,12 +388,14 @@ class _ProjectFormState extends State<ProjectForm> {
 
     if (newDate == null) {
       _showToast('Formato de data inválido.');
+      progress.dismiss();
       return false;
     } else {
       var greaterThanNow = DateTime.now().isBefore(newDate);
 
       if (greaterThanNow) {
         _showToast('Ops! Parece que um viajante do tempo passou por aqui');
+        progress.dismiss();
         return false;
       } else {
         return true;
@@ -404,8 +427,10 @@ class _ProjectFormState extends State<ProjectForm> {
     return projectTitleAlreadyExists;
   }
 
-  bool _participantsStructureIsCorrect(List<String> participants) {
+  bool _participantsStructureIsCorrect(
+      List<String> participants, BuildContext context) {
     var verification = true;
+    final progress = ProgressHUD.of(context);
 
     if (participants.length == 1 &&
         (participants[0] == ' ' || participants[0] == '')) {
@@ -424,11 +449,16 @@ class _ProjectFormState extends State<ProjectForm> {
       });
     }
 
+    if (!verification) {
+      progress.dismiss();
+    }
+
     return verification;
   }
 
-  bool _tagsStructureIsCorrect(List<String> tags) {
+  bool _tagsStructureIsCorrect(List<String> tags, BuildContext context) {
     var verification = true;
+    final progress = ProgressHUD.of(context);
 
     if (tags.length == 1 && (tags[0] == ' ' || tags[0] == '')) {
       tags.clear();
@@ -443,29 +473,36 @@ class _ProjectFormState extends State<ProjectForm> {
       });
     }
 
+    if (!verification) {
+      progress.dismiss();
+    }
+
     return verification;
   }
 
   void _createProject(Project project, BuildContext context) async {
     final _webClient = ProjectWebClient();
-    // final progress = ProgressHUD.of(context);
+    final progress = ProgressHUD.of(context);
 
-    // progress.show();
+    var creationTestsPassed = await _webClient
+            .createProject(project, widget.user.id)
+            .catchError((error) {
+          progress.dismiss();
+          _showToast(error.message);
+        }, test: (error) => error is HttpException).catchError((error) {
+          progress.dismiss();
+          _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+        }, test: (error) => error is TimeoutException).catchError((error) {
+          progress.dismiss();
+          _showToast('Erro desconhecido.');
+        }) ??
+        false;
 
-    await _webClient.createSurvey(project, widget.user.id).catchError((error) {
-      // progress.dismiss();
-      _showToast(error.message);
-    }, test: (error) => error is HttpException).catchError((error) {
-      // progress.dismiss();
-      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
-    }, test: (error) => error is TimeoutException).catchError((error) {
-      // progress.dismiss();
-      _showToast('Erro desconhecido.');
-    });
-
-    // progress.dismiss();
-    _showToast('Projeto criado com sucesso.');
-    navigator.goBack(context);
+    if (creationTestsPassed) {
+      progress.dismiss();
+      _showToast('Projeto criado com sucesso.');
+      navigator.goBack(context);
+    }
   }
 
   void _updateProject(
