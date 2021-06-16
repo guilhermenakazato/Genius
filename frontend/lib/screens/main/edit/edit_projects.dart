@@ -29,8 +29,8 @@ class _EditProjectsState extends State<EditProjects> {
 
   @override
   void initState() {
-    _userData = getData();
     super.initState();
+    _userData = getData();
   }
 
   Future<String> getData() async {
@@ -58,12 +58,15 @@ class _EditProjectsState extends State<EditProjects> {
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: FloatingButton(
                 onPressed: () {
-                  navigator.navigate(
-                    context,
-                    ProjectForm(
-                      user: user,
-                    ),
-                  );
+                  navigator.navigateAndReload(
+                      context,
+                      ProjectForm(
+                        user: user,
+                      ), () {
+                    setState(() {
+                      _userData = getData();
+                    });
+                  });
                 },
                 icon: Icons.add,
                 text: 'Adicionar',
@@ -230,13 +233,20 @@ class _EditProjectsState extends State<EditProjects> {
                       ),
                     ),
                     onPressed: () {
-                      navigator.navigate(
+                      navigator.navigateAndReload(
                         context,
                         ProjectForm(
                           type: 'edit',
                           user: user,
                           project: project,
                         ),
+                        () {
+                          setState(
+                            () {
+                              _userData = getData();
+                            },
+                          );
+                        },
                       );
                     },
                     child: Icon(

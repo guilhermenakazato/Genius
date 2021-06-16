@@ -248,7 +248,6 @@ class _AchievementFormState extends State<AchievementForm> {
 
     progress.show();
 
-    debugPrint(achievement.toString());
     await _webClient.createAchievement(achievement, widget.userId).catchError(
         (error) {
       progress.dismiss();

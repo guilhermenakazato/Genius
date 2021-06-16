@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 
 import '../../models/project.dart';
 import '../../http/exceptions/http_exception.dart';
@@ -16,7 +15,7 @@ class ProjectWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<void> createSurvey(Project project, int creatorId) async {
+  Future<bool> createProject(Project project, int creatorId) async {
     final projectJson = jsonEncode(project.toJson());
 
     final response = await client.post(
@@ -28,11 +27,11 @@ class ProjectWebClient {
     );
 
     if (response.statusCode == 200) {
-      return response.body;
+      return true;
     } else if (response.statusCode == 404) {
-      final message = jsonDecode(response.body);
-      debugPrint(message);
+      throw HttpException(jsonDecode(response.body)['error']);
     }
+
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
