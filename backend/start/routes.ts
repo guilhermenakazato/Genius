@@ -46,15 +46,15 @@ Route.get("/check", 'AuthController.checkTokenIsValid');
 
 Route.post("/project/:creatorId", 'ProjectsController.createProject')
 Route.get("/projects", 'ProjectsController.listAllProjects')
-Route.get("project/:id", 'ProjectsController.getProjectById')
-Route.put("project/:id", 'ProjectsController.updateProject')
-Route.put("project/:projectId/:userId", 'ProjectsController.updateDeleteRequests')
-Route.post("verify", 'ProjectsController.verifyIfProjectTitleAlreadyExists')
+Route.get("/project/:id", 'ProjectsController.getProjectById')
+Route.put("/project/:id", 'ProjectsController.updateProject')
+Route.put("/project/:projectId/:userId", 'ProjectsController.updateDeleteRequests')
+Route.post("/verify", 'ProjectsController.verifyIfProjectTitleAlreadyExists')
 
 Route.post("/achievement/:userId", 'AchievementsController.createAchievement')
 Route.get("/achievements", 'AchievementsController.listAllAchievements')
-Route.get("achievement/:id", 'AchievementsController.getAchievementById')
-Route.put("achievement/:id", 'AchievementsController.updateAchievement')
+Route.get("/achievement/:id", 'AchievementsController.getAchievementById')
+Route.put("/achievement/:id", 'AchievementsController.updateAchievement')
 Route.delete('/achievement/:id', 'AchievementsController.deleteAchievement')
 
 Route.post("/survey/:userId", 'SurveysController.createSurvey')
@@ -68,4 +68,4 @@ Route.delete("/survey/:id", 'SurveysController.deleteSurvey')
 
 Route.post("/tag", 'TagsController.createTag')
 Route.get("/tags", 'TagsController.getAllTags')
-Route.get("tag/:id", 'TagsController.getTagById')
+Route.get("/tag/:id", 'TagsController.getTagById')
