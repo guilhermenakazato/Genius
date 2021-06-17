@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../../../utils/genius_toast.dart';
 import '../../../../utils/navigator_util.dart';
 import '../../../../http/exceptions/http_exception.dart';
 
@@ -122,17 +122,17 @@ class _SurveyFormState extends State<SurveyForm> {
 
     await _webClient.createSurvey(survey, widget.userId).catchError((error) {
       progress.dismiss();
-      _showToast(error.message);
+      GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro desconhecido.');
+      GeniusToast.showToast('Erro desconhecido.');
     });
 
     progress.dismiss();
-    _showToast('Questionário criado com sucesso.');
+    GeniusToast.showToast('Questionário criado com sucesso.');
     navigator.goBack(context);
   }
 
@@ -145,17 +145,17 @@ class _SurveyFormState extends State<SurveyForm> {
 
     await _webClient.updateSurvey(survey, oldSurveyId).catchError((error) {
       progress.dismiss();
-      _showToast(error.message);
+      GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro desconhecido.');
+      GeniusToast.showToast('Erro desconhecido.');
     });
 
     progress.dismiss();
-    _showToast('Questionário atualizado com sucesso.');
+    GeniusToast.showToast('Questionário atualizado com sucesso.');
     navigator.goBack(context);
   }
 
@@ -165,17 +165,5 @@ class _SurveyFormState extends State<SurveyForm> {
     } else {
       return 'Crie um questionário';
     }
-  }
-
-  void _showToast(String text) {
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: ApplicationColors.toastColor,
-      textColor: Colors.white,
-      fontSize: 14.0,
-    );
   }
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../utils/genius_toast.dart';
 
 import '../../http/webclients/signup_webclient.dart';
 import '../../components/borderless_input.dart';
 import '../../utils/application_typography.dart';
 import '../../components/floating_button.dart';
-import '../../utils/application_colors.dart';
 import '../../utils/navigator_util.dart';
 import '../../models/user.dart';
 import 'signup_password.dart';
@@ -82,13 +81,13 @@ class _SignUpUsernameState extends State<SignUpUsername> {
 
     if (_username.isEmpty) {
       progress.dismiss();
-      _showToast('Insira um nome de usuário!');
+      GeniusToast.showToast('Insira um nome de usuário!');
     } else if (_username == '@') {
       progress.dismiss();
-      _showToast('Insira um nome de usuário!');
+      GeniusToast.showToast('Insira um nome de usuário!');
     } else if (_username.contains(' ')) {
       progress.dismiss();
-      _showToast('Remova os espaços em branco!');
+      GeniusToast.showToast('Remova os espaços em branco!');
     } else {
       if (!_username.startsWith('@')) {
         _username = '@' + _username;
@@ -100,7 +99,7 @@ class _SignUpUsernameState extends State<SignUpUsername> {
 
       if (usernameAlreadyExists) {
         progress.dismiss();
-        _showToast('Ops! Esse nome de usuário já está cadastrado no Genius.');
+        GeniusToast.showToast('Ops! Esse nome de usuário já está cadastrado no Genius.');
       } else {
         progress.dismiss();
         widget.person.setUsername(_username.trimRight());
@@ -108,16 +107,4 @@ class _SignUpUsernameState extends State<SignUpUsername> {
       }
     }
   }
-}
-
-void _showToast(String text) {
-  Fluttertoast.showToast(
-    msg: text,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 1,
-    backgroundColor: ApplicationColors.toastColor,
-    textColor: Colors.white,
-    fontSize: 14.0,
-  );
 }

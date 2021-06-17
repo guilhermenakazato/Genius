@@ -2,10 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
+import '../utils/genius_toast.dart';
 import '../components/borderless_button.dart';
-import '../utils/application_colors.dart';
 import 'main/main_screen.dart';
 import '../components/button.dart';
 import '../components/input.dart';
@@ -146,9 +145,9 @@ class __LoginStateContentState extends State<_LoginStateContent> {
     final senha = _passwordController.text;
 
     if (email.contains(' ') || senha.contains(' ')) {
-      _showToast('Preencha os campos acima sem espaços em branco!');
+      GeniusToast.showToast('Preencha os campos acima sem espaços em branco!');
     } else if (email.isEmpty || senha.isEmpty) {
-      _showToast('Preencha os campos acima!');
+      GeniusToast.showToast('Preencha os campos acima!');
     } else {
       authenticate(email, senha, context);
     }
@@ -162,13 +161,13 @@ class __LoginStateContentState extends State<_LoginStateContent> {
 
     var token = await _webClient.login(Auth(email, senha)).catchError((error) {
       progress.dismiss();
-      _showToast(error.message);
+      GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro desconhecido.');
+      GeniusToast.showToast('Erro desconhecido.');
     });
 
     var logged = await _webClient.userIsLogged(token.token);
@@ -183,17 +182,5 @@ class __LoginStateContentState extends State<_LoginStateContent> {
     if (logged) {
       navigator.navigateAndRemove(context, MainScreen());
     }
-  }
-
-  void _showToast(String text) {
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: ApplicationColors.toastColor,
-      textColor: Colors.white,
-      fontSize: 14.0,
-    );
   }
 }

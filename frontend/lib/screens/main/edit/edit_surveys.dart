@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../utils/genius_toast.dart';
 import '../../../components/survey_expandable_card.dart';
 import '../../../components/warning_dialog.dart';
 import '../../../http/exceptions/http_exception.dart';
@@ -174,29 +174,17 @@ class _EditSurveysState extends State<EditSurveys> {
 
     await _webClient.deleteSurvey(surveyId).catchError((error) {
       progress.dismiss();
-      _showToast(error.message);
+      GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro desconhecido.');
+      GeniusToast.showToast('Erro desconhecido.');
     });
 
     progress.dismiss();
-    _showToast('Questionário deletado com sucesso.');
+    GeniusToast.showToast('Questionário deletado com sucesso.');
     navigator.goBack(context);
-  }
-
-  void _showToast(String text) {
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: ApplicationColors.toastColor,
-      textColor: Colors.white,
-      fontSize: 14.0,
-    );
   }
 }
