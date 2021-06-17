@@ -1,8 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../utils/genius_toast.dart';
 
-import '../../utils/application_colors.dart';
 import '../../components/borderless_input.dart';
 import '../../components/floating_button.dart';
 import '../../models/user.dart';
@@ -65,22 +64,10 @@ class _SignUpNameState extends State<SignUpName> {
     final _name = _nomeController.text.trimLeft();
 
     if (_name.isEmpty) {
-      _showToast('Preencha o campo nome!');
+      GeniusToast.showToast('Preencha o campo nome!');
     } else {
       person.setName(_name.trimRight());
       _navigator.navigate(context, SignUpEmail(person));
     }
-  }
-
-  void _showToast(String text) {
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: ApplicationColors.toastColor,
-      textColor: Colors.white,
-      fontSize: 14.0,
-    );
   }
 }

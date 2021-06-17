@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
+import '../../../../utils/genius_toast.dart';
 import '../../../../http/webclients/user_webclient.dart';
 import '../../../../http/exceptions/http_exception.dart';
 import '../../../../http/webclients/project_webclient.dart';
@@ -324,7 +324,7 @@ class _ProjectFormState extends State<ProjectForm> {
 
     if (projectTitleExists) {
       progress.dismiss();
-      _showToast(
+      GeniusToast.showToast(
         'Ops! Parece que alguém já está usando o título de projeto que você tentou colocar.',
       );
     } else if (tagsVerificationPassed &&
@@ -387,14 +387,14 @@ class _ProjectFormState extends State<ProjectForm> {
     var newDate = DateTime.tryParse(formattedDate);
 
     if (newDate == null) {
-      _showToast('Formato de data inválido.');
+      GeniusToast.showToast('Formato de data inválido.');
       progress.dismiss();
       return false;
     } else {
       var greaterThanNow = DateTime.now().isBefore(newDate);
 
       if (greaterThanNow) {
-        _showToast('Ops! Parece que um viajante do tempo passou por aqui');
+        GeniusToast.showToast('Ops! Parece que um viajante do tempo passou por aqui');
         progress.dismiss();
         return false;
       } else {
@@ -438,12 +438,12 @@ class _ProjectFormState extends State<ProjectForm> {
     }
 
     if (participants.isEmpty) {
-      _showToast('Seu projeto tem que ter pelo menos um participante!');
+      GeniusToast.showToast('Seu projeto tem que ter pelo menos um participante!');
       verification = false;
     } else {
       participants.forEach((participant) {
         if (!participant.startsWith('@')) {
-          _showToast('O participante $participant está sem @!');
+          GeniusToast.showToast('O participante $participant está sem @!');
           verification = false;
         }
       });
@@ -467,7 +467,7 @@ class _ProjectFormState extends State<ProjectForm> {
     if (tags.isNotEmpty) {
       tags.forEach((tag) {
         if (!tag.startsWith('#')) {
-          _showToast('A tag $tag está sem #!');
+          GeniusToast.showToast('A tag $tag está sem #!');
           verification = false;
         }
       });
@@ -488,19 +488,19 @@ class _ProjectFormState extends State<ProjectForm> {
             .createProject(project, widget.user.id)
             .catchError((error) {
           progress.dismiss();
-          _showToast(error.message);
+          GeniusToast.showToast(error.message);
         }, test: (error) => error is HttpException).catchError((error) {
           progress.dismiss();
-          _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+          GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
         }, test: (error) => error is TimeoutException).catchError((error) {
           progress.dismiss();
-          _showToast('Erro desconhecido.');
+          GeniusToast.showToast('Erro desconhecido.');
         }) ??
         false;
 
     if (creationTestsPassed) {
       progress.dismiss();
-      _showToast('Projeto criado com sucesso.');
+      GeniusToast.showToast('Projeto criado com sucesso.');
       navigator.goBack(context);
     }
   }
@@ -517,19 +517,19 @@ class _ProjectFormState extends State<ProjectForm> {
             .updateProject(project, oldProjectId)
             .catchError((error) {
           progress.dismiss();
-          _showToast(error.message);
+          GeniusToast.showToast(error.message);
         }, test: (error) => error is HttpException).catchError((error) {
           progress.dismiss();
-          _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+          GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
         }, test: (error) => error is TimeoutException).catchError((error) {
           progress.dismiss();
-          _showToast('Erro desconhecido.');
+          GeniusToast.showToast('Erro desconhecido.');
         }) ??
         false;
 
     if (updateTestsPassed) {
       progress.dismiss();
-      _showToast('Projeto atualizado com sucesso.');
+      GeniusToast.showToast('Projeto atualizado com sucesso.');
       navigator.goBack(context);
     }
   }
@@ -619,17 +619,5 @@ class _ProjectFormState extends State<ProjectForm> {
     } else {
       return null;
     }
-  }
-
-  void _showToast(String text) {
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: ApplicationColors.toastColor,
-      textColor: Colors.white,
-      fontSize: 14.0,
-    );
   }
 }

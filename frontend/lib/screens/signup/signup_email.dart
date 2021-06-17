@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../utils/genius_toast.dart';
 
 import '../../http/webclients/signup_webclient.dart';
-import '../../utils/application_colors.dart';
 import '../../components/borderless_input.dart';
 import '../../components/floating_button.dart';
 import '../../models/user.dart';
@@ -79,10 +78,10 @@ class _SignUpEmailState extends State<SignUpEmail> {
 
     if (_email.isEmpty) {
       progress.dismiss();
-      _showToast('Preencha o campo email!');
+      GeniusToast.showToast('Preencha o campo email!');
     } else if (!EmailValidator.validate(_email)) {
       progress.dismiss();
-      _showToast('Insira um e-mail válido!');
+      GeniusToast.showToast('Insira um e-mail válido!');
     } else {
       final _webClient = SignUpWebClient();
       var emailAlreadyExists =
@@ -90,24 +89,12 @@ class _SignUpEmailState extends State<SignUpEmail> {
 
       if (emailAlreadyExists) {
         progress.dismiss();
-        _showToast('Ops! Esse email já está cadastrado no Genius.');
+        GeniusToast.showToast('Ops! Esse email já está cadastrado no Genius.');
       } else {
         progress.dismiss();
         widget.person.setEmail(_email);
         navigator.navigate(context, SignUpUsername(widget.person));
       }
     }
-  }
-
-  void _showToast(String text) {
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: ApplicationColors.toastColor,
-      textColor: Colors.white,
-      fontSize: 14.0,
-    );
   }
 }

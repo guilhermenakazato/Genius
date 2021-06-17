@@ -50,42 +50,9 @@ class About extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage('assets/sem-foto.png'),
-                      ),
-                      Text(
-                        'Gabriela\nPrado',
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage('assets/sem-foto.png'),
-                      ),
-                      Text(
-                        'Guilherme\nNakazato',
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage('assets/sem-foto.png'),
-                      ),
-                      Text(
-                        'Sidney\nSousa',
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
+                  _Team(name: 'Gabriela\nPrado', photoPath: 'assets/sem-foto.png'),
+                  _Team(name: 'Guilherme\nNakazato', photoPath: 'assets/sem-foto.png'),
+                  _Team(name: 'Sidney\nSousa', photoPath: 'assets/sem-foto.png')
                 ],
               ),
             ),
@@ -98,13 +65,26 @@ class About extends StatelessWidget {
 
 class _Team extends StatelessWidget {
   final String name;
-  const _Team({Key key, this.name}) : super(key: key);
+  final String photoPath;
+  const _Team({
+    Key key,
+    @required this.name,
+    @required this.photoPath,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15),
-      child: Text(name, style: ApplicationTypography.teamMembers),
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 25,
+          backgroundImage: AssetImage(photoPath),
+        ),
+        Text(
+          name,
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

@@ -7,10 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:genius/http/webclients/tags_webclient.dart';
-import 'package:genius/utils/convert.dart';
 
+import '../../../http/webclients/tags_webclient.dart';
+import '../../../utils/convert.dart';
+import '../../../utils/genius_toast.dart';
 import '../../../components/autocomplete_input.dart';
 import '../../../models/tag.dart';
 import '../../../http/webclients/signup_webclient.dart';
@@ -401,7 +401,7 @@ class _EditProfileState extends State<EditProfile> {
     if (tags.isNotEmpty) {
       tags.forEach((tag) {
         if (!tag.startsWith('#')) {
-          _showToast('A tag $tag está sem #!');
+          GeniusToast.showToast('A tag $tag está sem #!');
           verification = false;
         }
       });
@@ -430,14 +430,14 @@ class _EditProfileState extends State<EditProfile> {
 
     if (usernameAlreadyExists) {
       progress.dismiss();
-      _showToast('Ops! Alguém já está registrado com esse nome de usuário.');
+      GeniusToast.showToast('Ops! Alguém já está registrado com esse nome de usuário.');
     } else if (emailAlreadyExists) {
       progress.dismiss();
-      _showToast('Ops! Alguém já está registrado com esse e-mail.');
+      GeniusToast.showToast('Ops! Alguém já está registrado com esse e-mail.');
     } else {
       updateUser(newUserData, userId, context);
 
-      _showToast('Perfil atualizado com sucesso!');
+      GeniusToast.showToast('Perfil atualizado com sucesso!');
       progress.dismiss();
     }
   }
@@ -448,13 +448,13 @@ class _EditProfileState extends State<EditProfile> {
 
     await _webClient.updateUser(newUserData, userId).catchError((error) {
       progress.dismiss();
-      _showToast(error.message);
+      GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
-      _showToast('Erro desconhecido.');
+      GeniusToast.showToast('Erro desconhecido.');
     });
   }
 
@@ -481,18 +481,6 @@ class _EditProfileState extends State<EditProfile> {
           ),
         ),
       ),
-    );
-  }
-
-  void _showToast(String text) {
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: ApplicationColors.toastColor,
-      textColor: Colors.white,
-      fontSize: 14.0,
     );
   }
 }
