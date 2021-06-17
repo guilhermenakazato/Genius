@@ -9,7 +9,6 @@ import '../../utils/convert.dart';
 import '../../models/project.dart';
 import '../../http/webclients/project_webclient.dart';
 import '../../utils/application_colors.dart';
-import '../../utils/application_typography.dart';
 import '../../utils/navigator_util.dart';
 import 'project/project_info.dart';
 
@@ -96,112 +95,12 @@ class _FeedState extends State<_FeedContent> {
               ),
             );
           },
-          cardColor: Theme.of(context).cardColor,
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                _projectName(index),
-                _participantsOfTheProject(index),
-                _abstractText(index),
-              ],
-            ),
-            _buttons(),
-          ],
+          cardColor: Theme.of(context).cardColor, abstractText: projects[index].abstractText,
+          projectName: projects[index].name,
+          type: 'feed',
+          projectParticipants: projects[index].participants,
         );
       },
-    );
-  }
-
-  Widget _projectName(int index) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 30,
-        left: 30,
-      ),
-      child: Container(
-        width: double.infinity,
-        child: Text(
-          projects[index].name,
-          style: ApplicationTypography.cardTitle,
-        ),
-      ),
-    );
-  }
-
-  Widget _abstractText(int index) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        40,
-        10,
-        30,
-        0,
-      ),
-      child: Text(
-        projects[index].abstractText,
-        style: ApplicationTypography.cardText,
-      ),
-    );
-  }
-
-  Widget _participantsOfTheProject(int index) {
-    return Container(
-      height: 44,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: projects[index].participants.length,
-        itemBuilder: (BuildContext context, int participantIndex) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 5.0, left: 5),
-            child: InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(
-                    color: ApplicationColors.cardColor,
-                    width: 3,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 20,
-                    left: 20,
-                  ),
-                  child: Center(
-                    child: Text(
-                      projects[index].participants[participantIndex].username,
-                      style: ApplicationTypography.profileTags,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buttons() {
-    return Positioned(
-      child: Align(
-        alignment: FractionalOffset.bottomCenter,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.volunteer_activism,
-                ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

@@ -57,7 +57,10 @@ export default class UsersController {
 
     await user.save()
 
-    await this.updateUserTagRelationship(tags, user);
+    if(tags != null && tags != undefined) {
+      await this.updateUserTagRelationship(tags, user);
+    }
+    
     await user.load("tags")
 
     return user
