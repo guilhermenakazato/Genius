@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../utils/application_colors.dart';
 import '../models/token.dart';
 import '../http/webclients/login_webclient.dart';
 import 'main/main_screen.dart';
@@ -21,7 +23,8 @@ class DetermineFirstScreen extends StatelessWidget {
             return MainScreen();
           }
         }
-        return Container();
+        return SpinKitFadingCube(color: ApplicationColors.primary);
+        
       },
     );
   }
