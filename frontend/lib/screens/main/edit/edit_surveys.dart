@@ -19,7 +19,6 @@ import '../../../utils/application_colors.dart';
 import '../../../components/floating_button.dart';
 import 'forms/survey_form.dart';
 
-// TODO: arrumar texto do questionário e do card no meio do card
 class EditSurveys extends StatefulWidget {
   @override
   _EditSurveysState createState() => _EditSurveysState();
