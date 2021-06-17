@@ -120,16 +120,15 @@ class GeniusCard extends StatelessWidget {
         itemCount: projectParticipants.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.only(right: 5.0, left: 5),
+            padding: const EdgeInsets.only(right: 5.0, left: 10),
             child: InkWell(
               onTap: () {},
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(16),
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: ApplicationColors.cardColor,
-                    width: 3,
+                    color: Colors.transparent,
                   ),
                 ),
                 child: Padding(
@@ -236,7 +235,19 @@ class GeniusCard extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(
-                  Icons.volunteer_activism,
+                  Icons.favorite_outlined,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.bookmark_outlined,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.question_answer_outlined,
                 ),
                 onPressed: () {},
               ),
