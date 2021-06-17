@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 
+import 'package:genius/utils/application_colors.dart';
+
 class AutoCompleteInput extends StatelessWidget {
   final String label;
   final GlobalKey<FlutterMentionsState> keyController;
@@ -78,12 +80,6 @@ class AutoCompleteInput extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.black,
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 1,
-                      color: Colors.white24,
-                    ),
-                  ),
                 ),
                 padding: EdgeInsets.all(12),
                 child: _determineWhichAutocompleteShouldDisplay(data),
@@ -97,17 +93,51 @@ class AutoCompleteInput extends StatelessWidget {
 
   Widget _determineWhichAutocompleteShouldDisplay(Map<String, dynamic> data) {
     if (type == 'tag') {
-      return Column(
-        children: [
-          Text('#' + data['display']),
-        ],
+      return Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Text(
+                '#' + data['display'],
+                style: TextStyle(
+                  fontFamily: 'Gotham',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
       );
     } else {
-      return Column(
-        children: [
-          Text('@' + data['display']),
-          Text(data['name'])
-        ],
+      return Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Text(
+                '@' + data['display'],
+                style: TextStyle(
+                  fontFamily: 'Gotham',
+                  color: ApplicationColors.primary,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              child: Text(
+                data['name'],
+                style: TextStyle(
+                  fontFamily: 'Gotham',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
       );
     }
   }
