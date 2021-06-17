@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_portal/flutter_portal.dart';
 
 import 'screens/determine_first_screen.dart';
 import 'utils/application_themes.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 
 void main() {
   runApp(Genius());
