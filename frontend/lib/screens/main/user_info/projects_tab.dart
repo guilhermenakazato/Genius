@@ -6,7 +6,6 @@ import '../../../components/data_not_found_card.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../screens/main/project/project_info.dart';
 import '../../../utils/application_colors.dart';
-import '../../../utils/application_typography.dart';
 import '../../../models/project.dart';
 
 class ProjectsTab extends StatefulWidget {
@@ -153,90 +152,13 @@ class _ProjectsTabState extends State<ProjectsTab> {
               );
             },
             cardColor: ApplicationColors.secondCardColor,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  _projectName(index),
-                  _participantsOfTheProject(index),
-                  _abstractText(index),
-                ],
-              ),
-            ],
+            projectParticipants: widget.projects[index].participants,
+            abstractText: widget.projects[index].abstractText,
+            projectName: widget.projects[index].name,
+            type: 'my_projects',
           );
         },
         itemCount: widget.projects.length,
-      ),
-    );
-  }
-
-  Widget _projectName(int index) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 30,
-        left: 30,
-      ),
-      child: Container(
-        width: double.infinity,
-        child: Text(
-          widget.projects[index].name,
-          style: ApplicationTypography.cardTitle,
-        ),
-      ),
-    );
-  }
-
-  Widget _abstractText(int index) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        40,
-        10,
-        30,
-        0,
-      ),
-      child: Text(
-        widget.projects[index].abstractText,
-        style: ApplicationTypography.cardText,
-      ),
-    );
-  }
-
-  Widget _participantsOfTheProject(int index) {
-    return Container(
-      height: 44,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.projects[index].participants.length,
-        itemBuilder: (BuildContext context, int participantIndex) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 5.0, left: 5),
-            child: InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(
-                    color: ApplicationColors.cardColor,
-                    width: 3,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 13.0,
-                    bottom: 5,
-                    right: 20,
-                    left: 20,
-                  ),
-                  child: Text(
-                    widget.projects[index].participants[participantIndex]
-                        .username,
-                    style: ApplicationTypography.profileTags,
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
       ),
     );
   }
