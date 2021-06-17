@@ -52,7 +52,10 @@ class GeniusCard extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       _projectName(),
-                      _participantsOfTheProject(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, right: 8),
+                        child: _participantsOfTheProject(),
+                      ),
                       _abstractText(),
                     ],
                   ),
@@ -121,26 +124,29 @@ class GeniusCard extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.only(right: 5.0, left: 10),
-            child: InkWell(
-              onTap: () {},
-              borderRadius: BorderRadius.circular(16),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: Colors.transparent,
-                  ),
+            child: Ink(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: ApplicationColors.participantsTagColor,
+                  width: 2
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 13.0,
-                    bottom: 5,
-                    right: 20,
-                    left: 20,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: InkWell(
+                onTap: () {},
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  child: Text(
-                    projectParticipants[index].username,
-                    style: ApplicationTypography.profileTags,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        projectParticipants[index].username,
+                        style: ApplicationTypography.profileTags,
+                      ),
+                    ),
                   ),
                 ),
               ),
