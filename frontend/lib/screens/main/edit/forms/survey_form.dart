@@ -13,8 +13,6 @@ import '../../../../utils/application_colors.dart';
 import '../../../../components/gradient_button.dart';
 import '../../../../components/input_with_animation.dart';
 
-// TODO: organizar o showToast
-// TODO: botar treco de seleção de texto em PT
 class SurveyForm extends StatefulWidget {
   final String type;
   final Survey survey;

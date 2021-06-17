@@ -102,9 +102,12 @@ class GeniusCard extends StatelessWidget {
         30,
         0,
       ),
-      child: Text(
-        abstractText,
-        style: ApplicationTypography.cardText,
+      child: Container(
+        width: double.infinity,
+        child: Text(
+          abstractText,
+          style: ApplicationTypography.cardText,
+        ),
       ),
     );
   }
