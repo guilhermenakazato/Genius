@@ -36,6 +36,25 @@ export default class UsersController {
     const { id } = params
     const user = await User.findOrFail(id)
 
+    await user.load("projects")
+    await user.load("tags")
+
+    if(user.projects.length >= 1) {
+      for(let i = 0; i < user.projects.length; i++) {
+        const project = await Project.find(user.projects[i].id);
+
+        await project?.related("participants").detach([id]);
+      }
+    }
+
+    if(user.tags.length >= 1) {
+      for(let i = 0; i < user.tags.length; i++) {
+        const tag = await Tag.find(user.tags[i].id);
+
+        await tag?.related("users").detach([id]);
+      }
+    }
+
     await user.delete()
   }
 
