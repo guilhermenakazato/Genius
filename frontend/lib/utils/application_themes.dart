@@ -16,7 +16,6 @@ class ApplicationThemes {
       ),
     ),
     primaryColor: ApplicationColors.primary,
-    accentColor: ApplicationColors.accent,
     cardColor: ApplicationColors.cardColor,
     textTheme: TextTheme(
       bodyText1: TextStyle(
@@ -30,7 +29,7 @@ class ApplicationThemes {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     fontFamily: 'Gotham',
     textSelectionTheme: TextSelectionThemeData(
-      selectionHandleColor: ApplicationColors.accent,
+      selectionHandleColor: ApplicationColors.primary,
     ),
   );
 }

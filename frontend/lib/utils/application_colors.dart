@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class ApplicationColors {
   static const appBarColor = Colors.transparent;
   static const primary = Color(0xFF9C99D6);
-  static const accent = Color(0xFF9C99D6);
   static const atentionColor = Color(0xFFF44336);
   static const scaffoldBackground = Color(0xFF0A0A0A);
   static const navigatorBackgroundColor = Color(0xFF252357);
@@ -12,7 +11,8 @@ class ApplicationColors {
   static const tileColor = Color(0xff202020);
   static const gradientButtonTextColor = Color(0xffffffff);
   static const participantsTagColor = Color.fromRGBO(37, 35, 87, 0.5);
-
+  static const participantsTagSecondaryColor = Color.fromRGBO(49, 47, 114, 1);
+  static const linkColor = Color(0xFF252357);
   static const gradientButtonColors = <Color>[
     Color(0xFF312F72),
     Color(0xff4059F1),

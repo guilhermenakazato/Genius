@@ -1,6 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../models/survey.dart';
 import '../utils/application_colors.dart';
+import '../utils/genius_toast.dart';
 
 class SurveyExpandableCard extends StatefulWidget {
   final List<Survey> surveys;
@@ -13,7 +17,8 @@ class SurveyExpandableCard extends StatefulWidget {
     @required this.surveys,
     this.type,
     this.onEdit,
-    this.onDelete, this.color = ApplicationColors.cardColor,
+    this.onDelete,
+    this.color = ApplicationColors.cardColor,
   }) : super(key: key);
 
   @override
@@ -50,13 +55,29 @@ class _SurveyExpandableCardState extends State<SurveyExpandableCard> {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(
+                    padding: EdgeInsets.only(
                       left: 12,
                       bottom: 8,
                       top: 8,
+                      right: _determineIfShouldHaveRightPadding(),
                     ),
-                    child: Text(
-                      'Link do seu questionário: ${entry.value.link}',
+                    child: RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(text: 'Link: '),
+                          TextSpan(
+                            text: '${entry.value.link}',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                _handleLinkClick(entry.value.link);
+                              },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -132,6 +153,22 @@ class _SurveyExpandableCardState extends State<SurveyExpandableCard> {
       return _editWidget(entry);
     } else {
       return Container();
+    }
+  }
+
+  double _determineIfShouldHaveRightPadding() {
+    if (widget.type == 'edit') {
+      return 0;
+    } else {
+      return 16;
+    }
+  }
+
+  void _handleLinkClick(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      GeniusToast.showToast('Não foi possível abrir o link.');
     }
   }
 }

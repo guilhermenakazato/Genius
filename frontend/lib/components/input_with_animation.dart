@@ -71,6 +71,13 @@ class InputWithAnimation extends StatelessWidget {
         contentPadding: EdgeInsets.fromLTRB(22, 20, 22, 20),
         prefixIcon: _determineIfPrefixIconShouldAppear(context),
         suffixIcon: _determineIfSuffixIconShouldAppear(context),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(30),
+        ),
         labelStyle: TextStyle(
           color: Theme.of(context).primaryColor,
           fontWeight: FontWeight.w900,
