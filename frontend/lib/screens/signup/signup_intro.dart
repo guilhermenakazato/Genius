@@ -17,23 +17,26 @@ class SignUpIntro extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
-          child: TypewriterAnimatedTextKit(
-            text: [
-              'Agora que te apresentamos o Genius, gostaríamos de saber um pouco mais sobre você!'
-            ],
-            onFinished: () {
-              Future.delayed(Duration(seconds: 1), () {
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TypewriterAnimatedTextKit(
+              text: [
+                'Agora que te apresentamos o Genius, gostaríamos de saber um pouco mais sobre você!'
+              ],
+              onFinished: () {
+                Future.delayed(Duration(seconds: 1), () {
+                  _navigator.navigate(context, SignUpName());
+                });
+              },
+              onTap: () {
                 _navigator.navigate(context, SignUpName());
-              });
-            },
-            onTap: () {
-              _navigator.navigate(context, SignUpName());
-            },
-            textStyle: ApplicationTypography.signUpIntro,
-            textAlign: TextAlign.center,
-            speed: Duration(milliseconds: 70),
-            totalRepeatCount: 1,
-            repeatForever: false,
+              },
+              textStyle: ApplicationTypography.signUpIntro,
+              textAlign: TextAlign.center,
+              speed: Duration(milliseconds: 70),
+              totalRepeatCount: 1,
+              repeatForever: false,
+            ),
           ),
         ),
       ),

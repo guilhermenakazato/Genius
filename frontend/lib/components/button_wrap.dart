@@ -8,6 +8,7 @@ class ButtonWrap extends StatelessWidget {
   final String textYes, textNo;
   final Function addYesFunction, addNoFunction;
   final double width;
+  final Widget additionalWidget;
 
   const ButtonWrap({
     Key key,
@@ -18,6 +19,7 @@ class ButtonWrap extends StatelessWidget {
     this.addYesFunction,
     this.addNoFunction,
     this.width = 95,
+    this.additionalWidget,
   }) : super(key: key);
 
   @override
@@ -28,7 +30,7 @@ class ButtonWrap extends StatelessWidget {
       alignment: WrapAlignment.center,
       spacing: 20,
       runSpacing: 10,
-      children: [
+      children: <Widget>[
         Button(
           width: width,
           text: textYes,
@@ -49,7 +51,16 @@ class ButtonWrap extends StatelessWidget {
             navigator.navigate(context, noScreen);
           },
         ),
+        _shouldShowAdditionalWidget(),
       ],
     );
+  }
+
+  Widget _shouldShowAdditionalWidget() {
+    if (additionalWidget != null) {
+      return additionalWidget;
+    } else {
+      return Container();
+    }
   }
 }

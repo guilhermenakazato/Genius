@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
+
 import '../models/user.dart';
 import '../utils/application_colors.dart';
 import '../utils/application_typography.dart';
@@ -86,19 +88,48 @@ class GeniusCard extends StatelessWidget {
   }
 
   Widget _projectName() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 30,
-        left: 30,
-      ),
-      child: Container(
-        width: double.infinity,
-        child: Text(
-          projectName,
-          style: ApplicationTypography.cardTitle,
+    if (projectName.length >= 14) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
         ),
-      ),
-    );
+        child: SizedBox(
+          width: 250,
+          height: 40,
+          child: Marquee(
+            text: projectName,
+            style: ApplicationTypography.cardTitle,
+            scrollAxis: Axis.horizontal,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            blankSpace: 20.0,
+            velocity: 40.0,
+            pauseAfterRound: Duration(seconds: 1),
+            showFadingOnlyWhenScrolling: true,
+            fadingEdgeStartFraction: 0.1,
+            fadingEdgeEndFraction: 0.1,
+            startPadding: 10.0,
+            accelerationDuration: Duration(seconds: 1),
+            accelerationCurve: Curves.linear,
+            decelerationDuration: Duration(milliseconds: 500),
+            decelerationCurve: Curves.easeOut,
+          ),
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.only(
+          top: 30,
+          left: 30,
+        ),
+        child: Container(
+          width: double.infinity,
+          child: Text(
+            projectName,
+            style: ApplicationTypography.cardTitle,
+          ),
+        ),
+      );
+    }
   }
 
   Widget _abstractText() {

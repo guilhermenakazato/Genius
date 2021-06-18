@@ -31,7 +31,7 @@ class SignUpInstitution extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Qual o nome da instituição\nque você dá aula/estuda?',
+              'Qual o nome da instituição\nque você estuda/trabalha?',
               textAlign: TextAlign.center,
               style: ApplicationTypography.secondarySignUpText,
             ),

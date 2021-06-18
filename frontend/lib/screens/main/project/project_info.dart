@@ -16,7 +16,11 @@ class ProjectInfo extends StatelessWidget {
             Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 60, left: 30),
+                  padding: const EdgeInsets.only(
+                    top: 60,
+                    left: 30,
+                    right: 30,
+                  ),
                   child: Container(
                     width: double.infinity,
                     child: Text(
