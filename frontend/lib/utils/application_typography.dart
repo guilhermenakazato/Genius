@@ -189,6 +189,7 @@ class ApplicationTypography {
     fontWeight: FontWeight.bold,
     fontSize: 28,
     color: ApplicationColors.profileNameColor,
+    overflow: TextOverflow.ellipsis,
   );
 
   static final profileCity = TextStyle(

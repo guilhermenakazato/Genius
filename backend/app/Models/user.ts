@@ -49,6 +49,9 @@ export default class User extends BaseModel {
   public bio: string
 
   @column()
+  public verified: string
+
+  @column()
   public rememberMeToken?: string
 
   @column.dateTime({ autoCreate: true })
