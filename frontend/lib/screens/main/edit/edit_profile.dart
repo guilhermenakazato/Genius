@@ -271,6 +271,7 @@ class _EditProfileState extends State<EditProfile> {
                               position: SuggestionPosition.Top,
                               defaultText: _tagsInitText,
                               keyController: _tagsKey,
+                              type: 'tag',
                               hint: '#tag',
                               label: 'Favoritos',
                               data: tagsMap,
@@ -318,6 +319,7 @@ class _EditProfileState extends State<EditProfile> {
   List<Map<String, dynamic>> _defineAutocomplete(List<Tag> tags) {
     var listOfTagsWithMap = <Map<String, dynamic>>[];
 
+    debugPrint(tags.toString());
     tags.forEach((tag) {
       var map = <String, dynamic>{};
 
@@ -326,6 +328,8 @@ class _EditProfileState extends State<EditProfile> {
 
       listOfTagsWithMap.add(map);
     });
+
+    debugPrint(listOfTagsWithMap.toString());
 
     return listOfTagsWithMap;
   }

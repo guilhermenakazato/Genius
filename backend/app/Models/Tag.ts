@@ -19,6 +19,8 @@ export default class Tag extends BaseModel {
   @manyToMany(() => Project)
   public projects: ManyToMany<typeof Project>
 
-  @manyToMany(() => User)
+  @manyToMany(() => User, {
+    pivotTable: "users_tags"
+  })
   public users: ManyToMany<typeof User>
 }

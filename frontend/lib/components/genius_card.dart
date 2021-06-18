@@ -81,7 +81,7 @@ class GeniusCard extends StatelessWidget {
     } else if (type == 'saved_projects') {
       return Container();
     } else if (type == 'feed') {
-      return _feedButtons();
+      return _feedButtons(context);
     } else {
       return Container();
     }
@@ -267,7 +267,7 @@ class GeniusCard extends StatelessWidget {
     );
   }
 
-  Widget _feedButtons() {
+  Widget _feedButtons(BuildContext context) {
     return Positioned(
       child: Align(
         alignment: FractionalOffset.bottomCenter,
@@ -276,23 +276,74 @@ class GeniusCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.favorite_outlined,
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  width: 48,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                      backgroundColor: ApplicationColors.iconButtonColor,
+                      padding: EdgeInsets.all(12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    onPressed: () {
+                      onEdit();
+                    },
+                    child: Icon(
+                      Icons.favorite_outline,
+                      color: ApplicationColors.editButtonColor,
+                    ),
+                  ),
                 ),
-                onPressed: () {},
               ),
-              IconButton(
-                icon: const Icon(
-                  Icons.bookmark_outlined,
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  width: 48,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                      backgroundColor: ApplicationColors.iconButtonColor,
+                      padding: EdgeInsets.all(12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    onPressed: () {
+                      onEdit();
+                    },
+                    child: Icon(
+                      Icons.bookmark_outline,
+                      color: ApplicationColors.editButtonColor,
+                    ),
+                  ),
                 ),
-                onPressed: () {},
               ),
-              IconButton(
-                icon: const Icon(
-                  Icons.question_answer_outlined,
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  width: 48,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                      backgroundColor: ApplicationColors.iconButtonColor,
+                      padding: EdgeInsets.all(12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    onPressed: () {
+                      onEdit();
+                    },
+                    child: Icon(
+                      Icons.question_answer_outlined,
+                      color: ApplicationColors.editButtonColor,
+                    ),
+                  ),
                 ),
-                onPressed: () {},
               ),
             ],
           ),
