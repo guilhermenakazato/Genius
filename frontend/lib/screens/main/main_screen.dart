@@ -35,7 +35,7 @@ class _MainScreenContentState extends State<MainScreen> {
   Widget _showPage(int index) {
     final _widgetList = <Widget>[
       About(),
-      Profile(),
+      Profile(type: 'edit',),
       Feed(),
       Search(),
       Config(),

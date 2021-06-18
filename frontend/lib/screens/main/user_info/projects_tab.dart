@@ -10,8 +10,9 @@ import '../../../models/project.dart';
 
 class ProjectsTab extends StatefulWidget {
   final List<Project> projects;
+  final String notFoundText;
 
-  ProjectsTab({Key key, @required this.projects}) : super(key: key);
+  ProjectsTab({Key key, @required this.projects, this.notFoundText}) : super(key: key);
 
   @override
   _ProjectsTabState createState() => _ProjectsTabState();
@@ -38,8 +39,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
         children: [
           DataNotFoundCard(
             color: ApplicationColors.secondCardColor,
-            text:
-                'Parece que você ainda não criou nenhum projeto. Que tal criar um para divulgar seus projetos incríveis? :)',
+            text: widget.notFoundText,
           ),
           Container(height: 70),
         ],
@@ -156,7 +156,8 @@ class _ProjectsTabState extends State<ProjectsTab> {
             abstractText: widget.projects[index].abstractText,
             projectName: widget.projects[index].name,
             type: 'my_projects',
-            participantsBorderColor: ApplicationColors.participantsTagSecondaryColor,
+            participantsBorderColor:
+                ApplicationColors.participantsTagSecondaryColor,
           );
         },
         itemCount: widget.projects.length,

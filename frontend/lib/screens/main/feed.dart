@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:genius/screens/main/profile.dart';
 
 import '../../components/genius_card.dart';
 import '../../components/genius_card_config.dart';
@@ -95,10 +96,14 @@ class _FeedState extends State<_FeedContent> {
               ),
             );
           },
-          cardColor: Theme.of(context).cardColor, abstractText: projects[index].abstractText,
+          cardColor: Theme.of(context).cardColor,
+          abstractText: projects[index].abstractText,
           projectName: projects[index].name,
           type: 'feed',
           projectParticipants: projects[index].participants,
+          onParticipantsClick: (int id) {
+            navigator.navigate(context, Profile(type: 'user', id: id));
+          },
         );
       },
     );

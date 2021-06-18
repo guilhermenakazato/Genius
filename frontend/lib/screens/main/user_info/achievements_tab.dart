@@ -7,8 +7,10 @@ import '../../../models/achievement.dart';
 
 class AchievementsTab extends StatelessWidget {
   final List<Achievement> achievements;
+  final String notFoundText;
 
-  const AchievementsTab({Key key, @required this.achievements}) : super(key: key);
+  const AchievementsTab({Key key, @required this.achievements, this.notFoundText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,7 @@ class AchievementsTab extends StatelessWidget {
         padding: const EdgeInsets.only(right: 8.0, left: 8),
         child: DataNotFoundCard(
           color: ApplicationColors.secondCardColor,
-          text:
-              'Parece que você ainda não tem nenhuma conquista. Que tal criar uma e mostrar para o mundo o que você já fez? :)',
+          text: notFoundText,
         ),
       );
     } else {
@@ -35,12 +36,14 @@ class AchievementsTab extends StatelessWidget {
         child: MediaQuery.removePadding(
           removeTop: true,
           context: context,
-          child: ListView.builder(itemCount: achievements.length, itemBuilder: (context, index) {
-            return AchievementCard(
-              color: ApplicationColors.secondCardColor,
-              achievement: achievements[index],
-            );
-          }),
+          child: ListView.builder(
+              itemCount: achievements.length,
+              itemBuilder: (context, index) {
+                return AchievementCard(
+                  color: ApplicationColors.secondCardColor,
+                  achievement: achievements[index],
+                );
+              }),
         ),
       );
     }

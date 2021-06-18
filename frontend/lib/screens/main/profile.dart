@@ -20,13 +20,24 @@ import 'user_info/saved_tab.dart';
 import 'user_info/surveys_tab.dart';
 
 class Profile extends StatelessWidget {
+  final String type;
+  final int id;
+
+  const Profile({Key key, @required this.type, this.id}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return _ProfileContent();
+    return _ProfileContent(type: type, id: id);
   }
 }
 
 class _ProfileContent extends StatefulWidget {
+  final String type;
+  final int id;
+
+  const _ProfileContent({Key key, @required this.type, this.id})
+      : super(key: key);
+
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -39,14 +50,28 @@ class _ProfileState extends State<_ProfileContent> {
 
   @override
   void initState() {
-    _userData = getData();
     super.initState();
+    _userData = _defineHowToGetData();
   }
 
-  Future<String> getData() async {
+  Future<String> _defineHowToGetData() {
+    if (widget.type == 'edit') {
+      return _getDataByToken();
+    } else {
+      return _getDataById();
+    }
+  }
+
+  Future<String> _getDataByToken() async {
     final _webClient = UserWebClient();
     final _token = await _tokenObject.getToken();
     final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
+
+  Future<String> _getDataById() async {
+    final _webClient = UserWebClient();
+    final _user = await _webClient.getUserById(widget.id);
     return _user;
   }
 
@@ -58,19 +83,23 @@ class _ProfileState extends State<_ProfileContent> {
         if (snapshot.hasData) {
           final user = User.fromJson(jsonDecode(snapshot.data));
 
-          return Stack(children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(height: 50),
-                _photoNameAndCity(user),
-                _followersEditProfileAndFollowing(user),
-                _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(user.tags),
-              ],
-            ),
-            _draggableSheet(user),
-          ]);
+          return Scaffold(
+            body: Stack(children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(height: 50),
+                  _photoNameAndCity(user),
+                  _followersEditProfileAndFollowing(user),
+                  _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
+                    user.tags,
+                  ),
+                ],
+              ),
+              _draggableSheet(user),
+            ]),
+          );
         } else {
           return SpinKitFadingCube(color: ApplicationColors.primary);
         }
@@ -123,12 +152,12 @@ class _ProfileState extends State<_ProfileContent> {
                         left: 15,
                       ),
                       child: Text(
-                        'MY MIND',
+                        _determineMindText(),
                         style: ApplicationTypography.profileInfoTitle,
                       ),
                     ),
                     DefaultTabController(
-                      length: 5,
+                      length: _tabs().length,
                       child: Column(
                         children: [
                           TabBar(
@@ -157,24 +186,34 @@ class _ProfileState extends State<_ProfileContent> {
   }
 
   Widget _draggableSheetContent(User user) {
-    return TabBarView(
-      children: <Widget>[
-        AboutMeTab(
-          user: user,
-        ),
-        ProjectsTab(
-          projects: user.projects,
-        ),
-        AchievementsTab(
-          achievements: user.achievements,
-        ),
-        SurveysTab(
-          surveys: user.surveys,
-        ),
+    var tabs = [
+      AboutMeTab(
+        user: user,
+      ),
+      ProjectsTab(
+        projects: user.projects,
+        notFoundText: _determineProjectsNotFoundText(),
+      ),
+      AchievementsTab(
+        achievements: user.achievements,
+        notFoundText: _determineAchievementsNotFoundText(),
+      ),
+      SurveysTab(
+        surveys: user.surveys,
+        notFoundText: _determineSurveysNotFoundText(),
+      ),
+    ];
+
+    if (widget.type == 'edit') {
+      tabs.add(
         SavedTab(
           savedProjects: user.saved,
-        )
-      ],
+        ),
+      );
+    }
+
+    return TabBarView(
+      children: tabs
     );
   }
 
@@ -183,9 +222,10 @@ class _ProfileState extends State<_ProfileContent> {
   ) {
     if (tags.isEmpty) {
       return Padding(
-        padding: const EdgeInsets.only(top: 22.0, left: 4, right: 4),
+        padding: const EdgeInsets.only(top: 10.0, left: 4, right: 4),
         child: Text(
-          'Você ainda não tem nenhum assunto favorito.',
+          _determineNoFavoritesText(),
+          textAlign: TextAlign.center,
         ),
       );
     } else {
@@ -305,25 +345,25 @@ class _ProfileState extends State<_ProfileContent> {
             width: 0.2,
             height: 22,
           ),
-          GradientButton(
-            onPressed: () {
-              _navigator.navigateAndReload(
-                  context,
-                  EditOptions(
-                    id: user.id,
-                  ), () {
-                setState(() {
-                  _userData = getData();
-                });
-              });
-            },
-            text: 'Editar',
-            width: 72,
-            height: 32,
+          _button(
+            () => _determineFunctionToExecuteOnButton(user),
+            _determineButtonText(),
           ),
         ],
       ),
     );
+  }
+
+  void _determineFunctionToExecuteOnButton(User user) {
+    _navigator.navigateAndReload(
+        context,
+        EditOptions(
+          id: user.id,
+        ), () {
+      setState(() {
+        _userData = _getDataByToken();
+      });
+    });
   }
 
   Widget _photoNameAndCity(User user) {
@@ -389,7 +429,7 @@ class _ProfileState extends State<_ProfileContent> {
   }
 
   List<Tab> _tabs() {
-    return [
+    var tabs = [
       Tab(
         child: Text(
           'Sobre mim',
@@ -414,12 +454,76 @@ class _ProfileState extends State<_ProfileContent> {
           style: ApplicationTypography.profileInfoPageTitle,
         ),
       ),
-      Tab(
-        child: Text(
-          'Salvos',
-          style: ApplicationTypography.profileInfoPageTitle,
-        ),
-      ),
     ];
+
+    if (widget.type == 'edit') {
+      tabs.add(
+        Tab(
+          child: Text(
+            'Salvos',
+            style: ApplicationTypography.profileInfoPageTitle,
+          ),
+        ),
+      );
+    }
+
+    return tabs;
+  }
+
+  String _determineNoFavoritesText() {
+    if (widget.type == 'edit') {
+      return 'Você ainda não tem nenhum assunto favorito.';
+    } else {
+      return 'Esse usuário ainda não tem nenhum assunto favorito.';
+    }
+  }
+
+  String _determineMindText() {
+    if (widget.type == 'edit') {
+      return 'MY MIND';
+    } else {
+      return 'THEIR MIND';
+    }
+  }
+
+  String _determineButtonText() {
+    if (widget.type == 'edit') {
+      return 'Editar';
+    } else {
+      return 'Seguir';
+    }
+  }
+
+  String _determineProjectsNotFoundText() {
+    if (widget.type == 'edit') {
+      return 'Parece que você ainda não criou nenhum projeto. Que tal criar um para divulgar seus projetos incríveis? :)';
+    } else {
+      return 'Parece que esse usuário ainda não tem nenhum projeto... Que tal procurar por projetos em outro usuário? :)';
+    }
+  }
+
+  String _determineAchievementsNotFoundText() {
+    if (widget.type == 'edit') {
+      return 'Parece que você ainda não tem nenhuma conquista. Que tal criar uma e mostrar para o mundo que você já fez? :)';
+    } else {
+      return 'Parece que esse usuário ainda não tem nenhuma conquista... Que tal procurar por conquistas em outro usuário? :)';
+    }
+  }
+
+  String _determineSurveysNotFoundText() {
+    if (widget.type == 'edit') {
+      return 'Parece que você ainda não criou nenhum questionário. Que tal criar um? :) Eles são ótimos para coleta de dados!';
+    } else {
+      return 'Parece que esse usuário ainda não tem nenhum questionário... Que tal procurar por questionários em outro usuário? :)';
+    }
+  }
+
+  Widget _button(void Function() onPress, String text) {
+    return GradientButton(
+      onPressed: () => onPress,
+      text: text,
+      width: 72,
+      height: 32,
+    );
   }
 }
