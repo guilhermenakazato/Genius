@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 
 import '../utils/application_typography.dart';
 import 'application_colors.dart';
@@ -16,6 +18,21 @@ class ApplicationThemes {
       ),
     ),
     primaryColor: ApplicationColors.primary,
+    colorScheme: ColorScheme(
+      primary: ApplicationColors.primary,
+      primaryVariant: ApplicationColors.primary,
+      secondary: ApplicationColors.primary,
+      background: ApplicationColors.primary,
+      onBackground: ApplicationColors.primary,
+      brightness: Brightness.dark,
+      error: ApplicationColors.primary,
+      onError: ApplicationColors.primary,
+      onPrimary: ApplicationColors.primary,
+      onSecondary: ApplicationColors.primary,
+      onSurface: ApplicationColors.primary,
+      secondaryVariant: ApplicationColors.primary,
+      surface: ApplicationColors.primary,
+    ),
     cardColor: ApplicationColors.cardColor,
     textTheme: TextTheme(
       bodyText1: TextStyle(

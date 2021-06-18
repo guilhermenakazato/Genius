@@ -22,8 +22,10 @@ export default class UsersController {
     const user = await User.findOrFail(id)
 
     await user.load('achievements')
-    await user.load('projects')
-    await user.load('saved')
+    await user.load('projects', project => {
+      project.preload("participants")
+      project.preload('tags')
+    })
     await user.load('surveys')
     await user.load("tags")
 
@@ -39,7 +41,7 @@ export default class UsersController {
 
   async updateUser({ params, request }: HttpContextContract) {
     const { id } = params
-    const { name, username, email, password, type, age, local, formation, institution, bio, tags } =
+    const { name, username, email, password, type, age, local, formation, institution, bio, tags, verified } =
       request.all()
     const user = await User.findOrFail(id)
 
@@ -53,6 +55,7 @@ export default class UsersController {
     user.formation = formation
     user.institution = institution
     user.bio = bio
+    user.verified = verified
     user.updatedAt = DateTime.local()
 
     await user.save()

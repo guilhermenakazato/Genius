@@ -13,7 +13,8 @@ class User {
       local,
       institution,
       formation,
-      bio;
+      bio, 
+      verified;
   int id;
   List<Project> projects;
   List<Achievement> achievements;
@@ -88,7 +89,8 @@ class User {
             Convert.convertToListOfAchievements(json['achievements']),
         saved = Convert.convertToListOfSavedProjects(json['saved']),
         surveys = Convert.convertToListOfSurveys(json['surveys']),
-        tags = Convert.convertToListOfTags(json['tags']);
+        tags = Convert.convertToListOfTags(json['tags']),
+        verified = json['verified'];
 
   Map<String, dynamic> toJson() => {
         'name': name,

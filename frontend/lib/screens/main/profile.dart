@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 import '../../models/tag.dart';
 import '../../screens/main/user_info/achievements_tab.dart';
@@ -47,6 +48,13 @@ class _ProfileState extends State<_ProfileContent> {
   double _myMindPosition = 0.65;
   final _tokenObject = Token();
   Future<String> _userData;
+
+  final founderColors = [
+    ApplicationColors.profileNameColor,
+    Colors.blue,
+    Colors.yellow,
+    Colors.red,
+  ];
 
   @override
   void initState() {
@@ -384,14 +392,7 @@ class _ProfileState extends State<_ProfileContent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                width: 170,
-                child: Text(
-                  user.username,
-                  style: ApplicationTypography.profileName,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
+              _determineStyle(user),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Row(
@@ -420,6 +421,52 @@ class _ProfileState extends State<_ProfileContent> {
         ),
       ],
     );
+  }
+
+  Widget _determineStyle(User user) {
+    debugPrint('Verificação: ' + user.verified);
+    if (user.verified == 'founder') {
+      return Container(
+        width: 170,
+        child: AnimatedTextKit(
+          animatedTexts: [
+            ColorizeAnimatedText(
+              user.username,
+              textStyle: ApplicationTypography.profileName,
+              colors: founderColors,
+            ),
+          ],
+          isRepeatingAnimation: true,
+          repeatForever: true,
+        ),
+      );
+    } else if (user.verified == 'true') {
+      return Row(
+        children: [
+          Container(
+            width: 160,
+            child: Text(
+              user.username,
+              style: ApplicationTypography.profileName,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Icon(
+            Icons.verified,
+            color: ApplicationColors.primary,
+          ),
+        ],
+      );
+    } else {
+      return Container(
+        width: 170,
+        child: Text(
+          user.username,
+          style: ApplicationTypography.profileName,
+          overflow: TextOverflow.ellipsis,
+        ),
+      );
+    }
   }
 
   IconData _determineIconBasedOnMyMindPosition() {
