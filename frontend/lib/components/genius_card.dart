@@ -14,6 +14,7 @@ class GeniusCard extends StatelessWidget {
   final int deleteRequestsCount;
   final int participantsCount;
   final Color participantsBorderColor;
+  final Function(int id) onParticipantsClick;
 
   const GeniusCard({
     Key key,
@@ -27,6 +28,7 @@ class GeniusCard extends StatelessWidget {
     this.deleteRequestsCount,
     this.participantsCount,
     this.participantsBorderColor = ApplicationColors.participantsTagColor,
+    this.onParticipantsClick,
   }) : super(key: key);
 
   @override
@@ -135,7 +137,9 @@ class GeniusCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  _handleParticipantTagClick(projectParticipants[index].id);
+                },
                 borderRadius: BorderRadius.circular(16),
                 child: Container(
                   decoration: BoxDecoration(
@@ -264,5 +268,9 @@ class GeniusCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _handleParticipantTagClick(int userId) {
+    onParticipantsClick(userId);
   }
 }

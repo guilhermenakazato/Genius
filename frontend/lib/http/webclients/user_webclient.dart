@@ -19,6 +19,19 @@ class UserWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
+  Future<String> getUserById(int id) async {
+    final response = await client.get(
+      baseUrl + '/user/$id',
+    );
+
+    if (response.statusCode == 200) {
+      var data = response.body;
+      return data;
+    }
+
+    throw HttpException('Erro desconhecido..');
+  }
+
   Future<void> updateUser(User user, int userId) async {
     final userJson = jsonEncode(user.toJson());
 

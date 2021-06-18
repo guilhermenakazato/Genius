@@ -8,8 +8,9 @@ import '../../../models/survey.dart';
 
 class SurveysTab extends StatefulWidget {
   final List<Survey> surveys;
+  final String notFoundText;
 
-  SurveysTab({Key key, @required this.surveys}) : super(key: key);
+  SurveysTab({Key key, @required this.surveys, this.notFoundText}) : super(key: key);
 
   @override
   _SurveysTabState createState() => _SurveysTabState();
@@ -37,8 +38,7 @@ class _SurveysTabState extends State<SurveysTab> {
         children: [
           DataNotFoundCard(
             color: ApplicationColors.secondCardColor,
-            text:
-                'Parece que você ainda não criou nenhum questionário. Que tal criar um? :) Eles são ótimos para coleta de dados!'
+            text: widget.notFoundText,
           ),
           Container(height: 70),
         ],
