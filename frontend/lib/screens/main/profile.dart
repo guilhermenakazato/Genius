@@ -424,7 +424,6 @@ class _ProfileState extends State<_ProfileContent> {
   }
 
   Widget _determineStyle(User user) {
-    debugPrint('Verificação: ' + user.verified);
     if (user.verified == 'founder') {
       return Container(
         width: 170,

@@ -43,7 +43,11 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _residencyController = TextEditingController();
   final TextEditingController _institutionController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-  final _typeOptions = <String>['Estudante', 'Professor'];
+  final _typeOptions = <String>[
+    'Estudante',
+    'Professor',
+    'Cidadão',
+  ];
   final _formationOptions = <String>[
     'Primeiro grau completo',
     'Primeiro grau incompleto',
@@ -430,7 +434,8 @@ class _EditProfileState extends State<EditProfile> {
 
     if (usernameAlreadyExists) {
       progress.dismiss();
-      GeniusToast.showToast('Ops! Alguém já está registrado com esse nome de usuário.');
+      GeniusToast.showToast(
+          'Ops! Alguém já está registrado com esse nome de usuário.');
     } else if (emailAlreadyExists) {
       progress.dismiss();
       GeniusToast.showToast('Ops! Alguém já está registrado com esse e-mail.');
@@ -451,7 +456,8 @@ class _EditProfileState extends State<EditProfile> {
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast(
+          'Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast('Erro desconhecido.');

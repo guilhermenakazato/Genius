@@ -17,18 +17,21 @@ class IntroScience extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
-          child: TypewriterAnimatedTextKit(
-            text: [
-              'Iniciação científica\n é uma forma de colaboração\n com a ciência através da\n pesquisa. O objetivo é\n atualizar o que já existe\n e realizar descobertas.'
-            ],
-            onTap: () {
-              navigator.navigate(context, SignUpIntro());
-            },
-            textStyle: ApplicationTypography.introScienceText,
-            textAlign: TextAlign.center,
-            speed: Duration(milliseconds: 70),
-            totalRepeatCount: 1,
-            repeatForever: false,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TypewriterAnimatedTextKit(
+              text: [
+                'Iniciação científica\n é uma forma de colaboração\n com a ciência através da\n pesquisa. O objetivo é\n atualizar o que já existe\n e realizar descobertas.'
+              ],
+              onTap: () {
+                navigator.navigate(context, SignUpIntro());
+              },
+              textStyle: ApplicationTypography.introScienceText,
+              textAlign: TextAlign.center,
+              speed: Duration(milliseconds: 70),
+              totalRepeatCount: 1,
+              repeatForever: false,
+            ),
           ),
         ),
       ),

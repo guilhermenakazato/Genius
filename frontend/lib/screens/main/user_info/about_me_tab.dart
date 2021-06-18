@@ -30,20 +30,23 @@ class AboutMeTab extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(Icons.work),
-                ),
-                Container(
-                  child: Text(
-                    user.institution,
-                    textAlign: TextAlign.start,
-                    style: ApplicationTypography.aboutMeText,
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Icon(Icons.work),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Text(
+                      user.institution,
+                      textAlign: TextAlign.start,
+                      style: ApplicationTypography.aboutMeText,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
@@ -103,8 +106,10 @@ class AboutMeTab extends StatelessWidget {
   Widget _determineWhichIconShouldBeDisplayed() {
     if (user.type == 'Estudante') {
       return Icon(Icons.sticky_note_2);
-    } else {
+    } else if (user.type == 'Professor') {
       return Icon(Icons.square_foot);
+    } else {
+      return Icon(Icons.group);
     }
   }
 }
