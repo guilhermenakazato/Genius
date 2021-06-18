@@ -138,7 +138,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
   Widget _carouselOfCards() {
     return SizedBox(
       width: 300,
-      height: 500,
+      height: 455,
       child: GeniusCardConfig(
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {
@@ -156,6 +156,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
             abstractText: widget.projects[index].abstractText,
             projectName: widget.projects[index].name,
             type: 'my_projects',
+            participantsBorderColor: ApplicationColors.participantsTagSecondaryColor,
           );
         },
         itemCount: widget.projects.length,

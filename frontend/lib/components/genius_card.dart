@@ -13,6 +13,7 @@ class GeniusCard extends StatelessWidget {
   final Function onEdit;
   final int deleteRequestsCount;
   final int participantsCount;
+  final Color participantsBorderColor;
 
   const GeniusCard({
     Key key,
@@ -25,6 +26,7 @@ class GeniusCard extends StatelessWidget {
     this.onEdit,
     this.deleteRequestsCount,
     this.participantsCount,
+    this.participantsBorderColor = ApplicationColors.participantsTagColor,
   }) : super(key: key);
 
   @override
@@ -127,8 +129,8 @@ class GeniusCard extends StatelessWidget {
             child: Ink(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: ApplicationColors.participantsTagColor,
-                  width: 2
+                  color: participantsBorderColor,
+                  width: 2,
                 ),
                 borderRadius: BorderRadius.circular(16),
               ),
