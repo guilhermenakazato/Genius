@@ -71,12 +71,8 @@ class _EditProjectsState extends State<EditProjects> {
                 icon: Icons.add,
                 text: 'Adicionar',
               ),
-              body: Column(
-                children: [
-                  _iconToChooseStyleOfProjects(),
+              body:
                   _verifyWhichWidgetShouldBeDisplayed(projects, user, context),
-                ],
-              ),
             ),
           );
         } else {
@@ -170,12 +166,18 @@ class _EditProjectsState extends State<EditProjects> {
         return Align(
           child: Column(
             children: [
+              _iconToChooseStyleOfProjects(),
               _carouselOfCards(projects, user),
             ],
           ),
         );
       } else {
-        return _listOfCards(context, projects);
+        return Column(
+          children: [
+            _iconToChooseStyleOfProjects(),
+            _listOfCards(context, projects),
+          ],
+        );
       }
     }
   }

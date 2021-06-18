@@ -178,6 +178,7 @@ class _ProjectFormState extends State<ProjectForm> {
                           label: 'Orientador',
                           data: usersList,
                           triggerChar: '@',
+                          position: SuggestionPosition.Bottom,
                         ),
                       ),
                       Padding(
@@ -189,6 +190,7 @@ class _ProjectFormState extends State<ProjectForm> {
                           label: 'Coorientador',
                           data: usersList,
                           triggerChar: '@',
+                          position: SuggestionPosition.Top,
                         ),
                       ),
                       Padding(
@@ -219,6 +221,7 @@ class _ProjectFormState extends State<ProjectForm> {
                           label: 'Participantes',
                           data: usersList,
                           triggerChar: '@',
+                          position: SuggestionPosition.Top,
                         ),
                       ),
                       Padding(
