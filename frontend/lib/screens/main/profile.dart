@@ -212,9 +212,7 @@ class _ProfileState extends State<_ProfileContent> {
       );
     }
 
-    return TabBarView(
-      children: tabs
-    );
+    return TabBarView(children: tabs);
   }
 
   Widget _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
@@ -346,7 +344,9 @@ class _ProfileState extends State<_ProfileContent> {
             height: 22,
           ),
           _button(
-            () => _determineFunctionToExecuteOnButton(user),
+            () {
+              _determineFunctionToExecuteOnButton(user);
+            },
             _determineButtonText(),
           ),
         ],
@@ -355,15 +355,17 @@ class _ProfileState extends State<_ProfileContent> {
   }
 
   void _determineFunctionToExecuteOnButton(User user) {
-    _navigator.navigateAndReload(
-        context,
-        EditOptions(
-          id: user.id,
-        ), () {
-      setState(() {
-        _userData = _getDataByToken();
+    if (widget.type == 'edit') {
+      _navigator.navigateAndReload(
+          context,
+          EditOptions(
+            id: user.id,
+          ), () {
+        setState(() {
+          _userData = _getDataByToken();
+        });
       });
-    });
+    }
   }
 
   Widget _photoNameAndCity(User user) {
@@ -520,7 +522,9 @@ class _ProfileState extends State<_ProfileContent> {
 
   Widget _button(void Function() onPress, String text) {
     return GradientButton(
-      onPressed: () => onPress,
+      onPressed: () {
+        onPress();
+      },
       text: text,
       width: 72,
       height: 32,
