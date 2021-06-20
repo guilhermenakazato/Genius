@@ -45,8 +45,19 @@ export default class UsersController {
         await project?.load("participants")
         
         await project?.related("participants").detach([id]);
-        if(project?.participants.length == 0) {
-          await this.deleteProjectIfThereIsOnlyOneUser(project);
+      
+        if(user.username == project?.main_teacher) {
+          project.main_teacher = null
+          await project.save()
+
+          console.log(project.main_teacher)
+        } else if(user.username == project?.second_teacher) {
+          project.second_teacher = null
+          await project.save()
+        }
+
+        if(project?.participants.length == 1) {
+          await this.deleteProjectSinceThereAreNoParticipantsInIt(project);
         }
       }
     }
@@ -62,7 +73,7 @@ export default class UsersController {
     await user.delete()
   }
 
-  async deleteProjectIfThereIsOnlyOneUser(project: Project) {
+  async deleteProjectSinceThereAreNoParticipantsInIt(project: Project) {
     await project.load("tags")
 
     if(project.tags.length >= 1) {
