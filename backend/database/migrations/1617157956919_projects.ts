@@ -14,6 +14,8 @@ export default class Projects extends BaseSchema {
       table.string("institution", 300).notNullable()
       table.string("start_date", 30).notNullable()
       table.string("abstract_text", 1000).notNullable()
+      table.string("email").notNullable().unique()
+      table.string("participants_full_name").notNullable()
 
       table.timestamps(true)
     })

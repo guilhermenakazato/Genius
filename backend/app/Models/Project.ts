@@ -31,6 +31,12 @@ export default class Project extends BaseModel {
   @column()
   public start_date: string
 
+  @column()
+  public email: string
+  
+  @column()
+  public participants_full_name: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
