@@ -6,7 +6,7 @@ import '../utils/application_colors.dart';
 class ModListTile extends StatelessWidget {
   final String text;
   final IconData icon;
-  final Function function;
+  final Function onClick;
   final String type;
   final String position;
 
@@ -14,7 +14,7 @@ class ModListTile extends StatelessWidget {
     Key key,
     @required this.text,
     @required this.icon,
-    this.function,
+    this.onClick,
     this.type = 'center',
     this.position,
   }) : super(key: key);
@@ -29,8 +29,8 @@ class ModListTile extends StatelessWidget {
       child: InkWell(
         borderRadius: _determineBorderRadius(),
         onTap: () {
-          if (function != null) {
-            function();
+          if (onClick != null) {
+            onClick();
           }
         },
         child: ListTile(

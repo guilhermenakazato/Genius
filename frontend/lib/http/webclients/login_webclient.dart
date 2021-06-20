@@ -43,7 +43,7 @@ class LoginWebClient {
     throw HttpException('Unknown Error');
   }
 
-  void logout(String token) async {
+  Future<void> logout(String token) async {
     await client.get(
       baseUrl + '/logout',
       headers: {
