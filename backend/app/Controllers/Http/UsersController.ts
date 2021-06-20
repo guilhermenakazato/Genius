@@ -42,8 +42,12 @@ export default class UsersController {
     if(user.projects.length >= 1) {
       for(let i = 0; i < user.projects.length; i++) {
         const project = await Project.find(user.projects[i].id);
-
+        await project?.load("participants")
+        
         await project?.related("participants").detach([id]);
+        if(project?.participants.length == 0) {
+          await this.deleteProjectIfThereIsOnlyOneUser(project);
+        }
       }
     }
 
@@ -56,6 +60,20 @@ export default class UsersController {
     }
 
     await user.delete()
+  }
+
+  async deleteProjectIfThereIsOnlyOneUser(project: Project) {
+    await project.load("tags")
+
+    if(project.tags.length >= 1) {
+      for(let i = 0; i < project.tags.length; i++) {
+        const tag = await Tag.find(project.tags[i].id);
+
+        await tag?.related("projects").detach([project.id]);
+      }
+    }
+
+    await project.delete()
   }
 
   async updateUser({ params, request }: HttpContextContract) {

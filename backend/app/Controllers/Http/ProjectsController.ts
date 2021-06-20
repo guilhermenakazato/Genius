@@ -82,7 +82,6 @@ export default class ProjectsController {
       participants_full_name
     } = request.all()
 
-    console.log(main_teacher)
     if (main_teacher != undefined && main_teacher != null) {
       participants.push(main_teacher)
     }
