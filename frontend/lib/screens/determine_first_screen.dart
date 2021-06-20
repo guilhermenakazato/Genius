@@ -43,7 +43,7 @@ class DetermineFirstScreen extends StatelessWidget {
       if (isValid) {
         return _token;
       } else {
-        _tokenObject.removeToken();
+        await _tokenObject.removeToken();
         final _token = await _tokenObject.getToken();
         return _token;
       }

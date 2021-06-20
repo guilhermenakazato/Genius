@@ -12,7 +12,7 @@ class Token {
     await prefs.setString('token', token);
   }
 
-  void removeToken() async {
+  Future<void> removeToken() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
   }

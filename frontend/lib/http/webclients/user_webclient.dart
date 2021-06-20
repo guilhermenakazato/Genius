@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 import '../../models/user.dart';
 import '../webclient.dart';
 import '../../http/exceptions/http_exception.dart';
@@ -35,13 +37,10 @@ class UserWebClient {
   Future<void> updateUser(User user, int userId) async {
     final userJson = jsonEncode(user.toJson());
 
-    final response = await client.put(
-      baseUrl + '/user/$userId',
-      body: userJson,
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    );
+    final response =
+        await client.put(baseUrl + '/user/$userId', body: userJson, headers: {
+      'Content-Type': 'application/json',
+    });
 
     if (response.statusCode == 200) {
       return response.body;
@@ -55,6 +54,16 @@ class UserWebClient {
 
     if (response.statusCode == 200) {
       return response.body;
+    }
+
+    throw HttpException('Erro desconhecido..');
+  }
+
+  Future<void> deleteUser(int userId) async {
+    final response = await client.delete(baseUrl + '/user/$userId');
+
+    if (response.statusCode != 200) {
+      debugPrint(response.statusCode.toString());
     }
 
     throw HttpException('Erro desconhecido..');
