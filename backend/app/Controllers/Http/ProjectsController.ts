@@ -16,6 +16,8 @@ export default class ProjectsController {
       start_date,
       abstract_text,
       participants,
+      email,
+      participants_full_name,
     } = request.all()
 
     if (main_teacher != undefined && main_teacher != null) {
@@ -39,6 +41,8 @@ export default class ProjectsController {
       project.institution = institution
       project.start_date = start_date
       project.abstractText = abstract_text
+      project.email = email
+      project.participants_full_name = participants_full_name
 
       await project.save()
 
@@ -74,6 +78,8 @@ export default class ProjectsController {
       start_date,
       abstract_text,
       participants,
+      email, 
+      participants_full_name
     } = request.all()
 
     console.log(main_teacher)
@@ -96,6 +102,8 @@ export default class ProjectsController {
       project.institution = institution
       project.start_date = start_date
       project.abstractText = abstract_text
+      project.participants_full_name = participants_full_name
+      project.email = email
 
       await project.save()
 
@@ -162,6 +170,14 @@ export default class ProjectsController {
     const project = await Project.findByOrFail('name', project_title)
 
     return project
+  }
+
+  async verifyIfProjectEmailIsAlreadyBeingUsed({params}: HttpContextContract) {
+    const {email} = params;
+
+    const project = await Project.findByOrFail('email', email)
+
+    return project;
   }
 
   async allParticipantsExist(participants: string[]) {

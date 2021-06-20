@@ -3,7 +3,7 @@ import '../utils/convert.dart';
 
 class Project {
   final int id;
-  final String name, institution, startDate, mainTeacherName, secondTeacherName;
+  final String name, institution, startDate, mainTeacherName, secondTeacherName, email, participantsFullName;
   final mainTeacher;
   final secondTeacher;
   final String abstractText;
@@ -24,6 +24,8 @@ class Project {
     this.secondTeacherName,
     this.deleteRequests,
     this.tags,
+    this.email, 
+    this.participantsFullName
   });
 
   Project.fromJson(Map<String, dynamic> json)
@@ -38,7 +40,9 @@ class Project {
         mainTeacherName = json['main_teacher_name'],
         secondTeacherName = json['second_teacher_name'],
         deleteRequests = Convert.convertToListOfUsers(json['deleteRequests']),
-        tags = Convert.convertToListOfTags(json['tags']);
+        tags = Convert.convertToListOfTags(json['tags']),
+        email = json['email'],
+        participantsFullName = json['participants_full_name'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -50,11 +54,13 @@ class Project {
         'second_teacher_name': secondTeacherName,
         'participants': participants, 
         'tags': tags,
-        'abstract_text': abstractText
+        'abstract_text': abstractText,
+        'email': email,
+        'participants_full_name': participantsFullName,
       };
 
   @override
   String toString() {
-    return 'Project: {id: $id, name: $name, abstractText: $abstractText, institution: $institution, startDate: $startDate, mainTeacher: $mainTeacher, secondTeacher: $secondTeacher, participants: $participants, mainTeacherName: $mainTeacherName, secondTeacherName: $secondTeacherName,}';
+    return 'Project: {id: $id, name: $name, abstractText: $abstractText, institution: $institution, startDate: $startDate, mainTeacher: $mainTeacher, secondTeacher: $secondTeacher, participants: $participants, mainTeacherName: $mainTeacherName, secondTeacherName: $secondTeacherName, email: $email, participantsFullName: $participantsFullName}';
   }
 }

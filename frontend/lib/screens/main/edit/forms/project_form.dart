@@ -47,6 +47,8 @@ class _ProjectFormState extends State<ProjectForm> {
   final _institutionController = TextEditingController();
   final _startDateController = TextEditingController();
   final _abstractController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _participantsFullNameController = TextEditingController();
 
   final _tagsKey = GlobalKey<FlutterMentionsState>();
   final _mainTeacherKey = GlobalKey<FlutterMentionsState>();
@@ -57,8 +59,8 @@ class _ProjectFormState extends State<ProjectForm> {
 
   @override
   void initState() {
-    _verifyIfShouldFillFormOrNot();
     super.initState();
+    _verifyIfShouldFillFormOrNot();
   }
 
   Future<List<dynamic>> _getProjectFormData() {
@@ -97,6 +99,9 @@ class _ProjectFormState extends State<ProjectForm> {
       _institutionController.text = widget.project.institution;
       _startDateController.text = widget.project.startDate;
       _abstractController.text = widget.project.abstractText;
+      _emailController.text = widget.project.email;
+      _participantsFullNameController.text =
+          widget.project.participantsFullName;
     }
   }
 
@@ -155,6 +160,14 @@ class _ProjectFormState extends State<ProjectForm> {
                           controller: _titleController,
                           type: TextInputType.name,
                           label: 'Título do projeto',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: InputWithAnimation(
+                          controller: _emailController,
+                          type: TextInputType.emailAddress,
+                          label: 'Email do projeto',
                         ),
                       ),
                       Padding(
@@ -222,6 +235,16 @@ class _ProjectFormState extends State<ProjectForm> {
                           data: usersList,
                           triggerChar: '@',
                           position: SuggestionPosition.Top,
+                          allowMultilines: true,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: InputWithAnimation(
+                          controller: _participantsFullNameController,
+                          type: TextInputType.multiline,
+                          label: 'Nomes completos dos participantes',
+                          allowMultilines: true,
                         ),
                       ),
                       Padding(
@@ -299,6 +322,8 @@ class _ProjectFormState extends State<ProjectForm> {
     var mainTeacher = _mainTeacherKey.currentState.controller.text.trim();
     var secondTeacher = _secondTeacherKey.currentState.controller.text.trim();
     var abstractText = _abstractController.text.trim();
+    var email = _emailController.text.trim();
+    var participantsFullName = _participantsFullNameController.text.trim();
 
     var tagsText = _tagsKey.currentState.controller.text;
     var participantsText = _participantsKey.currentState.controller.text;
@@ -311,6 +336,12 @@ class _ProjectFormState extends State<ProjectForm> {
 
     var projectTitleExists =
         await _projectTitleAlreadyExists(name, widget.project);
+
+    var projectEmailAlreadyBeingUsed = false;
+    
+    if ((widget.type == 'edit' && email != widget.project.email) || widget.type != 'edit') {
+      projectEmailAlreadyBeingUsed = await _projectEmailAlreadyBeingUsed(email);
+    }
 
     final tagsVerificationPassed = _tagsStructureIsCorrect(
       tags,
@@ -325,7 +356,12 @@ class _ProjectFormState extends State<ProjectForm> {
       context,
     );
 
-    if (projectTitleExists) {
+    if (projectEmailAlreadyBeingUsed) {
+      progress.dismiss();
+      GeniusToast.showToast(
+        'Ops! Parece que alguém já está usando o email de projeto que você tentou colocar.',
+      );
+    } else if (projectTitleExists) {
       progress.dismiss();
       GeniusToast.showToast(
         'Ops! Parece que alguém já está usando o título de projeto que você tentou colocar.',
@@ -368,6 +404,8 @@ class _ProjectFormState extends State<ProjectForm> {
         mainTeacherName: mainTeacherNameText,
         secondTeacher: secondTeacherText,
         secondTeacherName: secondTeacherNameText,
+        email: email,
+        participantsFullName: participantsFullName,
       );
 
       if (widget.type == 'edit') {
@@ -376,6 +414,16 @@ class _ProjectFormState extends State<ProjectForm> {
         _createProject(project, context);
       }
     }
+  }
+
+  Future<bool> _projectEmailAlreadyBeingUsed(String email) async {
+    var projectEmailAlreadyExists = false;
+    var _webClientToVerifyData = ProjectWebClient();
+
+    projectEmailAlreadyExists = await _webClientToVerifyData
+        .verifyIfProjectEmailIsAlreadyBeingUsed(email);
+
+    return projectEmailAlreadyExists;
   }
 
   bool _dateIsValid(String date, BuildContext context) {
@@ -397,7 +445,8 @@ class _ProjectFormState extends State<ProjectForm> {
       var greaterThanNow = DateTime.now().isBefore(newDate);
 
       if (greaterThanNow) {
-        GeniusToast.showToast('Ops! Parece que um viajante do tempo passou por aqui');
+        GeniusToast.showToast(
+            'Ops! Parece que um viajante do tempo passou por aqui');
         progress.dismiss();
         return false;
       } else {
@@ -441,7 +490,8 @@ class _ProjectFormState extends State<ProjectForm> {
     }
 
     if (participants.isEmpty) {
-      GeniusToast.showToast('Seu projeto tem que ter pelo menos um participante!');
+      GeniusToast.showToast(
+          'Seu projeto tem que ter pelo menos um participante!');
       verification = false;
     } else {
       participants.forEach((participant) {
@@ -494,7 +544,8 @@ class _ProjectFormState extends State<ProjectForm> {
           GeniusToast.showToast(error.message);
         }, test: (error) => error is HttpException).catchError((error) {
           progress.dismiss();
-          GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
+          GeniusToast.showToast(
+              'Erro: o tempo para fazer login excedeu o esperado.');
         }, test: (error) => error is TimeoutException).catchError((error) {
           progress.dismiss();
           GeniusToast.showToast('Erro desconhecido.');
@@ -523,7 +574,8 @@ class _ProjectFormState extends State<ProjectForm> {
           GeniusToast.showToast(error.message);
         }, test: (error) => error is HttpException).catchError((error) {
           progress.dismiss();
-          GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
+          GeniusToast.showToast(
+              'Erro: o tempo para fazer login excedeu o esperado.');
         }, test: (error) => error is TimeoutException).catchError((error) {
           progress.dismiss();
           GeniusToast.showToast('Erro desconhecido.');

@@ -12,6 +12,7 @@ class AutoCompleteInput extends StatelessWidget {
   final String defaultText;
   final SuggestionPosition position;
   final String type;
+  final bool allowMultilines;
 
   const AutoCompleteInput({
     Key key,
@@ -23,13 +24,22 @@ class AutoCompleteInput extends StatelessWidget {
     this.defaultText,
     this.position = SuggestionPosition.Bottom,
     this.type,
+    this.allowMultilines = false,
   }) : super(key: key);
+
+  int _verifyIfMultiLinesIsAllowed() {
+    if (allowMultilines) {
+      return null;
+    } else {
+      return 1;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return FlutterMentions(
       defaultText: defaultText,
-      maxLines: null,
+      maxLines: _verifyIfMultiLinesIsAllowed(),
       keyboardType: TextInputType.multiline,
       suggestionPosition: position,
       key: keyController,

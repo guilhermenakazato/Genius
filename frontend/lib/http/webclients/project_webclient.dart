@@ -72,6 +72,20 @@ class ProjectWebClient {
     throw HttpException('Erro desconhecido...');
   }
 
+  Future<bool> verifyIfProjectEmailIsAlreadyBeingUsed(String email) async {
+    final response = await client.get(
+      baseUrl + '/verify/$email',
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 404) {
+      return false;
+    }
+
+    throw HttpException('Erro desconhecido...');
+  }
+
   static final Map<int, String> _statusCodeResponses = {
     500: 'Erro de ponto nulo ao criar o questionário.'
   };
