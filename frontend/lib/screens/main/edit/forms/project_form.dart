@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -15,13 +14,13 @@ import '../../../../utils/navigator_util.dart';
 import '../../../../models/tag.dart';
 import '../../../../components/autocomplete_input.dart';
 import '../../../../utils/application_colors.dart';
-import '../../../../utils/application_typography.dart';
 import '../../../../components/gradient_button.dart';
 import '../../../../components/input_with_animation.dart';
 import '../../../../models/user.dart';
 import '../../../../models/project.dart';
 import '../../../../http/webclients/tags_webclient.dart';
 import '../../../../utils/convert.dart';
+import '../../../../components/submit_file.dart';
 
 class ProjectForm extends StatefulWidget {
   final User user;
@@ -256,7 +255,10 @@ class _ProjectFormState extends State<ProjectForm> {
                           allowMultilines: true,
                         ),
                       ),
-                      _submitArchive(context),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                        child: SubmitFile(),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GradientButton(
@@ -587,41 +589,6 @@ class _ProjectFormState extends State<ProjectForm> {
       GeniusToast.showToast('Projeto atualizado com sucesso.');
       navigator.goBack(context);
     }
-  }
-
-  Widget _submitArchive(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-      child: InkWell(
-        onTap: () {},
-        borderRadius: BorderRadius.circular(30),
-        child: DottedBorder(
-          borderType: BorderType.RRect,
-          radius: Radius.circular(30),
-          dashPattern: [8, 4],
-          color: ApplicationColors.primary,
-          child: Container(
-            height: 250,
-            width: MediaQuery.of(context).size.height * 0.8,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  Icons.add,
-                  size: 46,
-                  color: ApplicationColors.primary,
-                ),
-                Text(
-                  'Adicionar\nanexo',
-                  textAlign: TextAlign.center,
-                  style: ApplicationTypography.submitArchiveText,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   String _defineAppBarText() {
