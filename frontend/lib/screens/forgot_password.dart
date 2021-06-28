@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/genius_toast.dart';
+import '../utils/application_typography.dart';
 
 class ForgotPassword extends StatelessWidget {
   @override
@@ -33,18 +34,16 @@ class ForgotPassword extends StatelessWidget {
                             'Olá! Infelizmente, não temos como implementar essa função, pois envolve o uso de cartões de crédito e dinheiro que não temos. Felizmente, você pode '),
                     TextSpan(
                       text: 'falar com a gente',
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.blue,
-                      ),
+                      style: ApplicationTypography.linkStyle,
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           _handleLinkClick();
                         },
                     ),
                     TextSpan(
-                        text:
-                            ' pelo nosso Instagram e encontraremos uma solução!')
+                      text:
+                          ' pelo nosso Instagram e encontraremos uma solução!',
+                    )
                   ],
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../utils/application_typography.dart';
 import '../../../models/project.dart';
 
 class ProjectInfo extends StatelessWidget {
@@ -25,11 +26,7 @@ class ProjectInfo extends StatelessWidget {
                     width: double.infinity,
                     child: Text(
                       project.name,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w900,
-                      ),
+                      style: ApplicationTypography.projectNameText,
                     ),
                   ),
                 ),
@@ -39,10 +36,7 @@ class ProjectInfo extends StatelessWidget {
                     width: double.infinity,
                     child: Text(
                       project.abstractText,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
+                      style: ApplicationTypography.projectAbstractText,
                     ),
                   ),
                 )

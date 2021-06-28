@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 
-import 'package:genius/utils/application_colors.dart';
+import '../utils/application_typography.dart';
 
 class AutoCompleteInput extends StatelessWidget {
   final String label;
@@ -44,19 +44,12 @@ class AutoCompleteInput extends StatelessWidget {
       suggestionPosition: position,
       key: keyController,
       cursorColor: Theme.of(context).primaryColor,
-      style: TextStyle(
-        fontSize: 17.0,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
+      style: ApplicationTypography.inputText,
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
         contentPadding: EdgeInsets.fromLTRB(22, 20, 22, 20),
-        labelStyle: TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontWeight: FontWeight.w900,
-        ),
+        labelStyle: ApplicationTypography.inputLabelText,
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).errorColor,
@@ -111,10 +104,7 @@ class AutoCompleteInput extends StatelessWidget {
               width: double.infinity,
               child: Text(
                 '#' + data['display'],
-                style: TextStyle(
-                  fontFamily: 'Gotham',
-                  fontWeight: FontWeight.w700,
-                ),
+                style: ApplicationTypography.tagStyle
               ),
             ),
           ],
@@ -129,21 +119,14 @@ class AutoCompleteInput extends StatelessWidget {
               width: double.infinity,
               child: Text(
                 '@' + data['display'],
-                style: TextStyle(
-                  fontFamily: 'Gotham',
-                  color: ApplicationColors.primary,
-                  fontWeight: FontWeight.w900,
-                ),
+                style: ApplicationTypography.mentionStyle,
               ),
             ),
             Container(
               width: double.infinity,
               child: Text(
                 data['name'],
-                style: TextStyle(
-                  fontFamily: 'Gotham',
-                  fontWeight: FontWeight.w500,
-                ),
+                style: ApplicationTypography.mentionFullNameStyle,
               ),
             ),
           ],

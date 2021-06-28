@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:genius/screens/main/profile.dart';
 
+import '../../screens/main/profile.dart';
 import '../../components/genius_card.dart';
 import '../../components/genius_card_config.dart';
 import '../../components/data_not_found_card.dart';

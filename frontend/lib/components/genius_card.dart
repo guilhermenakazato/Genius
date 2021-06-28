@@ -249,12 +249,7 @@ class GeniusCard extends StatelessWidget {
                       ),
                       Text(
                         '$deleteRequestsCount/$participantsCount',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Gotham',
-                          fontSize: 18,
-                        ),
+                        style: ApplicationTypography.deleteRequestsCardText,
                       ),
                     ],
                   ),

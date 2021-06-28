@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../models/survey.dart';
 import '../utils/application_colors.dart';
 import '../utils/genius_toast.dart';
+import '../utils/application_typography.dart';
 
 class SurveyExpandableCard extends StatefulWidget {
   final List<Survey> surveys;
@@ -67,10 +68,7 @@ class _SurveyExpandableCardState extends State<SurveyExpandableCard> {
                           TextSpan(text: 'Link: '),
                           TextSpan(
                             text: '${entry.value.link}',
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.blue,
-                            ),
+                            style: ApplicationTypography.linkStyle,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 _handleLinkClick(entry.value.link);

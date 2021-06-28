@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../utils/application_typography.dart';
 import '../utils/application_colors.dart';
 
 class DataNotFound extends StatelessWidget {
@@ -24,7 +26,7 @@ class DataNotFound extends StatelessWidget {
                 Text(
                   text,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: ApplicationColors.notFoundColor),
+                  style: ApplicationTypography.notFoundText,
                 ),
               ],
             ),

@@ -251,4 +251,58 @@ class ApplicationTypography {
     fontWeight: FontWeight.w300,
     fontSize: 16,
   );
+
+  static final deleteRequestsCardText = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Gotham',
+    fontSize: 18,
+  );
+
+  static final notFoundText = TextStyle(
+    color: ApplicationColors.notFoundColor,
+  );
+
+  static final inputText = TextStyle(
+    fontSize: 17.0,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
+  static final inputLabelText = TextStyle(
+    color: ApplicationColors.primary,
+    fontWeight: FontWeight.w900,
+  );
+
+  static final projectNameText = TextStyle(
+    color: Colors.white,
+    fontSize: 30,
+    fontWeight: FontWeight.w900,
+  );
+
+  static final projectAbstractText = TextStyle(
+    color: Colors.white,
+    fontSize: 15,
+  );
+
+  static final linkStyle = TextStyle(
+    decoration: TextDecoration.underline,
+    color: Colors.blue,
+  );
+
+  static final mentionStyle = TextStyle(
+    fontFamily: 'Gotham',
+    color: ApplicationColors.primary,
+    fontWeight: FontWeight.w900,
+  );
+
+  static final mentionFullNameStyle = TextStyle(
+    fontFamily: 'Gotham',
+    fontWeight: FontWeight.w500,
+  );
+
+  static final tagStyle = TextStyle(
+    fontFamily: 'Gotham',
+    fontWeight: FontWeight.w700,
+  );
 }

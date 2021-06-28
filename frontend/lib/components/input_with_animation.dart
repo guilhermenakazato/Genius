@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../utils/application_typography.dart';
+
 class InputWithAnimation extends StatelessWidget {
   final TextEditingController controller;
   final String label;
@@ -61,11 +63,7 @@ class InputWithAnimation extends StatelessWidget {
       obscureText: obscure,
       controller: controller,
       cursorColor: Theme.of(context).primaryColor,
-      style: TextStyle(
-        fontSize: 17.0,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
+      style: ApplicationTypography.inputText,
       decoration: InputDecoration(
         labelText: label,
         contentPadding: EdgeInsets.fromLTRB(22, 20, 22, 20),
@@ -78,10 +76,7 @@ class InputWithAnimation extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(30),
         ),
-        labelStyle: TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontWeight: FontWeight.w900,
-        ),
+        labelStyle: ApplicationTypography.inputLabelText,
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).errorColor,
