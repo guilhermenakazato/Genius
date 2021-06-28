@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/components/warning_dialog.dart';
 
+import '../../components/warning_dialog.dart';
+import '../../screens/main/contact_developers.dart';
 import '../../models/user.dart';
 import '../../utils/application_colors.dart';
 import '../../http/webclients/user_webclient.dart';
@@ -79,6 +80,9 @@ class _ConfigState extends State<Config> {
                           text: 'Contatar os desenvolvedores',
                           icon: Icons.email,
                           position: 'bottom',
+                          onClick: () {
+                            _navigator.navigate(context, ContactDevelopers());
+                          },
                         ),
                       ],
                     ),
@@ -119,7 +123,7 @@ class _ConfigState extends State<Config> {
     );
   }
 
-  void logoutUser(BuildContext context) async {
+  void logout(BuildContext context) async {
     final progress = ProgressHUD.of(context);
     progress.show();
 
@@ -162,6 +166,34 @@ class _ConfigState extends State<Config> {
               _navigator.goBack(context);
             },
             acceptText: 'Excluir',
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> logoutUser(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (
+        BuildContext context,
+      ) =>
+          ProgressHUD(
+        borderColor: Theme.of(context).primaryColor,
+        indicatorWidget: SpinKitPouringHourglass(
+          color: Theme.of(context).primaryColor,
+        ),
+        child: Builder(
+          builder: (context) => WarningDialog(
+            content: 'Deseja realmente sair? Sentiremos sua falta!',
+            title: 'Sair da conta',
+            acceptFunction: () {
+              logout(context);
+            },
+            cancelFunction: () {
+              _navigator.goBack(context);
+            },
+            acceptText: 'Sair',
           ),
         ),
       ),

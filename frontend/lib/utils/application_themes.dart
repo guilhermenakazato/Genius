@@ -34,11 +34,6 @@ class ApplicationThemes {
       surface: ApplicationColors.primary,
     ),
     cardColor: ApplicationColors.cardColor,
-    textTheme: TextTheme(
-      bodyText1: TextStyle(
-        color: ApplicationColors.secondaryTextColor,
-      ),
-    ),
     scaffoldBackgroundColor: ApplicationColors.scaffoldBackground,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: ApplicationColors.navigatorBackgroundColor,
