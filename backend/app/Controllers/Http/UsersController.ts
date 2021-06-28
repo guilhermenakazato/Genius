@@ -1,10 +1,8 @@
-import Mail from '@ioc:Adonis/Addons/Mail'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Project from 'App/Models/Project'
 import Tag from 'App/Models/Tag'
 import { DateTime } from 'luxon'
 import User from '../../Models/User'
-import Application from '@ioc:Adonis/Core/Application'
 
 export default class UsersController {
   async listAllUsers() {
@@ -164,30 +162,5 @@ export default class UsersController {
     }
 
     await user.related('tags').sync(arrayOfTagIds)
-  }
-
-  async sendEmail({request}: HttpContextContract) {
-    const images = request.files('images')
-    const {receptor_email, user_name} = request.all()
-
-    for (let image of images) {
-      await image.move(Application.tmpPath('uploads'))
-    }
-
-    await Mail.send((message) => {
-      message
-        .from('geniusapp.science@gmail.com', "Genius")
-        .to(receptor_email)
-        .subject('Seja bem-vindo!')
-        .htmlView('emails/welcome', {
-          user: {name: user_name}
-        })
-
-        for(let image of images) {
-          if(image.filePath){
-            message.attach(image.filePath, {filename: image.fileName});
-          }
-        }
-    })
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../utils/genius_toast.dart';
 import '../components/borderless_button.dart';
+import 'forgot_password.dart';
 import 'main/main_screen.dart';
 import '../components/button.dart';
 import '../components/input.dart';
@@ -53,6 +54,7 @@ class __LoginStateContentState extends State<_LoginStateContent> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscure = true;
+  final _navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +81,10 @@ class __LoginStateContentState extends State<_LoginStateContent> {
                       ),
                     ),
                     Input(
-                        controller: _emailController,
-                        hint: 'E-mail',
-                        type: TextInputType.emailAddress),
+                      controller: _emailController,
+                      hint: 'E-mail',
+                      type: TextInputType.emailAddress,
+                    ),
                     Input(
                       controller: _passwordController,
                       hint: 'Senha',
@@ -123,7 +126,9 @@ class __LoginStateContentState extends State<_LoginStateContent> {
                     text: 'Mostrar\nsenha',
                   ),
                   BorderlessButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _navigator.navigate(context, ForgotPassword());
+                    },
                     text: 'Esqueci\na senha',
                     color: Theme.of(context).primaryColor,
                   ),
@@ -164,7 +169,8 @@ class __LoginStateContentState extends State<_LoginStateContent> {
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast(
+          'Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast('Erro desconhecido.');
@@ -177,10 +183,8 @@ class __LoginStateContentState extends State<_LoginStateContent> {
   }
 
   void enterMainScreen(bool logged, BuildContext context) {
-    final navigator = NavigatorUtil();
-
     if (logged) {
-      navigator.navigateAndRemove(context, MainScreen());
+      _navigator.navigateAndRemove(context, MainScreen());
     }
   }
 }
