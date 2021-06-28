@@ -37,7 +37,6 @@ Route.post("/user",'UsersController.createUser');
 Route.delete("/user/:id", 'UsersController.deleteUser');
 Route.put("/user/:id", 'UsersController.updateUser'); 
 Route.post("/save-project", 'UsersController.saveProject')
-Route.post("/send-email", 'UsersController.sendEmail')
 
 Route.post("/login", 'AuthController.login');
 Route.get("/token", 'AuthController.authenticateWithToken');
