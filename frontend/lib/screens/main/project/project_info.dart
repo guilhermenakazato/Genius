@@ -30,16 +30,55 @@ class ProjectInfo extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 10, 30, 0),
-                  child: Container(
-                    width: double.infinity,
-                    child: Text(
-                      project.abstractText,
-                      style: ApplicationTypography.projectAbstractText,
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0, right: 30),
+                          child: Container(
+                            width: double.infinity,
+                            child: Text(
+                              'Orientador: ${_determineMainTeacherName()}',
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0, right: 30),
+                          child: Container(
+                            width: double.infinity,
+                            child: Text(
+                              'Coorientador: ${_determineSecondTeacherName()}',
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30.0, right: 30),
+                          child: Container(
+                            width: double.infinity,
+                            child: Text(
+                              'Estudantes pesquisadores: ${project.participantsFullName}',
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(40, 10, 30, 0),
+                          child: Container(
+                            width: double.infinity,
+                            child: Text(
+                              project.abstractText,
+                              style: ApplicationTypography.projectAbstractText,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
             Positioned(
@@ -80,5 +119,25 @@ class ProjectInfo extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _determineMainTeacherName() {
+    if (project.mainTeacher != null) {
+      return project.mainTeacher;
+    } else if (project.mainTeacherName != null) {
+      return project.mainTeacherName;
+    } else {
+      return 'Sem orientador (!)';
+    }
+  }
+
+  String _determineSecondTeacherName() {
+    if (project.secondTeacher != null) {
+      return project.secondTeacher;
+    } else if (project.secondTeacherName != null) {
+      return project.secondTeacherName;
+    } else {
+      return 'Projeto sem coorientador.';
+    }
   }
 }

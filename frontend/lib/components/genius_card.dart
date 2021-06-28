@@ -62,7 +62,12 @@ class GeniusCard extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 8.0, right: 8),
                         child: _participantsOfTheProject(),
                       ),
-                      _abstractText(),
+                      Container(
+                        height: 280,
+                        child: SingleChildScrollView(
+                          child: _abstractText(),
+                        ),
+                      ),
                     ],
                   ),
                   _defineButtons(context),
