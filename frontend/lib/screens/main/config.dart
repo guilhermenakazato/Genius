@@ -4,7 +4,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../components/warning_dialog.dart';
-import '../../screens/main/contact_developers.dart';
+import 'send_mail.dart';
 import '../../models/user.dart';
 import '../../utils/application_colors.dart';
 import '../../http/webclients/user_webclient.dart';
@@ -81,7 +81,7 @@ class _ConfigState extends State<Config> {
                           icon: Icons.email,
                           position: 'bottom',
                           onClick: () {
-                            _navigator.navigate(context, ContactDevelopers());
+                            _navigator.navigate(context, SendMail());
                           },
                         ),
                       ],

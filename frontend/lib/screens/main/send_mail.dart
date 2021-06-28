@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../components/gradient_button.dart';
-import '../../components/submit_file.dart';
 import '../../components/input_with_animation.dart';
 import '../../utils/application_colors.dart';
+import '../../utils/genius_toast.dart';
 
-class ContactDevelopers extends StatelessWidget {
+class SendMail extends StatelessWidget {
   final _subjectController = TextEditingController();
   final _messageController = TextEditingController();
 
@@ -42,13 +43,11 @@ class ContactDevelopers extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5.0),
-                child: SubmitFile(),
-              ),
-              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GradientButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _sendEmail();
+                  },
                   text: 'Enviar',
                   width: 270,
                   height: 50,
@@ -59,5 +58,32 @@ class ContactDevelopers extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
+  void _sendEmail() async {
+    final subject = _subjectController.text;
+    final message = _messageController.text;
+
+    final url = Uri(
+      scheme: 'mailto',
+      path: 'geniusapp.science@gmail.com',
+      query: encodeQueryParameters(<String, String>{
+        'subject': subject,
+        'body': message,
+      }),
+    );
+
+    if (await canLaunch(url.toString())) {
+      await launch(url.toString());
+    } else {
+      GeniusToast.showToast('Não foi possível abrir o link.');
+    }
   }
 }
