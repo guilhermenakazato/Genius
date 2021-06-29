@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:genius/screens/main/send_mail.dart';
 
 import '../../screens/main/profile.dart';
 import '../../components/genius_card.dart';
@@ -102,7 +103,16 @@ class _FeedState extends State<_FeedContent> {
           type: 'feed',
           projectParticipants: projects[index].participants,
           onParticipantsClick: (int id) {
-            navigator.navigate(context, Profile(type: 'user', id: id));
+            navigator.navigate(
+              context,
+              Profile(
+                type: 'user',
+                id: id,
+              ),
+            );
+          },
+          onClickedConversationIcon: () {
+            navigator.navigate(context, SendMail(email: projects[index].email, type: 'feed'));
           },
         );
       },
