@@ -70,3 +70,6 @@ Route.delete("/survey/:id", 'SurveysController.deleteSurvey')
 Route.post("/tag", 'TagsController.createTag')
 Route.get("/tags", 'TagsController.getAllTags')
 Route.get("/tag/:id", 'TagsController.getTagById')
+
+Route.get("/search-all", 'SearchController.getAllProjectsAndUsers')
+Route.post("/search", 'SearchController.search')
