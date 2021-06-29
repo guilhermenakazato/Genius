@@ -12,7 +12,7 @@ class GeniusCard extends StatelessWidget {
   final String projectName;
   final String abstractText;
   final List<User> projectParticipants;
-  final Function onEdit;
+  final Function onEdit, onLiked, onClickedConversationIcon, onSaved;
   final int deleteRequestsCount;
   final int participantsCount;
   final Color participantsBorderColor;
@@ -31,6 +31,9 @@ class GeniusCard extends StatelessWidget {
     this.participantsCount,
     this.participantsBorderColor = ApplicationColors.participantsTagColor,
     this.onParticipantsClick,
+    this.onLiked,
+    this.onClickedConversationIcon,
+    this.onSaved,
   }) : super(key: key);
 
   @override
@@ -290,7 +293,9 @@ class GeniusCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      onEdit();
+                      if (onLiked != null) {
+                        onLiked();
+                      }
                     },
                     child: Icon(
                       Icons.favorite_outline,
@@ -313,7 +318,9 @@ class GeniusCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      onEdit();
+                      if (onSaved != null) {
+                        onSaved();
+                      }
                     },
                     child: Icon(
                       Icons.bookmark_outline,
@@ -336,7 +343,9 @@ class GeniusCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      onEdit();
+                      if (onClickedConversationIcon != null) {
+                        onClickedConversationIcon();
+                      }
                     },
                     child: Icon(
                       Icons.question_answer_outlined,

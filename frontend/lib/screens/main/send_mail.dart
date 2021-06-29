@@ -9,6 +9,14 @@ import '../../utils/genius_toast.dart';
 class SendMail extends StatelessWidget {
   final _subjectController = TextEditingController();
   final _messageController = TextEditingController();
+  final String email;
+  final String type;
+
+  SendMail({
+    Key key,
+    this.email = 'geniusapp.science@gmail.com',
+    this.type = 'contact_dev',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +26,7 @@ class SendMail extends StatelessWidget {
           backgroundColor: ApplicationColors.appBarColor,
           elevation: 0,
           title: Text(
-            'Contatar desenvolvedores',
+            _determineAppBarTitle(),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -73,7 +81,7 @@ class SendMail extends StatelessWidget {
 
     final url = Uri(
       scheme: 'mailto',
-      path: 'geniusapp.science@gmail.com',
+      path: email,
       query: encodeQueryParameters(<String, String>{
         'subject': subject,
         'body': message,
@@ -84,6 +92,14 @@ class SendMail extends StatelessWidget {
       await launch(url.toString());
     } else {
       GeniusToast.showToast('Não foi possível abrir o link.');
+    }
+  }
+
+  String _determineAppBarTitle() {
+    if (type == 'feed') {
+      return 'Contatar cientistas';
+    } else {
+      return 'Contatar desenvolvedores';
     }
   }
 }
