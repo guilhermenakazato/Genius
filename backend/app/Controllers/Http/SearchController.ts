@@ -41,7 +41,10 @@ export default class SearchController {
         show_users
       )
     }
-    
+
+    projects = [...new Map(projects.map(item => [item.id, item])).values()]
+    users = [...new Map(users.map(item => [item.id, item])).values()]
+
     return [users, projects]
   }
 
@@ -82,7 +85,7 @@ export default class SearchController {
           .andWhereHas('tags', (tags) => {
             tags.where('name', filters[i])
           })
-      }
+        }
 
       if (showProjects) {
         findProjectByName = await Project.query()
