@@ -21,7 +21,7 @@ class ApplicationColors {
   static const configTitle = Color(0xffffffff);
   static const searchFieldHintColor = Color(0xffffffff);
   static const searchFieldIconColor = Color(0xffffffff);
-  static const searchFieldTextColor = Color(0xFF312F72);
+  static const searchFieldTextColor = Color(0xffffffff);
   static const searchFieldColor = Color(0xFF312F72);
   static const searchButtonColor = Color(0xFF312F72);
   static const floatingButtonColor = Colors.transparent;
@@ -45,4 +45,7 @@ class ApplicationColors {
   static const inputHintColor = Color.fromARGB(200, 156, 153, 214);
   static const tabBarIconAndTextActiveColor = Colors.white;
   static const iconButtonColor = Color.fromRGBO(37, 35, 87, 1);
+
+  static const unselectedTagColor = Color.fromRGBO(37, 35, 87, 0.8);
+  static const selectedTagColor = Color.fromRGBO(61, 59, 142, 1);
 }
