@@ -37,6 +37,8 @@ Route.post("/user",'UsersController.createUser');
 Route.delete("/user/:id", 'UsersController.deleteUser');
 Route.put("/user/:id", 'UsersController.updateUser'); 
 Route.post("/save-project", 'UsersController.saveProject')
+Route.post("/follow", 'UsersController.follow')
+Route.post("/unfollow", 'UsersController.unfollow')
 
 Route.post("/login", 'AuthController.login');
 Route.get("/token", 'AuthController.authenticateWithToken');
@@ -63,9 +65,6 @@ Route.get("/surveys", 'SurveysController.listAllSurveys')
 Route.get("/survey/:id", 'SurveysController.getSurveyById')
 Route.put("/survey/:id", 'SurveysController.updateSurvey')
 Route.delete("/survey/:id", 'SurveysController.deleteSurvey')
-
-//Route.post("/partner", SurveysController.create)
-//Route.get("/partners", SurveysController.listAllSurveys)
 
 Route.post("/tag", 'TagsController.createTag')
 Route.get("/tags", 'TagsController.getAllTags')

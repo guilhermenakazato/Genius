@@ -163,4 +163,47 @@ export default class UsersController {
 
     await user.related('tags').sync(arrayOfTagIds)
   }
+
+  async follow({request}: HttpContextContract) {
+    const {user_id, follower_id} = request.all();
+
+    const followedUser = await User.findOrFail(user_id)
+    await followedUser.related("followers").attach([follower_id])
+    
+    const userFollowing = await User.findOrFail(follower_id)
+
+    await followedUser.load("following")
+    await followedUser.load("followers")
+
+    await userFollowing.load("following")
+    await userFollowing.load("followers")
+
+    return [
+      followedUser,
+      userFollowing
+    ]
+  }
+
+  async unfollow({request}: HttpContextContract) {
+    const {user_id, follower_id, removing_follower} = request.all();
+    const followedUser: User = await User.findOrFail(user_id)
+    const follower: User = await User.findOrFail(follower_id)
+
+    if(removing_follower) {
+      await followedUser.related("followers").detach([follower_id])
+    } else {
+      await follower.related("following").detach([user_id])
+    }
+
+    await followedUser.load("following")
+    await followedUser.load("followers")
+
+    await follower.load("following")
+    await follower.load("followers")
+
+    return [
+      followedUser,
+      follower
+    ]
+  }
 }

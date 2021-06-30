@@ -42,20 +42,26 @@ export default class SearchController {
       )
     }
 
-    projects = [...new Map(projects.map(item => [item.id, item])).values()]
-    users = [...new Map(users.map(item => [item.id, item])).values()]
+    projects = [...new Map(projects.map((item) => [item.id, item])).values()]
+    users = [...new Map(users.map((item) => [item.id, item])).values()]
 
     return [users, projects]
   }
 
-  async searchWithNoFilter(search_text: string, showProjects: boolean, showUsers: boolean): Promise<[User[], Project[], Project[]]> {
-    var findUsersByUsername: User[] = [], findProjectByAbstractText: Project[] = [], findProjectByName: Project[] = []
+  async searchWithNoFilter(
+    search_text: string,
+    showProjects: boolean,
+    showUsers: boolean
+  ): Promise<[User[], Project[], Project[]]> {
+    var findUsersByUsername: User[] = [],
+      findProjectByAbstractText: Project[] = [],
+      findProjectByName: Project[] = []
 
-    if(showUsers) {
+    if (showUsers) {
       findUsersByUsername = await User.query().where('username', 'ilike', `%${search_text}%`)
     }
 
-    if(showProjects) {
+    if (showProjects) {
       findProjectByName = await Project.query().where('name', 'ilike', `%${search_text}%`)
       findProjectByAbstractText = await Project.query().where(
         'abstract_text',
@@ -85,7 +91,7 @@ export default class SearchController {
           .andWhereHas('tags', (tags) => {
             tags.where('name', filters[i])
           })
-        }
+      }
 
       if (showProjects) {
         findProjectByName = await Project.query()

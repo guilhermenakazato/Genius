@@ -61,34 +61,52 @@ export default class User extends BaseModel {
   public updatedAt: DateTime
 
   @beforeSave()
-  public static async hashPassword (user: User) {
+  public static async hashPassword(user: User) {
     if (user.$dirty.password) {
       user.password = await Hash.make(user.password)
     }
   }
 
   @manyToMany(() => Project, {
-    pivotTable: "user_projects"
+    pivotTable: 'user_projects',
   })
   public projects: ManyToMany<typeof Project>
 
   @hasMany(() => Achievement, {
-    foreignKey: "user_id"
+    foreignKey: 'user_id',
   })
   public achievements: HasMany<typeof Achievement>
 
   @hasMany(() => Survey, {
-    foreignKey: "user_id"
+    foreignKey: 'user_id',
   })
   public surveys: HasMany<typeof Survey>
 
   @manyToMany(() => Project, {
-    pivotTable: "saved_projects"
+    pivotTable: 'saved_projects',
   })
   public saved: ManyToMany<typeof Project>
 
   @manyToMany(() => Tag, {
-    pivotTable: "users_tags"
+    pivotTable: 'users_tags',
   })
   public tags: ManyToMany<typeof Tag>
+
+  @manyToMany(() => User, {
+    pivotTable: 'followers',
+    localKey: 'id',
+    pivotForeignKey: 'follower_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'user_id',
+  })
+  public followers: ManyToMany<typeof User>
+
+  @manyToMany(() => User, {
+    pivotTable: 'followers',
+    localKey: 'id',
+    pivotForeignKey: 'user_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'follower_id',
+  })
+  public following: ManyToMany<typeof User>
 }
