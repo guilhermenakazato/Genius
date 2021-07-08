@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:genius/utils/navigator_util.dart';
 import '../../../utils/application_typography.dart';
 import '../../../models/project.dart';
+import '../send_mail.dart';
 
 class ProjectInfo extends StatelessWidget {
   final Project project;
+  final _navigator = NavigatorUtil();
 
-  const ProjectInfo({Key key, this.project}) : super(key: key);
+  ProjectInfo({Key key, this.project}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -93,13 +96,13 @@ class ProjectInfo extends StatelessWidget {
                       children: <Widget>[
                         IconButton(
                           icon: const Icon(
-                            Icons.favorite_outlined,
+                            Icons.favorite_outline,
                           ),
                           onPressed: () {},
                         ),
                         IconButton(
                           icon: const Icon(
-                            Icons.bookmark_outlined,
+                            Icons.bookmark_outline,
                           ),
                           onPressed: () {},
                         ),
@@ -107,7 +110,12 @@ class ProjectInfo extends StatelessWidget {
                           icon: const Icon(
                             Icons.question_answer_outlined,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            _navigator.navigate(
+                              context,
+                              SendMail(email: project.email, type: 'search'),
+                            );
+                          },
                         ),
                       ],
                     ),

@@ -15,11 +15,10 @@ export default class SearchController {
     var projects: Project[] = []
     var users: User[] = []
     var findUsersByUsername: User[],
-      findProjectByName: Project[],
-      findProjectByAbstractText: Project[]
+      findProjectByName: Project[]
 
     if (filter_tags === undefined || filter_tags.length == 0) {
-      ;[findUsersByUsername, findProjectByName, findProjectByAbstractText] =
+      ;[findUsersByUsername, findProjectByName] =
         await this.searchWithNoFilter(search_text, show_projects, show_users)
 
       if (findUsersByUsername != null) {
@@ -28,10 +27,6 @@ export default class SearchController {
 
       if (findProjectByName != null) {
         projects = projects.concat(findProjectByName)
-      }
-
-      if (findProjectByAbstractText != null) {
-        projects = projects.concat(findProjectByAbstractText)
       }
     } else {
       ;[users, projects] = await this.searchWithFilter(
@@ -52,9 +47,8 @@ export default class SearchController {
     search_text: string,
     showProjects: boolean,
     showUsers: boolean
-  ): Promise<[User[], Project[], Project[]]> {
+  ): Promise<[User[], Project[]]> {
     var findUsersByUsername: User[] = [],
-      findProjectByAbstractText: Project[] = [],
       findProjectByName: Project[] = []
 
     if (showUsers) {
@@ -63,13 +57,8 @@ export default class SearchController {
 
     if (showProjects) {
       findProjectByName = await Project.query().where('name', 'ilike', `%${search_text}%`)
-      findProjectByAbstractText = await Project.query().where(
-        'abstract_text',
-        'ilike',
-        `%${search_text}%`
-      )
     }
-    return [findUsersByUsername, findProjectByName, findProjectByAbstractText]
+    return [findUsersByUsername, findProjectByName]
   }
 
   async searchWithFilter(
@@ -80,7 +69,6 @@ export default class SearchController {
   ): Promise<[User[], Project[]]> {
     var findUsersByUsername: User[] = [],
       findProjectByName: Project[] = [],
-      findProjectByAbstractText: Project[] = [],
       projects: Project[] = [],
       users: User[] = []
 
@@ -99,12 +87,6 @@ export default class SearchController {
           .andWhereHas('tags', (tags) => {
             tags.where('name', filters[i])
           })
-
-        findProjectByAbstractText = await Project.query()
-          .where('abstract_text', 'ilike', `%${search_text}%`)
-          .andWhereHas('tags', (tags) => {
-            tags.where('name', filters[i])
-          })
       }
 
       if (findUsersByUsername != null) {
@@ -113,10 +95,6 @@ export default class SearchController {
 
       if (findProjectByName != null) {
         projects = projects.concat(findProjectByName)
-      }
-
-      if (findProjectByAbstractText != null) {
-        projects = projects.concat(findProjectByAbstractText)
       }
     }
 

@@ -96,7 +96,7 @@ class SendMail extends StatelessWidget {
   }
 
   String _determineAppBarTitle() {
-    if (type == 'feed') {
+    if (type == 'feed' || type == 'search') {
       return 'Contatar cientistas';
     } else {
       return 'Contatar desenvolvedores';
