@@ -16,8 +16,8 @@ import '../../models/token.dart';
 import '../../http/webclients/user_webclient.dart';
 import '../../components/search_bar.dart';
 import '../../components/tag_bar.dart';
+import 'project/project_info.dart';
 
-// TODO: ao invés de só mudar o texto quando tiver submetido form, mudar sempre que houver alguma mudança
 class Search extends StatefulWidget {
   @override
   State<Search> createState() => _SearchState();
@@ -27,7 +27,7 @@ class _SearchState extends State<Search> {
   var initialTags = <String>['Mostrar projetos', 'Mostrar usuários'];
   final _selectedTags = <String>[];
   final _tokenObject = Token();
-  String _searchText;
+  String _searchText = '';
   var listOfTags;
   bool showUsers = false;
   bool showProjects = false;
@@ -98,7 +98,8 @@ class _SearchState extends State<Search> {
                 Padding(
                   padding: const EdgeInsets.only(top: 40.0, left: 10),
                   child: SearchBar(
-                    onSubmit: (String value) {
+                    onChange: (String value) {
+                      debugPrint(value);
                       setState(() {
                         _searchText = value.trim();
                         _searchData = _getSearchData();
@@ -189,7 +190,13 @@ class _SearchState extends State<Search> {
   Widget _userResult(User user) {
     return InkWell(
       onTap: () {
-        _navigator.navigate(context, Profile(type: 'search', id: user.id,));
+        _navigator.navigate(
+          context,
+          Profile(
+            type: 'search',
+            id: user.id,
+          ),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -217,7 +224,14 @@ class _SearchState extends State<Search> {
 
   Widget _projectResult(Project project) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        _navigator.navigate(
+          context,
+          ProjectInfo(
+            project: project,
+          ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -274,7 +288,6 @@ class _SearchState extends State<Search> {
     }
 
     setState(() {
-      _searchText = '';
       _searchData = _getSearchData();
       searched = true;
     });

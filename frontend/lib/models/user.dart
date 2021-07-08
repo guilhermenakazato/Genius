@@ -21,6 +21,7 @@ class User {
   List<Project> saved;
   List<Survey> surveys;
   final tags;
+  List<User> followers, following;
 
   User({
     this.name,
@@ -90,7 +91,9 @@ class User {
         saved = Convert.convertToListOfSavedProjects(json['saved']),
         surveys = Convert.convertToListOfSurveys(json['surveys']),
         tags = Convert.convertToListOfTags(json['tags']),
-        verified = json['verified'];
+        verified = json['verified'],
+        followers = Convert.convertToListOfUsers(json['followers']),
+        following = Convert.convertToListOfUsers(json['following']); 
 
   Map<String, dynamic> toJson() => {
         'name': name,

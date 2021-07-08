@@ -28,10 +28,13 @@ export default class UsersController {
     })
     await user.load('surveys')
     await user.load("tags")
+    await user.load("followers")
+    await user.load("following")
 
     return user
   }
 
+  // provavelmente vai dar erro aqui
   async deleteUser({ params }: HttpContextContract) {
     const { id } = params
     const user = await User.findOrFail(id)

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:genius/utils/genius_toast.dart';
 
 import '../utils/application_colors.dart';
 import '../utils/application_typography.dart';
 
 class SearchBar extends StatefulWidget {
-  final Function(String) onSubmit;
+  final Function(String) onChange;
 
-  const SearchBar({Key key, this.onSubmit}) : super(key: key);
+  const SearchBar({Key key, this.onChange}) : super(key: key);
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -98,8 +97,8 @@ class _SearchBarState extends State<SearchBar> {
     if (!_folded) {
       return TextField(
         style: ApplicationTypography.searchField,
-        onSubmitted: (value) {
-          _handleSubmit(value);
+        onChanged: (value) {
+          _handleChange(value);
         },
         cursorColor: ApplicationColors.primary,
         textInputAction: TextInputAction.search,
@@ -114,11 +113,7 @@ class _SearchBarState extends State<SearchBar> {
     }
   }
 
-  void _handleSubmit(String value) {
-    if (value == null || value.isEmpty) {
-      GeniusToast.showToast('Preencha o campo de pesquisa.');
-    } else {
-      widget.onSubmit(value);
-    }
+  void _handleChange(String value) {
+    widget.onChange(value);
   }
 }

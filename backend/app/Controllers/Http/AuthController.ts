@@ -35,6 +35,8 @@ export default class AuthController {
     })
     await auth.user?.load('surveys')
     await auth.user?.load("tags")
+    await auth.user?.load("followers")
+    await auth.user?.load("following")
 
     return auth.user
   }
