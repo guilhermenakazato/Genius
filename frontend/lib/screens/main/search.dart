@@ -117,7 +117,7 @@ class _SearchState extends State<Search> {
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.725,
-                  child: _determineSearchOutput(),
+                  child: _determineSearchOutput(user),
                 ),
               ],
             ),
@@ -129,15 +129,15 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _determineSearchOutput() {
+  Widget _determineSearchOutput(User follower) {
     if (searched) {
-      return _searchOutputWhenSelectedTagsOrInsertedTextOnField();
+      return _searchOutputWhenSelectedTagsOrInsertedTextOnField(follower);
     } else {
       return _noSearchNorTagSelected(context);
     }
   }
 
-  Widget _searchOutputWhenSelectedTagsOrInsertedTextOnField() {
+  Widget _searchOutputWhenSelectedTagsOrInsertedTextOnField(User follower) {
     return FutureBuilder(
       future: _searchData,
       builder: (context, AsyncSnapshot<String> snapshot) {
@@ -152,7 +152,7 @@ class _SearchState extends State<Search> {
             users = Convert.convertToListOfUsers(users);
             projects = Convert.convertToListOfProjects(projects);
 
-            return _foundResults(users, projects);
+            return _foundResults(users, projects, follower);
           }
         } else {
           return SpinKitFadingCube(color: ApplicationColors.primary);
@@ -165,7 +165,7 @@ class _SearchState extends State<Search> {
     return Text('nao conseguimos achar nada...');
   }
 
-  Widget _foundResults(List<User> users, List<Project> projects) {
+  Widget _foundResults(List<User> users, List<Project> projects, User follower) {
     var newList = <dynamic>{...users, ...projects}.toList();
 
     return ListView.separated(
@@ -179,7 +179,7 @@ class _SearchState extends State<Search> {
       itemCount: newList.length,
       itemBuilder: (BuildContext context, int index) {
         if (newList[index] is User) {
-          return _userResult(newList[index]);
+          return _userResult(newList[index], follower);
         } else {
           return _projectResult(newList[index]);
         }
@@ -187,7 +187,7 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _userResult(User user) {
+  Widget _userResult(User user, User follower) {
     return InkWell(
       onTap: () {
         _navigator.navigate(
@@ -195,6 +195,7 @@ class _SearchState extends State<Search> {
           Profile(
             type: 'search',
             id: user.id,
+            follower: follower,
           ),
         );
       },

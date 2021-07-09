@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genius/models/user.dart';
 
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
@@ -7,12 +8,15 @@ import '../../../utils/navigator_util.dart';
 import '../../../screens/main/project/project_info.dart';
 import '../../../utils/application_colors.dart';
 import '../../../models/project.dart';
+import '../profile.dart';
 
 class ProjectsTab extends StatefulWidget {
   final List<Project> projects;
   final String notFoundText;
+  final User follower;
 
-  ProjectsTab({Key key, @required this.projects, this.notFoundText}) : super(key: key);
+  ProjectsTab({Key key, @required this.projects, this.notFoundText, this.follower})
+      : super(key: key);
 
   @override
   _ProjectsTabState createState() => _ProjectsTabState();
@@ -148,6 +152,16 @@ class _ProjectsTabState extends State<ProjectsTab> {
                 context,
                 ProjectInfo(
                   project: widget.projects[index],
+                ),
+              );
+            },
+            onParticipantsClick: (int id) {
+              navigator.navigate(
+                context,
+                Profile(
+                  type: 'user',
+                  id: id,
+                  follower: widget.follower,
                 ),
               );
             },

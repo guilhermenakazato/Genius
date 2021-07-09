@@ -37,10 +37,13 @@ class UserWebClient {
   Future<void> updateUser(User user, int userId) async {
     final userJson = jsonEncode(user.toJson());
 
-    final response =
-        await client.put(baseUrl + '/user/$userId', body: userJson, headers: {
-      'Content-Type': 'application/json',
-    });
+    final response = await client.put(
+      baseUrl + '/user/$userId',
+      body: userJson,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
 
     if (response.statusCode == 200) {
       return response.body;
@@ -67,5 +70,43 @@ class UserWebClient {
     }
 
     throw HttpException('Erro desconhecido..');
+  }
+
+  Future<void> follow(int userId, int followerId) async {
+    final data = <String, dynamic>{};
+    data['user_id'] = userId;
+    data['follower_id'] = followerId;
+
+    final response = await client.post(
+      baseUrl + '/follow',
+      body: json.encode(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint(response.body);
+    }
+  }
+
+  Future<void> unfollow(
+      int userId, int followerId, bool removingFollower) async {
+    final data = <String, dynamic>{};
+    data['user_id'] = userId;
+    data['follower_id'] = followerId;
+    data['removing_follower'] = removingFollower;
+
+    final response = await client.post(
+      baseUrl + '/unfollow',
+      body: json.encode(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint(response.body);
+    }
   }
 }

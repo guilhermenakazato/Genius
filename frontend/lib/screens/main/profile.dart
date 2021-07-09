@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
+import '../../utils/genius_toast.dart';
 import '../../models/tag.dart';
 import '../../screens/main/user_info/achievements_tab.dart';
 import '../../screens/main/user_info/projects_tab.dart';
@@ -23,20 +26,23 @@ import 'user_info/surveys_tab.dart';
 class Profile extends StatelessWidget {
   final String type;
   final int id;
+  final User follower;
 
-  const Profile({Key key, @required this.type, this.id}) : super(key: key);
+  const Profile({Key key, @required this.type, this.id, this.follower})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return _ProfileContent(type: type, id: id);
+    return _ProfileContent(type: type, id: id, follower: follower);
   }
 }
 
 class _ProfileContent extends StatefulWidget {
   final String type;
   final int id;
+  final User follower;
 
-  const _ProfileContent({Key key, @required this.type, this.id})
+  const _ProfileContent({Key key, @required this.type, this.id, this.follower})
       : super(key: key);
 
   @override
@@ -48,6 +54,7 @@ class _ProfileState extends State<_ProfileContent> {
   double _myMindPosition = 0.65;
   final _tokenObject = Token();
   Future<String> _userData;
+  bool alreadyFollowing = false;
 
   final founderColors = [
     ApplicationColors.profileNameColor,
@@ -85,34 +92,53 @@ class _ProfileState extends State<_ProfileContent> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _userData,
-      builder: (context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.hasData) {
-          final user = User.fromJson(jsonDecode(snapshot.data));
+    return ProgressHUD(
+      borderColor: Theme.of(context).primaryColor,
+      indicatorWidget: SpinKitPouringHourglass(
+        color: Theme.of(context).primaryColor,
+      ),
+      child: Builder(builder: (context) {
+        return FutureBuilder(
+          future: _userData,
+          builder: (context, AsyncSnapshot<String> snapshot) {
+            if (snapshot.hasData) {
+              final user = User.fromJson(jsonDecode(snapshot.data));
 
-          return Scaffold(
-            body: Stack(children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(height: 50),
-                  _photoNameAndCity(user),
-                  _followersEditProfileAndFollowing(user),
-                  _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
-                    user.tags,
+              _verifyIfUserIsAlreadyBeingFollowed(user);
+              return Scaffold(
+                body: Stack(children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Container(height: 50),
+                      _photoNameAndCity(user),
+                      _followersEditProfileAndFollowing(user, context),
+                      _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
+                        user.tags,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              _draggableSheet(user),
-            ]),
-          );
-        } else {
-          return SpinKitFadingCube(color: ApplicationColors.primary);
-        }
-      },
+                  _draggableSheet(user),
+                ]),
+              );
+            } else {
+              return SpinKitFadingCube(color: ApplicationColors.primary);
+            }
+          },
+        );
+      }),
     );
+  }
+
+  void _verifyIfUserIsAlreadyBeingFollowed(User user) {
+    if (widget.type != 'edit') {
+      if (widget.follower.following.map((item) => item.id).contains(user.id)) {
+        alreadyFollowing = true;
+      } else {
+        alreadyFollowing = false;
+      }
+    }
   }
 
   Widget _draggableSheet(User user) {
@@ -199,6 +225,7 @@ class _ProfileState extends State<_ProfileContent> {
         user: user,
       ),
       ProjectsTab(
+        follower: user,
         projects: user.projects,
         notFoundText: _determineProjectsNotFoundText(),
       ),
@@ -276,7 +303,7 @@ class _ProfileState extends State<_ProfileContent> {
     );
   }
 
-  Widget _followersEditProfileAndFollowing(User user) {
+  Widget _followersEditProfileAndFollowing(User user, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 30.0,
@@ -303,7 +330,7 @@ class _ProfileState extends State<_ProfileContent> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    '17K',
+                    user.followers.length.toString(),
                     style: ApplicationTypography.numberFollowProfile,
                   ),
                   Text(
@@ -335,7 +362,7 @@ class _ProfileState extends State<_ProfileContent> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    '387',
+                    user.following.length.toString(),
                     style: ApplicationTypography.numberFollowProfile,
                   ),
                   Text(
@@ -346,23 +373,41 @@ class _ProfileState extends State<_ProfileContent> {
               ),
             ),
           ),
-          Container(
-            color: Colors.white,
-            width: 0.2,
-            height: 22,
-          ),
-          _button(
-            () {
-              _determineFunctionToExecuteOnButton(user);
-            },
-            _determineButtonText(),
-          ),
+          ..._determineIfButtonShouldAppear(user, context),
         ],
       ),
     );
   }
 
-  void _determineFunctionToExecuteOnButton(User user) {
+  List<Widget> _determineIfButtonShouldAppear(User user, BuildContext context) {
+    if (widget.type == 'edit') {
+      return _decoratedButton(user, context);
+    } else {
+      if (widget.follower.id != widget.id) {
+        return _decoratedButton(user, context);
+      } else {
+        return [];
+      }
+    }
+  }
+
+  List<Widget> _decoratedButton(User user, BuildContext context) {
+    return [
+      Container(
+        color: Colors.white,
+        width: 0.2,
+        height: 22,
+      ),
+      _button(
+        () {
+          _determineFunctionToExecuteOnButton(user, context);
+        },
+        _determineButtonText(),
+      ),
+    ];
+  }
+
+  void _determineFunctionToExecuteOnButton(User user, BuildContext context) {
     if (widget.type == 'edit') {
       _navigator.navigateAndReload(
           context,
@@ -372,6 +417,57 @@ class _ProfileState extends State<_ProfileContent> {
         setState(() {
           _userData = _getDataByToken();
         });
+      });
+    } else {
+      if (alreadyFollowing) {
+        unfollow(user, widget.follower, context);
+      } else {
+        follow(user, widget.follower, context);
+      }
+    }
+  }
+
+  void follow(User user, User follower, BuildContext context) async {
+    final _webClient = UserWebClient();
+    var followed = true;
+    final progress = ProgressHUD.of(context);
+
+    progress.show();
+
+    await _webClient.follow(user.id, follower.id).catchError((error) {
+      followed = false;
+      progress.dismiss();
+      GeniusToast.showToast('Não foi possível seguir o usuário.');
+    }, test: (error) => error is TimeoutException);
+
+    if (followed) {
+      progress.dismiss();
+      follower.following.add(user);
+      setState(() {
+        _userData = _defineHowToGetData();
+      });
+    }
+  }
+
+  void unfollow(User user, User follower, BuildContext context) async {
+    final _webClient = UserWebClient();
+    var unfollowed = true;
+    final progress = ProgressHUD.of(context);
+
+    progress.show();
+
+    await _webClient.unfollow(user.id, follower.id, false).catchError((error) {
+      unfollowed = false;
+      progress.dismiss();
+      GeniusToast.showToast('Não foi possível deixar de seguir o usuário.');
+    }, test: (error) => error is TimeoutException);
+
+    if (unfollowed) {
+      progress.dismiss();
+      follower.following.removeWhere((element) => element.id == user.id);
+
+      setState(() {
+        _userData = _defineHowToGetData();
       });
     }
   }
@@ -538,7 +634,11 @@ class _ProfileState extends State<_ProfileContent> {
     if (widget.type == 'edit') {
       return 'Editar';
     } else {
-      return 'Seguir';
+      if (alreadyFollowing) {
+        return 'Seguindo';
+      } else {
+        return 'Seguir';
+      }
     }
   }
 
@@ -572,8 +672,16 @@ class _ProfileState extends State<_ProfileContent> {
         onPress();
       },
       text: text,
-      width: 72,
+      width: _determineWidthOfButton(),
       height: 32,
     );
+  }
+
+  double _determineWidthOfButton() {
+    if (!alreadyFollowing) {
+      return 72;
+    } else {
+      return 96;
+    }
   }
 }
