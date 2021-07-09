@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:genius/screens/main/send_mail.dart';
+import 'package:genius/models/user.dart';
 
+import '../../http/webclients/user_webclient.dart';
+import '../../models/token.dart';
+import '../../screens/main/send_mail.dart';
 import '../../screens/main/profile.dart';
 import '../../components/genius_card.dart';
 import '../../components/genius_card_config.dart';
@@ -15,17 +20,21 @@ import '../../utils/navigator_util.dart';
 import 'project/project_info.dart';
 
 class Feed extends StatelessWidget {
+  final _tokenObject = Token();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getProjects(),
-      builder: (context, AsyncSnapshot<String> snapshot) {
+      future: _getFeedData(),
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
+          var user = User.fromJson(jsonDecode(snapshot.data[0]));
           var projects =
-              Convert.convertStringToListofTypeProject(snapshot.data);
+              Convert.convertStringToListofTypeProject(snapshot.data[1]);
 
           return _FeedContent(
             projects: projects,
+            follower: user,
           );
         } else {
           return SpinKitFadingCube(color: ApplicationColors.primary);
@@ -34,18 +43,36 @@ class Feed extends StatelessWidget {
     );
   }
 
-  Future<String> getProjects() async {
+  Future<List<dynamic>> _getFeedData() async {
+    var responses = Future.wait([
+      _getUserDataByToken(),
+      _getProjects(),
+    ]);
+
+    return responses;
+  }
+
+  Future<String> _getProjects() async {
     final _webClient = ProjectWebClient();
     final projects = await _webClient.getAllProjects();
 
     return projects;
   }
+
+  Future<String> _getUserDataByToken() async {
+    final _webClient = UserWebClient();
+    final _token = await _tokenObject.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
 }
 
 class _FeedContent extends StatefulWidget {
   final List<Project> projects;
+  final User follower;
 
-  const _FeedContent({Key key, this.projects}) : super(key: key);
+  const _FeedContent({Key key, this.projects, this.follower})
+      : super(key: key);
 
   @override
   _FeedState createState() => _FeedState(projects);
@@ -108,11 +135,13 @@ class _FeedState extends State<_FeedContent> {
               Profile(
                 type: 'user',
                 id: id,
+                follower: widget.follower,
               ),
             );
           },
           onClickedConversationIcon: () {
-            navigator.navigate(context, SendMail(email: projects[index].email, type: 'feed'));
+            navigator.navigate(
+                context, SendMail(email: projects[index].email, type: 'feed'));
           },
         );
       },

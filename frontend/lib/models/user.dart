@@ -78,7 +78,6 @@ class User {
         name = json['name'],
         username = json['username'],
         email = json['email'],
-        password = json['password'],
         type = json['type'],
         age = json['age'],
         local = json['local'],
