@@ -49,7 +49,7 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('0 seguidores', style: ApplicationTypography.tabBarText),
+                    Text('${widget.user.followers.length} seguidores', style: ApplicationTypography.tabBarText),
                   ],
                 ),
               ),
@@ -57,7 +57,7 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('0 seguindo', style: ApplicationTypography.tabBarText),
+                    Text('${widget.user.following.length} seguindo', style: ApplicationTypography.tabBarText),
                   ],
                 ),
               ),

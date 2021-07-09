@@ -61,8 +61,11 @@ class _ConfigState extends State<Config> {
                     height: 40,
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 5.0, top: 10, bottom: 7),
+                    padding: const EdgeInsets.only(
+                      left: 5.0,
+                      top: 10,
+                      bottom: 7,
+                    ),
                     child: ConfigTitle(
                       text: 'Configurações',
                     ),
