@@ -171,6 +171,12 @@ class ApplicationTypography {
     fontWeight: FontWeight.w900,
   );
 
+  static final searchResultTitle = TextStyle(
+    color: ApplicationColors.configTitle,
+    fontSize: 20,
+    fontWeight: FontWeight.w900,
+  );
+
   static final searchField = TextStyle(
     color: ApplicationColors.searchFieldTextColor,
   );

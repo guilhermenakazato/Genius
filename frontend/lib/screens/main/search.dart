@@ -131,7 +131,10 @@ class _SearchState extends State<Search> {
 
   Widget _determineSearchOutput(User follower) {
     if (searched) {
-      return _searchOutputWhenSelectedTagsOrInsertedTextOnField(follower);
+      return Padding(
+        padding: const EdgeInsets.only(top: 6.0),
+        child: _searchOutputWhenSelectedTagsOrInsertedTextOnField(follower),
+      );
     } else {
       return _noSearchNorTagSelected(context);
     }
@@ -169,16 +172,36 @@ class _SearchState extends State<Search> {
       List<User> users, List<Project> projects, User follower) {
     var newList = <dynamic>{...users, ...projects}.toList();
 
-    return ListView.builder(
-      padding: EdgeInsets.zero,
-      itemCount: newList.length,
-      itemBuilder: (BuildContext context, int index) {
-        if (newList[index] is User) {
-          return _userResult(newList[index], follower, index, newList.length);
-        } else {
-          return _projectResult(newList[index], index, newList.length);
-        }
-      },
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: double.infinity,
+            child: Text(
+              '${newList.length} RESULTADOS ENCONTRADOS',
+              style: ApplicationTypography.searchResultTitle,
+            ),
+          ),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          itemCount: newList.length,
+          itemBuilder: (BuildContext context, int index) {
+            if (newList[index] is User) {
+              return _userResult(
+                newList[index],
+                follower,
+                index,
+                newList.length,
+              );
+            } else {
+              return _projectResult(newList[index], index, newList.length);
+            }
+          },
+        ),
+      ],
     );
   }
 
@@ -247,8 +270,12 @@ class _SearchState extends State<Search> {
             );
           },
           child: Padding(
-            padding:
-                const EdgeInsets.only(left: 8.0, right: 8, top: 16, bottom: 16),
+            padding: const EdgeInsets.only(
+              left: 8.0,
+              right: 8,
+              top: 16,
+              bottom: 16,
+            ),
             child: Column(
               children: [
                 Container(
