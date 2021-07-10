@@ -179,7 +179,7 @@ class _SearchState extends State<Search> {
           child: Container(
             width: double.infinity,
             child: Text(
-              '${newList.length} RESULTADOS ENCONTRADOS',
+              '${newList.length} ${_shouldDisplayResultadoOrResultados(newList.length)}',
               style: ApplicationTypography.searchResultTitle,
             ),
           ),
@@ -197,7 +197,8 @@ class _SearchState extends State<Search> {
                 newList.length,
               );
             } else {
-              return _projectResult(newList[index], index, newList.length, follower);
+              return _projectResult(
+                  newList[index], index, newList.length, follower);
             }
           },
         ),
@@ -225,7 +226,7 @@ class _SearchState extends State<Search> {
             );
           },
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8, right: 16, left: 16),
             child: Column(
               children: [
                 Container(
@@ -250,7 +251,8 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _projectResult(Project project, int position, int listSize, User follower) {
+  Widget _projectResult(
+      Project project, int position, int listSize, User follower) {
     return Padding(
       padding: const EdgeInsets.only(left: 5.0, right: 5),
       child: Ink(
@@ -270,8 +272,8 @@ class _SearchState extends State<Search> {
           },
           child: Padding(
             padding: const EdgeInsets.only(
-              left: 8.0,
-              right: 8,
+              left: 16.0,
+              right: 16,
               top: 16,
               bottom: 16,
             ),
@@ -370,6 +372,14 @@ class _SearchState extends State<Search> {
       );
     } else {
       return BorderRadius.circular(0);
+    }
+  }
+
+  String _shouldDisplayResultadoOrResultados(int listSize) {
+    if (listSize == 1) {
+      return 'RESULTADO ENCONTRADO';
+    } else {
+      return 'RESULTADOS ENCONTRADOS';
     }
   }
 }

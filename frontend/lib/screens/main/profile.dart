@@ -334,12 +334,18 @@ class _ProfileState extends State<_ProfileContent> {
         children: <Widget>[
           InkWell(
             onTap: () {
-              _navigator.navigate(
+              _navigator.navigateAndReload(
                 context,
                 Follows(
                   type: widget.type,
                   id: widget.id,
+                  initialPosition: 0,
                 ),
+                () {
+                  setState(() {
+                    _profileData = _defineHowToGetData();
+                  });
+                },
               );
             },
             borderRadius: BorderRadius.circular(8),
@@ -367,9 +373,18 @@ class _ProfileState extends State<_ProfileContent> {
           ),
           InkWell(
             onTap: () {
-              _navigator.navigate(
+              _navigator.navigateAndReload(
                 context,
-                Follows(type: widget.type, id: widget.id),
+                Follows(
+                  type: widget.type,
+                  id: widget.id,
+                  initialPosition: 1,
+                ),
+                () {
+                  setState(() {
+                    _profileData = _defineHowToGetData();
+                  });
+                },
               );
             },
             borderRadius: BorderRadius.circular(8),
