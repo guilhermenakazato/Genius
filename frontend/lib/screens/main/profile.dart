@@ -23,6 +23,7 @@ import 'follows.dart';
 import 'user_info/saved_tab.dart';
 import 'user_info/surveys_tab.dart';
 
+// TODO: tags no card e numero de pesquisa
 class Profile extends StatelessWidget {
   final String type;
   final int id;

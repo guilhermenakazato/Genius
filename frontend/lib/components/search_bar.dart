@@ -20,7 +20,7 @@ class _SearchBarState extends State<SearchBar> {
     return AnimatedContainer(
       duration: Duration(milliseconds: 400),
       width: _determineSize(),
-      height: 56,
+      height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
         color: ApplicationColors.searchFieldColor,
@@ -30,7 +30,7 @@ class _SearchBarState extends State<SearchBar> {
         children: <Widget>[
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(left: 16),
+              padding: EdgeInsets.only(left: 10.5),
               child: _returnTextFieldIfNotFolded(),
             ),
           ),
@@ -39,7 +39,7 @@ class _SearchBarState extends State<SearchBar> {
               borderRadius: BorderRadius.circular(32),
               color: ApplicationColors.searchButtonColor,
             ),
-            duration: Duration(milliseconds: 400),
+            duration: Duration(milliseconds: 200),
             child: Material(
               type: MaterialType.transparency,
               child: InkWell(
@@ -55,7 +55,7 @@ class _SearchBarState extends State<SearchBar> {
                   });
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(10.5),
                   child: Icon(
                     _determineIcon(),
                     color: ApplicationColors.searchFieldIconColor,
@@ -71,7 +71,7 @@ class _SearchBarState extends State<SearchBar> {
 
   double _determineSize() {
     if (_folded) {
-      return 56;
+      return 45;
     } else {
       return 314;
     }

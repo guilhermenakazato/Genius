@@ -116,7 +116,7 @@ class _SearchState extends State<Search> {
                   tagsCount: listOfTags.length,
                 ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.725,
+                  height: MediaQuery.of(context).size.height * 0.745,
                   child: _determineSearchOutput(user),
                 ),
               ],
@@ -165,85 +165,101 @@ class _SearchState extends State<Search> {
     return Text('nao conseguimos achar nada...');
   }
 
-  Widget _foundResults(List<User> users, List<Project> projects, User follower) {
+  Widget _foundResults(
+      List<User> users, List<Project> projects, User follower) {
     var newList = <dynamic>{...users, ...projects}.toList();
 
-    return ListView.separated(
+    return ListView.builder(
       padding: EdgeInsets.zero,
-      separatorBuilder: (context, index) => Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8),
-        child: Divider(
-          color: Colors.white70,
-        ),
-      ),
       itemCount: newList.length,
       itemBuilder: (BuildContext context, int index) {
         if (newList[index] is User) {
-          return _userResult(newList[index], follower);
+          return _userResult(newList[index], follower, index, newList.length);
         } else {
-          return _projectResult(newList[index]);
+          return _projectResult(newList[index], index, newList.length);
         }
       },
     );
   }
 
-  Widget _userResult(User user, User follower) {
-    return InkWell(
-      onTap: () {
-        _navigator.navigate(
-          context,
-          Profile(
-            type: 'search',
-            id: user.id,
-            follower: follower,
+  Widget _userResult(User user, User follower, int position, int listSize) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 5.0, right: 5),
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: _determineRadius(position, listSize),
+          color: ApplicationColors.searchResultColor,
+        ),
+        child: InkWell(
+          borderRadius: _determineRadius(position, listSize),
+          onTap: () {
+            _navigator.navigate(
+              context,
+              Profile(
+                type: 'search',
+                id: user.id,
+                follower: follower,
+              ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  child: Text(
+                    user.username,
+                    style: ApplicationTypography.mentionStyle,
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  child: Text(
+                    user.name,
+                    style: ApplicationTypography.mentionFullNameStyle,
+                  ),
+                ),
+              ],
+            ),
           ),
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              child: Text(
-                user.username,
-                style: ApplicationTypography.mentionStyle,
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              child: Text(
-                user.name,
-                style: ApplicationTypography.mentionFullNameStyle,
-              ),
-            ),
-          ],
         ),
       ),
     );
   }
 
-  Widget _projectResult(Project project) {
-    return InkWell(
-      onTap: () {
-        _navigator.navigate(
-          context,
-          ProjectInfo(
-            project: project,
-          ),
-        );
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              child: Text(
-                project.name,
+  Widget _projectResult(Project project, int position, int listSize) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 5.0, right: 5),
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: _determineRadius(position, listSize),
+          color: ApplicationColors.searchResultColor,
+        ),
+        child: InkWell(
+          borderRadius: _determineRadius(position, listSize),
+          onTap: () {
+            _navigator.navigate(
+              context,
+              ProjectInfo(
+                project: project,
               ),
+            );
+          },
+          child: Padding(
+            padding:
+                const EdgeInsets.only(left: 8.0, right: 8, top: 16, bottom: 16),
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  child: Text(
+                    project.name,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -306,5 +322,28 @@ class _SearchState extends State<Search> {
     }
 
     return listOfTags;
+  }
+
+  BorderRadius _determineRadius(int index, int listSize) {
+    if (listSize == 1) {
+      return BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+        bottomLeft: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      );
+    } else if (index == 0) {
+      return BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      );
+    } else if (index == listSize - 1) {
+      return BorderRadius.only(
+        bottomLeft: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      );
+    } else {
+      return BorderRadius.circular(0);
+    }
   }
 }

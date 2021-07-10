@@ -9,6 +9,7 @@ class ApplicationColors {
   static const cardColor = Color(0xFF312F72);
   static const secondaryTextColor = Color(0xFFEEE5D6);
   static const tileColor = Color(0xff202020);
+  static const searchResultColor = Color(0xff202020);
   static const gradientButtonTextColor = Color(0xffffffff);
   static const participantsTagColor = Color.fromRGBO(37, 35, 87, 0.5);
   static const participantsTagSecondaryColor = Color.fromRGBO(49, 47, 114, 1);
