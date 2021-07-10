@@ -110,7 +110,7 @@ class _EditProjectsState extends State<EditProjects> {
     }
   }
 
-  Widget _listOfCards(BuildContext context, List<Project> projects) {
+  Widget _listOfCards(BuildContext context, List<Project> projects, User follower) {
     return SizedBox(
       height: 490,
       child: MediaQuery.removePadding(
@@ -133,6 +133,7 @@ class _EditProjectsState extends State<EditProjects> {
                           context,
                           ProjectInfo(
                             project: projects[index],
+                            follower: follower,
                           ),
                         );
                       },
@@ -175,7 +176,7 @@ class _EditProjectsState extends State<EditProjects> {
         return Column(
           children: [
             _iconToChooseStyleOfProjects(),
-            _listOfCards(context, projects),
+            _listOfCards(context, projects, user),
           ],
         );
       }
@@ -199,6 +200,7 @@ class _EditProjectsState extends State<EditProjects> {
                 context,
                 ProjectInfo(
                   project: projects[index],
+                  follower: user,
                 ),
               );
             },

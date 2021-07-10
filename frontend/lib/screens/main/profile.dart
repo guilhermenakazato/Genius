@@ -23,7 +23,6 @@ import 'follows.dart';
 import 'user_info/saved_tab.dart';
 import 'user_info/surveys_tab.dart';
 
-// TODO: tags no card e numero de pesquisa (XX resultados para 'pesquisa)
 class Profile extends StatelessWidget {
   final String type;
   final int id;
@@ -244,6 +243,7 @@ class _ProfileState extends State<_ProfileContent> {
       tabs.add(
         SavedTab(
           savedProjects: user.saved,
+          follower: user,
         ),
       );
     }

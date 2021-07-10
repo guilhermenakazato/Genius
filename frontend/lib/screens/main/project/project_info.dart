@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:genius/models/user.dart';
+import 'package:genius/utils/application_colors.dart';
 import 'package:genius/utils/navigator_util.dart';
 import '../../../utils/application_typography.dart';
 import '../../../models/project.dart';
+import '../profile.dart';
 import '../send_mail.dart';
 
 class ProjectInfo extends StatelessWidget {
   final Project project;
   final _navigator = NavigatorUtil();
+  final User follower;
 
-  ProjectInfo({Key key, this.project}) : super(key: key);
+  ProjectInfo({Key key, @required this.project, @required this.follower}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,7 @@ class ProjectInfo extends StatelessWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
+                        _participantsOfTheProject(),
                         Padding(
                           padding: const EdgeInsets.only(left: 30.0, right: 30),
                           child: Container(
@@ -147,5 +152,64 @@ class ProjectInfo extends StatelessWidget {
     } else {
       return 'Projeto sem coorientador.';
     }
+  }
+
+  Widget _participantsOfTheProject() {
+    return Container(
+      height: 44,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: project.participants.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 5.0, left: 10),
+            child: Ink(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: ApplicationColors.participantsTagColor,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: InkWell(
+                onTap: () {
+                  _handleParticipantTagClick(
+                    context,
+                    project.participants[index].id,
+                    follower,
+                  );
+                },
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        project.participants[index].username,
+                        style: ApplicationTypography.profileTags,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _handleParticipantTagClick(BuildContext context, int id, User follower) {
+    _navigator.navigate(
+      context,
+      Profile(
+        type: 'user',
+        id: id,
+        follower: follower,
+      ),
+    );
   }
 }
