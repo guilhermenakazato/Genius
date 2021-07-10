@@ -99,7 +99,6 @@ class _FollowersState extends State<Followers> {
                             Profile(
                               type: 'follows',
                               id: user.followers[index].id,
-                              follower: user,
                             ),
                             () {
                               widget.onChangedState();

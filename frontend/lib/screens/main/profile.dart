@@ -26,23 +26,21 @@ import 'user_info/surveys_tab.dart';
 class Profile extends StatelessWidget {
   final String type;
   final int id;
-  final User follower;
 
-  const Profile({Key key, @required this.type, @required this.id, this.follower})
+  const Profile({Key key, @required this.type, @required this.id})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return _ProfileContent(type: type, id: id, follower: follower);
+    return _ProfileContent(type: type, id: id);
   }
 }
 
 class _ProfileContent extends StatefulWidget {
   final String type;
   final int id;
-  final User follower;
 
-  const _ProfileContent({Key key, @required this.type, @required this.id, this.follower})
+  const _ProfileContent({Key key, @required this.type, @required this.id})
       : super(key: key);
 
   @override
@@ -53,7 +51,7 @@ class _ProfileState extends State<_ProfileContent> {
   final _navigator = NavigatorUtil();
   double _myMindPosition = 0.65;
   final _tokenObject = Token();
-  Future<String> _userData;
+  Future<List<dynamic>> _profileData;
   bool alreadyFollowing = false;
 
   final founderColors = [
@@ -66,14 +64,23 @@ class _ProfileState extends State<_ProfileContent> {
   @override
   void initState() {
     super.initState();
-    _userData = _defineHowToGetData();
+    _profileData = _defineHowToGetData();
   }
 
-  Future<String> _defineHowToGetData() {
+  Future<List<dynamic>> _defineHowToGetData() {
     if (widget.type == 'edit') {
-      return _getDataByToken();
+      return Future.wait(
+        [
+          _getDataByToken(),
+        ],
+      );
     } else {
-      return _getDataById();
+      return Future.wait(
+        [
+          _getDataById(),
+          _getDataByToken(),
+        ],
+      );
     }
   }
 
@@ -99,12 +106,17 @@ class _ProfileState extends State<_ProfileContent> {
       ),
       child: Builder(builder: (context) {
         return FutureBuilder(
-          future: _userData,
-          builder: (context, AsyncSnapshot<String> snapshot) {
+          future: _profileData,
+          builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
             if (snapshot.hasData) {
-              final user = User.fromJson(jsonDecode(snapshot.data));
+              final user = User.fromJson(jsonDecode(snapshot.data[0]));
+              var follower = User();
 
-              _verifyIfUserIsAlreadyBeingFollowed(user);
+              if (widget.type != 'edit') {
+                follower = User.fromJson(jsonDecode(snapshot.data[1]));
+                _verifyIfUserIsAlreadyBeingFollowed(user, follower);
+              }
+
               return Scaffold(
                 body: Stack(children: [
                   Column(
@@ -113,7 +125,8 @@ class _ProfileState extends State<_ProfileContent> {
                     children: <Widget>[
                       Container(height: 50),
                       _photoNameAndCity(user),
-                      _followersEditProfileAndFollowing(user, context),
+                      _followersEditProfileAndFollowing(
+                          user, context, follower),
                       _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
                         user.tags,
                       ),
@@ -131,13 +144,11 @@ class _ProfileState extends State<_ProfileContent> {
     );
   }
 
-  void _verifyIfUserIsAlreadyBeingFollowed(User user) {
-    if (widget.type != 'edit') {
-      if (widget.follower.following.map((item) => item.id).contains(user.id)) {
-        alreadyFollowing = true;
-      } else {
-        alreadyFollowing = false;
-      }
+  void _verifyIfUserIsAlreadyBeingFollowed(User user, User follower) {
+    if (follower.following.map((item) => item.id).contains(user.id)) {
+      alreadyFollowing = true;
+    } else {
+      alreadyFollowing = false;
     }
   }
 
@@ -230,7 +241,7 @@ class _ProfileState extends State<_ProfileContent> {
         notFoundText: _determineProjectsNotFoundText(),
         onReturned: () {
           setState(() {
-            _userData = _defineHowToGetData();
+            _profileData = _defineHowToGetData();
           });
         },
       ),
@@ -309,7 +320,8 @@ class _ProfileState extends State<_ProfileContent> {
     );
   }
 
-  Widget _followersEditProfileAndFollowing(User user, BuildContext context) {
+  Widget _followersEditProfileAndFollowing(
+      User user, BuildContext context, User follower) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 30.0,
@@ -378,25 +390,27 @@ class _ProfileState extends State<_ProfileContent> {
               ),
             ),
           ),
-          ..._determineIfButtonShouldAppear(user, context),
+          ..._determineIfButtonShouldAppear(user, context, follower),
         ],
       ),
     );
   }
 
-  List<Widget> _determineIfButtonShouldAppear(User user, BuildContext context) {
+  List<Widget> _determineIfButtonShouldAppear(
+      User user, BuildContext context, User follower) {
     if (widget.type == 'edit') {
       return _decoratedButton(user, context);
     } else {
-      if (widget.follower.id != widget.id) {
-        return _decoratedButton(user, context);
+      if (follower.id != widget.id) {
+        return _decoratedButton(user, context, follower: follower);
       } else {
         return [];
       }
     }
   }
 
-  List<Widget> _decoratedButton(User user, BuildContext context) {
+  List<Widget> _decoratedButton(User user, BuildContext context,
+      {User follower}) {
     return [
       Container(
         color: Colors.white,
@@ -405,14 +419,15 @@ class _ProfileState extends State<_ProfileContent> {
       ),
       _button(
         () {
-          _determineFunctionToExecuteOnButton(user, context);
+          _determineFunctionToExecuteOnButton(user, context, follower);
         },
         _determineButtonText(),
       ),
     ];
   }
 
-  void _determineFunctionToExecuteOnButton(User user, BuildContext context) {
+  void _determineFunctionToExecuteOnButton(
+      User user, BuildContext context, User follower) {
     if (widget.type == 'edit') {
       _navigator.navigateAndReload(
           context,
@@ -420,14 +435,14 @@ class _ProfileState extends State<_ProfileContent> {
             id: user.id,
           ), () {
         setState(() {
-          _userData = _getDataByToken();
+          _profileData = _defineHowToGetData();
         });
       });
     } else {
       if (alreadyFollowing) {
-        unfollow(user, widget.follower, context);
+        unfollow(user, follower, context);
       } else {
-        follow(user, widget.follower, context);
+        follow(user, follower, context);
       }
     }
   }
@@ -449,7 +464,7 @@ class _ProfileState extends State<_ProfileContent> {
       progress.dismiss();
       follower.following.add(user);
       setState(() {
-        _userData = _defineHowToGetData();
+        _profileData = _defineHowToGetData();
       });
     }
   }
@@ -472,7 +487,7 @@ class _ProfileState extends State<_ProfileContent> {
       follower.following.removeWhere((element) => element.id == user.id);
 
       setState(() {
-        _userData = _defineHowToGetData();
+        _profileData = _defineHowToGetData();
       });
     }
   }

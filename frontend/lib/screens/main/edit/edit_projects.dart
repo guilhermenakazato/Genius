@@ -133,7 +133,6 @@ class _EditProjectsState extends State<EditProjects> {
                           context,
                           ProjectInfo(
                             project: projects[index],
-                            follower: follower,
                           ),
                         );
                       },
@@ -200,7 +199,6 @@ class _EditProjectsState extends State<EditProjects> {
                 context,
                 ProjectInfo(
                   project: projects[index],
-                  follower: user,
                 ),
               );
             },

@@ -221,7 +221,6 @@ class _SearchState extends State<Search> {
               Profile(
                 type: 'search',
                 id: user.id,
-                follower: follower,
               ),
             );
           },
@@ -266,7 +265,6 @@ class _SearchState extends State<Search> {
               context,
               ProjectInfo(
                 project: project,
-                follower: follower,
               ),
             );
           },

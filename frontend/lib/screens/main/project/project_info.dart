@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:genius/models/user.dart';
 import 'package:genius/utils/application_colors.dart';
 import 'package:genius/utils/navigator_util.dart';
 import '../../../utils/application_typography.dart';
@@ -10,9 +9,8 @@ import '../send_mail.dart';
 class ProjectInfo extends StatelessWidget {
   final Project project;
   final _navigator = NavigatorUtil();
-  final User follower;
 
-  ProjectInfo({Key key, @required this.project, @required this.follower}) : super(key: key);
+  ProjectInfo({Key key, @required this.project}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +174,6 @@ class ProjectInfo extends StatelessWidget {
                   _handleParticipantTagClick(
                     context,
                     project.participants[index].id,
-                    follower,
                   );
                 },
                 borderRadius: BorderRadius.circular(16),
@@ -202,13 +199,12 @@ class ProjectInfo extends StatelessWidget {
     );
   }
 
-  void _handleParticipantTagClick(BuildContext context, int id, User follower) {
+  void _handleParticipantTagClick(BuildContext context, int id) {
     _navigator.navigate(
       context,
       Profile(
         type: 'user',
         id: id,
-        follower: follower,
       ),
     );
   }
