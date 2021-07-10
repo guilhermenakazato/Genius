@@ -16,6 +16,14 @@ import '../../../utils/application_typography.dart';
 import '../profile.dart';
 
 class Followers extends StatefulWidget {
+  final Function onChangedState;
+  final String type;
+  final int id;
+
+  const Followers(
+      {Key key, this.onChangedState, @required this.type, @required this.id})
+      : super(key: key);
+
   @override
   State<Followers> createState() => _FollowersState();
 }
@@ -28,7 +36,21 @@ class _FollowersState extends State<Followers> {
   @override
   void initState() {
     super.initState();
-    _userData = _getDataByToken();
+    _userData = _defineHowToGetData();
+  }
+
+  Future<String> _defineHowToGetData() {
+    if (widget.type == 'edit') {
+      return _getDataByToken();
+    } else {
+      return _getDataById();
+    }
+  }
+
+  Future<String> _getDataById() async {
+    final _webClient = UserWebClient();
+    final _user = await _webClient.getUserById(widget.id);
+    return _user;
   }
 
   Future<String> _getDataByToken() async {
@@ -59,7 +81,7 @@ class _FollowersState extends State<Followers> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'vc ainda nao tá sendo seguido por ngm',
+                          _determineNotFoundText(),
                           style: ApplicationTypography.testText,
                         ),
                       ],
@@ -80,6 +102,7 @@ class _FollowersState extends State<Followers> {
                               follower: user,
                             ),
                             () {
+                              widget.onChangedState();
                               setState(() {
                                 _userData = _getDataByToken();
                               });
@@ -117,21 +140,7 @@ class _FollowersState extends State<Followers> {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: GradientButton(
-                                  onPressed: () {
-                                    removeFollower(
-                                      user,
-                                      user.followers[index],
-                                      context,
-                                    );
-                                  },
-                                  text: 'Remover',
-                                  width: 90,
-                                  height: 32,
-                                ),
-                              ),
+                              _verifyIfButtonShouldAppear(user, index, context),
                             ],
                           ),
                         ),
@@ -147,6 +156,30 @@ class _FollowersState extends State<Followers> {
         }),
       ),
     );
+  }
+
+  Widget _verifyIfButtonShouldAppear(
+      User user, int position, BuildContext context) {
+    if (widget.type == 'edit') {
+      return Padding(
+        padding: const EdgeInsets.only(right: 8.0),
+        child: GradientButton(
+          onPressed: () {
+            widget.onChangedState();
+            removeFollower(
+              user,
+              user.followers[position],
+              context,
+            );
+          },
+          text: 'Remover',
+          width: 90,
+          height: 32,
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 
   void removeFollower(User user, User follower, BuildContext context) async {
@@ -167,6 +200,14 @@ class _FollowersState extends State<Followers> {
       setState(() {
         _userData = _getDataByToken();
       });
+    }
+  }
+
+  String _determineNotFoundText() {
+    if (widget.type == 'edit') {
+      return 'Você ainda não está sendo seguido por ninguém';
+    } else {
+      return 'Esse usuário ainda não está sendo seguido por ninguém. Que tal seguí-lo?';
     }
   }
 }

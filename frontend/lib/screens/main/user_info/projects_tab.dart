@@ -14,8 +14,14 @@ class ProjectsTab extends StatefulWidget {
   final List<Project> projects;
   final String notFoundText;
   final User follower;
+  final Function onReturned;
 
-  ProjectsTab({Key key, @required this.projects, this.notFoundText, this.follower})
+  ProjectsTab(
+      {Key key,
+      @required this.projects,
+      this.notFoundText,
+      this.follower,
+      this.onReturned})
       : super(key: key);
 
   @override
@@ -158,13 +164,16 @@ class _ProjectsTabState extends State<ProjectsTab> {
               );
             },
             onParticipantsClick: (int id) {
-              navigator.navigate(
+              navigator.navigateAndReload(
                 context,
                 Profile(
                   type: 'user',
                   id: id,
                   follower: widget.follower,
                 ),
+                () {
+                  widget.onReturned();
+                },
               );
             },
             cardColor: ApplicationColors.secondCardColor,
