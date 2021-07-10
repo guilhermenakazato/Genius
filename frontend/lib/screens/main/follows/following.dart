@@ -62,98 +62,129 @@ class _FollowingState extends State<Following> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ProgressHUD(
-        borderColor: Theme.of(context).primaryColor,
-        indicatorWidget: SpinKitPouringHourglass(
-          color: Theme.of(context).primaryColor,
-        ),
-        child: Builder(
-          builder: (context) {
-            return FutureBuilder(
-              future: _userData,
-              builder: (context, AsyncSnapshot<String> snapshot) {
-                if (snapshot.hasData) {
-                  final user = User.fromJson(jsonDecode(snapshot.data));
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: ApplicationColors.splashColor,
+      ),
+      child: Scaffold(
+        body: ProgressHUD(
+          borderColor: Theme.of(context).primaryColor,
+          indicatorWidget: SpinKitPouringHourglass(
+            color: Theme.of(context).primaryColor,
+          ),
+          child: Builder(
+            builder: (context) {
+              return FutureBuilder(
+                future: _userData,
+                builder: (context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.hasData) {
+                    final user = User.fromJson(jsonDecode(snapshot.data));
 
-                  if (user.following.isEmpty) {
-                    return Align(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'vc ainda nao tá seguindo ngm',
-                            style: ApplicationTypography.testText,
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return ListView.builder(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      itemCount: user.following.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: () {
-                            _navigator.navigateAndReload(
-                              context,
-                              Profile(
-                                type: 'follows',
-                                id: user.following[index].id,
+                    if (user.following.isEmpty) {
+                      return Align(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'vc ainda nao tá seguindo ngm',
+                              style: ApplicationTypography.testText,
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        itemCount: user.following.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 5.0, right: 5),
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                borderRadius: _determineRadius(
+                                  index,
+                                  user.following.length,
+                                ),
+                                color: ApplicationColors.searchResultColor,
                               ),
-                              () {
-                                widget.onChangedState();
-                                setState(() {
-                                  _userData = _getDataByToken();
-                                });
-                              },
-                            );
-                          },
-                          splashColor: Colors.white24,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Container(
-                                  width: 120,
-                                  child: Column(
-                                    children: [
+                              child: InkWell(
+                                borderRadius: _determineRadius(
+                                  index,
+                                  user.following.length,
+                                ),
+                                onTap: () {
+                                  _navigator.navigateAndReload(
+                                    context,
+                                    Profile(
+                                      type: 'follows',
+                                      id: user.following[index].id,
+                                    ),
+                                    () {
+                                      widget.onChangedState();
+                                      setState(() {
+                                        _userData = _getDataByToken();
+                                      });
+                                    },
+                                  );
+                                },
+                                splashColor: Colors.white24,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 8.0,
+                                    bottom: 8,
+                                    right: 8,
+                                    left: 16,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
                                       Container(
-                                        width: double.infinity,
-                                        child: Text(
-                                          user.following[index].username,
-                                          style: ApplicationTypography
-                                              .mentionStyle,
-                                          textAlign: TextAlign.start,
+                                        width: MediaQuery.of(context).size.width * 0.5,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: double.infinity,
+                                              child: Text(
+                                                user.following[index].username,
+                                                style: ApplicationTypography
+                                                    .mentionStyle,
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                            Container(
+                                              width: double.infinity,
+                                              child: Text(
+                                                user.following[index].name,
+                                                style: ApplicationTypography
+                                                    .mentionFullNameStyle,
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Container(
-                                        width: double.infinity,
-                                        child: Text(
-                                          user.following[index].name,
-                                          style: ApplicationTypography
-                                              .mentionFullNameStyle,
-                                          textAlign: TextAlign.start,
-                                        ),
+                                      _verifyIfButtonShouldAppear(
+                                        user,
+                                        index,
+                                        context,
                                       ),
                                     ],
                                   ),
                                 ),
-                                _verifyIfButtonShouldAppear(user, index, context),
-                              ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    );
+                          );
+                        },
+                      );
+                    }
+                  } else {
+                    return SpinKitFadingCube(color: ApplicationColors.primary);
                   }
-                } else {
-                  return SpinKitFadingCube(color: ApplicationColors.primary);
-                }
-              },
-            );
-          },
+                },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -180,7 +211,8 @@ class _FollowingState extends State<Following> {
     }
   }
 
-  Widget _verifyIfButtonShouldAppear(User user, int position, BuildContext context) {
+  Widget _verifyIfButtonShouldAppear(
+      User user, int position, BuildContext context) {
     if (widget.type == 'edit') {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
@@ -200,6 +232,29 @@ class _FollowingState extends State<Following> {
       );
     } else {
       return Container();
+    }
+  }
+
+  BorderRadius _determineRadius(int index, int listSize) {
+    if (listSize == 1) {
+      return BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+        bottomLeft: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      );
+    } else if (index == 0) {
+      return BorderRadius.only(
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
+      );
+    } else if (index == listSize - 1) {
+      return BorderRadius.only(
+        bottomLeft: Radius.circular(16),
+        bottomRight: Radius.circular(16),
+      );
+    } else {
+      return BorderRadius.circular(0);
     }
   }
 }

@@ -14,9 +14,14 @@ import '../../models/user.dart';
 class Follows extends StatefulWidget {
   final int id;
   final String type;
+  final int initialPosition;
 
-  const Follows({Key key, @required this.id, @required this.type})
-      : super(key: key);
+  const Follows({
+    Key key,
+    @required this.id,
+    @required this.type,
+    this.initialPosition,
+  }) : super(key: key);
 
   @override
   _FollowsState createState() => _FollowsState();
@@ -51,7 +56,7 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 2, vsync: this, initialIndex: widget.initialPosition);
     _userData = _defineHowToGetData();
   }
 
@@ -115,7 +120,7 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
                       id: widget.id,
                       onChangedState: () {
                         setState(() {
-                           _userData = _defineHowToGetData();
+                          _userData = _defineHowToGetData();
                         });
                       },
                     ),
@@ -124,7 +129,7 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
                       id: widget.id,
                       onChangedState: () {
                         setState(() {
-                           _userData = _defineHowToGetData();
+                          _userData = _defineHowToGetData();
                         });
                       },
                     ),
