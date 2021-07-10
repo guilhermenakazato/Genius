@@ -28,6 +28,7 @@ class _TagBarState extends State<TagBar> {
     return Container(
       height: 44,
       child: ListView.builder(
+        padding: EdgeInsets.only(left: 5),
         itemCount: widget.tagsCount,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, position) {
