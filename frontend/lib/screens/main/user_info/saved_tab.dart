@@ -115,7 +115,6 @@ class _SavedTabState extends State<SavedTab> {
                           context,
                           ProjectInfo(
                             project: widget.savedProjects[index],
-                            follower: widget.follower,
                           ),
                         );
                       },
@@ -148,7 +147,6 @@ class _SavedTabState extends State<SavedTab> {
                 context,
                 ProjectInfo(
                   project: widget.savedProjects[index],
-                  follower: widget.follower,
                 ),
               );
             },
@@ -158,7 +156,6 @@ class _SavedTabState extends State<SavedTab> {
                 Profile(
                   type: 'user',
                   id: id,
-                  follower: widget.follower,
                 ),
               );
             },
