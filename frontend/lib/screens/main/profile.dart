@@ -28,7 +28,7 @@ class Profile extends StatelessWidget {
   final int id;
   final User follower;
 
-  const Profile({Key key, @required this.type, this.id, this.follower})
+  const Profile({Key key, @required this.type, @required this.id, this.follower})
       : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class _ProfileContent extends StatefulWidget {
   final int id;
   final User follower;
 
-  const _ProfileContent({Key key, @required this.type, this.id, this.follower})
+  const _ProfileContent({Key key, @required this.type, @required this.id, this.follower})
       : super(key: key);
 
   @override
@@ -228,6 +228,11 @@ class _ProfileState extends State<_ProfileContent> {
         follower: user,
         projects: user.projects,
         notFoundText: _determineProjectsNotFoundText(),
+        onReturned: () {
+          setState(() {
+            _userData = _defineHowToGetData();
+          });
+        },
       ),
       AchievementsTab(
         achievements: user.achievements,
@@ -320,7 +325,8 @@ class _ProfileState extends State<_ProfileContent> {
               _navigator.navigate(
                 context,
                 Follows(
-                  user: user,
+                  type: widget.type,
+                  id: widget.id,
                 ),
               );
             },
@@ -351,9 +357,7 @@ class _ProfileState extends State<_ProfileContent> {
             onTap: () {
               _navigator.navigate(
                 context,
-                Follows(
-                  user: user,
-                ),
+                Follows(type: widget.type, id: widget.id),
               );
             },
             borderRadius: BorderRadius.circular(8),
