@@ -197,7 +197,7 @@ class _SearchState extends State<Search> {
                 newList.length,
               );
             } else {
-              return _projectResult(newList[index], index, newList.length);
+              return _projectResult(newList[index], index, newList.length, follower);
             }
           },
         ),
@@ -251,7 +251,7 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _projectResult(Project project, int position, int listSize) {
+  Widget _projectResult(Project project, int position, int listSize, User follower) {
     return Padding(
       padding: const EdgeInsets.only(left: 5.0, right: 5),
       child: Ink(
@@ -266,6 +266,7 @@ class _SearchState extends State<Search> {
               context,
               ProjectInfo(
                 project: project,
+                follower: follower,
               ),
             );
           },

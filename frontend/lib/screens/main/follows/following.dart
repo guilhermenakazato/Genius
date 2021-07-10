@@ -128,9 +128,9 @@ class _FollowingState extends State<Following> {
                                         context,
                                       );
                                     },
-                                    text: 'Deixar de seguir',
-                                    width: 100,
-                                    height: 50,
+                                    text: 'Seguindo',
+                                    width: 90,
+                                    height: 32,
                                   ),
                                 ),
                               ],

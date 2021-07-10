@@ -121,6 +121,7 @@ class _FeedState extends State<_FeedContent> {
               context,
               ProjectInfo(
                 project: projects[index],
+                follower: widget.follower,
               ),
             );
           },

@@ -120,6 +120,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
                           context,
                           ProjectInfo(
                             project: widget.projects[index],
+                            follower: widget.follower,
                           ),
                         );
                       },
@@ -152,6 +153,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
                 context,
                 ProjectInfo(
                   project: widget.projects[index],
+                  follower: widget.follower,
                 ),
               );
             },
