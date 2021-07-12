@@ -1,15 +1,19 @@
 import 'dart:convert';
 
+import 'package:genius/models/feed_projects.dart';
+import 'package:genius/utils/convert.dart';
+
 import '../../models/project.dart';
 import '../../http/exceptions/http_exception.dart';
 import '../webclient.dart';
 
 class ProjectWebClient {
-  Future<String> getAllProjects() async {
+  Future<FeedProjects> getAllProjects() async {
     final response = await client.get(baseUrl + '/projects');
+    final projects = Convert.convertStringToListofTypeProject(response.body);
 
     if (response.statusCode == 200) {
-      return response.body;
+      return FeedProjects(projects);
     }
 
     throw HttpException('Erro desconhecido..');
@@ -51,7 +55,7 @@ class ProjectWebClient {
     } else if (response.statusCode == 404) {
       throw HttpException(jsonDecode(response.body)['error']);
     }
- 
+
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
