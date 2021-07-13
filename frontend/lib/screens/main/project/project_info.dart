@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:genius/utils/application_colors.dart';
-import 'package:genius/utils/navigator_util.dart';
+
+import '../../../utils/application_colors.dart';
+import '../../../utils/navigator_util.dart';
 import '../../../utils/application_typography.dart';
 import '../../../models/project.dart';
 import '../profile.dart';

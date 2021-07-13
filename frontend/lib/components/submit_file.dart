@@ -1,7 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:genius/utils/application_colors.dart';
-import 'package:genius/utils/application_typography.dart';
+import '../utils/application_colors.dart';
+import '../utils/application_typography.dart';
 
 class SubmitFile extends StatelessWidget {
   @override

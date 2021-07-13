@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:genius/models/feed_projects.dart';
-import 'package:genius/utils/convert.dart';
+import '../../models/feed_projects.dart';
+import '../../utils/convert.dart';
 
 import '../../models/project.dart';
 import '../../http/exceptions/http_exception.dart';

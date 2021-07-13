@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genius/models/user.dart';
 
+import '../../../models/user.dart';
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
 import '../../../components/data_not_found_card.dart';

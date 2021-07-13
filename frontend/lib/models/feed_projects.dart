@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:genius/models/project.dart';
+import '../models/project.dart';
 
 class FeedProjects extends ChangeNotifier {
   final List<Project> _feedProjects;

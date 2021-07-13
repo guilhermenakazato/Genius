@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:genius/http/exceptions/http_exception.dart';
-
+import '../../http/exceptions/http_exception.dart';
 import '../webclient.dart';
 
 class SearchWebClient {
