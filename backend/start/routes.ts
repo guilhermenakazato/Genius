@@ -37,8 +37,11 @@ Route.post("/user",'UsersController.createUser');
 Route.delete("/user/:id", 'UsersController.deleteUser');
 Route.put("/user/:id", 'UsersController.updateUser'); 
 Route.post("/save-project", 'UsersController.saveProject')
+Route.post("/remove-save-project", 'UsersController.removeSavedProject')
 Route.post("/follow", 'UsersController.follow')
 Route.post("/unfollow", 'UsersController.unfollow')
+Route.post("/like", 'UsersController.likeProject')
+Route.post("/dislike", 'UsersController.dislikeProject')
 
 Route.post("/login", 'AuthController.login');
 Route.get("/token", 'AuthController.authenticateWithToken');

@@ -30,11 +30,13 @@ export default class UsersController {
     await user.load("tags")
     await user.load("followers")
     await user.load("following")
+    await user.load("saved")
+    await user.load("liked")
 
     return user
   }
 
-  // provavelmente vai dar erro aqui
+  // provavelmente vai dar erro aqui pq vai ter q tirar os follows do ser
   async deleteUser({ params }: HttpContextContract) {
     const { id } = params
     const user = await User.findOrFail(id)
@@ -124,10 +126,42 @@ export default class UsersController {
     const { projectId, userId } = request.all()
 
     const user = await User.findOrFail(userId)
-    const project = await Project.findOrFail(projectId)
-    await user.related('saved').save(project)
+    await user.related('saved').attach([projectId])
 
     await user.load('saved')
+
+    return user
+  }
+
+  async removeSavedProject({request}: HttpContextContract) {
+    const {projectId, userId} = request.all()
+    
+    const user = await User.findOrFail(userId)
+    await user.related('saved').detach([projectId])
+
+    await user.load('saved')
+
+    return user
+  }
+
+  async likeProject({request}: HttpContextContract) {
+    const {projectId, userId} = request.all()
+    
+    const user = await User.findOrFail(userId)
+    await user.related("liked").attach([projectId]);
+
+    await user.load('liked')
+
+    return user
+  }
+
+  async dislikeProject({request}: HttpContextContract) {
+    const {projectId, userId} = request.all()
+    
+    const user = await User.findOrFail(userId)
+    await user.related("liked").detach([projectId]);
+
+    await user.load('liked')
 
     return user
   }
