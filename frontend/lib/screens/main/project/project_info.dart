@@ -28,6 +28,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
   final _tokenObject = Token();
   Future<List<dynamic>> _projectInfoScreenData;
   final _userWebClient = UserWebClient();
+  bool saveIsLoading = false, likeIsLoading = false;
 
   @override
   void initState() {
@@ -133,65 +134,124 @@ class _ProjectInfoState extends State<ProjectInfo> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
                               Text(project.likedBy.length.toString()),
-                              IconButton(
-                                icon: _defineLikeIcon(project, user),
-                                onPressed: () async {
-                                  if (project.likedBy
-                                      .map((item) => item.id)
-                                      .contains(user.id)) {
-                                    await _userWebClient.dislikeProject(
-                                      project.id,
-                                      user.id,
-                                    );
-                                  } else {
-                                    await _userWebClient.likeProject(
-                                      project.id,
-                                      user.id,
-                                    );
-                                  }
-
-                                  setState(() {
-                                    _projectInfoScreenData =
-                                        _getProjectInfoScreenData();
-                                  });
-                                },
-                              ),
-                              IconButton(
-                                icon: _defineSaveIcon(project, user),
-                                onPressed: () async {
-                                  if (project.savedBy
-                                      .map((item) => item.id)
-                                      .contains(user.id)) {
-                                    await _userWebClient.removeSavedProject(
-                                      project.id,
-                                      user.id,
-                                    );
-                                  } else {
-                                    await _userWebClient.saveProject(
-                                      project.id,
-                                      user.id,
-                                    );
-                                  }
-
-                                  setState(() {
-                                    _projectInfoScreenData =
-                                        _getProjectInfoScreenData();
-                                  });
-                                },
-                              ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.question_answer_outlined,
-                                ),
-                                onPressed: () {
-                                  _navigator.navigate(
-                                    context,
-                                    SendMail(
-                                      email: project.email,
-                                      type: 'search',
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  width: 48,
+                                  height: 48,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      primary: Theme.of(context).primaryColor,
+                                      backgroundColor:
+                                          ApplicationColors.iconButtonColor,
+                                      padding: EdgeInsets.all(12),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
                                     ),
-                                  );
-                                },
+                                    child: _defineLikeIcon(project, user),
+                                    onPressed: () async {
+                                      setState(() {
+                                        likeIsLoading = true;
+                                      });
+
+                                      if (project.likedBy
+                                          .map((item) => item.id)
+                                          .contains(user.id)) {
+                                        await _userWebClient.dislikeProject(
+                                          project.id,
+                                          user.id,
+                                        );
+                                      } else {
+                                        await _userWebClient.likeProject(
+                                          project.id,
+                                          user.id,
+                                        );
+                                      }
+
+                                      setState(() {
+                                        _projectInfoScreenData =
+                                            _getProjectInfoScreenData();
+                                        likeIsLoading = false;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  width: 48,
+                                  height: 48,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      primary: Theme.of(context).primaryColor,
+                                      backgroundColor:
+                                          ApplicationColors.iconButtonColor,
+                                      padding: EdgeInsets.all(12),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
+                                    ),
+                                    child: _defineSaveIcon(project, user),
+                                    onPressed: () async {
+                                      setState(() {
+                                        saveIsLoading = true;
+                                      });
+
+                                      if (project.savedBy
+                                          .map((item) => item.id)
+                                          .contains(user.id)) {
+                                        await _userWebClient.removeSavedProject(
+                                          project.id,
+                                          user.id,
+                                        );
+                                      } else {
+                                        await _userWebClient.saveProject(
+                                          project.id,
+                                          user.id,
+                                        );
+                                      }
+
+                                      setState(() {
+                                        _projectInfoScreenData =
+                                            _getProjectInfoScreenData();
+                                        saveIsLoading = false;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  width: 48,
+                                  height: 48,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      primary: Theme.of(context).primaryColor,
+                                      backgroundColor:
+                                          ApplicationColors.iconButtonColor,
+                                      padding: EdgeInsets.all(12),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
+                                    ),
+                                    child: const Icon(
+                                      Icons.question_answer_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      _navigator.navigate(
+                                        context,
+                                        SendMail(
+                                          email: project.email,
+                                          type: 'search',
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -310,30 +370,38 @@ class _ProjectInfoState extends State<ProjectInfo> {
   }
 
   Widget _defineLikeIcon(Project project, User user) {
-    if (project.likedBy.map((item) => item.id).contains(user.id)) {
-      return Icon(
-        Icons.favorite_outlined,
-        color: Colors.red,
-      );
+    if (likeIsLoading) {
+      return CircularProgressIndicator();
     } else {
-      return Icon(
-        Icons.favorite_outline,
-        color: ApplicationColors.editButtonColor,
-      );
+      if (project.likedBy.map((item) => item.id).contains(user.id)) {
+        return Icon(
+          Icons.favorite_outlined,
+          color: Colors.red,
+        );
+      } else {
+        return Icon(
+          Icons.favorite_outline,
+          color: ApplicationColors.editButtonColor,
+        );
+      }
     }
   }
 
   Widget _defineSaveIcon(Project project, User user) {
-    if (project.savedBy.map((item) => item.id).contains(user.id)) {
-      return Icon(
-        Icons.bookmark_outlined,
-        color: Colors.white,
-      );
+    if (saveIsLoading) {
+      return CircularProgressIndicator();
     } else {
-      return Icon(
-        Icons.bookmark_outline,
-        color: ApplicationColors.editButtonColor,
-      );
+      if (project.savedBy.map((item) => item.id).contains(user.id)) {
+        return Icon(
+          Icons.bookmark_outlined,
+          color: Colors.white,
+        );
+      } else {
+        return Icon(
+          Icons.bookmark_outline,
+          color: ApplicationColors.editButtonColor,
+        );
+      }
     }
   }
 }
