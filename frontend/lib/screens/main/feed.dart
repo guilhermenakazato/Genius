@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:genius/http/webclients/user_webclient.dart';
+import 'package:genius/models/token.dart';
+import 'package:genius/models/user.dart';
 
-import 'package:genius/models/project.dart';
-import 'package:genius/utils/convert.dart';
-
+import '../../models/project.dart';
+import '../../utils/convert.dart';
 import '../../screens/main/send_mail.dart';
 import '../../screens/main/profile.dart';
 import '../../components/genius_card.dart';
@@ -18,15 +22,42 @@ import 'project/project_info.dart';
 class Feed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return _FeedContent();
+  }
+}
+
+class _FeedContent extends StatefulWidget {
+  @override
+  State<_FeedContent> createState() => _FeedState();
+}
+
+class _FeedState extends State<_FeedContent> {
+  final _tokenObject = Token();
+  Future<List<dynamic>> _feedData;
+  final navigator = NavigatorUtil();
+  final _userWebClient = UserWebClient();
+
+  @override
+  void initState() {
+    super.initState();
+    _feedData = _getFeedData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _getProjects(),
-      builder: (context, AsyncSnapshot<String> snapshot) {
+      future: _feedData,
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           var projects =
-              Convert.convertStringToListofTypeProject(snapshot.data);
+              Convert.convertStringToListofTypeProject(snapshot.data[0]);
+          final user = User.fromJson(jsonDecode(snapshot.data[1]));
 
-          return _FeedContent(
-            projects: projects,
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: _verifyWhichWidgetShouldBeDisplayed(user, projects),
+            ),
           );
         } else {
           return SpinKitFadingCube(color: ApplicationColors.primary);
@@ -35,45 +66,14 @@ class Feed extends StatelessWidget {
     );
   }
 
-  Future<String> _getProjects() async {
-    final _webClient = ProjectWebClient();
-    final projects = await _webClient.getAllProjects();
-
-    return projects;
-  }
-}
-
-class _FeedContent extends StatefulWidget {
-  final List<Project> projects;
-
-  const _FeedContent({Key key, this.projects})
-      : super(key: key);
-
-  @override
-  _FeedState createState() => _FeedState(projects);
-}
-
-class _FeedState extends State<_FeedContent> {
-  final navigator = NavigatorUtil();
-  final List<Project> projects;
-
-  _FeedState(this.projects);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 15),
-        child: _verifyWhichWidgetShouldBeDisplayed(),
-      ),
-    );
-  }
-
-  Widget _verifyWhichWidgetShouldBeDisplayed() {
+  Widget _verifyWhichWidgetShouldBeDisplayed(
+    User user,
+    List<Project> projects,
+  ) {
     if (projects.isEmpty) {
       return _noProjectWidget();
     } else {
-      return _carouselOfCards();
+      return _carouselOfCards(user, projects);
     }
   }
 
@@ -85,7 +85,7 @@ class _FeedState extends State<_FeedContent> {
     );
   }
 
-  Widget _carouselOfCards() {
+  Widget _carouselOfCards(User user, List<Project> projects) {
     return GeniusCardConfig(
       itemCount: projects.length,
       layout: SwiperLayout.STACK,
@@ -115,156 +115,95 @@ class _FeedState extends State<_FeedContent> {
           },
           onClickedConversationIcon: () {
             navigator.navigate(
-                context, SendMail(email: projects[index].email, type: 'feed'));
+              context,
+              SendMail(
+                email: projects[index].email,
+                type: 'feed',
+              ),
+            );
+          },
+          likes: projects[index].likedBy.length,
+          liked: projects[index]
+              .likedBy
+              .map(
+                (item) => item.id,
+              )
+              .contains(
+                user.id,
+              ),
+          saved: projects[index]
+              .savedBy
+              .map(
+                (item) => item.id,
+              )
+              .contains(
+                user.id,
+              ),
+          onLiked: () async {
+            if (projects[index]
+                .likedBy
+                .map((item) => item.id)
+                .contains(user.id)) {
+              await _userWebClient.dislikeProject(
+                projects[index].id,
+                user.id,
+              );
+            } else {
+              await _userWebClient.likeProject(
+                projects[index].id,
+                user.id,
+              );
+            }
+
+            setState(() {
+              _feedData = _getFeedData();
+            });
+          },
+          onSaved: () async {
+            if (projects[index]
+                .savedBy
+                .map((item) => item.id)
+                .contains(user.id)) {
+              await _userWebClient.removeSavedProject(
+                projects[index].id,
+                user.id,
+              );
+            } else {
+              await _userWebClient.saveProject(
+                projects[index].id,
+                user.id,
+              );
+            }
+
+            setState(() {
+              _feedData = _getFeedData();
+            });
           },
         );
       },
     );
   }
+
+  Future<List<dynamic>> _getFeedData() {
+    var responses = Future.wait([
+      _getProjects(),
+      _getDataByToken(),
+    ]);
+
+    return responses;
+  }
+
+  Future<String> _getProjects() async {
+    final _webClient = ProjectWebClient();
+    final projects = await _webClient.getAllProjects();
+
+    return projects;
+  }
+
+  Future<String> _getDataByToken() async {
+    final _webClient = UserWebClient();
+    final _token = await _tokenObject.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
 }
-
-// class Feed extends StatelessWidget {
-//   final _webClient = ProjectWebClient();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureProvider<FeedProjects>(
-//       create: (context) async {
-//         final projects = await _webClient.getAllProjects();
-//         return FeedProjects(projects);
-//       },
-//       initialData: null,
-//       child: _FeedContent(),
-//     );
-//   }
-// }
-
-// class _FeedContent extends StatefulWidget {
-//   @override
-//   State<_FeedContent> createState() => _FeedContentState();
-// }
-
-// class _FeedContentState extends State<_FeedContent> {
-//   final navigator = NavigatorUtil();
-
-//   final _tokenObject = Token();
-
-//   Future<String> _getUserDataByToken() async {
-//     final _webClient = UserWebClient();
-//     final _token = await _tokenObject.getToken();
-//     final _user = await _webClient.getUserData(_token);
-//     return _user;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var projects = Provider.of<FeedProjects>(context);
-
-//     return FutureBuilder(
-//       future: _getUserDataByToken(),
-//       builder: (context, AsyncSnapshot<String> snapshot) {
-//         if (snapshot.hasData && projects != null) {
-//           final user = User.fromJson(jsonDecode(snapshot.data));
-
-//           return Center(
-//             child: Padding(
-//               padding: const EdgeInsets.only(bottom: 15),
-//               child: _verifyWhichWidgetShouldBeDisplayed(context, user),
-//             ),
-//           );
-//         } else {
-//           return SpinKitFadingCube(color: ApplicationColors.primary);
-//         }
-//       },
-//     );
-//   }
-
-//   Widget _verifyWhichWidgetShouldBeDisplayed(BuildContext context, User user) {
-//     var projects =
-//         Provider.of<FeedProjects>(context, listen: false).getFeedProjects();
-
-//     if (projects.isEmpty) {
-//       return _noProjectWidget();
-//     } else {
-//       return _carouselOfCards(user);
-//     }
-//   }
-
-//   Widget _noProjectWidget() {
-//     return DataNotFoundCard(
-//       text:
-//           'Parece que ainda não tem nenhum projeto no Genius. Que tal criar um? :)',
-//       color: ApplicationColors.secondCardColor,
-//     );
-//   }
-
-//   Widget _carouselOfCards(User user) {
-//     return Consumer<FeedProjects>(
-//       builder: (context, feedProjects, child) {
-//         final projects = feedProjects.getFeedProjects();
-//         debugPrint(projects[0].likedBy.toString());
-
-//         return GeniusCardConfig(
-//           itemCount: projects.length,
-//           layout: SwiperLayout.STACK,
-//           builder: (BuildContext context, int index) {
-//             return GeniusCard(
-//               onTap: () {
-//                 navigator.navigate(
-//                   context,
-//                   ProjectInfo(
-//                     project: projects[index],
-//                   ),
-//                 );
-//               },
-//               cardColor: Theme.of(context).cardColor,
-//               abstractText: projects[index].abstractText,
-//               projectName: projects[index].name,
-//               type: 'feed',
-//               projectParticipants: projects[index].participants,
-//               onParticipantsClick: (int id) {
-//                 navigator.navigate(
-//                   context,
-//                   Profile(
-//                     type: 'user',
-//                     id: id,
-//                   ),
-//                 );
-//               },
-//               onClickedConversationIcon: () {
-//                 navigator.navigate(
-//                   context,
-//                   SendMail(
-//                     email: projects[index].email,
-//                     type: 'feed',
-//                   ),
-//                 );
-//               },
-//               liked: feedProjects.getFeedProjects()[index]
-//                   .likedBy
-//                   .map((item) => item.id)
-//                   .contains(user.id),
-//               onLiked: () {
-//                 if (projects[index]
-//                     .likedBy
-//                     .map((item) => item.id)
-//                     .contains(user.id)) {
-//                   Provider.of<FeedProjects>(context, listen: false).dislike(
-//                     projects[index].id,
-//                     user.id,
-//                   );
-//                 } else {
-//                   Provider.of<FeedProjects>(context, listen: false).like(
-//                     projects[index].id,
-//                     user.id,
-//                   );
-//                 }
-//               },
-//               onSaved: () {},
-//             );
-//           },
-//         );
-//       },
-//     );
-//   }
-// }

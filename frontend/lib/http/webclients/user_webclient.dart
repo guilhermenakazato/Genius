@@ -125,4 +125,32 @@ class UserWebClient {
       },
     );
   }
+
+  Future<void> saveProject(int projectId, userId) async {
+    final data = <String, dynamic>{};
+    data['projectId'] = projectId;
+    data['userId'] = userId;
+
+    await client.post(
+      Uri.parse(baseUrl + '/save-project'),
+      body: json.encode(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+  }
+
+  Future<void> removeSavedProject(int projectId, userId) async {
+    final data = <String, dynamic>{};
+    data['projectId'] = projectId;
+    data['userId'] = userId;
+
+    await client.post(
+      Uri.parse(baseUrl + '/remove-save-project'),
+      body: json.encode(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+  }
 }
