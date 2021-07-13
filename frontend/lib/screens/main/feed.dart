@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:genius/http/webclients/user_webclient.dart';
-import 'package:genius/models/feed_projects.dart';
-import 'package:genius/models/token.dart';
 import 'package:provider/provider.dart';
+
+import '../../http/webclients/user_webclient.dart';
+import '../../models/feed_projects.dart';
+import '../../models/token.dart';
 import '../../screens/main/send_mail.dart';
 import '../../screens/main/profile.dart';
 import '../../components/genius_card.dart';
@@ -47,8 +48,6 @@ class _FeedContent extends StatelessWidget {
       future: _getUserDataByToken(),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData && projects != null) {
-          debugPrint(snapshot.data);
-
           return Center(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 15),

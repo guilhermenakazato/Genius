@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/screens/main/profile.dart';
-import 'package:genius/utils/application_typography.dart';
-import 'package:genius/utils/navigator_util.dart';
 
+import '../../screens/main/profile.dart';
+import '../../utils/application_typography.dart';
+import '../../utils/navigator_util.dart';
 import '../../http/webclients/search_webclient.dart';
 import '../../models/project.dart';
 import '../../http/webclients/tags_webclient.dart';
@@ -99,7 +99,6 @@ class _SearchState extends State<Search> {
                   padding: const EdgeInsets.only(top: 40.0, left: 10),
                   child: SearchBar(
                     onChange: (String value) {
-                      debugPrint(value);
                       setState(() {
                         _searchText = value.trim();
                         _searchData = _getSearchData();

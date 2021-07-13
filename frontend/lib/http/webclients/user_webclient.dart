@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-
 import '../../models/user.dart';
 import '../webclient.dart';
 import '../../http/exceptions/http_exception.dart';
@@ -63,11 +61,9 @@ class UserWebClient {
   }
 
   Future<void> deleteUser(int userId) async {
-    final response = await client.delete(baseUrl + '/user/$userId');
-
-    if (response.statusCode != 200) {
-      debugPrint(response.statusCode.toString());
-    }
+    await client.delete(
+      baseUrl + '/user/$userId',
+    );
 
     throw HttpException('Erro desconhecido..');
   }
@@ -77,17 +73,13 @@ class UserWebClient {
     data['user_id'] = userId;
     data['follower_id'] = followerId;
 
-    final response = await client.post(
+    await client.post(
       baseUrl + '/follow',
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
       },
     );
-
-    if (response.statusCode == 200) {
-      debugPrint(response.body);
-    }
   }
 
   Future<void> unfollow(
@@ -97,16 +89,12 @@ class UserWebClient {
     data['follower_id'] = followerId;
     data['removing_follower'] = removingFollower;
 
-    final response = await client.post(
+    await client.post(
       baseUrl + '/unfollow',
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
       },
     );
-
-    if (response.statusCode == 200) {
-      debugPrint(response.body);
-    }
   }
 }

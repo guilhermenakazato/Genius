@@ -29,7 +29,7 @@ dependencies:
   http: any
   flutter_progress_hud: ^1.0.3
   flutter_spinkit: "^4.1.2"
-  shared_preferences: ^2.0.3
+  shared_preferences: ^2.0.4
   email_validator: '^1.0.5'
   curved_navigation_bar: ^0.3.7
   shimmer: ^1.1.2

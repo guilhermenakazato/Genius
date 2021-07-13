@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/http/webclients/user_webclient.dart';
-import 'package:genius/models/token.dart';
 
+import '../../http/webclients/user_webclient.dart';
+import '../../models/token.dart';
 import '../../utils/application_typography.dart';
 import '../../utils/application_colors.dart';
 import 'follows/followers.dart';
