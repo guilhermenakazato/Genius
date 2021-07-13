@@ -132,7 +132,7 @@ class _EditProjectsState extends State<EditProjects> {
                         navigator.navigate(
                           context,
                           ProjectInfo(
-                            project: projects[index],
+                            projectId: projects[index].id,
                           ),
                         );
                       },
@@ -198,7 +198,7 @@ class _EditProjectsState extends State<EditProjects> {
               navigator.navigate(
                 context,
                 ProjectInfo(
-                  project: projects[index],
+                  projectId: projects[index].id,
                 ),
               );
             },

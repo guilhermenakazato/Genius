@@ -15,6 +15,18 @@ class ProjectWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
+  Future<String> getProjectById(int projectId) async {
+    final response = await client.get(
+      Uri.parse(baseUrl + '/project/$projectId'),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    }
+
+    throw HttpException('Erro desconhecido..');
+  }
+
   Future<bool> createProject(Project project, int creatorId) async {
     final projectJson = jsonEncode(project.toJson());
 

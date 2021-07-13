@@ -1,6 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-import '../../../models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/http/webclients/user_webclient.dart';
+import 'package:genius/models/token.dart';
+import 'package:genius/models/user.dart';
+
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
 import '../../../components/data_not_found_card.dart';
@@ -12,28 +17,55 @@ import '../profile.dart';
 
 class SavedTab extends StatefulWidget {
   final List<Project> savedProjects;
-  final User follower;
+  final Function onChangedState;
 
-  SavedTab({Key key, @required this.savedProjects, @required this.follower}) : super(key: key);
+  SavedTab({
+    Key key,
+    @required this.savedProjects,
+    @required this.onChangedState,
+  }) : super(key: key);
 
   @override
   _SavedTabState createState() => _SavedTabState();
 }
 
 class _SavedTabState extends State<SavedTab> {
+  final _tokenObject = Token();
   final navigator = NavigatorUtil();
   bool card = true;
+  final _userWebClient = UserWebClient();
+
+  Future<String> _getUserData() async {
+    final _webClient = UserWebClient();
+    final _token = await _tokenObject.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[_determineWhichWidgetsShouldBeDisplayed(context)],
-      ),
+    return FutureBuilder(
+      future: _getUserData(),
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.hasData) {
+          final user = User.fromJson(jsonDecode(snapshot.data));
+
+          return SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _determineWhichWidgetsShouldBeDisplayed(context, user)
+              ],
+            ),
+          );
+        } else {
+          return SpinKitFadingCube(color: ApplicationColors.primary);
+        }
+      },
     );
   }
 
-  Widget _determineWhichWidgetsShouldBeDisplayed(BuildContext context) {
+  Widget _determineWhichWidgetsShouldBeDisplayed(
+      BuildContext context, User user) {
     if (widget.savedProjects.isEmpty) {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0, left: 8),
@@ -47,7 +79,7 @@ class _SavedTabState extends State<SavedTab> {
       return Column(
         children: [
           _iconToChooseStyleOfProjects(),
-          _determineWhichLayoutShouldBeDisplayed(context)
+          _determineWhichLayoutShouldBeDisplayed(context, user)
         ],
       );
     }
@@ -84,9 +116,10 @@ class _SavedTabState extends State<SavedTab> {
     }
   }
 
-  Widget _determineWhichLayoutShouldBeDisplayed(BuildContext context) {
+  Widget _determineWhichLayoutShouldBeDisplayed(
+      BuildContext context, User user) {
     if (card) {
-      return _carouselOfCards();
+      return _carouselOfCards(user);
     } else {
       return _listOfCards(context);
     }
@@ -111,11 +144,14 @@ class _SavedTabState extends State<SavedTab> {
                     color: ApplicationColors.secondCardColor,
                     child: InkWell(
                       onTap: () {
-                        navigator.navigate(
+                        navigator.navigateAndReload(
                           context,
                           ProjectInfo(
-                            project: widget.savedProjects[index],
+                            projectId: widget.savedProjects[index].id,
                           ),
+                          () {
+                            widget.onChangedState();
+                          },
                         );
                       },
                       child: Center(
@@ -134,29 +170,35 @@ class _SavedTabState extends State<SavedTab> {
     );
   }
 
-  Widget _carouselOfCards() {
+  Widget _carouselOfCards(User user) {
     return SizedBox(
       width: 300,
-      height: 500,
+      height: 455,
       child: GeniusCardConfig(
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {
           return GeniusCard(
             onTap: () {
-              navigator.navigate(
+              navigator.navigateAndReload(
                 context,
                 ProjectInfo(
-                  project: widget.savedProjects[index],
+                  projectId: widget.savedProjects[index].id,
                 ),
+                () {
+                  widget.onChangedState();
+                },
               );
             },
             onParticipantsClick: (int id) {
-              navigator.navigate(
+              navigator.navigateAndReload(
                 context,
                 Profile(
                   type: 'user',
                   id: id,
                 ),
+                () {
+                  widget.onChangedState();
+                },
               );
             },
             cardColor: ApplicationColors.secondCardColor,
@@ -164,6 +206,51 @@ class _SavedTabState extends State<SavedTab> {
             projectName: widget.savedProjects[index].name,
             type: 'saved_projects',
             projectParticipants: widget.savedProjects[index].participants,
+            likes: widget.savedProjects[index].likedBy.length,
+            liked: widget.savedProjects[index].likedBy
+                .map(
+                  (item) => item.id,
+                )
+                .contains(user.id),
+            saved: widget.savedProjects[index].savedBy
+                .map(
+                  (item) => item.id,
+                )
+                .contains(user.id),
+            onLiked: () async {
+              if (widget.savedProjects[index].likedBy
+                  .map((item) => item.id)
+                  .contains(user.id)) {
+                await _userWebClient.dislikeProject(
+                  widget.savedProjects[index].id,
+                  user.id,
+                );
+              } else {
+                await _userWebClient.likeProject(
+                  widget.savedProjects[index].id,
+                  user.id,
+                );
+              }
+
+              widget.onChangedState();
+            },
+            onSaved: () async {
+              if (widget.savedProjects[index].savedBy
+                  .map((item) => item.id)
+                  .contains(user.id)) {
+                await _userWebClient.removeSavedProject(
+                  widget.savedProjects[index].id,
+                  user.id,
+                );
+              } else {
+                await _userWebClient.saveProject(
+                  widget.savedProjects[index].id,
+                  user.id,
+                );
+              }
+
+              widget.onChangedState();
+            },
           );
         },
         itemCount: widget.savedProjects.length,

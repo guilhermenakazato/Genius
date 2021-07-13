@@ -91,8 +91,8 @@ class GeniusCard extends StatelessWidget {
   Widget _defineButtons(BuildContext context) {
     if (type == 'edit') {
       return _editButtons(context);
-    } else if (type == 'saved_projects') {
-      return Container();
+    } else if (type == 'saved_projects' || type == 'my_projects') {
+      return _myMindProjects(context);
     } else if (type == 'feed') {
       return _feedButtons(context);
     } else {
@@ -284,6 +284,93 @@ class GeniusCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Text(likes.toString()),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  width: 48,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                      backgroundColor: ApplicationColors.iconButtonColor,
+                      padding: EdgeInsets.all(12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (onLiked != null) {
+                        onLiked();
+                      }
+                    },
+                    child: _defineLikeIcon(),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  width: 48,
+                  height: 48,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                      backgroundColor: ApplicationColors.iconButtonColor,
+                      padding: EdgeInsets.all(12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (onSaved != null) {
+                        onSaved();
+                      }
+                    },
+                    child: _defineSaveIcon(),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Container(
+                  width: 48,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).primaryColor,
+                      backgroundColor: ApplicationColors.iconButtonColor,
+                      padding: EdgeInsets.all(12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (onClickedConversationIcon != null) {
+                        onClickedConversationIcon();
+                      }
+                    },
+                    child: Icon(
+                      Icons.question_answer_outlined,
+                      color: ApplicationColors.editButtonColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _myMindProjects(BuildContext context) {
+    return Positioned(
+      child: Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
               Row(
                 children: [
                   Text(likes.toString()),
@@ -331,31 +418,6 @@ class GeniusCard extends StatelessWidget {
                       }
                     },
                     child: _defineSaveIcon(),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Container(
-                  width: 48,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
-                      backgroundColor: ApplicationColors.iconButtonColor,
-                      padding: EdgeInsets.all(12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (onClickedConversationIcon != null) {
-                        onClickedConversationIcon();
-                      }
-                    },
-                    child: Icon(
-                      Icons.question_answer_outlined,
-                      color: ApplicationColors.editButtonColor,
-                    ),
                   ),
                 ),
               ),
