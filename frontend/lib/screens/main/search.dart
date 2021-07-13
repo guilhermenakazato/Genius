@@ -265,7 +265,7 @@ class _SearchState extends State<Search> {
             _navigator.navigate(
               context,
               ProjectInfo(
-                project: project,
+                projectId: project.id,
               ),
             );
           },

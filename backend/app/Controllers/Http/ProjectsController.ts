@@ -161,6 +161,7 @@ export default class ProjectsController {
     await project.load('participants')
     await project.load('savedBy')
     await project.load('tags')
+    await project.load("likedBy")
 
     return project
   }

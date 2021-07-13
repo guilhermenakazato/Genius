@@ -236,10 +236,9 @@ class _ProfileState extends State<_ProfileContent> {
         user: user,
       ),
       ProjectsTab(
-        follower: user,
         projects: user.projects,
         notFoundText: _determineProjectsNotFoundText(),
-        onReturned: () {
+        onChangedState: () {
           setState(() {
             _profileData = _defineHowToGetData();
           });
@@ -259,7 +258,11 @@ class _ProfileState extends State<_ProfileContent> {
       tabs.add(
         SavedTab(
           savedProjects: user.saved,
-          follower: user,
+          onChangedState: () {
+            setState(() {
+              _profileData = _defineHowToGetData();
+            });
+          },
         ),
       );
     }

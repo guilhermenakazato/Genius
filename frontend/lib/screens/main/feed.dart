@@ -92,11 +92,16 @@ class _FeedState extends State<_FeedContent> {
       builder: (BuildContext context, int index) {
         return GeniusCard(
           onTap: () {
-            navigator.navigate(
+            navigator.navigateAndReload(
               context,
               ProjectInfo(
-                project: projects[index],
+                projectId: projects[index].id,
               ),
+              () {
+                setState(() {
+                  _feedData = _getFeedData();
+                });
+              },
             );
           },
           cardColor: Theme.of(context).cardColor,

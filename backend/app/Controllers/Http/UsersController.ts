@@ -25,12 +25,13 @@ export default class UsersController {
     await user.load('projects', project => {
       project.preload("participants")
       project.preload('tags')
+      project.preload("savedBy")
+      project.preload("likedBy")
     })
     await user.load('surveys')
     await user.load("tags")
     await user.load("followers")
     await user.load("following")
-    await user.load("saved")
     await user.load("liked")
 
     return user

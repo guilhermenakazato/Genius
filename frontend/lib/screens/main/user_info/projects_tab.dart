@@ -1,6 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-import '../../../models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/http/webclients/user_webclient.dart';
+import 'package:genius/models/token.dart';
+import 'package:genius/models/user.dart';
+
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
 import '../../../components/data_not_found_card.dart';
@@ -13,16 +18,14 @@ import '../profile.dart';
 class ProjectsTab extends StatefulWidget {
   final List<Project> projects;
   final String notFoundText;
-  final User follower;
-  final Function onReturned;
+  final Function onChangedState;
 
-  ProjectsTab(
-      {Key key,
-      @required this.projects,
-      this.notFoundText,
-      this.follower,
-      this.onReturned})
-      : super(key: key);
+  ProjectsTab({
+    Key key,
+    @required this.projects,
+    @required this.notFoundText,
+    @required this.onChangedState,
+  }) : super(key: key);
 
   @override
   _ProjectsTabState createState() => _ProjectsTabState();
@@ -31,19 +34,39 @@ class ProjectsTab extends StatefulWidget {
 class _ProjectsTabState extends State<ProjectsTab> {
   final navigator = NavigatorUtil();
   bool card = true;
+  final _userWebClient = UserWebClient();
+  final _tokenObject = Token();
+
+  Future<String> _getUserData() async {
+    final _webClient = UserWebClient();
+    final _token = await _tokenObject.getToken();
+    final _user = await _webClient.getUserData(_token);
+    return _user;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          _determineWhichWidgetsShouldBeDisplayed(context),
-        ],
-      ),
+    return FutureBuilder(
+      future: _getUserData(),
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.hasData) {
+          final user = User.fromJson(jsonDecode(snapshot.data));
+
+          return SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                _determineWhichWidgetsShouldBeDisplayed(context, user),
+              ],
+            ),
+          );
+        } else {
+          return SpinKitFadingCube(color: ApplicationColors.primary);
+        }
+      },
     );
   }
 
-  Widget _determineWhichWidgetsShouldBeDisplayed(BuildContext context) {
+  Widget _determineWhichWidgetsShouldBeDisplayed(BuildContext context, User user) {
     if (widget.projects.isEmpty) {
       return Column(
         children: [
@@ -58,7 +81,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
       return Column(
         children: [
           _iconToChooseStyleOfProjects(),
-          _determineWhichLayoutShouldBeDisplayed(context)
+          _determineWhichLayoutShouldBeDisplayed(context, user)
         ],
       );
     }
@@ -95,9 +118,9 @@ class _ProjectsTabState extends State<ProjectsTab> {
     }
   }
 
-  Widget _determineWhichLayoutShouldBeDisplayed(BuildContext context) {
+  Widget _determineWhichLayoutShouldBeDisplayed(BuildContext context, User user) {
     if (card) {
-      return _carouselOfCards();
+      return _carouselOfCards(user);
     } else {
       return _listOfCards(context);
     }
@@ -122,11 +145,14 @@ class _ProjectsTabState extends State<ProjectsTab> {
                     color: ApplicationColors.secondCardColor,
                     child: InkWell(
                       onTap: () {
-                        navigator.navigate(
+                        navigator.navigateAndReload(
                           context,
                           ProjectInfo(
-                            project: widget.projects[index],
+                            projectId: widget.projects[index].id,
                           ),
+                          () {
+                            widget.onChangedState();
+                          },
                         );
                       },
                       child: Center(
@@ -145,7 +171,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
     );
   }
 
-  Widget _carouselOfCards() {
+  Widget _carouselOfCards(User user) {
     return SizedBox(
       width: 300,
       height: 455,
@@ -154,11 +180,14 @@ class _ProjectsTabState extends State<ProjectsTab> {
         builder: (BuildContext context, int index) {
           return GeniusCard(
             onTap: () {
-              navigator.navigate(
+              navigator.navigateAndReload(
                 context,
                 ProjectInfo(
-                  project: widget.projects[index],
+                  projectId: widget.projects[index].id,
                 ),
+                () {
+                  widget.onChangedState();
+                },
               );
             },
             onParticipantsClick: (int id) {
@@ -169,7 +198,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
                   id: id,
                 ),
                 () {
-                  widget.onReturned();
+                  widget.onChangedState();
                 },
               );
             },
@@ -180,6 +209,51 @@ class _ProjectsTabState extends State<ProjectsTab> {
             type: 'my_projects',
             participantsBorderColor:
                 ApplicationColors.participantsTagSecondaryColor,
+            likes: widget.projects[index].likedBy.length,
+            liked: widget.projects[index].likedBy
+                .map(
+                  (item) => item.id,
+                )
+                .contains(user.id),
+            saved: widget.projects[index].savedBy
+                .map(
+                  (item) => item.id,
+                )
+                .contains(user.id),
+            onLiked: () async {
+              if (widget.projects[index].likedBy
+                  .map((item) => item.id)
+                  .contains(user.id)) {
+                await _userWebClient.dislikeProject(
+                  widget.projects[index].id,
+                  user.id,
+                );
+              } else {
+                await _userWebClient.likeProject(
+                  widget.projects[index].id,
+                  user.id,
+                );
+              }
+
+              widget.onChangedState();
+            },
+            onSaved: () async {
+              if (widget.projects[index].savedBy
+                  .map((item) => item.id)
+                  .contains(user.id)) {
+                await _userWebClient.removeSavedProject(
+                  widget.projects[index].id,
+                  user.id,
+                );
+              } else {
+                await _userWebClient.saveProject(
+                  widget.projects[index].id,
+                  user.id,
+                );
+              }
+
+              widget.onChangedState();
+            },
           );
         },
         itemCount: widget.projects.length,
