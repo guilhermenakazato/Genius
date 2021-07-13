@@ -5,7 +5,7 @@ import '../models/user.dart';
 import '../utils/application_colors.dart';
 import '../utils/application_typography.dart';
 
-class GeniusCard extends StatelessWidget {
+class GeniusCard extends StatefulWidget {
   final Function onTap;
   final Color cardColor;
   final String type;
@@ -42,6 +42,13 @@ class GeniusCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<GeniusCard> createState() => _GeniusCardState();
+}
+
+class _GeniusCardState extends State<GeniusCard> {
+  bool likeIsLoading = false, saveIsLoading = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Card(
@@ -51,12 +58,12 @@ class GeniusCard extends StatelessWidget {
         child: Ink(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.0),
-            color: cardColor,
+            color: widget.cardColor,
           ),
           child: InkWell(
             onTap: () {
-              if (onTap != null) {
-                onTap();
+              if (widget.onTap != null) {
+                widget.onTap();
               }
             },
             borderRadius: BorderRadius.circular(16.0),
@@ -89,11 +96,12 @@ class GeniusCard extends StatelessWidget {
   }
 
   Widget _defineButtons(BuildContext context) {
-    if (type == 'edit') {
+    if (widget.type == 'edit') {
       return _editButtons(context);
-    } else if (type == 'saved_projects' || type == 'my_projects') {
+    } else if (widget.type == 'saved_projects' ||
+        widget.type == 'my_projects') {
       return _myMindProjects(context);
-    } else if (type == 'feed') {
+    } else if (widget.type == 'feed') {
       return _feedButtons(context);
     } else {
       return Container();
@@ -101,7 +109,7 @@ class GeniusCard extends StatelessWidget {
   }
 
   Widget _projectName() {
-    if (projectName.length >= 14) {
+    if (widget.projectName.length >= 14) {
       return Padding(
         padding: const EdgeInsets.only(
           top: 30,
@@ -110,7 +118,7 @@ class GeniusCard extends StatelessWidget {
           width: 250,
           height: 40,
           child: Marquee(
-            text: projectName,
+            text: widget.projectName,
             style: ApplicationTypography.cardTitle,
             scrollAxis: Axis.horizontal,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +145,7 @@ class GeniusCard extends StatelessWidget {
         child: Container(
           width: double.infinity,
           child: Text(
-            projectName,
+            widget.projectName,
             style: ApplicationTypography.cardTitle,
           ),
         ),
@@ -156,7 +164,7 @@ class GeniusCard extends StatelessWidget {
       child: Container(
         width: double.infinity,
         child: Text(
-          abstractText,
+          widget.abstractText,
           style: ApplicationTypography.cardText,
         ),
       ),
@@ -168,21 +176,23 @@ class GeniusCard extends StatelessWidget {
       height: 44,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: projectParticipants.length,
+        itemCount: widget.projectParticipants.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.only(right: 5.0, left: 10),
             child: Ink(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: participantsBorderColor,
+                  color: widget.participantsBorderColor,
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: InkWell(
                 onTap: () {
-                  _handleParticipantTagClick(projectParticipants[index].id);
+                  _handleParticipantTagClick(
+                    widget.projectParticipants[index].id,
+                  );
                 },
                 borderRadius: BorderRadius.circular(16),
                 child: Container(
@@ -193,7 +203,7 @@ class GeniusCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        projectParticipants[index].username,
+                        widget.projectParticipants[index].username,
                         style: ApplicationTypography.profileTags,
                       ),
                     ),
@@ -230,7 +240,7 @@ class GeniusCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      onEdit();
+                      widget.onEdit();
                     },
                     child: Icon(
                       Icons.edit_outlined,
@@ -261,7 +271,7 @@ class GeniusCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '$deleteRequestsCount/$participantsCount',
+                        '${widget.deleteRequestsCount}/${widget.participantsCount}',
                         style: ApplicationTypography.deleteRequestsCardText,
                       ),
                     ],
@@ -284,11 +294,12 @@ class GeniusCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(likes.toString()),
+              Text(widget.likes.toString()),
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Container(
                   width: 48,
+                  height: 48,
                   child: TextButton(
                     style: TextButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
@@ -298,12 +309,20 @@ class GeniusCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                       ),
                     ),
-                    onPressed: () {
-                      if (onLiked != null) {
-                        onLiked();
+                    onPressed: () async {
+                      if (widget.onLiked != null) {
+                        setState(() {
+                          likeIsLoading = true;
+                        });
+
+                        await widget.onLiked();
+
+                        setState(() {
+                          likeIsLoading = false;
+                        });
                       }
                     },
-                    child: _defineLikeIcon(),
+                    child: _defineLikeWidget(),
                   ),
                 ),
               ),
@@ -322,11 +341,11 @@ class GeniusCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      if (onSaved != null) {
-                        onSaved();
+                      if (widget.onSaved != null) {
+                        widget.onSaved();
                       }
                     },
-                    child: _defineSaveIcon(),
+                    child: _defineSaveWidget(),
                   ),
                 ),
               ),
@@ -344,8 +363,8 @@ class GeniusCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      if (onClickedConversationIcon != null) {
-                        onClickedConversationIcon();
+                      if (widget.onClickedConversationIcon != null) {
+                        widget.onClickedConversationIcon();
                       }
                     },
                     child: Icon(
@@ -373,11 +392,12 @@ class GeniusCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(likes.toString()),
+                  Text(widget.likes.toString()),
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Container(
                       width: 48,
+                      height: 48,
                       child: TextButton(
                         style: TextButton.styleFrom(
                           primary: Theme.of(context).primaryColor,
@@ -387,12 +407,20 @@ class GeniusCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(24),
                           ),
                         ),
-                        onPressed: () {
-                          if (onLiked != null) {
-                            onLiked();
+                        onPressed: () async {
+                          if (widget.onLiked != null) {
+                            setState(() {
+                              likeIsLoading = true;
+                            });
+
+                            await widget.onLiked();
+
+                            setState(() {
+                              likeIsLoading = false;
+                            });
                           }
                         },
-                        child: _defineLikeIcon(),
+                        child: _defineLikeWidget(),
                       ),
                     ),
                   ),
@@ -412,12 +440,20 @@ class GeniusCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                       ),
                     ),
-                    onPressed: () {
-                      if (onSaved != null) {
-                        onSaved();
+                    onPressed: () async {
+                      if (widget.onSaved != null) {
+                        setState(() {
+                          saveIsLoading = true;
+                        });
+
+                        await widget.onSaved();
+
+                        setState(() {
+                          saveIsLoading = false;
+                        });
                       }
                     },
-                    child: _defineSaveIcon(),
+                    child: _defineSaveWidget(),
                   ),
                 ),
               ),
@@ -429,34 +465,42 @@ class GeniusCard extends StatelessWidget {
   }
 
   void _handleParticipantTagClick(int userId) {
-    onParticipantsClick(userId);
+    widget.onParticipantsClick(userId);
   }
 
-  Widget _defineLikeIcon() {
-    if (!liked) {
-      return Icon(
-        Icons.favorite_outline,
-        color: ApplicationColors.editButtonColor,
-      );
+  Widget _defineLikeWidget() {
+    if (likeIsLoading) {
+      return CircularProgressIndicator();
     } else {
-      return Icon(
-        Icons.favorite_outlined,
-        color: Colors.red,
-      );
+      if (!widget.liked) {
+        return Icon(
+          Icons.favorite_outline,
+          color: ApplicationColors.editButtonColor,
+        );
+      } else {
+        return Icon(
+          Icons.favorite_outlined,
+          color: Colors.red,
+        );
+      }
     }
   }
 
-  Widget _defineSaveIcon() {
-    if (!saved) {
-      return Icon(
-        Icons.bookmark_outline,
-        color: ApplicationColors.editButtonColor,
-      );
+  Widget _defineSaveWidget() {
+    if (saveIsLoading) {
+      return CircularProgressIndicator();
     } else {
-      return Icon(
-        Icons.bookmark_outlined,
-        color: Colors.white,
-      );
+      if (!widget.saved) {
+        return Icon(
+          Icons.bookmark_outline,
+          color: ApplicationColors.editButtonColor,
+        );
+      } else {
+        return Icon(
+          Icons.bookmark_outlined,
+          color: Colors.white,
+        );
+      }
     }
   }
 }
