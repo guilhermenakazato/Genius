@@ -53,6 +53,11 @@ export default class Project extends BaseModel {
   })
   public savedBy: ManyToMany<typeof User>
 
+  @manyToMany(() => User, {
+    pivotTable: "likes"
+  })
+  public likedBy: ManyToMany<typeof User>
+
   @manyToMany(() => Tag)
   public tags: ManyToMany<typeof Tag>
 
