@@ -1,19 +1,15 @@
 import 'dart:convert';
 
-import '../../models/feed_projects.dart';
-import '../../utils/convert.dart';
-
 import '../../models/project.dart';
 import '../../http/exceptions/http_exception.dart';
 import '../webclient.dart';
 
 class ProjectWebClient {
-  Future<FeedProjects> getAllProjects() async {
-    final response = await client.get(baseUrl + '/projects');
-    final projects = Convert.convertStringToListofTypeProject(response.body);
+  Future<String> getAllProjects() async {
+    final response = await client.get(Uri.parse(baseUrl + '/projects'));
 
     if (response.statusCode == 200) {
-      return FeedProjects(projects);
+      return response.body;
     }
 
     throw HttpException('Erro desconhecido..');
@@ -23,7 +19,7 @@ class ProjectWebClient {
     final projectJson = jsonEncode(project.toJson());
 
     final response = await client.post(
-      baseUrl + '/project/$creatorId',
+      Uri.parse(baseUrl + '/project/$creatorId'),
       body: projectJson,
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +39,7 @@ class ProjectWebClient {
     final projectJson = jsonEncode(project.toJson());
 
     final response = await client.put(
-      baseUrl + '/project/$projectId',
+      Uri.parse(baseUrl + '/project/$projectId'),
       body: projectJson,
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +57,7 @@ class ProjectWebClient {
 
   Future<bool> verifyIfProjectTitleAlreadyExists(String title) async {
     final response = await client.post(
-      baseUrl + '/verify/',
+      Uri.parse(baseUrl + '/verify/'),
       body: {
         'project_title': '$title',
       },
@@ -78,7 +74,7 @@ class ProjectWebClient {
 
   Future<bool> verifyIfProjectEmailIsAlreadyBeingUsed(String email) async {
     final response = await client.get(
-      baseUrl + '/verify/$email',
+      Uri.parse(baseUrl + '/verify/$email'),
     );
 
     if (response.statusCode == 200) {

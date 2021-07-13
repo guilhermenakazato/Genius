@@ -10,7 +10,7 @@ class LoginWebClient {
     final authJson = jsonEncode(auth.toJson());
 
     final response = await client.post(
-      baseUrl + '/login',
+      Uri.parse(baseUrl + '/login'),
       headers: {'Content-Type': 'application/json'},
       body: authJson,
     );
@@ -32,7 +32,7 @@ class LoginWebClient {
 
   Future<bool> userIsLogged(String token) async {
     final response = await client.get(
-      baseUrl + '/token',
+      Uri.parse(baseUrl + '/token'),
       headers: {'Authorization': 'Bearer $token'},
     );
 
@@ -45,7 +45,7 @@ class LoginWebClient {
 
   Future<void> logout(String token) async {
     await client.get(
-      baseUrl + '/logout',
+      Uri.parse(baseUrl + '/logout'),
       headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ class LoginWebClient {
 
   Future<bool> check(String token) async {
     final response = await client.get(
-      baseUrl + '/check',
+      Uri.parse(baseUrl + '/check'),
       headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',

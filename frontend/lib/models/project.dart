@@ -3,12 +3,18 @@ import '../utils/convert.dart';
 
 class Project {
   final int id;
-  final String name, institution, startDate, mainTeacherName, secondTeacherName, email, participantsFullName;
+  final String name,
+      institution,
+      startDate,
+      mainTeacherName,
+      secondTeacherName,
+      email,
+      participantsFullName;
   final mainTeacher;
   final secondTeacher;
   final String abstractText;
   final List<dynamic> participants;
-  final List<User> deleteRequests;
+  final List<User> deleteRequests, savedBy, likedBy;
   final List<dynamic> tags;
 
   Project({
@@ -24,8 +30,10 @@ class Project {
     this.secondTeacherName,
     this.deleteRequests,
     this.tags,
-    this.email, 
-    this.participantsFullName
+    this.email,
+    this.participantsFullName,
+    this.savedBy,
+    this.likedBy,
   });
 
   Project.fromJson(Map<String, dynamic> json)
@@ -42,7 +50,9 @@ class Project {
         deleteRequests = Convert.convertToListOfUsers(json['deleteRequests']),
         tags = Convert.convertToListOfTags(json['tags']),
         email = json['email'],
-        participantsFullName = json['participants_full_name'];
+        participantsFullName = json['participants_full_name'],
+        likedBy = Convert.convertToListOfUsers(json['likedBy']),
+        savedBy = Convert.convertToListOfUsers(json['savedBy']);
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -52,7 +62,7 @@ class Project {
         'second_teacher': secondTeacher,
         'main_teacher_name': mainTeacherName,
         'second_teacher_name': secondTeacherName,
-        'participants': participants, 
+        'participants': participants,
         'tags': tags,
         'abstract_text': abstractText,
         'email': email,

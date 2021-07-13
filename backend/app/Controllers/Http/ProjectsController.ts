@@ -147,6 +147,8 @@ export default class ProjectsController {
     for (let i = 0; i < projects.length; i++) {
       await projects[i].load('participants')
       await projects[i].load('tags')
+      await projects[i].load("likedBy")
+      await projects[i].load("savedBy")
     }
 
     return projects

@@ -17,6 +17,7 @@ class GeniusCard extends StatelessWidget {
   final int participantsCount;
   final Color participantsBorderColor;
   final Function(int id) onParticipantsClick;
+  final bool liked;
 
   const GeniusCard({
     Key key,
@@ -34,6 +35,7 @@ class GeniusCard extends StatelessWidget {
     this.onLiked,
     this.onClickedConversationIcon,
     this.onSaved,
+    this.liked = false,
   }) : super(key: key);
 
   @override
@@ -297,10 +299,7 @@ class GeniusCard extends StatelessWidget {
                         onLiked();
                       }
                     },
-                    child: Icon(
-                      Icons.favorite_outline,
-                      color: ApplicationColors.editButtonColor,
-                    ),
+                    child: _defineLikeIcon()
                   ),
                 ),
               ),
@@ -363,5 +362,19 @@ class GeniusCard extends StatelessWidget {
 
   void _handleParticipantTagClick(int userId) {
     onParticipantsClick(userId);
+  }
+
+  Widget _defineLikeIcon() {
+    if (!liked) {
+      return Icon(
+        Icons.favorite_outline,
+        color: ApplicationColors.editButtonColor,
+      );
+    } else {
+      return Icon(
+        Icons.favorite_outlined,
+        color: Colors.red,
+      );
+    }
   }
 }

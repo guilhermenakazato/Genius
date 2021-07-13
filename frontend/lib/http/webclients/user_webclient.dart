@@ -7,7 +7,7 @@ import '../../http/exceptions/http_exception.dart';
 class UserWebClient {
   Future<String> getUserData(String token) async {
     final response = await client.get(
-      baseUrl + '/get-data',
+      Uri.parse(baseUrl + '/get-data'),
       headers: {'Authorization': 'Bearer $token'},
     );
 
@@ -21,7 +21,7 @@ class UserWebClient {
 
   Future<String> getUserById(int id) async {
     final response = await client.get(
-      baseUrl + '/user/$id',
+      Uri.parse(baseUrl + '/user/$id'),
     );
 
     if (response.statusCode == 200) {
@@ -36,7 +36,7 @@ class UserWebClient {
     final userJson = jsonEncode(user.toJson());
 
     final response = await client.put(
-      baseUrl + '/user/$userId',
+      Uri.parse(baseUrl + '/user/$userId'),
       body: userJson,
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ class UserWebClient {
   }
 
   Future<String> getAllUsers() async {
-    final response = await client.get(baseUrl + '/users');
+    final response = await client.get(Uri.parse(baseUrl + '/users'));
 
     if (response.statusCode == 200) {
       return response.body;
@@ -62,7 +62,7 @@ class UserWebClient {
 
   Future<void> deleteUser(int userId) async {
     await client.delete(
-      baseUrl + '/user/$userId',
+      Uri.parse(baseUrl + '/user/$userId'),
     );
 
     throw HttpException('Erro desconhecido..');
@@ -74,7 +74,7 @@ class UserWebClient {
     data['follower_id'] = followerId;
 
     await client.post(
-      baseUrl + '/follow',
+      Uri.parse(baseUrl + '/follow'),
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +90,35 @@ class UserWebClient {
     data['removing_follower'] = removingFollower;
 
     await client.post(
-      baseUrl + '/unfollow',
+      Uri.parse(baseUrl + '/unfollow'),
+      body: json.encode(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+  }
+
+  Future<void> likeProject(int projectId, userId) async {
+    final data = <String, dynamic>{};
+    data['projectId'] = projectId;
+    data['userId'] = userId;
+
+    await client.post(
+      Uri.parse(baseUrl + '/like'),
+      body: json.encode(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+  }
+
+  Future<void> dislikeProject(int projectId, userId) async {
+    final data = <String, dynamic>{};
+    data['projectId'] = projectId;
+    data['userId'] = userId;
+
+    await client.post(
+      Uri.parse(baseUrl + '/dislike'),
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',

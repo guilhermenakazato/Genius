@@ -17,7 +17,7 @@ class SearchWebClient {
     data['show_projects'] = showProjects;
 
     final response = await client.post(
-      baseUrl + '/search',
+      Uri.parse(baseUrl + '/search'),
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',

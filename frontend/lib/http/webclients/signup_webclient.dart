@@ -9,7 +9,7 @@ class SignUpWebClient {
     final userJson = jsonEncode(user.toJson());
 
     final response = await client.post(
-      baseUrl + '/user',
+      Uri.parse(baseUrl + '/user'),
       headers: {'Content-Type': 'application/json'},
       body: userJson,
     );
@@ -23,7 +23,7 @@ class SignUpWebClient {
 
   Future<bool> verifyIfUsernameAlreadyExists(String username) async {
     final response = await client.get(
-      baseUrl + '/user-username/$username',
+      Uri.parse(baseUrl + '/user-username/$username'),
     );
 
     if (response.statusCode == 200) {
@@ -37,7 +37,7 @@ class SignUpWebClient {
 
   Future<bool> verifyIfEmailAlreadyExists(String email) async {
     final response = await client.get(
-      baseUrl + '/user-email/$email',
+      Uri.parse(baseUrl + '/user-email/$email'),
     );
 
     if (response.statusCode == 200) {
