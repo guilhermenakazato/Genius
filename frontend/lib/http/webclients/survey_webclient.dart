@@ -9,7 +9,7 @@ class SurveyWebClient {
     final surveyJson = jsonEncode(survey.toJson());
 
     final response = await client.put(
-      baseUrl + '/survey/$surveyId',
+      Uri.parse(baseUrl + '/survey/$surveyId'),
       body: surveyJson,
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ class SurveyWebClient {
     final surveyJson = jsonEncode(survey.toJson());
 
     final response = await client.post(
-      baseUrl + '/survey/$userId',
+      Uri.parse(baseUrl + '/survey/$userId'),
       body: surveyJson,
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,9 @@ class SurveyWebClient {
   }
 
   Future<void> deleteSurvey(int surveyId) async {
-    final response = await client.delete(baseUrl + '/survey/$surveyId');
+    final response = await client.delete(
+      Uri.parse(baseUrl + '/survey/$surveyId'),
+    );
 
     if (response.statusCode == 200) {
       return response.body;

@@ -9,7 +9,7 @@ class AchievementWebClient {
     final achievementJson = jsonEncode(achievement.toJson());
 
     final response = await client.post(
-      baseUrl + '/achievement/$userId',
+      Uri.parse(baseUrl + '/achievement/$userId'),
       body: achievementJson,
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ class AchievementWebClient {
 
   Future<void> deleteAchievement(int achievementId) async {
     final response =
-        await client.delete(baseUrl + '/achievement/$achievementId');
+        await client.delete(Uri.parse(baseUrl + '/achievement/$achievementId'));
 
     if (response.statusCode == 200) {
       return response.body;
@@ -42,7 +42,7 @@ class AchievementWebClient {
     final achievementJson = jsonEncode(achievement.toJson());
 
     final response = await client.put(
-      baseUrl + '/achievement/$achievementId',
+      Uri.parse(baseUrl + '/achievement/$achievementId'),
       body: achievementJson,
       headers: {
         'Content-Type': 'application/json',
