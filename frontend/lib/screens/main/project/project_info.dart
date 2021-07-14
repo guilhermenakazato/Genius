@@ -133,9 +133,25 @@ class _ProjectInfoState extends State<ProjectInfo> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Text(project.likedBy.length.toString()),
+                              Container(
+                    height: 48,
+                    child: Align(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Curtido por'),
+                          Text('${project.likedBy.length.toString()} pessoas'),
+                        ],
+                      ),
+                    ),
+                  ),
                               Padding(
-                                padding: const EdgeInsets.all(4.0),
+                                padding: const EdgeInsets.only(
+                                  left: 15,
+                                  top: 4,
+                                  right: 4,
+                                  bottom: 4,
+                                ),
                                 child: Container(
                                   width: 48,
                                   height: 48,

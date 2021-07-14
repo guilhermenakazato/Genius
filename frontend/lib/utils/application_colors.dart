@@ -23,8 +23,8 @@ class ApplicationColors {
   static const searchFieldHintColor = Color(0xffffffff);
   static const searchFieldIconColor = Color(0xffffffff);
   static const searchFieldTextColor = Color(0xffffffff);
-  static const searchFieldColor = Color(0xFF312F72);
-  static const searchButtonColor = Color(0xFF312F72);
+  static const searchFieldColor = Color.fromRGBO(37, 35, 87, 1);
+  static const searchButtonColor = Color.fromRGBO(37, 35, 87, 1);
   static const floatingButtonColor = Colors.transparent;
   static const profileNameColor = Color(0xFF9C99D6);
   static const profileCityColor = Color(0xffffffff);
@@ -40,7 +40,7 @@ class ApplicationColors {
   static const splashColor = Color(0x40CCCCCC);
   static const secondCardColor = Color.fromRGBO(37, 35, 87, 0.5);
   static const checkboxColor = Color(0xFF312F72);
-  static const notFoundColor = Color(0xff696969);
+  static const notFoundColor = Color(0xffffffff);
   static const editButtonColor = Colors.white;
 
   static const inputHintColor = Color.fromARGB(200, 156, 153, 214);
