@@ -565,10 +565,12 @@ class _ProfileState extends State<_ProfileContent> {
           animatedTexts: [
             ColorizeAnimatedText(
               user.username,
+              speed: Duration(milliseconds: 500),
               textStyle: ApplicationTypography.profileName,
               colors: founderColors,
             ),
           ],
+          pause: Duration(milliseconds: 0),
           isRepeatingAnimation: true,
           repeatForever: true,
         ),
@@ -654,9 +656,9 @@ class _ProfileState extends State<_ProfileContent> {
 
   String _determineNoFavoritesText() {
     if (widget.type == 'edit') {
-      return 'Você ainda não tem nenhum assunto favorito.';
+      return 'Nenhum assunto favoritado.';
     } else {
-      return 'Esse usuário ainda não tem nenhum assunto favorito.';
+      return 'Nenhum assunto favoritado.';
     }
   }
 
@@ -682,25 +684,25 @@ class _ProfileState extends State<_ProfileContent> {
 
   String _determineProjectsNotFoundText() {
     if (widget.type == 'edit') {
-      return 'Parece que você ainda não criou nenhum projeto. Que tal criar um para divulgar seus projetos incríveis? :)';
+      return 'Parece que você ainda não criou nenhum projeto. \n\n Que tal criar um para divulgar seus projetos incríveis? :)';
     } else {
-      return 'Parece que esse usuário ainda não tem nenhum projeto... Que tal procurar por projetos em outro usuário? :)';
+      return 'Parece que esse usuário ainda não tem nenhum projeto... \n\n Que tal procurar por projetos em outro usuário? :)';
     }
   }
 
   String _determineAchievementsNotFoundText() {
     if (widget.type == 'edit') {
-      return 'Parece que você ainda não tem nenhuma conquista. Que tal criar uma e mostrar para o mundo que você já fez? :)';
+      return 'Parece que você ainda não tem nenhuma conquista. \n\n Que tal criar uma e mostrar para o mundo que você já fez? :)';
     } else {
-      return 'Parece que esse usuário ainda não tem nenhuma conquista... Que tal procurar por conquistas em outro usuário? :)';
+      return 'Parece que esse usuário ainda não tem nenhuma conquista... \n\n Que tal procurar por conquistas em outro usuário? :)';
     }
   }
 
   String _determineSurveysNotFoundText() {
     if (widget.type == 'edit') {
-      return 'Parece que você ainda não criou nenhum questionário. Que tal criar um? :) Eles são ótimos para coleta de dados!';
+      return 'Parece que você ainda não criou nenhum questionário. \n\n Que tal criar um? :) Eles são ótimos para coleta de dados!';
     } else {
-      return 'Parece que esse usuário ainda não tem nenhum questionário... Que tal procurar por questionários em outro usuário? :)';
+      return 'Parece que esse usuário ainda não tem nenhum questionário... \n\n Que tal procurar por questionários em outro usuário? :)';
     }
   }
 

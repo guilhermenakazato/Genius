@@ -19,6 +19,11 @@ class ApplicationTypography {
     height: 1.0,
   );
 
+  static final like = TextStyle(
+    fontFamily: 'Gotham',
+    height: 1.3,
+  );
+
   static final askUserText = TextStyle(
     color: ApplicationColors.primary,
     fontSize: 32,
@@ -83,6 +88,7 @@ class ApplicationTypography {
   static final cardText = TextStyle(
     color: Colors.white,
     fontSize: 15,
+    height: 1.3,
   );
 
   static final aboutTitle = TextStyle(
@@ -94,7 +100,7 @@ class ApplicationTypography {
   static final aboutText = TextStyle(
     color: ApplicationColors.primary,
     fontSize: 20,
-    height: 1.3,
+    height: 1.5,
     fontWeight: FontWeight.w900,
   );
 
@@ -255,7 +261,15 @@ class ApplicationTypography {
 
   static final aboutMeText = TextStyle(
     fontWeight: FontWeight.w300,
+    fontFamily: 'Gotham',
     fontSize: 16,
+  );
+
+  static final aboutTeam = TextStyle(
+    fontWeight: FontWeight.w500,
+    fontFamily: 'Gotham',
+    fontSize: 14,
+    height: 1,
   );
 
   static final deleteRequestsCardText = TextStyle(
@@ -267,6 +281,9 @@ class ApplicationTypography {
 
   static final notFoundText = TextStyle(
     color: ApplicationColors.notFoundColor,
+    fontFamily: 'Gotham',
+    fontWeight: FontWeight.w300,
+    height: 1.3,
   );
 
   static final inputText = TextStyle(

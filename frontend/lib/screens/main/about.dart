@@ -50,9 +50,11 @@ class About extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  _Team(name: 'Gabriela\nPrado', photoPath: 'assets/sem-foto.png'),
+                  _Team(name: 'Gabriela\nPrado', photoPath: 'assets/gabi.jpeg'),
                   _Team(name: 'Guilherme\nNakazato', photoPath: 'assets/sem-foto.png'),
-                  _Team(name: 'Sidney\nSousa', photoPath: 'assets/sem-foto.png')
+                  _Team(name: 'Sidney\nSousa', photoPath: 'assets/sidney.jpeg'),
+                  _Team(name: 'NUDES', photoPath: 'assets/nudes.jpeg'),
+                  _Team(name: 'IFMS | \nCampus Aquidauana', photoPath: 'assets/ifms.png')
                 ],
               ),
             ),
@@ -76,12 +78,16 @@ class _Team extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 25,
-          backgroundImage: AssetImage(photoPath),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: CircleAvatar(
+            radius: 25,
+            backgroundImage: AssetImage(photoPath),
+          ),
         ),
         Text(
           name,
+          style: ApplicationTypography.aboutTeam,
           textAlign: TextAlign.center,
         ),
       ],

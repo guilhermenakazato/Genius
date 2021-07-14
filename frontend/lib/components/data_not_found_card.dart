@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:genius/utils/application_typography.dart';
 
 class DataNotFoundCard extends StatelessWidget {
   final String text;
@@ -29,6 +30,7 @@ class DataNotFoundCard extends StatelessWidget {
                 child: Text(
                   text,
                   textAlign: TextAlign.center,
+                  style: ApplicationTypography.notFoundText,
                 ),
               ),
             ),
