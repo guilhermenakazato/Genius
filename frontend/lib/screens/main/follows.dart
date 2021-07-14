@@ -56,7 +56,8 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this, initialIndex: widget.initialPosition);
+    _tabController = TabController(
+        length: 2, vsync: this, initialIndex: widget.initialPosition);
     _userData = _defineHowToGetData();
   }
 
@@ -78,7 +79,12 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
                   backgroundColor: Colors.transparent,
                   automaticallyImplyLeading: false,
                   elevation: 0,
-                  title: Center(child: Text(user.username)),
+                  title: Center(
+                    child: Text(
+                      user.username,
+                      style: ApplicationTypography.tabUsername,
+                    ),
+                  ),
                   bottom: TabBar(
                     controller: _tabController,
                     indicatorSize: TabBarIndicatorSize.tab,

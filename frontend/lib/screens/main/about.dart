@@ -47,14 +47,31 @@ class About extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 84,
+                runSpacing: 10,
                 children: <Widget>[
-                  _Team(name: 'Gabriela\nPrado', photoPath: 'assets/gabi.jpeg'),
-                  _Team(name: 'Guilherme\nNakazato', photoPath: 'assets/sem-foto.png'),
-                  _Team(name: 'Sidney\nSousa', photoPath: 'assets/sidney.jpeg'),
-                  _Team(name: 'NUDES', photoPath: 'assets/nudes.jpeg'),
-                  _Team(name: 'IFMS | \nCampus Aquidauana', photoPath: 'assets/ifms.png')
+                  _Team(
+                    name: 'Gabriela\nPrado',
+                    photoPath: 'assets/gabi.jpeg',
+                  ),
+                  _Team(
+                    name: 'Guilherme\nNakazato',
+                    photoPath: 'assets/sem-foto.png',
+                  ),
+                  _Team(
+                    name: 'Sidney\nSousa',
+                    photoPath: 'assets/sidney.jpeg',
+                  ),
+                  _Team(
+                    name: 'NUDES',
+                    photoPath: 'assets/nudes.jpeg',
+                  ),
+                  _Team(
+                    name: 'IFMS\nCampus\nAquidauana',
+                    photoPath: 'assets/ifms.png',
+                  )
                 ],
               ),
             ),

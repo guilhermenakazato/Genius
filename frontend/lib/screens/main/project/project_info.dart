@@ -71,43 +71,65 @@ class _ProjectInfoState extends State<ProjectInfo> {
                         child: SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
-                              _participantsOfTheProject(project),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0, top: 8),
+                                child: _participantsOfTheProject(project),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 30.0, right: 30),
+                                  left: 30.0,
+                                  right: 30,
+                                  bottom: 8
+                                ),
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
                                     'Orientador: ${_determineMainTeacherName(project)}',
                                     textAlign: TextAlign.start,
+                                    style: ApplicationTypography
+                                        .projectAbstractText,
                                   ),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 30.0, right: 30),
+                                  left: 30.0,
+                                  right: 30,
+                                  bottom: 8
+                                ),
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
                                     'Coorientador: ${_determineSecondTeacherName(project)}',
                                     textAlign: TextAlign.start,
+                                    style: ApplicationTypography
+                                        .projectAbstractText,
                                   ),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 30.0, right: 30),
+                                  left: 30.0,
+                                  right: 30,
+                                  bottom: 8
+                                ),
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
                                     'Estudantes pesquisadores: ${project.participantsFullName}',
                                     textAlign: TextAlign.start,
+                                    style: ApplicationTypography
+                                        .projectAbstractText,
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(40, 10, 30, 0),
+                                padding: const EdgeInsets.fromLTRB(
+                                  40,
+                                  10,
+                                  30,
+                                  0,
+                                ),
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
@@ -133,18 +155,10 @@ class _ProjectInfoState extends State<ProjectInfo> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Container(
-                    height: 48,
-                    child: Align(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Curtido por'),
-                          Text('${project.likedBy.length.toString()} pessoas'),
-                        ],
-                      ),
-                    ),
-                  ),
+                              Text(
+                                'Curtido por\n${project.likedBy.length.toString()} pessoas',
+                                style: ApplicationTypography.like,
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(
                                   left: 15,
