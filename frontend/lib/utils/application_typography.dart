@@ -248,6 +248,12 @@ class ApplicationTypography {
 
   static final tabBarText = TextStyle(
     color: Colors.white,
+    fontWeight: FontWeight.w800,
+  );
+
+  static final tabUsername = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w800,
   );
 
   static final testText = TextStyle(
@@ -306,6 +312,7 @@ class ApplicationTypography {
   static final projectAbstractText = TextStyle(
     color: Colors.white,
     fontSize: 15,
+    height: 1.3,
   );
 
   static final linkStyle = TextStyle(

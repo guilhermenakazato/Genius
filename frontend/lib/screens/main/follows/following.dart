@@ -82,16 +82,29 @@ class _FollowingState extends State<Following> {
 
                     if (user.following.isEmpty) {
                       return Align(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 70.0),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'vc ainda nao tá seguindo ngm',
-                              style: ApplicationTypography.testText,
+                          children: [
+                            Container(
+                              width: 310.0,
+                              height: 250.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: const AssetImage(
+                                    'assets/not_found.png',
+                                  ),
+                                ),
+                              ),
                             ),
+                            Text(
+                              _determineNotFoundText(),
+                              textAlign: TextAlign.center,
+                            )
                           ],
                         ),
-                      );
+                      ),
+                    );
                     } else {
                       return ListView.builder(
                         padding: const EdgeInsets.only(top: 8.0),
@@ -255,6 +268,14 @@ class _FollowingState extends State<Following> {
       );
     } else {
       return BorderRadius.circular(0);
+    }
+  }
+
+  String _determineNotFoundText() {
+    if (widget.type == 'edit') {
+      return 'Você ainda não está seguindo ninguém.';
+    } else {
+      return 'Esse usuário ainda não está seguindo ninguém.';
     }
   }
 }

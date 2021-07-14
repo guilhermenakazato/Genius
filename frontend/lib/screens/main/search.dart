@@ -149,7 +149,7 @@ class _SearchState extends State<Search> {
           var projects = searchResult[1];
 
           if (users.isEmpty && projects.isEmpty) {
-            return _emptyResult();
+            return _emptyResult(context);
           } else {
             users = Convert.convertToListOfUsers(users);
             projects = Convert.convertToListOfProjects(projects);
@@ -163,8 +163,32 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Widget _emptyResult() {
-    return Text('nao conseguimos achar nada...');
+  Widget _emptyResult(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.65,
+      child: Align(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 70.0),
+          child: Column(
+            children: [
+              Container(
+                width: 310.0,
+                height: 250.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: const AssetImage('assets/not_found.png'),
+                  ),
+                ),
+              ),
+              Text(
+                'Não há resultados para essa pesquisa.',
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _foundResults(

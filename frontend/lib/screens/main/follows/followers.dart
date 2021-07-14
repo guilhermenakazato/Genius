@@ -81,14 +81,27 @@ class _FollowersState extends State<Followers> {
 
                   if (user.followers.isEmpty) {
                     return Align(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            _determineNotFoundText(),
-                            style: ApplicationTypography.testText,
-                          ),
-                        ],
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 70.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 310.0,
+                              height: 250.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: const AssetImage(
+                                    'assets/not_found.png',
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              _determineNotFoundText(),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
                       ),
                     );
                   } else {
@@ -165,7 +178,10 @@ class _FollowersState extends State<Followers> {
                                       ),
                                     ),
                                     _verifyIfButtonShouldAppear(
-                                        user, index, context),
+                                      user,
+                                      index,
+                                      context,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -233,9 +249,9 @@ class _FollowersState extends State<Followers> {
 
   String _determineNotFoundText() {
     if (widget.type == 'edit') {
-      return 'Você ainda não está sendo seguido por ninguém';
+      return 'Você ainda não tem seguidores.';
     } else {
-      return 'Esse usuário ainda não está sendo seguido por ninguém. Que tal seguí-lo?';
+      return 'Esse usuário ainda não tem seguidores.\nQue tal seguí-lo?';
     }
   }
 

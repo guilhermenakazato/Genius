@@ -294,8 +294,9 @@ class _GeniusCardState extends State<GeniusCard> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('Curtido por\n${widget.likes.toString()} pessoas',
-              style: ApplicationTypography.like,
+              Text(
+                'Curtido por\n${widget.likes.toString()} pessoas',
+                style: ApplicationTypography.like,
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -399,17 +400,9 @@ class _GeniusCardState extends State<GeniusCard> {
             children: [
               Row(
                 children: [
-                  Container(
-                    height: 48,
-                    child: Align(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Curtido por'),
-                          Text('${widget.likes.toString()} pessoas'),
-                        ],
-                      ),
-                    ),
+                  Text(
+                    'Curtido por\n${widget.likes.toString()} pessoas',
+                    style: ApplicationTypography.like,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
