@@ -78,8 +78,8 @@ export default class ProjectsController {
       start_date,
       abstract_text,
       participants,
-      email, 
-      participants_full_name
+      email,
+      participants_full_name,
     } = request.all()
 
     if (main_teacher != undefined && main_teacher != null) {
@@ -93,6 +93,8 @@ export default class ProjectsController {
     const { allExists, username } = await this.allParticipantsExist(participants)
     if (allExists) {
       const project = await Project.findOrFail(id)
+      await project.load("deleteRequests")
+
       project.name = name
       project.main_teacher = main_teacher
       project.second_teacher = second_teacher
@@ -105,7 +107,8 @@ export default class ProjectsController {
       project.email = email
 
       await project.save()
-
+      
+      await this.removeAllDeleteRequestsFromAProjectIfNumberOfParticipantsIsLesserThanNumberOfRequests(participants, project)
       await this.updateProjectParticipantRelationship(participants, project)
       if (!(tags == null)) {
         await this.updateProjectTagRelationship(tags, project)
@@ -122,19 +125,25 @@ export default class ProjectsController {
     }
   }
 
+  async removeAllDeleteRequestsFromAProjectIfNumberOfParticipantsIsLesserThanNumberOfRequests (participants: string[], project: Project) {
+    if(participants.length <= project.deleteRequests.length) {
+      await project.related("deleteRequests").sync([])
+    }
+  }
+
   async updateDeleteRequests({ params }: HttpContextContract) {
     const { projectId, userId } = params
 
     const project = await Project.findOrFail(projectId)
-    const participants = await project
-      .related('deleteRequests')
-      .query()
-      .wherePivot('user_id', userId)
+    const user = await User.findOrFail(userId)
+    await project.load('deleteRequests')
 
-    if (participants.length == 0) {
-      await project.related('deleteRequests').attach([userId])
+    const hasRequestedDelete = project.deleteRequests.map((item) => item.id).includes(user.id)
+
+    if(hasRequestedDelete) {
+      await project.related('deleteRequests').detach([user.id])
     } else {
-      await project.related('deleteRequests').detach([userId])
+      await project.related('deleteRequests').attach([user.id])
     }
 
     await project.load('deleteRequests')
@@ -147,8 +156,8 @@ export default class ProjectsController {
     for (let i = 0; i < projects.length; i++) {
       await projects[i].load('participants')
       await projects[i].load('tags')
-      await projects[i].load("likedBy")
-      await projects[i].load("savedBy")
+      await projects[i].load('likedBy')
+      await projects[i].load('savedBy')
     }
 
     return projects
@@ -161,7 +170,8 @@ export default class ProjectsController {
     await project.load('participants')
     await project.load('savedBy')
     await project.load('tags')
-    await project.load("likedBy")
+    await project.load('likedBy')
+    await project.load('deleteRequests')
 
     return project
   }
@@ -174,12 +184,12 @@ export default class ProjectsController {
     return project
   }
 
-  async verifyIfProjectEmailIsAlreadyBeingUsed({params}: HttpContextContract) {
-    const {email} = params;
+  async verifyIfProjectEmailIsAlreadyBeingUsed({ params }: HttpContextContract) {
+    const { email } = params
 
     const project = await Project.findByOrFail('email', email)
 
-    return project;
+    return project
   }
 
   async allParticipantsExist(participants: string[]) {
@@ -254,5 +264,29 @@ export default class ProjectsController {
     }
 
     await project.related('participants').sync(arrayOfParticipantIds)
+  }
+
+  async deleteProject({ params }: HttpContextContract) {
+    const {projectId} = params;
+    const project = await Project.findOrFail(projectId)
+
+    project.main_teacher = null
+    project.second_teacher = null
+
+    await project.save()
+
+    await project.related("deleteRequests").sync([])
+    await project.related("participants").sync([])
+    await project.related("savedBy").sync([])
+    await project.related("tags").sync([])
+    await project.related("likedBy").sync([])
+
+    await project.load('participants')
+    await project.load('savedBy')
+    await project.load('tags')
+    await project.load('likedBy')
+    await project.load('deleteRequests')
+
+    await project.delete()
   }
 }

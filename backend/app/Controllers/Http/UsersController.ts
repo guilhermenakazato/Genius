@@ -37,14 +37,12 @@ export default class UsersController {
     return user
   }
 
-  // provavelmente vai dar erro aqui pq vai ter q tirar os follows do ser
   async deleteUser({ params }: HttpContextContract) {
     const { id } = params
     const user = await User.findOrFail(id)
 
     await user.load("projects")
-    await user.load("tags")
-
+    
     if(user.projects.length >= 1) {
       for(let i = 0; i < user.projects.length; i++) {
         const project = await Project.find(user.projects[i].id);
@@ -55,8 +53,6 @@ export default class UsersController {
         if(user.username == project?.main_teacher) {
           project.main_teacher = null
           await project.save()
-
-          console.log(project.main_teacher)
         } else if(user.username == project?.second_teacher) {
           project.second_teacher = null
           await project.save()
@@ -68,27 +64,28 @@ export default class UsersController {
       }
     }
 
-    if(user.tags.length >= 1) {
-      for(let i = 0; i < user.tags.length; i++) {
-        const tag = await Tag.find(user.tags[i].id);
-
-        await tag?.related("users").detach([id]);
-      }
-    }
+    await user.related("tags").sync([])
+    await user.related("liked").sync([])
+    await user.related("saved").sync([])
+    await user.related("followers").sync([])
+    await user.related("following").sync([])
+    
+    await user.load("tags") 
+    await user.load("achievements") 
+    await user.load("followers")
+    await user.load("following")
+    await user.load("liked") 
+    await user.load("saved") 
+    await user.load("surveys")
 
     await user.delete()
   }
 
   async deleteProjectSinceThereAreNoParticipantsInIt(project: Project) {
-    await project.load("tags")
-
-    if(project.tags.length >= 1) {
-      for(let i = 0; i < project.tags.length; i++) {
-        const tag = await Tag.find(project.tags[i].id);
-
-        await tag?.related("projects").detach([project.id]);
-      }
-    }
+    await project.related("deleteRequests").sync([])
+    await project.related("savedBy").sync([])
+    await project.related("tags").sync([])
+    await project.related("likedBy").sync([])
 
     await project.delete()
   }
