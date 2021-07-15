@@ -247,6 +247,7 @@ class _EditProjectsState extends State<EditProjects> {
                 },
               );
             },
+            hasAlreadyRequestedDelete: projects[index].deleteRequests.map((item) => item.id).contains(user.id)
           );
         },
         itemCount: projects.length,

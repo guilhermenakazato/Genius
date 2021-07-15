@@ -23,6 +23,7 @@ class GeniusCard extends StatefulWidget {
   final Function(int id) onParticipantsClick;
   final bool liked, saved;
   final int likes;
+  final hasAlreadyRequestedDelete;
 
   const GeniusCard({
     Key key,
@@ -44,6 +45,7 @@ class GeniusCard extends StatefulWidget {
     this.saved = false,
     this.likes = 0,
     this.onDeleteRequest,
+    this.hasAlreadyRequestedDelete = false,
   }) : super(key: key);
 
   @override
@@ -274,10 +276,7 @@ class _GeniusCardState extends State<GeniusCard> {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
-                        child: Icon(
-                          Icons.close_outlined,
-                          color: ApplicationColors.atentionColor,
-                        ),
+                        child: _defineDeleteProjectIcon(),
                       ),
                       Text(
                         '${widget.deleteRequestsCount}/${widget.participantsCount}',
@@ -526,6 +525,20 @@ class _GeniusCardState extends State<GeniusCard> {
           color: Colors.white,
         );
       }
+    }
+  }
+
+  Widget _defineDeleteProjectIcon() {
+    if (!widget.hasAlreadyRequestedDelete) {
+      return Icon(
+        Icons.close_outlined,
+        color: ApplicationColors.atentionColor,
+      );
+    } else {
+      return Icon(
+        Icons.priority_high,
+        color: Colors.orange,
+      );
     }
   }
 }
