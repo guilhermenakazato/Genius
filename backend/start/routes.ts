@@ -42,6 +42,7 @@ Route.post("/follow", 'UsersController.follow').middleware("auth")
 Route.post("/unfollow", 'UsersController.unfollow').middleware("auth")
 Route.post("/like", 'UsersController.likeProject').middleware("auth")
 Route.post("/dislike", 'UsersController.dislikeProject').middleware("auth")
+Route.put("/password/:userId", 'UsersController.changePassword').middleware("auth")
 
 Route.post("/login", 'AuthController.login');
 Route.get("/token", 'AuthController.authenticateWithToken');

@@ -241,4 +241,16 @@ export default class UsersController {
       follower
     ]
   }
+
+  async changePassword({request, params}: HttpContextContract) {
+    const {userId} = params;
+    const {password} = request.all()
+
+    const user = await User.findOrFail(userId);
+    user.password = password
+
+    await user.save()
+
+    return user
+  }
 }

@@ -30,7 +30,8 @@ class _SignUpPasswordState extends State<SignUpPassword> {
       floatingActionButton: FloatingButton(
         onPressed: () {
           _verifyInput(context);
-        },icon: Icons.arrow_forward_ios,
+        },
+        icon: Icons.arrow_forward_ios,
         text: 'Prosseguir',
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -79,7 +80,7 @@ class _SignUpPasswordState extends State<SignUpPassword> {
   }
 
   void _verifyInput(BuildContext context) {
-    final _password = _passwordController.text.trimLeft();
+    final _password = _passwordController.text.trim();
 
     if (_password.isEmpty) {
       GeniusToast.showToast('Preencha o campo de senha!');
@@ -87,7 +88,8 @@ class _SignUpPasswordState extends State<SignUpPassword> {
       GeniusToast.showToast('Insira uma senha de pelo menos 8 caracteres!');
     } else if (_password.contains(' ')) {
       GeniusToast.showToast(
-          'A sua senha não pode conter um espaço em branco!');
+        'A sua senha não pode conter um espaço em branco!',
+      );
     } else {
       widget.person.setPassword(_password);
       _navigator.navigate(context, SignUpType(widget.person));

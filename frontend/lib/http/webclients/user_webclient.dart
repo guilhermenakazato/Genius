@@ -165,4 +165,20 @@ class UserWebClient {
       },
     );
   }
+
+  Future<void> changePassword(String password, String token, int userId) async {
+    final response = await client.put(
+      Uri.parse(baseUrl + '/password/$userId'),
+      body: {
+        'password': '$password',
+      },
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw HttpException('Erro desconhecido..');
+    }
+  }
 }

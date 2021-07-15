@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/screens/main/change_password.dart';
 
 import '../../components/warning_dialog.dart';
 import 'send_mail.dart';
@@ -78,6 +79,13 @@ class _ConfigState extends State<Config> {
                           icon: Icons.notifications,
                           text: 'Notificações',
                           position: 'top',
+                        ),
+                        ModListTile(
+                          text: 'Modificar sua senha',
+                          icon: Icons.lock,
+                          onClick: () {
+                            _navigator.navigate(context, ChangePassword(userId: user.id));
+                          },
                         ),
                         ModListTile(
                           text: 'Contatar os desenvolvedores',
