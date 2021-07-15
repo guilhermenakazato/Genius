@@ -98,7 +98,9 @@ class _EditProfileState extends State<EditProfile> {
 
   Future<List<Tag>> _getTagsData() async {
     final webClient = TagsWebClient();
-    final tags = await webClient.getAllTags();
+    final token = await _tokenObject.getToken();
+
+    final tags = await webClient.getAllTags(token);
     final tagsList = Convert.convertToListOfTags(jsonDecode(tags));
 
     return tagsList;
@@ -451,8 +453,9 @@ class _EditProfileState extends State<EditProfile> {
   void updateUser(User newUserData, int userId, BuildContext context) async {
     final _webClient = UserWebClient();
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
-    await _webClient.updateUser(newUserData, userId).catchError((error) {
+    await _webClient.updateUser(newUserData, userId, token).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {

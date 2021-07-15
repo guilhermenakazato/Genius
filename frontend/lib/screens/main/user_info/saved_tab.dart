@@ -218,34 +218,42 @@ class _SavedTabState extends State<SavedTab> {
                 )
                 .contains(user.id),
             onLiked: () async {
+              final token = await _tokenObject.getToken();
+
               if (widget.savedProjects[index].likedBy
                   .map((item) => item.id)
                   .contains(user.id)) {
                 await _userWebClient.dislikeProject(
                   widget.savedProjects[index].id,
                   user.id,
+                  token,
                 );
               } else {
                 await _userWebClient.likeProject(
                   widget.savedProjects[index].id,
                   user.id,
+                  token,
                 );
               }
 
               widget.onChangedState();
             },
             onSaved: () async {
+              final token = await _tokenObject.getToken();
+
               if (widget.savedProjects[index].savedBy
                   .map((item) => item.id)
                   .contains(user.id)) {
                 await _userWebClient.removeSavedProject(
                   widget.savedProjects[index].id,
                   user.id,
+                  token,
                 );
               } else {
                 await _userWebClient.saveProject(
                   widget.savedProjects[index].id,
                   user.id,
+                  token,
                 );
               }
 

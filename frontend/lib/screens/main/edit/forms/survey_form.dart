@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/models/token.dart';
 import '../../../../utils/genius_toast.dart';
 import '../../../../utils/navigator_util.dart';
 import '../../../../http/exceptions/http_exception.dart';
@@ -29,6 +30,7 @@ class _SurveyFormState extends State<SurveyForm> {
   final _titleController = TextEditingController();
   final _urlController = TextEditingController();
   final navigator = NavigatorUtil();
+  final _tokenObject = Token();
 
   @override
   void initState() {
@@ -115,15 +117,18 @@ class _SurveyFormState extends State<SurveyForm> {
   void _createSurvey(Survey survey, BuildContext context) async {
     final _webClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.createSurvey(survey, widget.userId).catchError((error) {
+    await _webClient.createSurvey(survey, widget.userId, token).catchError(
+        (error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast(
+          'Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast('Erro desconhecido.');
@@ -138,15 +143,17 @@ class _SurveyFormState extends State<SurveyForm> {
       Survey survey, int oldSurveyId, BuildContext context) async {
     final _webClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.updateSurvey(survey, oldSurveyId).catchError((error) {
+    await _webClient.updateSurvey(survey, oldSurveyId, token).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast(
+          'Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast('Erro desconhecido.');

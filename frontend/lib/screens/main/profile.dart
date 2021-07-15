@@ -93,7 +93,9 @@ class _ProfileState extends State<_ProfileContent> {
 
   Future<String> _getDataById() async {
     final _webClient = UserWebClient();
-    final _user = await _webClient.getUserById(widget.id);
+    final token = await _tokenObject.getToken();
+
+    final _user = await _webClient.getUserById(widget.id, token);
     return _user;
   }
 
@@ -469,10 +471,11 @@ class _ProfileState extends State<_ProfileContent> {
     final _webClient = UserWebClient();
     var followed = true;
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.follow(user.id, follower.id).catchError((error) {
+    await _webClient.follow(user.id, follower.id, token).catchError((error) {
       followed = false;
       progress.dismiss();
       GeniusToast.showToast('Não foi possível seguir o usuário.');
@@ -491,10 +494,11 @@ class _ProfileState extends State<_ProfileContent> {
     final _webClient = UserWebClient();
     var unfollowed = true;
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.unfollow(user.id, follower.id, false).catchError((error) {
+    await _webClient.unfollow(user.id, follower.id, false, token).catchError((error) {
       unfollowed = false;
       progress.dismiss();
       GeniusToast.showToast('Não foi possível deixar de seguir o usuário.');

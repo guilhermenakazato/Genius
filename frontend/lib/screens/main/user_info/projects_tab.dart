@@ -66,7 +66,8 @@ class _ProjectsTabState extends State<ProjectsTab> {
     );
   }
 
-  Widget _determineWhichWidgetsShouldBeDisplayed(BuildContext context, User user) {
+  Widget _determineWhichWidgetsShouldBeDisplayed(
+      BuildContext context, User user) {
     if (widget.projects.isEmpty) {
       return Column(
         children: [
@@ -118,7 +119,8 @@ class _ProjectsTabState extends State<ProjectsTab> {
     }
   }
 
-  Widget _determineWhichLayoutShouldBeDisplayed(BuildContext context, User user) {
+  Widget _determineWhichLayoutShouldBeDisplayed(
+      BuildContext context, User user) {
     if (card) {
       return _carouselOfCards(user);
     } else {
@@ -221,34 +223,42 @@ class _ProjectsTabState extends State<ProjectsTab> {
                 )
                 .contains(user.id),
             onLiked: () async {
+              final token = await _tokenObject.getToken();
+
               if (widget.projects[index].likedBy
                   .map((item) => item.id)
                   .contains(user.id)) {
                 await _userWebClient.dislikeProject(
                   widget.projects[index].id,
                   user.id,
+                  token,
                 );
               } else {
                 await _userWebClient.likeProject(
                   widget.projects[index].id,
                   user.id,
+                  token,
                 );
               }
 
               widget.onChangedState();
             },
             onSaved: () async {
+              final token = await _tokenObject.getToken();
+
               if (widget.projects[index].savedBy
                   .map((item) => item.id)
                   .contains(user.id)) {
                 await _userWebClient.removeSavedProject(
                   widget.projects[index].id,
                   user.id,
+                  token,
                 );
               } else {
                 await _userWebClient.saveProject(
                   widget.projects[index].id,
                   user.id,
+                  token,
                 );
               }
 

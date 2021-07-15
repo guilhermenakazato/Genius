@@ -282,8 +282,10 @@ class _EditProjectsState extends State<EditProjects> {
               title: 'Excluir projeto?',
               acceptFunction: () async {
                 final progress = ProgressHUD.of(context);
+                final token = await _tokenObject.getToken();
                 progress.show();
-                await projectWebClient.deleteProject(project.id);
+
+                await projectWebClient.deleteProject(project.id, token);
                 progress.dismiss();
                 navigator.goBack(context);
               },
@@ -297,8 +299,10 @@ class _EditProjectsState extends State<EditProjects> {
       );
     } else {
       final progress = ProgressHUD.of(context);
+      final token = await _tokenObject.getToken();
+
       progress.show();
-      await projectWebClient.updateDeleteRequest(project.id, user.id);
+      await projectWebClient.updateDeleteRequest(project.id, user.id, token);
       progress.dismiss();
     }
   }

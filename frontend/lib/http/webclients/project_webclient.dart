@@ -5,19 +5,10 @@ import '../../http/exceptions/http_exception.dart';
 import '../webclient.dart';
 
 class ProjectWebClient {
-  Future<String> getAllProjects() async {
-    final response = await client.get(Uri.parse(baseUrl + '/projects'));
-
-    if (response.statusCode == 200) {
-      return response.body;
-    }
-
-    throw HttpException('Erro desconhecido..');
-  }
-
-  Future<String> getProjectById(int projectId) async {
+  Future<String> getAllProjects(String token) async {
     final response = await client.get(
-      Uri.parse(baseUrl + '/project/$projectId'),
+      Uri.parse(baseUrl + '/projects'),
+      headers: {'Authorization': 'Bearer $token'},
     );
 
     if (response.statusCode == 200) {
@@ -27,7 +18,20 @@ class ProjectWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<bool> createProject(Project project, int creatorId) async {
+  Future<String> getProjectById(int projectId, String token) async {
+    final response = await client.get(
+      Uri.parse(baseUrl + '/project/$projectId'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    }
+
+    throw HttpException('Erro desconhecido..');
+  }
+
+  Future<bool> createProject(Project project, int creatorId, String token) async {
     final projectJson = jsonEncode(project.toJson());
 
     final response = await client.post(
@@ -35,6 +39,7 @@ class ProjectWebClient {
       body: projectJson,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
 
@@ -47,7 +52,7 @@ class ProjectWebClient {
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
-  Future<bool> updateProject(Project project, projectId) async {
+  Future<bool> updateProject(Project project, projectId, String token) async {
     final projectJson = jsonEncode(project.toJson());
 
     final response = await client.put(
@@ -55,6 +60,7 @@ class ProjectWebClient {
       body: projectJson,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
 
@@ -102,19 +108,21 @@ class ProjectWebClient {
     500: 'Erro de ponto nulo ao criar o questionário.'
   };
 
-  Future<void> updateDeleteRequest(int projectId, int userId) async {
+  Future<void> updateDeleteRequest(int projectId, int userId, String token) async {
     await client.put(
       Uri.parse(
         baseUrl + '/project/$projectId/$userId',
       ),
+      headers: {'Authorization': 'Bearer $token'}
     );
   }
 
-  Future<void> deleteProject(int projectId) async {
+  Future<void> deleteProject(int projectId, String token) async {
     await client.delete(
       Uri.parse(
         baseUrl + '/project/$projectId',
       ),
+      headers: {'Authorization': 'Bearer $token'}
     );
   }
 }

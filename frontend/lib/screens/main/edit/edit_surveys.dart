@@ -168,10 +168,11 @@ class _EditSurveysState extends State<EditSurveys> {
   void _deleteSurvey(int surveyId, BuildContext context) async {
     final _webClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.deleteSurvey(surveyId).catchError((error) {
+    await _webClient.deleteSurvey(surveyId, token).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {

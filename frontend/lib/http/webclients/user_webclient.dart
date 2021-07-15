@@ -19,9 +19,10 @@ class UserWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<String> getUserById(int id) async {
+  Future<String> getUserById(int id, String token) async {
     final response = await client.get(
       Uri.parse(baseUrl + '/user/$id'),
+      headers: {'Authorization': 'Bearer $token'},
     );
 
     if (response.statusCode == 200) {
@@ -32,7 +33,7 @@ class UserWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<void> updateUser(User user, int userId) async {
+  Future<void> updateUser(User user, int userId, String token) async {
     final userJson = jsonEncode(user.toJson());
 
     final response = await client.put(
@@ -40,6 +41,7 @@ class UserWebClient {
       body: userJson,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
 
@@ -50,8 +52,11 @@ class UserWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<String> getAllUsers() async {
-    final response = await client.get(Uri.parse(baseUrl + '/users'));
+  Future<String> getAllUsers(String token) async {
+    final response = await client.get(
+      Uri.parse(baseUrl + '/users'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
 
     if (response.statusCode == 200) {
       return response.body;
@@ -60,15 +65,16 @@ class UserWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<void> deleteUser(int userId) async {
+  Future<void> deleteUser(int userId, String token) async {
     await client.delete(
       Uri.parse(baseUrl + '/user/$userId'),
+      headers: {'Authorization': 'Bearer $token'},
     );
 
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<void> follow(int userId, int followerId) async {
+  Future<void> follow(int userId, int followerId, String token) async {
     final data = <String, dynamic>{};
     data['user_id'] = userId;
     data['follower_id'] = followerId;
@@ -78,12 +84,13 @@ class UserWebClient {
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
   }
 
   Future<void> unfollow(
-      int userId, int followerId, bool removingFollower) async {
+      int userId, int followerId, bool removingFollower, String token) async {
     final data = <String, dynamic>{};
     data['user_id'] = userId;
     data['follower_id'] = followerId;
@@ -94,11 +101,12 @@ class UserWebClient {
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
   }
 
-  Future<void> likeProject(int projectId, userId) async {
+  Future<void> likeProject(int projectId, userId, String token) async {
     final data = <String, dynamic>{};
     data['projectId'] = projectId;
     data['userId'] = userId;
@@ -108,11 +116,12 @@ class UserWebClient {
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
   }
 
-  Future<void> dislikeProject(int projectId, userId) async {
+  Future<void> dislikeProject(int projectId, userId, String token) async {
     final data = <String, dynamic>{};
     data['projectId'] = projectId;
     data['userId'] = userId;
@@ -122,11 +131,12 @@ class UserWebClient {
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
   }
 
-  Future<void> saveProject(int projectId, userId) async {
+  Future<void> saveProject(int projectId, userId, String token) async {
     final data = <String, dynamic>{};
     data['projectId'] = projectId;
     data['userId'] = userId;
@@ -136,11 +146,12 @@ class UserWebClient {
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
   }
 
-  Future<void> removeSavedProject(int projectId, userId) async {
+  Future<void> removeSavedProject(int projectId, userId, String token) async {
     final data = <String, dynamic>{};
     data['projectId'] = projectId;
     data['userId'] = userId;
@@ -150,6 +161,7 @@ class UserWebClient {
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
   }

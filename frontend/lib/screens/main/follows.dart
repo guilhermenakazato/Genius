@@ -49,7 +49,9 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
 
   Future<String> _getDataById() async {
     final _webClient = UserWebClient();
-    final _user = await _webClient.getUserById(widget.id);
+    final token = await _tokenObject.getToken();
+
+    final _user = await _webClient.getUserById(widget.id, token);
     return _user;
   }
 

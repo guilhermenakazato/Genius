@@ -9,6 +9,7 @@ class SearchWebClient {
     List<String> filterTags,
     bool showUsers,
     bool showProjects,
+    String token
   ) async {
     final data = <String, dynamic>{};
     data['filter_tags'] = filterTags;
@@ -21,6 +22,7 @@ class SearchWebClient {
       body: json.encode(data),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
 

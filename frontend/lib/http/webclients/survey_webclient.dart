@@ -5,7 +5,7 @@ import '../exceptions/http_exception.dart';
 import '../webclient.dart';
 
 class SurveyWebClient {
-  Future<void> updateSurvey(Survey survey, surveyId) async {
+  Future<void> updateSurvey(Survey survey, surveyId, String token) async {
     final surveyJson = jsonEncode(survey.toJson());
 
     final response = await client.put(
@@ -13,6 +13,7 @@ class SurveyWebClient {
       body: surveyJson,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
 
@@ -23,7 +24,7 @@ class SurveyWebClient {
     throw HttpException('Erro desconhecido..');
   }
 
-  Future<void> createSurvey(Survey survey, int userId) async {
+  Future<void> createSurvey(Survey survey, int userId, String token) async {
     final surveyJson = jsonEncode(survey.toJson());
 
     final response = await client.post(
@@ -31,6 +32,7 @@ class SurveyWebClient {
       body: surveyJson,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
 
@@ -41,9 +43,9 @@ class SurveyWebClient {
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
-  Future<void> deleteSurvey(int surveyId) async {
+  Future<void> deleteSurvey(int surveyId, String token) async {
     final response = await client.delete(
-      Uri.parse(baseUrl + '/survey/$surveyId'),
+      Uri.parse(baseUrl + '/survey/$surveyId'), headers: {'Authorization': 'Bearer $token'},
     );
 
     if (response.statusCode == 200) {

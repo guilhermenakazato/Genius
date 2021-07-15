@@ -145,19 +145,17 @@ class _FeedState extends State<_FeedContent> {
                 user.id,
               ),
           onLiked: () async {
+            final token = await _tokenObject.getToken();
+
             if (projects[index]
                 .likedBy
                 .map((item) => item.id)
                 .contains(user.id)) {
               await _userWebClient.dislikeProject(
-                projects[index].id,
-                user.id,
-              );
+                  projects[index].id, user.id, token);
             } else {
               await _userWebClient.likeProject(
-                projects[index].id,
-                user.id,
-              );
+                  projects[index].id, user.id, token);
             }
 
             setState(() {
@@ -165,19 +163,17 @@ class _FeedState extends State<_FeedContent> {
             });
           },
           onSaved: () async {
+            final token = await _tokenObject.getToken();
+
             if (projects[index]
                 .savedBy
                 .map((item) => item.id)
                 .contains(user.id)) {
               await _userWebClient.removeSavedProject(
-                projects[index].id,
-                user.id,
-              );
+                  projects[index].id, user.id, token);
             } else {
               await _userWebClient.saveProject(
-                projects[index].id,
-                user.id,
-              );
+                  projects[index].id, user.id, token);
             }
 
             setState(() {
@@ -200,7 +196,8 @@ class _FeedState extends State<_FeedContent> {
 
   Future<String> _getProjects() async {
     final _webClient = ProjectWebClient();
-    final projects = await _webClient.getAllProjects();
+    final token = await _tokenObject.getToken();
+    final projects = await _webClient.getAllProjects(token);
 
     return projects;
   }

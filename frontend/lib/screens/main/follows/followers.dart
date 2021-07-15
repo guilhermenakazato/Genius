@@ -49,7 +49,9 @@ class _FollowersState extends State<Followers> {
 
   Future<String> _getDataById() async {
     final _webClient = UserWebClient();
-    final _user = await _webClient.getUserById(widget.id);
+    final token = await _tokenObject.getToken();
+
+    final _user = await _webClient.getUserById(widget.id, token);
     return _user;
   }
 
@@ -230,10 +232,11 @@ class _FollowersState extends State<Followers> {
     final _webClient = UserWebClient();
     var unfollowed = true;
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.unfollow(user.id, follower.id, true).catchError((error) {
+    await _webClient.unfollow(user.id, follower.id, true, token).catchError((error) {
       unfollowed = false;
       progress.dismiss();
       GeniusToast.showToast('Não foi possível remover o usuário.');

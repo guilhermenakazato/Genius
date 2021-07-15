@@ -139,9 +139,10 @@ class _ConfigState extends State<Config> {
 
   Future<void> deleteUser(BuildContext context, int id) async {
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
     progress.show();
 
-    await _userWebClient.deleteUser(id);
+    await _userWebClient.deleteUser(id, token);
     progress.dismiss();
   }
 

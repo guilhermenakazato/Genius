@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/models/token.dart';
 
 import '../../../../utils/genius_toast.dart';
 import '../../../../http/exceptions/http_exception.dart';
@@ -38,6 +39,7 @@ class _AchievementFormState extends State<AchievementForm> {
   final _customizedTypeController = TextEditingController();
   bool showPositionField = false;
   final navigator = NavigatorUtil();
+  final _tokenObject = Token();
 
   @override
   void initState() {
@@ -244,16 +246,18 @@ class _AchievementFormState extends State<AchievementForm> {
   void _createAchievement(Achievement achievement, BuildContext context) async {
     final _webClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
-
+    final token = await _tokenObject.getToken();
     progress.show();
 
-    await _webClient.createAchievement(achievement, widget.userId).catchError(
-        (error) {
+    await _webClient
+        .createAchievement(achievement, widget.userId, token)
+        .catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast(
+          'Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast('Erro desconhecido.');
@@ -265,19 +269,24 @@ class _AchievementFormState extends State<AchievementForm> {
   }
 
   void _updateAchievement(
-      Achievement achievement, int oldSurveyId, BuildContext context) async {
+    Achievement achievement,
+    int oldSurveyId,
+    BuildContext context,
+  ) async {
     final _webClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.updateAchievement(achievement, oldSurveyId).catchError(
+    await _webClient.updateAchievement(achievement, oldSurveyId, token).catchError(
         (error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       progress.dismiss();
-      GeniusToast.showToast('Erro: o tempo para fazer login excedeu o esperado.');
+      GeniusToast.showToast(
+          'Erro: o tempo para fazer login excedeu o esperado.');
     }, test: (error) => error is TimeoutException).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast('Erro desconhecido.');

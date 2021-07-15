@@ -61,7 +61,9 @@ class _SearchState extends State<Search> {
 
   Future<List<Tag>> _getTagsData() async {
     final webClient = TagsWebClient();
-    final tags = await webClient.getAllTags();
+    final token = await _tokenObject.getToken();
+
+    final tags = await webClient.getAllTags(token);
     final tagsList = Convert.convertToListOfTags(jsonDecode(tags));
 
     return tagsList;
@@ -69,12 +71,14 @@ class _SearchState extends State<Search> {
 
   Future<String> _getSearchData() async {
     final webClient = SearchWebClient();
+    final token = await _tokenObject.getToken();
 
     final searchResult = await webClient.search(
       _searchText,
       _selectedTags,
       showUsers,
       showProjects,
+      token,
     );
 
     return searchResult;
@@ -249,7 +253,8 @@ class _SearchState extends State<Search> {
             );
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 8, right: 16, left: 16),
+            padding:
+                const EdgeInsets.only(top: 8.0, bottom: 8, right: 16, left: 16),
             child: Column(
               children: [
                 Container(

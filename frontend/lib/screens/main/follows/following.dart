@@ -56,7 +56,9 @@ class _FollowingState extends State<Following> {
 
   Future<String> _getDataById() async {
     final _webClient = UserWebClient();
-    final _user = await _webClient.getUserById(widget.id);
+    final token = await _tokenObject.getToken();
+
+    final _user = await _webClient.getUserById(widget.id, token);
     return _user;
   }
 
@@ -82,29 +84,29 @@ class _FollowingState extends State<Following> {
 
                     if (user.following.isEmpty) {
                       return Align(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 70.0),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 310.0,
-                              height: 250.0,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: const AssetImage(
-                                    'assets/not_found.png',
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 70.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 310.0,
+                                height: 250.0,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: const AssetImage(
+                                      'assets/not_found.png',
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Text(
-                              _determineNotFoundText(),
-                              textAlign: TextAlign.center,
-                            )
-                          ],
+                              Text(
+                                _determineNotFoundText(),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
+                      );
                     } else {
                       return ListView.builder(
                         padding: const EdgeInsets.only(top: 8.0),
@@ -153,7 +155,9 @@ class _FollowingState extends State<Following> {
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Container(
-                                        width: MediaQuery.of(context).size.width * 0.5,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
                                         child: Column(
                                           children: [
                                             Container(
@@ -207,10 +211,11 @@ class _FollowingState extends State<Following> {
     final _webClient = UserWebClient();
     var unfollowed = true;
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.unfollow(user.id, follower.id, false).catchError((error) {
+    await _webClient.unfollow(user.id, follower.id, false, token).catchError((error) {
       unfollowed = false;
       progress.dismiss();
       GeniusToast.showToast('Não foi possível deixar de seguir o usuário.');

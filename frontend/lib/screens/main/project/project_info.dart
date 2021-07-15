@@ -72,15 +72,13 @@ class _ProjectInfoState extends State<ProjectInfo> {
                           child: Column(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0, top: 8),
+                                padding:
+                                    const EdgeInsets.only(bottom: 8.0, top: 8),
                                 child: _participantsOfTheProject(project),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  left: 30.0,
-                                  right: 30,
-                                  bottom: 8
-                                ),
+                                    left: 30.0, right: 30, bottom: 8),
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
@@ -93,10 +91,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  left: 30.0,
-                                  right: 30,
-                                  bottom: 8
-                                ),
+                                    left: 30.0, right: 30, bottom: 8),
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
@@ -109,10 +104,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                  left: 30.0,
-                                  right: 30,
-                                  bottom: 8
-                                ),
+                                    left: 30.0, right: 30, bottom: 8),
                                 child: Container(
                                   width: double.infinity,
                                   child: Text(
@@ -181,6 +173,9 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                     ),
                                     child: _defineLikeIcon(project, user),
                                     onPressed: () async {
+                                      final token =
+                                          await _tokenObject.getToken();
+
                                       setState(() {
                                         likeIsLoading = true;
                                       });
@@ -189,14 +184,10 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                           .map((item) => item.id)
                                           .contains(user.id)) {
                                         await _userWebClient.dislikeProject(
-                                          project.id,
-                                          user.id,
-                                        );
+                                            project.id, user.id, token);
                                       } else {
                                         await _userWebClient.likeProject(
-                                          project.id,
-                                          user.id,
-                                        );
+                                            project.id, user.id, token);
                                       }
 
                                       setState(() {
@@ -225,6 +216,9 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                     ),
                                     child: _defineSaveIcon(project, user),
                                     onPressed: () async {
+                                      final token =
+                                          await _tokenObject.getToken();
+
                                       setState(() {
                                         saveIsLoading = true;
                                       });
@@ -235,11 +229,13 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                         await _userWebClient.removeSavedProject(
                                           project.id,
                                           user.id,
+                                          token,
                                         );
                                       } else {
                                         await _userWebClient.saveProject(
                                           project.id,
                                           user.id,
+                                          token,
                                         );
                                       }
 
@@ -388,7 +384,9 @@ class _ProjectInfoState extends State<ProjectInfo> {
 
   Future<String> _getProjectById() async {
     final _webClient = ProjectWebClient();
-    final _project = await _webClient.getProjectById(widget.projectId);
+    final token = await _tokenObject.getToken();
+
+    final _project = await _webClient.getProjectById(widget.projectId, token);
     return _project;
   }
 

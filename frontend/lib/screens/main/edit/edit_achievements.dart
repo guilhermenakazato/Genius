@@ -163,10 +163,11 @@ class _EditConquistasState extends State<EditConquistas> {
   void _deleteAchievement(int achievementId, BuildContext context) async {
     final _webClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
+    final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.deleteAchievement(achievementId).catchError((error) {
+    await _webClient.deleteAchievement(achievementId, token).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {

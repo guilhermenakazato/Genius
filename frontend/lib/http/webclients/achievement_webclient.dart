@@ -5,7 +5,7 @@ import '../../http/exceptions/http_exception.dart';
 import '../webclient.dart';
 
 class AchievementWebClient {
-  Future<void> createAchievement(Achievement achievement, int userId) async {
+  Future<void> createAchievement(Achievement achievement, int userId, String token) async {
     final achievementJson = jsonEncode(achievement.toJson());
 
     final response = await client.post(
@@ -13,6 +13,7 @@ class AchievementWebClient {
       body: achievementJson,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
 
@@ -23,9 +24,11 @@ class AchievementWebClient {
     throw HttpException(_statusCodeResponses[response.statusCode]);
   }
 
-  Future<void> deleteAchievement(int achievementId) async {
-    final response =
-        await client.delete(Uri.parse(baseUrl + '/achievement/$achievementId'));
+  Future<void> deleteAchievement(int achievementId, String token) async {
+    final response = await client.delete(
+      Uri.parse(baseUrl + '/achievement/$achievementId'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
 
     if (response.statusCode == 200) {
       return response.body;
@@ -38,7 +41,7 @@ class AchievementWebClient {
     500: 'Erro de ponto nulo ao criar o questionário.'
   };
 
-  Future<void> updateAchievement(Achievement achievement, achievementId) async {
+  Future<void> updateAchievement(Achievement achievement, achievementId, String token) async {
     final achievementJson = jsonEncode(achievement.toJson());
 
     final response = await client.put(
@@ -46,6 +49,7 @@ class AchievementWebClient {
       body: achievementJson,
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
       },
     );
 
