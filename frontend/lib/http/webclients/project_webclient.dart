@@ -101,4 +101,20 @@ class ProjectWebClient {
   static final Map<int, String> _statusCodeResponses = {
     500: 'Erro de ponto nulo ao criar o questionário.'
   };
+
+  Future<void> updateDeleteRequest(int projectId, int userId) async {
+    await client.put(
+      Uri.parse(
+        baseUrl + '/project/$projectId/$userId',
+      ),
+    );
+  }
+
+  Future<void> deleteProject(int projectId) async {
+    await client.delete(
+      Uri.parse(
+        baseUrl + '/project/$projectId',
+      ),
+    );
+  }
 }

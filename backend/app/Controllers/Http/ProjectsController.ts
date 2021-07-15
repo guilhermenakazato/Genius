@@ -108,12 +108,13 @@ export default class ProjectsController {
 
       await project.save()
       
-      await this.removeAllDeleteRequestsFromAProjectIfNumberOfParticipantsIsLesserThanNumberOfRequests(participants, project)
+      await this.removeAllDeleteRequestsFromAProjectIfNumberOfParticipantsIsLesserOrEqualThanNumberOfRequests(participants, project)
       await this.updateProjectParticipantRelationship(participants, project)
       if (!(tags == null)) {
         await this.updateProjectTagRelationship(tags, project)
       }
 
+      await project.load("deleteRequests")
       await project.load('participants')
       await project.load('tags')
 
@@ -125,7 +126,7 @@ export default class ProjectsController {
     }
   }
 
-  async removeAllDeleteRequestsFromAProjectIfNumberOfParticipantsIsLesserThanNumberOfRequests (participants: string[], project: Project) {
+  async removeAllDeleteRequestsFromAProjectIfNumberOfParticipantsIsLesserOrEqualThanNumberOfRequests (participants: string[], project: Project) {
     if(participants.length <= project.deleteRequests.length) {
       await project.related("deleteRequests").sync([])
     }

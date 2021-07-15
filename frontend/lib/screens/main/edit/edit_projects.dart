@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/components/warning_dialog.dart';
+import 'package:genius/http/webclients/project_webclient.dart';
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
 import '../../../screens/main/project/project_info.dart';
@@ -49,30 +52,41 @@ class _EditProjectsState extends State<EditProjects> {
           final user = User.fromJson(jsonDecode(snapshot.data));
           final projects = user.projects;
 
-          return Theme(
-            data: Theme.of(context).copyWith(
-              splashColor: ApplicationColors.splashColor,
+          return ProgressHUD(
+            borderColor: Theme.of(context).primaryColor,
+            indicatorWidget: SpinKitPouringHourglass(
+              color: Theme.of(context).primaryColor,
             ),
-            child: Scaffold(
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerFloat,
-              floatingActionButton: FloatingButton(
-                onPressed: () {
-                  navigator.navigateAndReload(
-                      context,
-                      ProjectForm(
-                        user: user,
-                      ), () {
-                    setState(() {
-                      _userData = getData();
-                    });
-                  });
-                },
-                icon: Icons.add,
-                text: 'Adicionar',
+            child: Builder(
+              builder: (context) => Theme(
+                data: Theme.of(context).copyWith(
+                  splashColor: ApplicationColors.splashColor,
+                ),
+                child: Scaffold(
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.centerFloat,
+                  floatingActionButton: FloatingButton(
+                    onPressed: () {
+                      navigator.navigateAndReload(
+                          context,
+                          ProjectForm(
+                            user: user,
+                          ), () {
+                        setState(() {
+                          _userData = getData();
+                        });
+                      });
+                    },
+                    icon: Icons.add,
+                    text: 'Adicionar',
+                  ),
+                  body: _verifyWhichWidgetShouldBeDisplayed(
+                    projects,
+                    user,
+                    context,
+                  ),
+                ),
               ),
-              body:
-                  _verifyWhichWidgetShouldBeDisplayed(projects, user, context),
             ),
           );
         } else {
@@ -110,7 +124,8 @@ class _EditProjectsState extends State<EditProjects> {
     }
   }
 
-  Widget _listOfCards(BuildContext context, List<Project> projects, User follower) {
+  Widget _listOfCards(
+      BuildContext context, List<Project> projects, User follower) {
     return SizedBox(
       height: 490,
       child: MediaQuery.removePadding(
@@ -167,7 +182,7 @@ class _EditProjectsState extends State<EditProjects> {
           child: Column(
             children: [
               _iconToChooseStyleOfProjects(),
-              _carouselOfCards(projects, user),
+              _carouselOfCards(projects, user, context),
             ],
           ),
         );
@@ -182,7 +197,8 @@ class _EditProjectsState extends State<EditProjects> {
     }
   }
 
-  Widget _carouselOfCards(List<Project> projects, User user) {
+  Widget _carouselOfCards(
+      List<Project> projects, User user, BuildContext context) {
     return SizedBox(
       width: 300,
       height: 490,
@@ -222,10 +238,67 @@ class _EditProjectsState extends State<EditProjects> {
             },
             deleteRequestsCount: projects[index].deleteRequests.length,
             participantsCount: projects[index].participants.length,
+            onDeleteRequest: () async {
+              await updateDeleteRequest(projects[index], user, context);
+
+              setState(
+                () {
+                  _userData = getData();
+                },
+              );
+            },
           );
         },
         itemCount: projects.length,
       ),
     );
+  }
+
+  Future<dynamic> updateDeleteRequest(
+      Project project, User user, BuildContext context) async {
+    final projectWebClient = ProjectWebClient();
+    final navigator = NavigatorUtil();
+
+    var shouldDelete =
+        (project.deleteRequests.length + 1) == project.participants.length;
+    var userHasAlreadyRequestedDelete =
+        project.deleteRequests.map((item) => item.id).contains(user.id);
+
+    if (shouldDelete && !userHasAlreadyRequestedDelete) {
+      return showDialog(
+        context: context,
+        builder: (
+          BuildContext context,
+        ) =>
+            ProgressHUD(
+          borderColor: Theme.of(context).primaryColor,
+          indicatorWidget: SpinKitPouringHourglass(
+            color: Theme.of(context).primaryColor,
+          ),
+          child: Builder(
+            builder: (context) => WarningDialog(
+              content: 'Caso exclua, não poderá recuperar os dados dele.',
+              title: 'Excluir projeto?',
+              acceptFunction: () async {
+                final progress = ProgressHUD.of(context);
+                progress.show();
+                await projectWebClient.deleteProject(project.id);
+                progress.dismiss();
+                navigator.goBack(context);
+              },
+              cancelFunction: () {
+                navigator.goBack(context);
+              },
+              acceptText: 'Excluir',
+            ),
+          ),
+        ),
+      );
+    } else {
+      final progress = ProgressHUD.of(context);
+      progress.show();
+      await projectWebClient.updateDeleteRequest(project.id, user.id);
+      progress.dismiss();
+    }
   }
 }

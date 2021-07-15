@@ -12,7 +12,11 @@ class GeniusCard extends StatefulWidget {
   final String projectName;
   final String abstractText;
   final List<User> projectParticipants;
-  final Function onEdit, onLiked, onClickedConversationIcon, onSaved;
+  final Function onEdit,
+      onLiked,
+      onClickedConversationIcon,
+      onSaved,
+      onDeleteRequest;
   final int deleteRequestsCount;
   final int participantsCount;
   final Color participantsBorderColor;
@@ -39,6 +43,7 @@ class GeniusCard extends StatefulWidget {
     this.liked = false,
     this.saved = false,
     this.likes = 0,
+    this.onDeleteRequest,
   }) : super(key: key);
 
   @override
@@ -260,7 +265,11 @@ class _GeniusCardState extends State<GeniusCard> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (widget.onDeleteRequest != null) {
+                      widget.onDeleteRequest();
+                    }
+                  },
                   child: Row(
                     children: <Widget>[
                       Padding(
