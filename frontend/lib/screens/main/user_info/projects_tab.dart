@@ -122,7 +122,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
   Widget _determineWhichLayoutShouldBeDisplayed(
       BuildContext context, User user) {
     if (card) {
-      return _carouselOfCards(user);
+      return _carouselOfCards(user, context);
     } else {
       return _listOfCards(context);
     }
@@ -173,10 +173,10 @@ class _ProjectsTabState extends State<ProjectsTab> {
     );
   }
 
-  Widget _carouselOfCards(User user) {
+  Widget _carouselOfCards(User user, BuildContext context) {
     return SizedBox(
-      width: 300,
-      height: 455,
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.6,
       child: GeniusCardConfig(
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {

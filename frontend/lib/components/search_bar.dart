@@ -19,7 +19,7 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 400),
-      width: _determineSize(),
+      width: _determineSize(context),
       height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
@@ -69,11 +69,11 @@ class _SearchBarState extends State<SearchBar> {
     );
   }
 
-  double _determineSize() {
+  double _determineSize(BuildContext context) {
     if (_folded) {
       return 45;
     } else {
-      return 314;
+      return MediaQuery.of(context).size.width * 0.95;
     }
   }
 

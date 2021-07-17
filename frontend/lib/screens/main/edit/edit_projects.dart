@@ -200,8 +200,8 @@ class _EditProjectsState extends State<EditProjects> {
   Widget _carouselOfCards(
       List<Project> projects, User user, BuildContext context) {
     return SizedBox(
-      width: 300,
-      height: 490,
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.73,
       child: GeniusCardConfig(
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {
