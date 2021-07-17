@@ -21,7 +21,6 @@ import '../../../../models/user.dart';
 import '../../../../models/project.dart';
 import '../../../../http/webclients/tags_webclient.dart';
 import '../../../../utils/convert.dart';
-import '../../../../components/submit_file.dart';
 
 class ProjectForm extends StatefulWidget {
   final User user;
@@ -260,10 +259,6 @@ class _ProjectFormState extends State<ProjectForm> {
                           label: 'Resumo',
                           allowMultilines: true,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
-                        child: SubmitFile(),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),

@@ -126,7 +126,7 @@ class _ProfileState extends State<_ProfileContent> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(height: 50),
-                      _photoNameAndCity(user),
+                      _nameAndCity(user),
                       _followersEditProfileAndFollowing(
                           user, context, follower),
                       _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
@@ -163,8 +163,8 @@ class _ProfileState extends State<_ProfileContent> {
         return true;
       },
       child: DraggableScrollableSheet(
-        initialChildSize: 0.65,
-        minChildSize: 0.62,
+        initialChildSize: 0.7,
+        minChildSize: 0.68,
         builder: (context, scrollController) {
           return Container(
             width: double.infinity,
@@ -498,7 +498,8 @@ class _ProfileState extends State<_ProfileContent> {
 
     progress.show();
 
-    await _webClient.unfollow(user.id, follower.id, false, token).catchError((error) {
+    await _webClient.unfollow(user.id, follower.id, false, token).catchError(
+        (error) {
       unfollowed = false;
       progress.dismiss();
       GeniusToast.showToast('Não foi possível deixar de seguir o usuário.');
@@ -514,41 +515,27 @@ class _ProfileState extends State<_ProfileContent> {
     }
   }
 
-  Widget _photoNameAndCity(User user) {
+  Widget _nameAndCity(User user) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 28.0),
-          child: CircleAvatar(
-            radius: 40,
-            backgroundImage: AssetImage('assets/sem-foto.png'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 10),
+        Align(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               _determineStyle(user),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Row(
                   children: <Widget>[
-                    Icon(
-                      Icons.person_pin,
-                      color: Colors.white,
-                      size: 17,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Container(
-                        width: 150,
-                        child: Text(
-                          user.name,
-                          style: ApplicationTypography.profileCity,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                    Container(
+                      width: 250,
+                      child: Text(
+                        user.name,
+                        textAlign: TextAlign.center,
+                        style: ApplicationTypography.profileCity,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -564,7 +551,7 @@ class _ProfileState extends State<_ProfileContent> {
   Widget _determineStyle(User user) {
     if (user.verified == 'founder') {
       return Container(
-        width: 170,
+        width: 250,
         child: AnimatedTextKit(
           animatedTexts: [
             ColorizeAnimatedText(
@@ -572,6 +559,7 @@ class _ProfileState extends State<_ProfileContent> {
               speed: Duration(milliseconds: 500),
               textStyle: ApplicationTypography.profileName,
               colors: founderColors,
+              textAlign: TextAlign.center,
             ),
           ],
           pause: Duration(milliseconds: 0),
@@ -583,11 +571,12 @@ class _ProfileState extends State<_ProfileContent> {
       return Row(
         children: [
           Container(
-            width: 160,
+            width: 240,
             child: Text(
               user.username,
               style: ApplicationTypography.profileName,
               overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
           ),
           Icon(
@@ -598,18 +587,19 @@ class _ProfileState extends State<_ProfileContent> {
       );
     } else {
       return Container(
-        width: 170,
+        width: 250,
         child: Text(
           user.username,
           style: ApplicationTypography.profileName,
           overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
         ),
       );
     }
   }
 
   IconData _determineIconBasedOnMyMindPosition() {
-    if (_myMindPosition > 0.65) {
+    if (_myMindPosition > 0.68) {
       return Icons.expand_more;
     } else {
       return Icons.expand_less;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 import '../utils/application_typography.dart';
 import 'application_colors.dart';
 
@@ -9,6 +8,7 @@ class ApplicationThemes {
   static final defaultTheme = ThemeData(
     brightness: Brightness.dark,
     appBarTheme: AppBarTheme(
+      brightness: Brightness.dark,
       textTheme: TextTheme(
         headline6: ApplicationTypography.appBar,
       ),

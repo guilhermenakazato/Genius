@@ -134,7 +134,6 @@ class _EditProfileState extends State<EditProfile> {
                       key: _key,
                       child: Column(
                         children: <Widget>[
-                          _photoWidget(),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
                             child: InputWithAnimation(
@@ -466,31 +465,5 @@ class _EditProfileState extends State<EditProfile> {
       progress.dismiss();
       GeniusToast.showToast('Erro desconhecido.');
     });
-  }
-
-  Widget _photoWidget() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: CircleAvatar(
-        radius: 40,
-        backgroundImage: AssetImage('assets/sem-foto.png'),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: ApplicationColors.addPhotoColor,
-              ),
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

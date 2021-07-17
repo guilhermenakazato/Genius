@@ -12,7 +12,6 @@ import '../../http/webclients/user_webclient.dart';
 import '../../models/token.dart';
 import '../../components/config_title.dart';
 import '../../components/mod_list_tile.dart';
-import '../../components/switch_tile.dart';
 import '../../http/webclients/login_webclient.dart';
 import '../../screens/welcome.dart';
 import '../../utils/navigator_util.dart';
@@ -75,14 +74,10 @@ class _ConfigState extends State<Config> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: <Widget>[
-                        SwitchTile(
-                          icon: Icons.notifications,
-                          text: 'Notificações',
-                          position: 'top',
-                        ),
                         ModListTile(
                           text: 'Modificar sua senha',
                           icon: Icons.lock,
+                          position: 'top',
                           onClick: () {
                             _navigator.navigate(context, ChangePassword(userId: user.id));
                           },
