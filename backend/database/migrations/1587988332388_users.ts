@@ -17,6 +17,7 @@ export default class UsersSchema extends BaseSchema {
       table.string("institution", 200).notNullable()
       table.string("bio", 180).nullable()
       table.string("verified").nullable()
+      table.string("device_token").nullable()
       table.timestamps(true)
     })
   }

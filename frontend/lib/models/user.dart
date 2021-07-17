@@ -14,7 +14,8 @@ class User {
       institution,
       formation,
       bio, 
-      verified;
+      verified,
+      deviceToken;
   int id;
   List<Project> projects;
   List<Achievement> achievements;
@@ -92,7 +93,8 @@ class User {
         tags = Convert.convertToListOfTags(json['tags']),
         verified = json['verified'],
         followers = Convert.convertToListOfUsers(json['followers']),
-        following = Convert.convertToListOfUsers(json['following']); 
+        following = Convert.convertToListOfUsers(json['following']),
+        deviceToken = json['device_token']; 
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -106,6 +108,7 @@ class User {
         'formation': formation,
         'bio': bio,
         'tags': tags,
+        'deviceToken': deviceToken,
       };
 
   @override

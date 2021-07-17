@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -51,7 +51,7 @@ class _FeedState extends State<_FeedContent> {
         if (snapshot.hasData) {
           var projects =
               Convert.convertStringToListofTypeProject(snapshot.data[0]);
-          final user = User.fromJson(jsonDecode(snapshot.data[1]));
+          final user = snapshot.data[1];
 
           return Center(
             child: Padding(
@@ -202,10 +202,18 @@ class _FeedState extends State<_FeedContent> {
     return projects;
   }
 
-  Future<String> _getDataByToken() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+  Future<User> _getDataByToken() async {
+    final webClient = UserWebClient();
+    final token = await _tokenObject.getToken();
+    final userStringData = await webClient.getUserData(token);
+    final user = User.fromJson(jsonDecode(userStringData));
+    final deviceToken = await FirebaseMessaging.instance.getToken();
+    final jwtToken = await _tokenObject.getToken();
+
+    if (user.deviceToken != deviceToken) {
+      await webClient.setDeviceToken(deviceToken, jwtToken, user.id);
+    }
+
+    return user;
   }
 }

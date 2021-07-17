@@ -253,4 +253,16 @@ export default class UsersController {
 
     return user
   }
+
+  async setDeviceToken({request, params}: HttpContextContract) {
+    const {userId} = params;
+    const {device_token} = request.all()
+
+    const user = await User.findOrFail(userId)
+    user.deviceToken = device_token
+
+    await user.save()
+
+    return user
+  }
 }

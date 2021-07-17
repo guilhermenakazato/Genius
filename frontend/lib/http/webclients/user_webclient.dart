@@ -181,4 +181,24 @@ class UserWebClient {
       throw HttpException('Erro desconhecido..');
     }
   }
+
+  Future<void> setDeviceToken(
+    String deviceToken,
+    String jwtToken,
+    int userId,
+  ) async {
+    final response = await client.put(
+      Uri.parse(baseUrl + 'device-token/$userId'),
+      body: {
+        'device_token': '$deviceToken',
+      },
+      headers: {
+        'Authorization': 'Bearer $jwtToken',
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw HttpException('Erro desconhecido...');
+    }
+  }
 }

@@ -52,6 +52,9 @@ export default class User extends BaseModel {
   public verified: string
 
   @column()
+  public deviceToken: string
+
+  @column()
   public rememberMeToken?: string
 
   @column.dateTime({ autoCreate: true })
