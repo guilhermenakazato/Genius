@@ -187,12 +187,14 @@ class UserWebClient {
     String jwtToken,
     int userId,
   ) async {
+    final data = <String, dynamic>{};
+    data['device_token'] = deviceToken;
+
     final response = await client.put(
-      Uri.parse(baseUrl + 'device-token/$userId'),
-      body: {
-        'device_token': '$deviceToken',
-      },
+      Uri.parse(baseUrl + '/device-token/$userId'),
+      body: json.encode(data),
       headers: {
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer $jwtToken',
       },
     );

@@ -7,15 +7,17 @@ import '../utils/application_colors.dart';
 class SwitchTile extends StatefulWidget {
   final IconData icon;
   final String text;
-  final Function function;
+  final Function(bool value) onChangedState;
   final String position;
+  final bool initialValue;
 
   const SwitchTile(
       {Key key,
       @required this.icon,
       @required this.text,
-      this.function,
-      this.position})
+      this.onChangedState,
+      this.position,
+      this.initialValue})
       : super(key: key);
 
   @override
@@ -23,7 +25,13 @@ class SwitchTile extends StatefulWidget {
 }
 
 class _SwitchTileState extends State<SwitchTile> {
-  bool _isSwitched = false;
+  bool _isSwitched;
+
+  @override
+  void initState() {
+    super.initState();
+    _isSwitched = widget.initialValue;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +56,14 @@ class _SwitchTileState extends State<SwitchTile> {
             onChanged: (bool value) {
               setState(() {
                 _isSwitched = value;
+                widget.onChangedState(_isSwitched);
               });
             },
           ),
           onTap: () {
             setState(() {
               _isSwitched = !_isSwitched;
+              widget.onChangedState(_isSwitched);
             });
           },
         ),

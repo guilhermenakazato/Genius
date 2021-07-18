@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/components/switch_tile.dart';
 import 'package:genius/screens/main/change_password.dart';
+import 'package:genius/utils/notifications.dart';
 
 import '../../components/warning_dialog.dart';
 import 'send_mail.dart';
@@ -26,12 +28,13 @@ class _ConfigState extends State<Config> {
   final _navigator = NavigatorUtil();
   final _loginWebClient = LoginWebClient();
   final _userWebClient = UserWebClient();
-  Future<String> _userData;
 
-  @override
-  void initState() {
-    super.initState();
-    _userData = _getDataByToken();
+  Future<List<dynamic>> _getConfigScreenData() async {
+    return Future.wait([_getNotificationPreference(), _getDataByToken()]);
+  }
+
+  Future<bool> _getNotificationPreference() async {
+    return await Notifications.getNotificationPreference();
   }
 
   Future<String> _getDataByToken() async {
@@ -44,10 +47,11 @@ class _ConfigState extends State<Config> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _userData,
-      builder: (context, AsyncSnapshot<String> snapshot) {
+      future: _getConfigScreenData(),
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
-          final user = User.fromJson(jsonDecode(snapshot.data));
+          final notificationIsOn = snapshot.data[0];
+          final user = User.fromJson(jsonDecode(snapshot.data[1]));
 
           return ProgressHUD(
             borderColor: Theme.of(context).primaryColor,
@@ -74,12 +78,28 @@ class _ConfigState extends State<Config> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: <Widget>[
+                        SwitchTile(
+                          icon: Icons.notifications,
+                          text: 'Notificações',
+                          position: 'top',
+                          initialValue: notificationIsOn,
+                          onChangedState: (notificationIsOn) async {
+                            await _changeNotificationPreference(
+                              notificationIsOn,
+                              context,
+                            );
+                          },
+                        ),
                         ModListTile(
                           text: 'Modificar sua senha',
                           icon: Icons.lock,
-                          position: 'top',
                           onClick: () {
-                            _navigator.navigate(context, ChangePassword(userId: user.id));
+                            _navigator.navigate(
+                              context,
+                              ChangePassword(
+                                userId: user.id,
+                              ),
+                            );
                           },
                         ),
                         ModListTile(
@@ -205,5 +225,15 @@ class _ConfigState extends State<Config> {
         ),
       ),
     );
+  }
+
+  Future<void> _changeNotificationPreference(
+    bool notificationIsOn,
+    BuildContext context,
+  ) async {
+    final progress = ProgressHUD.of(context);
+    progress.show();
+    await Notifications.setNotificationPreference(notificationIsOn);
+    progress.dismiss();
   }
 }

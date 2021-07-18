@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -106,11 +107,14 @@ class _SignUpLocalContent extends StatelessWidget {
     var _signed = false;
 
     _progress.show();
+    final deviceToken = await FirebaseMessaging.instance.getToken();
+    person.setDeviceToken(deviceToken);
+
     _signed = await _webClient.signup(person).catchError((error) {
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       GeniusToast.showToast(
-        'Erro: o tempo para fazer login excedeu o esperado.',
+        'Erro: o tempo para fazer o cadastro excedeu o esperado.',
       );
     }, test: (error) => error is TimeoutException).catchError((error) {
       GeniusToast.showToast(

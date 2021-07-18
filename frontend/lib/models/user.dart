@@ -74,6 +74,10 @@ class User {
     this.formation = formation;
   }
 
+  void setDeviceToken(String deviceToken) {
+    this.deviceToken = deviceToken;
+  }
+
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
@@ -113,6 +117,6 @@ class User {
 
   @override
   String toString() {
-    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, institution: $institution, formação: $formation, bio: $bio, projects: $projects}';
+    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, institution: $institution, formação: $formation, bio: $bio, projects: $projects, deviceToken: $deviceToken}';
   }
 }

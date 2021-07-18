@@ -6,6 +6,8 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:genius/http/webclients/user_webclient.dart';
 import 'package:genius/models/token.dart';
 import 'package:genius/models/user.dart';
+import 'package:genius/utils/genius_toast.dart';
+import 'package:genius/utils/notifications.dart';
 
 import '../../models/project.dart';
 import '../../utils/convert.dart';
@@ -41,6 +43,11 @@ class _FeedState extends State<_FeedContent> {
   void initState() {
     super.initState();
     _feedData = _getFeedData();
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      var notification = message.notification;
+      GeniusToast.showToast(notification.body);
+    });
   }
 
   @override
@@ -209,9 +216,13 @@ class _FeedState extends State<_FeedContent> {
     final user = User.fromJson(jsonDecode(userStringData));
     final deviceToken = await FirebaseMessaging.instance.getToken();
     final jwtToken = await _tokenObject.getToken();
+    final notificationIsAllowed =
+        await Notifications.getNotificationPreference();
 
-    if (user.deviceToken != deviceToken) {
+    if (user.deviceToken != deviceToken && notificationIsAllowed) {
       await webClient.setDeviceToken(deviceToken, jwtToken, user.id);
+    } else if(!notificationIsAllowed) {
+      await webClient.setDeviceToken(null, jwtToken, user.id);
     }
 
     return user;
