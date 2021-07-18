@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:genius/http/webclients/notification_webclient.dart';
 import 'package:genius/http/webclients/user_webclient.dart';
 import 'package:genius/models/token.dart';
 import 'package:genius/models/user.dart';
@@ -38,6 +39,7 @@ class _FeedState extends State<_FeedContent> {
   Future<List<dynamic>> _feedData;
   final navigator = NavigatorUtil();
   final _userWebClient = UserWebClient();
+  final _notificationWebClient = NotificationWebClient();
 
   @override
   void initState() {
@@ -46,6 +48,8 @@ class _FeedState extends State<_FeedContent> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       var notification = message.notification;
+
+      debugPrint(notification.toString());
       GeniusToast.showToast(notification.body);
     });
   }
@@ -159,10 +163,25 @@ class _FeedState extends State<_FeedContent> {
                 .map((item) => item.id)
                 .contains(user.id)) {
               await _userWebClient.dislikeProject(
-                  projects[index].id, user.id, token);
+                projects[index].id,
+                user.id,
+                token,
+              );
             } else {
               await _userWebClient.likeProject(
-                  projects[index].id, user.id, token);
+                projects[index].id,
+                user.id,
+                token,
+              );
+
+              projects[index].participants.forEach((participant) async {
+                if (participant.deviceToken != null && participant is User) {
+                  await _notificationWebClient.sendLikeNotification(
+                    participant.deviceToken,
+                    user.username,
+                  );
+                }
+              });
             }
 
             setState(() {
@@ -177,10 +196,16 @@ class _FeedState extends State<_FeedContent> {
                 .map((item) => item.id)
                 .contains(user.id)) {
               await _userWebClient.removeSavedProject(
-                  projects[index].id, user.id, token);
+                projects[index].id,
+                user.id,
+                token,
+              );
             } else {
               await _userWebClient.saveProject(
-                  projects[index].id, user.id, token);
+                projects[index].id,
+                user.id,
+                token,
+              );
             }
 
             setState(() {
@@ -221,7 +246,7 @@ class _FeedState extends State<_FeedContent> {
 
     if (user.deviceToken != deviceToken && notificationIsAllowed) {
       await webClient.setDeviceToken(deviceToken, jwtToken, user.id);
-    } else if(!notificationIsAllowed) {
+    } else if (!notificationIsAllowed) {
       await webClient.setDeviceToken(null, jwtToken, user.id);
     }
 

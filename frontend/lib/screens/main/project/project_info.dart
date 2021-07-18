@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/http/webclients/notification_webclient.dart';
 import 'package:genius/http/webclients/project_webclient.dart';
 import 'package:genius/http/webclients/user_webclient.dart';
 import 'package:genius/models/project.dart';
@@ -28,6 +29,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
   final _tokenObject = Token();
   Future<List<dynamic>> _projectInfoScreenData;
   final _userWebClient = UserWebClient();
+  final _notificationWebClient = NotificationWebClient();
   bool saveIsLoading = false, likeIsLoading = false;
 
   @override
@@ -184,10 +186,27 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                           .map((item) => item.id)
                                           .contains(user.id)) {
                                         await _userWebClient.dislikeProject(
-                                            project.id, user.id, token);
+                                          project.id,
+                                          user.id,
+                                          token,
+                                        );
                                       } else {
                                         await _userWebClient.likeProject(
-                                            project.id, user.id, token);
+                                          project.id,
+                                          user.id,
+                                          token,
+                                        );
+                                        
+                                        project.participants
+                                            .forEach((participant) async {
+                                          if (participant.deviceToken != null && participant is User) {
+                                            await _notificationWebClient
+                                                .sendLikeNotification(
+                                              participant.deviceToken,
+                                              user.username,
+                                            );
+                                          }
+                                        });
                                       }
 
                                       setState(() {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:genius/http/webclients/notification_webclient.dart';
 
 import '../../utils/genius_toast.dart';
 import '../../models/tag.dart';
@@ -469,9 +470,11 @@ class _ProfileState extends State<_ProfileContent> {
 
   void follow(User user, User follower, BuildContext context) async {
     final _webClient = UserWebClient();
+    final _notificationWebClient = NotificationWebClient();
     var followed = true;
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
+    final deviceToken = user.deviceToken;
 
     progress.show();
 
@@ -484,9 +487,17 @@ class _ProfileState extends State<_ProfileContent> {
     if (followed) {
       progress.dismiss();
       follower.following.add(user);
+
       setState(() {
         _profileData = _defineHowToGetData();
       });
+
+      if (deviceToken != null) {
+        await _notificationWebClient.sendFollowNotification(
+          deviceToken,
+          follower.username,
+        );
+      }
     }
   }
 

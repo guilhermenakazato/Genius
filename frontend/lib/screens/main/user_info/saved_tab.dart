@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:genius/http/webclients/notification_webclient.dart';
 import 'package:genius/http/webclients/user_webclient.dart';
 import 'package:genius/models/token.dart';
 import 'package:genius/models/user.dart';
@@ -34,6 +35,7 @@ class _SavedTabState extends State<SavedTab> {
   final navigator = NavigatorUtil();
   bool card = true;
   final _userWebClient = UserWebClient();
+  final _notificationWebClient = NotificationWebClient();
 
   Future<String> _getUserData() async {
     final _webClient = UserWebClient();
@@ -234,6 +236,16 @@ class _SavedTabState extends State<SavedTab> {
                   user.id,
                   token,
                 );
+
+                widget.savedProjects[index].participants
+                    .forEach((participant) async {
+                  if (participant.deviceToken != null && participant is User) {
+                    await _notificationWebClient.sendLikeNotification(
+                      participant.deviceToken,
+                      user.username,
+                    );
+                  }
+                });
               }
 
               widget.onChangedState();
