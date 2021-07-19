@@ -61,6 +61,9 @@ class _SignUpUsernameState extends State<SignUpUsername> {
                     ),
                   ),
                   BorderlessInput(
+                    onSubmit: () {
+                      _verifyInput(context);
+                    },
                     hint: '@nome',
                     controller: _usernameController,
                     type: TextInputType.name,

@@ -25,7 +25,8 @@ class _SignUpNameState extends State<SignUpName> {
       floatingActionButton: FloatingButton(
         onPressed: () {
           _verifyInput(context);
-        },icon: Icons.arrow_forward_ios,
+        },
+        icon: Icons.arrow_forward_ios,
         text: 'Prosseguir',
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -49,6 +50,9 @@ class _SignUpNameState extends State<SignUpName> {
                 ),
               ),
               BorderlessInput(
+                onSubmit: () {
+                  _verifyInput(context);
+                },
                 hint: 'Nome + sobrenome',
                 controller: _nomeController,
                 type: TextInputType.name,

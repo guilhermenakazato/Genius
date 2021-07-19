@@ -58,6 +58,9 @@ class _SignUpEmailState extends State<SignUpEmail> {
                   ),
                 ),
                 BorderlessInput(
+                  onSubmit: () {
+                    _verifyInput(context);
+                  },
                   hint: 'Email',
                   controller: _emailController,
                   type: TextInputType.emailAddress,

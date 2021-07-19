@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import 'application_colors.dart';
 
@@ -12,7 +13,7 @@ class ApplicationTypography {
 
   static final welcomeTitle = TextStyle(
     fontFamily: 'Gotham',
-    fontSize: 70,
+    fontSize: 60.sp,
     letterSpacing: 1.5,
     color: ApplicationColors.primary,
     fontWeight: FontWeight.w900,
@@ -26,7 +27,7 @@ class ApplicationTypography {
 
   static final askUserText = TextStyle(
     color: ApplicationColors.primary,
-    fontSize: 32,
+    fontSize: 26.sp,  
     fontWeight: FontWeight.bold,
   );
 
@@ -36,9 +37,9 @@ class ApplicationTypography {
     fontWeight: FontWeight.w900,
   );
 
-  static final presentationText = (context) => TextStyle(
+  static final presentationText = TextStyle(
         color: ApplicationColors.primary,
-        fontSize: MediaQuery.of(context).size.height * 0.05,
+        fontSize: 28.5.sp,
         height: 2,
         fontFamily: 'Gotham',
         fontWeight: FontWeight.w900,
@@ -46,7 +47,7 @@ class ApplicationTypography {
 
   static final introScienceText = TextStyle(
     color: ApplicationColors.primary,
-    fontSize: 24,
+    fontSize: 20.sp,
     fontWeight: FontWeight.w900,
     fontFamily: 'Gotham',
     height: 1.2,
@@ -56,24 +57,24 @@ class ApplicationTypography {
     color: ApplicationColors.primary,
     fontFamily: 'Gotham',
     fontWeight: FontWeight.w900,
-    fontSize: 28,
+    fontSize: 24.sp,  
   );
 
   static final primarySignUpText = TextStyle(
     color: ApplicationColors.primary,
     fontWeight: FontWeight.w900,
-    fontSize: 20,
+    fontSize: 18.sp,
   );
 
   static final secondarySignUpText = TextStyle(
     color: ApplicationColors.primary,
     fontWeight: FontWeight.w900,
-    fontSize: 22,
+    fontSize: 19.sp,
   );
 
   static final signUpIntro = TextStyle(
     color: ApplicationColors.primary,
-    fontSize: 24,
+    fontSize: 20.sp,
     fontWeight: FontWeight.w900,
     height: 1.2,
     fontFamily: 'Gotham',
@@ -136,14 +137,14 @@ class ApplicationTypography {
   );
 
   static final borderlessInput = TextStyle(
-    fontSize: 20,
+    fontSize: 18.sp,
     color: Colors.white,
     fontFamily: 'Gotham',
     fontWeight: FontWeight.w700,
   );
 
   static final borderlessInputHint = TextStyle(
-    fontSize: 20,
+    fontSize: 18.sp,
     color: ApplicationColors.inputHintColor,
     fontWeight: FontWeight.w900,
   );

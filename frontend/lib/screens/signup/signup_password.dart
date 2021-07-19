@@ -51,6 +51,9 @@ class _SignUpPasswordState extends State<SignUpPassword> {
               offset: Offset(0, 15),
               child: BorderlessInput(
                 hint: 'Senha',
+                onSubmit: () {
+                  _verifyInput(context);
+                },
                 controller: _passwordController,
                 type: TextInputType.text,
                 obscure: _obscure,

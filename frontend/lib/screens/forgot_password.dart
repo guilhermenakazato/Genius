@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/genius_toast.dart';
@@ -15,8 +16,8 @@ class ForgotPassword extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              width: 300,
-              height: 250,
+              width: 90.w,
+              height: 30.h,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage('assets/password.png'),
@@ -24,7 +25,7 @@ class ForgotPassword extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(

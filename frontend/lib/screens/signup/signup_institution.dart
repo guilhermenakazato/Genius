@@ -22,7 +22,8 @@ class SignUpInstitution extends StatelessWidget {
       floatingActionButton: FloatingButton(
         onPressed: () {
           _verifyInput(context);
-        },icon: Icons.arrow_forward_ios,
+        },
+        icon: Icons.arrow_forward_ios,
         text: 'Prosseguir',
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -36,6 +37,9 @@ class SignUpInstitution extends StatelessWidget {
               style: ApplicationTypography.secondarySignUpText,
             ),
             BorderlessInput(
+              onSubmit: () {
+                _verifyInput(context);
+              },
               hint: 'Nome da instituição',
               controller: _institutionController,
               type: TextInputType.text,

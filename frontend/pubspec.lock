@@ -135,7 +135,7 @@ packages:
     source: hosted
     version: "4.0.1"
   firebase_core_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
@@ -156,7 +156,7 @@ packages:
     source: hosted
     version: "3.0.3"
   firebase_messaging_web:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_messaging_web
       url: "https://pub.dartlang.org"

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import '../components/button_wrap.dart';
 import '../screens/login.dart';
@@ -24,16 +25,16 @@ class AskUser extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: Image.asset(
                         'assets/homem.png',
-                        width: 110,
-                        height: 110,
+                        width: 16.h,
+                        height: 16.h,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Image.asset(
                         'assets/mulher.png',
-                        width: 110,
-                        height: 110,
+                        width: 16.h,
+                        height: 16.h,
                       ),
                     ),
                   ],

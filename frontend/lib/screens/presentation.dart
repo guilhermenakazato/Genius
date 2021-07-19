@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:sizer/sizer.dart';
 
 import '../screens/question_science.dart';
 import '../utils/navigator_util.dart';
@@ -20,9 +21,9 @@ class Presentation extends StatelessWidget {
           children: [
             Positioned(
               child: Padding(
-                padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.1,
-                  top: MediaQuery.of(context).size.height * 0.03,
+                padding: EdgeInsets.symmetric(
+                  vertical: 8.h,
+                  horizontal: 4.5.h,
                 ),
                 child: Align(
                   alignment: FractionalOffset.topLeft,
@@ -34,7 +35,7 @@ class Presentation extends StatelessWidget {
                     text: [
                       'Prazer, Genius!\nEu amo a ciência.\nPor isso, amo\ndivulgá-la e\nconhecer suas\ndiferentes\nformas.'
                     ],
-                    textStyle: ApplicationTypography.presentationText(context),
+                    textStyle: ApplicationTypography.presentationText,
                     totalRepeatCount: 1,
                     repeatForever: false,
                   ),
@@ -43,9 +44,9 @@ class Presentation extends StatelessWidget {
             ),
             Positioned(
               child: Padding(
-                padding: EdgeInsets.only(
-                  bottom: 72.0,
-                  right: MediaQuery.of(context).size.width * 0.07,
+                padding: EdgeInsets.symmetric(
+                  vertical: 8.h,
+                  horizontal: 4.h,
                 ),
                 child: Align(
                   alignment: FractionalOffset.bottomRight,

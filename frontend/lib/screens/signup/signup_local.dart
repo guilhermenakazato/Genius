@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sizer/sizer.dart';
 import '../../utils/genius_toast.dart';
 
 import '../../components/borderless_input.dart';
@@ -71,6 +72,9 @@ class _SignUpLocalContent extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: BorderlessInput(
+              onSubmit: () {
+                _verifyInput(context);
+              },
               hint: 'Cidade',
               controller: _localController,
               type: TextInputType.streetAddress,
@@ -81,8 +85,8 @@ class _SignUpLocalContent extends StatelessWidget {
               _verifyInput(context);
             },
             text: 'Finalizar cadastro'.toUpperCase(),
-            width: 250,
-            height: 50,
+            width: 75.w,
+            height: 7.5.h,
           ),
         ],
       ),
