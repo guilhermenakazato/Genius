@@ -104,7 +104,6 @@ class User {
         'name': name,
         'username': username,
         'email': email,
-        'password': password,
         'type': type,
         'age': age,
         'local': local,
@@ -112,7 +111,6 @@ class User {
         'formation': formation,
         'bio': bio,
         'tags': tags,
-        'deviceToken': deviceToken,
       };
 
   @override

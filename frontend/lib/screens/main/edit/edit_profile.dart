@@ -249,7 +249,6 @@ class _EditProfileState extends State<EditProfile> {
                             child: DropDownButton(
                               hint: user.type,
                               items: _typeOptions,
-                              width: 325,
                               onValueChanged: (String value) {
                                 _typeController = value;
                               },
@@ -260,7 +259,6 @@ class _EditProfileState extends State<EditProfile> {
                             child: DropDownButton(
                               hint: user.formation,
                               items: _formationOptions,
-                              width: 325,
                               onValueChanged: (String value) {
                                 _formationController = value;
                               },
