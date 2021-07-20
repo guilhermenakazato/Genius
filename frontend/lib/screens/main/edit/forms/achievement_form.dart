@@ -106,7 +106,6 @@ class _AchievementFormState extends State<AchievementForm> {
                   child: DropDownButton(
                     hint: _typeController,
                     items: _typeOptions,
-                    width: 325,
                     onValueChanged: (String value) {
                       _typeController = value;
 

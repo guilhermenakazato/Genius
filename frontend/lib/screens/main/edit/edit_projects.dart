@@ -201,7 +201,7 @@ class _EditProjectsState extends State<EditProjects> {
       List<Project> projects, User user, BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.73,
+      height: MediaQuery.of(context).size.height * 0.8 - 65,  
       child: GeniusCardConfig(
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {

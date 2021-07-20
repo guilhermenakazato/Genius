@@ -188,12 +188,15 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
-                                    child: Picker(
-                                      onChanged: (int value) {
-                                        _ageController = value + 10;
-                                      },
-                                      initialValue: int.parse(user.age) - 10,
+                                    padding: const EdgeInsets.only(left: 20.0, right: 5), 
+                                    child: Container(
+                                      width: 200 - MediaQuery.of(context).size.shortestSide * 0.07,
+                                      child: Picker(
+                                        onChanged: (int value) {
+                                          _ageController = value + 10;
+                                        },
+                                        initialValue: int.parse(user.age) - 10,
+                                      ),
                                     ),
                                   ),
                                 ],

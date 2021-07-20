@@ -178,7 +178,7 @@ class _ProjectsTabState extends State<ProjectsTab> {
   Widget _carouselOfCards(User user, BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: MediaQuery.of(context).size.height * 0.66, 
       child: GeniusCardConfig(
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {

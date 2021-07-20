@@ -11,9 +11,9 @@ class ApplicationTypography {
     fontSize: 20,
   );
 
-  static final welcomeTitle = TextStyle(
+  static final welcomeTitle = (context) => TextStyle(
     fontFamily: 'Gotham',
-    fontSize: 60.sp,
+    fontSize: 60,
     letterSpacing: 1.5,
     color: ApplicationColors.primary,
     fontWeight: FontWeight.w900,

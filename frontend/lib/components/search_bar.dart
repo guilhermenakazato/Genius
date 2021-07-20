@@ -73,7 +73,7 @@ class _SearchBarState extends State<SearchBar> {
     if (_folded) {
       return 45;
     } else {
-      return MediaQuery.of(context).size.width * 0.95;
+      return MediaQuery.of(context).size.width;
     }
   }
 

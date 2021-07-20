@@ -135,7 +135,7 @@ class _ProfileState extends State<_ProfileContent> {
                       ),
                     ],
                   ),
-                  _draggableSheet(user),
+                  _draggableSheet(user, context),
                 ]),
               );
             } else {
@@ -155,7 +155,7 @@ class _ProfileState extends State<_ProfileContent> {
     }
   }
 
-  Widget _draggableSheet(User user) {
+  Widget _draggableSheet(User user, BuildContext context) {
     return NotificationListener<DraggableScrollableNotification>(
       onNotification: (notification) {
         setState(() {
@@ -164,8 +164,8 @@ class _ProfileState extends State<_ProfileContent> {
         return true;
       },
       child: DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        minChildSize: 0.68,
+        initialChildSize: 0.62,
+        minChildSize: 0.62,  
         builder: (context, scrollController) {
           return Container(
             width: double.infinity,
@@ -217,7 +217,7 @@ class _ProfileState extends State<_ProfileContent> {
                             tabs: _tabs(),
                           ),
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.738,
+                            height: MediaQuery.of(context).size.height * 0.8,
                             child: _draggableSheetContent(user),
                           ),
                         ],
@@ -330,8 +330,8 @@ class _ProfileState extends State<_ProfileContent> {
       User user, BuildContext context, User follower) {
     return Padding(
       padding: const EdgeInsets.only(
-        right: 30.0,
-        left: 30.0,
+        right: 10.0,
+        left: 10.0,
         top: 8,
         bottom: 12,
       ),
@@ -610,7 +610,7 @@ class _ProfileState extends State<_ProfileContent> {
   }
 
   IconData _determineIconBasedOnMyMindPosition() {
-    if (_myMindPosition > 0.68) {
+    if (_myMindPosition > 0.62) {
       return Icons.expand_more;
     } else {
       return Icons.expand_less;

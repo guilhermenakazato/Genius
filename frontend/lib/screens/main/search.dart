@@ -100,7 +100,7 @@ class _SearchState extends State<Search> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 40.0, left: 10),
+                  padding: const EdgeInsets.only(top: 40.0, left: 10, right: 10),
                   child: SearchBar(
                     onChange: (String value) {
                       setState(() {

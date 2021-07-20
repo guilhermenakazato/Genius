@@ -174,8 +174,8 @@ class _SavedTabState extends State<SavedTab> {
 
   Widget _carouselOfCards(User user) {
     return SizedBox(
-      width: 300,
-      height: 455,
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.625,
       child: GeniusCardConfig(
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {

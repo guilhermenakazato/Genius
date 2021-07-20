@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sizer/sizer.dart';
 
 import '../utils/genius_toast.dart';
 import '../components/borderless_button.dart';
@@ -67,7 +66,6 @@ class __LoginStateContentState extends State<_LoginStateContent> {
             alignment: FractionalOffset.center,
             child: SingleChildScrollView(
               child: Container(
-                height: 55.h, 
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -93,8 +91,8 @@ class __LoginStateContentState extends State<_LoginStateContent> {
                       padding: const EdgeInsets.all(24.0),
                       child: Button(
                         text: 'Login',
-                        width: 30.w,
-                        height: 5.h,
+                        width: 200 - MediaQuery.of(context).size.shortestSide * 0.11,
+                        height: 50,
                         onClick: () {
                           handleLogin(context);
                         },

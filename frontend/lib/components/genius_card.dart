@@ -84,8 +84,7 @@ class _GeniusCardState extends State<GeniusCard> {
                         padding: const EdgeInsets.only(top: 8.0, right: 8),
                         child: _participantsOfTheProject(),
                       ),
-                      Container(
-                        height: 280,
+                      Expanded(
                         child: SingleChildScrollView(
                           child: _abstractText(),
                         ),

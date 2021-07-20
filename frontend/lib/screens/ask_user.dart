@@ -48,7 +48,7 @@ class AskUser extends StatelessWidget {
                   ),
                 ),
                 ButtonWrap(
-                  width: 40.w,
+                  width: MediaQuery.of(context).size.width * 0.25,
                   yesScreen: Login(),
                   noScreen: Presentation(),
                 ),

@@ -48,8 +48,6 @@ class _FeedState extends State<_FeedContent> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       var notification = message.notification;
-
-      debugPrint(notification.toString());
       GeniusToast.showToast(notification.body);
     });
   }

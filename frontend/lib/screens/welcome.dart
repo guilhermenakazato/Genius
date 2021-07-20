@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 import '../screens/ask_user.dart';
 import '../utils/application_typography.dart';
@@ -19,8 +18,8 @@ class Welcome extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _welcomeText(),
-              _welcomeImage(),
+              _welcomeText(context),
+              _welcomeImage(context),
             ],
           ),
         ),
@@ -28,18 +27,18 @@ class Welcome extends StatelessWidget {
     );
   }
 
-  Widget _welcomeText() {
+  Widget _welcomeText(BuildContext context) {
     return Text(
       'Bem\nVindo!',
-      style: ApplicationTypography.welcomeTitle,
+      style: ApplicationTypography.welcomeTitle(context),
       textAlign: TextAlign.center,
     );
   }
 
-  Widget _welcomeImage() {
+  Widget _welcomeImage(BuildContext context) {
     return Container(
-      width: 65.h,
-      height: 25.h,
+      width: MediaQuery.of(context).size.longestSide * 0.6,
+      height: 300 -  MediaQuery.of(context).size.longestSide * 0.05,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: const AssetImage('assets/mulher-cfolha.png'),
