@@ -100,6 +100,7 @@ class _FeedState extends State<_FeedContent> {
       layout: SwiperLayout.STACK,
       builder: (BuildContext context, int index) {
         return GeniusCard(
+          textHeight: MediaQuery.of(context).size.height * 0.8 - 300,
           onTap: () {
             navigator.navigateAndReload(
               context,

@@ -206,6 +206,7 @@ class _EditProjectsState extends State<EditProjects> {
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {
           return GeniusCard(
+            textHeight: MediaQuery.of(context).size.height * 0.8 - 250,
             abstractText: projects[index].abstractText,
             projectName: projects[index].name,
             type: 'edit',

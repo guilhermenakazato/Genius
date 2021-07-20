@@ -13,7 +13,7 @@ class User {
       local,
       institution,
       formation,
-      bio, 
+      bio,
       verified,
       deviceToken;
   int id;
@@ -98,7 +98,7 @@ class User {
         verified = json['verified'],
         followers = Convert.convertToListOfUsers(json['followers']),
         following = Convert.convertToListOfUsers(json['following']),
-        deviceToken = json['device_token']; 
+        deviceToken = json['device_token'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -113,8 +113,22 @@ class User {
         'tags': tags,
       };
 
+  Map<String, dynamic> toJsonCreateUser() => {
+        'name': name,
+        'username': username,
+        'email': email,
+        'type': type,
+        'age': age,
+        'local': local,
+        'institution': institution,
+        'formation': formation,
+        'bio': bio,
+        'tags': tags,
+        'password': password
+      };
+
   @override
   String toString() {
-    return 'User: {username: $username, email: $email, password: $password, type: $type, age: $age, local: $local, institution: $institution, formação: $formation, bio: $bio, projects: $projects, deviceToken: $deviceToken}';
+    return 'User: {username: $username, email: $email, type: $type, age: $age, local: $local, institution: $institution, formação: $formation, bio: $bio, projects: $projects, deviceToken: $deviceToken}';
   }
 }

@@ -24,6 +24,7 @@ class GeniusCard extends StatefulWidget {
   final bool liked, saved;
   final int likes;
   final hasAlreadyRequestedDelete;
+  final double textHeight;
 
   const GeniusCard({
     Key key,
@@ -45,7 +46,7 @@ class GeniusCard extends StatefulWidget {
     this.saved = false,
     this.likes = 0,
     this.onDeleteRequest,
-    this.hasAlreadyRequestedDelete = false,
+    this.hasAlreadyRequestedDelete = false, @required this.textHeight,
   }) : super(key: key);
 
   @override
@@ -84,11 +85,7 @@ class _GeniusCardState extends State<GeniusCard> {
                         padding: const EdgeInsets.only(top: 8.0, right: 8),
                         child: _participantsOfTheProject(),
                       ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: _abstractText(),
-                        ),
-                      ),
+                      _abstractText(),
                     ],
                   ),
                   _defineButtons(context),
@@ -168,10 +165,13 @@ class _GeniusCardState extends State<GeniusCard> {
         0,
       ),
       child: Container(
-        width: double.infinity,
-        child: Text(
-          widget.abstractText,
-          style: ApplicationTypography.cardText,
+        height: widget.textHeight,
+        child: Container(
+          width: double.infinity,
+          child: Text(
+            widget.abstractText,
+            style: ApplicationTypography.cardText,
+          ),
         ),
       ),
     );

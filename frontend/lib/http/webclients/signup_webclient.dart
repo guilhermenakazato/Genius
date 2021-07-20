@@ -6,7 +6,7 @@ import '../../models/user.dart';
 
 class SignUpWebClient {
   Future<bool> signup(User user) async {
-    final userJson = jsonEncode(user.toJson());
+    final userJson = jsonEncode(user.toJsonCreateUser());
 
     final response = await client.post(
       Uri.parse(baseUrl + '/user'),

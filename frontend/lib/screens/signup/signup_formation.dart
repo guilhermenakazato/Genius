@@ -18,7 +18,7 @@ class SignUpFormation extends StatefulWidget {
 
 class _SignUpFormationState extends State<SignUpFormation> {
   final _navigator = NavigatorUtil();
-  String _formation;
+  String _formation = 'Primeiro grau completo';
   final _items = <String>[
     'Primeiro grau completo',
     'Primeiro grau incompleto',

@@ -47,264 +47,273 @@ class _ProjectInfoState extends State<ProjectInfo> {
           final project = Project.fromJson(jsonDecode(snapshot.data[0]));
           final user = User.fromJson(jsonDecode(snapshot.data[1]));
 
-          return Scaffold(
-            backgroundColor: Theme.of(context).cardColor,
-            body: Align(
-              child: Stack(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 60,
-                          left: 30,
-                          right: 30,
-                        ),
-                        child: Container(
-                          width: double.infinity,
-                          child: Text(
-                            project.name,
-                            style: ApplicationTypography.projectNameText,
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: Theme.of(context).cardColor,
+              body: Align(
+                child: Stack(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.8,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 20,
+                                    left: 30,
+                                    right: 30,
+                                  ),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: Text(
+                                      project.name,
+                                      style:
+                                          ApplicationTypography.projectNameText,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 8.0, top: 8),
+                                  child: _participantsOfTheProject(project),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30, bottom: 8),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: Text(
+                                      'Orientador: ${_determineMainTeacherName(project)}',
+                                      textAlign: TextAlign.start,
+                                      style: ApplicationTypography
+                                          .projectAbstractText,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30, bottom: 8),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: Text(
+                                      'Coorientador: ${_determineSecondTeacherName(project)}',
+                                      textAlign: TextAlign.start,
+                                      style: ApplicationTypography
+                                          .projectAbstractText,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 30.0, right: 30, bottom: 8),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: Text(
+                                      'Estudantes pesquisadores: ${project.participantsFullName}',
+                                      textAlign: TextAlign.start,
+                                      style: ApplicationTypography
+                                          .projectAbstractText,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                    40,
+                                    10,
+                                    30,
+                                    0,
+                                  ),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: Text(
+                                      project.abstractText,
+                                      style: ApplicationTypography
+                                          .projectAbstractText,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.75,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 8.0, top: 8),
-                                child: _participantsOfTheProject(project),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 30.0, right: 30, bottom: 8),
-                                child: Container(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Orientador: ${_determineMainTeacherName(project)}',
-                                    textAlign: TextAlign.start,
-                                    style: ApplicationTypography
-                                        .projectAbstractText,
+                      ],
+                    ),
+                    Positioned(
+                      child: Align(
+                        alignment: FractionalOffset.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 30, right: 30),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text(
+                                  'Curtido por\n${project.likedBy.length.toString()} pessoas',
+                                  style: ApplicationTypography.like,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 15,
+                                    top: 4,
+                                    right: 4,
+                                    bottom: 4,
                                   ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 30.0, right: 30, bottom: 8),
-                                child: Container(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Coorientador: ${_determineSecondTeacherName(project)}',
-                                    textAlign: TextAlign.start,
-                                    style: ApplicationTypography
-                                        .projectAbstractText,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 30.0, right: 30, bottom: 8),
-                                child: Container(
-                                  width: double.infinity,
-                                  child: Text(
-                                    'Estudantes pesquisadores: ${project.participantsFullName}',
-                                    textAlign: TextAlign.start,
-                                    style: ApplicationTypography
-                                        .projectAbstractText,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                  40,
-                                  10,
-                                  30,
-                                  0,
-                                ),
-                                child: Container(
-                                  width: double.infinity,
-                                  child: Text(
-                                    project.abstractText,
-                                    style: ApplicationTypography
-                                        .projectAbstractText,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    child: Align(
-                      alignment: FractionalOffset.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 30, right: 30),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Text(
-                                'Curtido por\n${project.likedBy.length.toString()} pessoas',
-                                style: ApplicationTypography.like,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 15,
-                                  top: 4,
-                                  right: 4,
-                                  bottom: 4,
-                                ),
-                                child: Container(
-                                  width: 48,
-                                  height: 48,
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      primary: Theme.of(context).primaryColor,
-                                      backgroundColor:
-                                          ApplicationColors.iconButtonColor,
-                                      padding: EdgeInsets.all(12),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(24),
-                                      ),
-                                    ),
-                                    child: _defineLikeIcon(project, user),
-                                    onPressed: () async {
-                                      final token =
-                                          await _tokenObject.getToken();
-
-                                      setState(() {
-                                        likeIsLoading = true;
-                                      });
-
-                                      if (project.likedBy
-                                          .map((item) => item.id)
-                                          .contains(user.id)) {
-                                        await _userWebClient.dislikeProject(
-                                          project.id,
-                                          user.id,
-                                          token,
-                                        );
-                                      } else {
-                                        await _userWebClient.likeProject(
-                                          project.id,
-                                          user.id,
-                                          token,
-                                        );
-                                        
-                                        project.participants
-                                            .forEach((participant) async {
-                                          if (participant.deviceToken != null && participant is User) {
-                                            await _notificationWebClient
-                                                .sendLikeNotification(
-                                              participant.deviceToken,
-                                              user.username,
-                                            );
-                                          }
-                                        });
-                                      }
-
-                                      setState(() {
-                                        _projectInfoScreenData =
-                                            _getProjectInfoScreenData();
-                                        likeIsLoading = false;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  width: 48,
-                                  height: 48,
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      primary: Theme.of(context).primaryColor,
-                                      backgroundColor:
-                                          ApplicationColors.iconButtonColor,
-                                      padding: EdgeInsets.all(12),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(24),
-                                      ),
-                                    ),
-                                    child: _defineSaveIcon(project, user),
-                                    onPressed: () async {
-                                      final token =
-                                          await _tokenObject.getToken();
-
-                                      setState(() {
-                                        saveIsLoading = true;
-                                      });
-
-                                      if (project.savedBy
-                                          .map((item) => item.id)
-                                          .contains(user.id)) {
-                                        await _userWebClient.removeSavedProject(
-                                          project.id,
-                                          user.id,
-                                          token,
-                                        );
-                                      } else {
-                                        await _userWebClient.saveProject(
-                                          project.id,
-                                          user.id,
-                                          token,
-                                        );
-                                      }
-
-                                      setState(() {
-                                        _projectInfoScreenData =
-                                            _getProjectInfoScreenData();
-                                        saveIsLoading = false;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  width: 48,
-                                  height: 48,
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      primary: Theme.of(context).primaryColor,
-                                      backgroundColor:
-                                          ApplicationColors.iconButtonColor,
-                                      padding: EdgeInsets.all(12),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(24),
-                                      ),
-                                    ),
-                                    child: const Icon(
-                                      Icons.question_answer_outlined,
-                                      color: Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      _navigator.navigate(
-                                        context,
-                                        SendMail(
-                                          email: project.email,
-                                          type: 'search',
+                                  child: Container(
+                                    width: 48,
+                                    height: 48,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        primary: Theme.of(context).primaryColor,
+                                        backgroundColor:
+                                            ApplicationColors.iconButtonColor,
+                                        padding: EdgeInsets.all(12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(24),
                                         ),
-                                      );
-                                    },
+                                      ),
+                                      child: _defineLikeIcon(project, user),
+                                      onPressed: () async {
+                                        final token =
+                                            await _tokenObject.getToken();
+
+                                        setState(() {
+                                          likeIsLoading = true;
+                                        });
+
+                                        if (project.likedBy
+                                            .map((item) => item.id)
+                                            .contains(user.id)) {
+                                          await _userWebClient.dislikeProject(
+                                            project.id,
+                                            user.id,
+                                            token,
+                                          );
+                                        } else {
+                                          await _userWebClient.likeProject(
+                                            project.id,
+                                            user.id,
+                                            token,
+                                          );
+
+                                          project.participants
+                                              .forEach((participant) async {
+                                            if (participant.deviceToken !=
+                                                    null &&
+                                                participant is User) {
+                                              await _notificationWebClient
+                                                  .sendLikeNotification(
+                                                participant.deviceToken,
+                                                user.username,
+                                              );
+                                            }
+                                          });
+                                        }
+
+                                        setState(() {
+                                          _projectInfoScreenData =
+                                              _getProjectInfoScreenData();
+                                          likeIsLoading = false;
+                                        });
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    width: 48,
+                                    height: 48,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        primary: Theme.of(context).primaryColor,
+                                        backgroundColor:
+                                            ApplicationColors.iconButtonColor,
+                                        padding: EdgeInsets.all(12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                        ),
+                                      ),
+                                      child: _defineSaveIcon(project, user),
+                                      onPressed: () async {
+                                        final token =
+                                            await _tokenObject.getToken();
+
+                                        setState(() {
+                                          saveIsLoading = true;
+                                        });
+
+                                        if (project.savedBy
+                                            .map((item) => item.id)
+                                            .contains(user.id)) {
+                                          await _userWebClient
+                                              .removeSavedProject(
+                                            project.id,
+                                            user.id,
+                                            token,
+                                          );
+                                        } else {
+                                          await _userWebClient.saveProject(
+                                            project.id,
+                                            user.id,
+                                            token,
+                                          );
+                                        }
+
+                                        setState(() {
+                                          _projectInfoScreenData =
+                                              _getProjectInfoScreenData();
+                                          saveIsLoading = false;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    width: 48,
+                                    height: 48,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        primary: Theme.of(context).primaryColor,
+                                        backgroundColor:
+                                            ApplicationColors.iconButtonColor,
+                                        padding: EdgeInsets.all(12),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(24),
+                                        ),
+                                      ),
+                                      child: const Icon(
+                                        Icons.question_answer_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        _navigator.navigate(
+                                          context,
+                                          SendMail(
+                                            email: project.email,
+                                            type: 'search',
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

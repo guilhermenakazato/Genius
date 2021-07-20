@@ -180,6 +180,7 @@ class _SavedTabState extends State<SavedTab> {
         cardDirection: Axis.vertical,
         builder: (BuildContext context, int index) {
           return GeniusCard(
+            textHeight: MediaQuery.of(context).size.height * 0.625 - 230,
             onTap: () {
               navigator.navigateAndReload(
                 context,
