@@ -48,6 +48,7 @@ class AskUser extends StatelessWidget {
                   ),
                 ),
                 ButtonWrap(
+                  width: 40.w,
                   yesScreen: Login(),
                   noScreen: Presentation(),
                 ),

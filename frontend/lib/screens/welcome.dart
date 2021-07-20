@@ -15,33 +15,17 @@ class Welcome extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Align(child: _determineWhichWidgetShouldBeDisplayed()),
+        body: Align(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _welcomeText(),
+              _welcomeImage(),
+            ],
+          ),
+        ),
       ),
     );
-  }
-
-  Widget _determineWhichWidgetShouldBeDisplayed() {
-    if (SizerUtil.deviceType == DeviceType.mobile) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          _welcomeText(),
-          _welcomeImage(),
-        ],
-      );
-    } else {
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          _welcomeText(),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 2.h),
-            child: _welcomeImage(),
-          ),
-        ],
-      );
-    }
   }
 
   Widget _welcomeText() {
@@ -54,8 +38,8 @@ class Welcome extends StatelessWidget {
 
   Widget _welcomeImage() {
     return Container(
-      width: 70.w,
-      height: 45.h,
+      width: 65.h,
+      height: 25.h,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: const AssetImage('assets/mulher-cfolha.png'),

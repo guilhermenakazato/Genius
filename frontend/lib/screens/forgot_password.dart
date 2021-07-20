@@ -31,8 +31,10 @@ class ForgotPassword extends StatelessWidget {
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                        text:
-                            'Olá! Infelizmente, não temos como implementar essa função, pois envolve o uso de cartões de crédito e dinheiro que não temos. Felizmente, você pode '),
+                      text:
+                          'Olá! Infelizmente, não temos como implementar essa função, pois envolve o uso de cartões de crédito e dinheiro que não temos. Felizmente, você pode ',
+                      style: ApplicationTypography.normalButWithLinkStyle,
+                    ),
                     TextSpan(
                       text: 'falar com a gente',
                       style: ApplicationTypography.linkStyle,
@@ -44,6 +46,7 @@ class ForgotPassword extends StatelessWidget {
                     TextSpan(
                       text:
                           ' pelo nosso Instagram e encontraremos uma solução!',
+                      style: ApplicationTypography.normalButWithLinkStyle,
                     )
                   ],
                 ),

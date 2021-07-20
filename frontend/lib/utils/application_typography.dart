@@ -27,7 +27,7 @@ class ApplicationTypography {
 
   static final askUserText = TextStyle(
     color: ApplicationColors.primary,
-    fontSize: 26.sp,  
+    fontSize: 26.sp,
     fontWeight: FontWeight.bold,
   );
 
@@ -38,12 +38,12 @@ class ApplicationTypography {
   );
 
   static final presentationText = TextStyle(
-        color: ApplicationColors.primary,
-        fontSize: 28.5.sp,
-        height: 2,
-        fontFamily: 'Gotham',
-        fontWeight: FontWeight.w900,
-      );
+    color: ApplicationColors.primary,
+    fontSize: 23.sp,
+    height: 2,
+    fontFamily: 'Gotham',
+    fontWeight: FontWeight.w900,
+  );
 
   static final introScienceText = TextStyle(
     color: ApplicationColors.primary,
@@ -57,7 +57,7 @@ class ApplicationTypography {
     color: ApplicationColors.primary,
     fontFamily: 'Gotham',
     fontWeight: FontWeight.w900,
-    fontSize: 24.sp,  
+    fontSize: 24.sp,
   );
 
   static final primarySignUpText = TextStyle(
@@ -319,6 +319,10 @@ class ApplicationTypography {
   static final linkStyle = TextStyle(
     decoration: TextDecoration.underline,
     color: Colors.blue,
+  );
+
+  static final normalButWithLinkStyle = TextStyle(
+    color: Colors.white,
   );
 
   static final mentionStyle = TextStyle(

@@ -67,7 +67,7 @@ class __LoginStateContentState extends State<_LoginStateContent> {
             alignment: FractionalOffset.center,
             child: SingleChildScrollView(
               child: Container(
-                height: 47.h,
+                height: 55.h, 
                 child: Column(
                   children: <Widget>[
                     Container(
@@ -93,8 +93,8 @@ class __LoginStateContentState extends State<_LoginStateContent> {
                       padding: const EdgeInsets.all(24.0),
                       child: Button(
                         text: 'Login',
-                        width: 40.w,
-                        height: 7.5.h,
+                        width: 30.w,
+                        height: 5.h,
                         onClick: () {
                           handleLogin(context);
                         },
