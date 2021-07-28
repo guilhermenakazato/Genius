@@ -83,18 +83,18 @@ class _SignUpPasswordState extends State<SignUpPassword> {
   }
 
   void _verifyInput(BuildContext context) {
-    final _password = _passwordController.text.trim();
+    final password = _passwordController.text.trim();
 
-    if (_password.isEmpty) {
+    if (password.isEmpty) {
       GeniusToast.showToast('Preencha o campo de senha!');
-    } else if (_password.length <= 7) {
+    } else if (password.length <= 7) {
       GeniusToast.showToast('Insira uma senha de pelo menos 8 caracteres!');
-    } else if (_password.contains(' ')) {
+    } else if (password.contains(' ')) {
       GeniusToast.showToast(
         'A sua senha não pode conter um espaço em branco!',
       );
     } else {
-      widget.person.setPassword(_password);
+      widget.person.setPassword(password);
       _navigator.navigate(context, SignUpType(widget.person));
     }
   }

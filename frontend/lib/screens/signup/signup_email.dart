@@ -23,7 +23,7 @@ class SignUpEmail extends StatefulWidget {
 }
 
 class _SignUpEmailState extends State<SignUpEmail> {
-  final navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
   final _emailController = TextEditingController();
 
   @override
@@ -74,29 +74,29 @@ class _SignUpEmailState extends State<SignUpEmail> {
   }
 
   void _verifyInput(BuildContext context) async {
-    final _email = _emailController.text.trimLeft();
+    final email = _emailController.text.trimLeft();
     final progress = ProgressHUD.of(context);
 
     progress.show();
 
-    if (_email.isEmpty) {
+    if (email.isEmpty) {
       progress.dismiss();
       GeniusToast.showToast('Preencha o campo email!');
-    } else if (!EmailValidator.validate(_email)) {
+    } else if (!EmailValidator.validate(email)) {
       progress.dismiss();
       GeniusToast.showToast('Insira um e-mail válido!');
     } else {
       final _webClient = SignUpWebClient();
       var emailAlreadyExists =
-          await _webClient.verifyIfEmailAlreadyExists(_email);
+          await _webClient.verifyIfEmailAlreadyExists(email);
 
       if (emailAlreadyExists) {
         progress.dismiss();
         GeniusToast.showToast('Ops! Esse email já está cadastrado no Genius.');
       } else {
         progress.dismiss();
-        widget.person.setEmail(_email);
-        navigator.navigate(context, SignUpUsername(widget.person));
+        widget.person.setEmail(email);
+        _navigator.navigate(context, SignUpUsername(widget.person));
       }
     }
   }

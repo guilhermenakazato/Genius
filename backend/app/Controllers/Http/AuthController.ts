@@ -21,7 +21,7 @@ export default class AuthController {
     await auth.use('api').logout()
   }
 
-  async getUserData({ auth }: HttpContextContract) {
+  async getUserDataWithJwtToken({ auth }: HttpContextContract) {
     await auth.authenticate()
     await auth.user?.load('achievements')
     await auth.user?.load('projects', (project) => {
@@ -45,7 +45,7 @@ export default class AuthController {
     return auth.user
   }
 
-  async checkTokenIsValid({ auth }: HttpContextContract) {
+  async checkIfTokenIsValid({ auth }: HttpContextContract) {
     return await auth.check()
   }
 }

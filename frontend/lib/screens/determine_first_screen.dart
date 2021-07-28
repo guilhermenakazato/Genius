@@ -14,7 +14,7 @@ class DetermineFirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
-      future: verifyToken(),
+      future: _verifyIfTokenIsValid(),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data == 'none') {
@@ -29,23 +29,23 @@ class DetermineFirstScreen extends StatelessWidget {
     );
   }
 
-  Future<String> verifyToken() async {
-    final _token = await _tokenObject.getToken();
-    final _webClient = LoginWebClient();
+  Future<String> _verifyIfTokenIsValid() async {
+    final token = await _tokenObject.getToken();
+    final loginWebClient = LoginWebClient();
 
-    if (_token == 'none') {
-      return _token;
+    if (token == 'none') {
+      return token;
     } else {
-      final isValid = await _webClient.check(_token).catchError((error) {
+      final isValid = await loginWebClient.check(token).catchError((error) {
         return false;
       }, test: (error) => error is TimeoutException);
 
       if (isValid) {
-        return _token;
+        return token;
       } else {
         await _tokenObject.removeToken();
-        final _token = await _tokenObject.getToken();
-        return _token;
+        final token = await _tokenObject.getToken();
+        return token;
       }
     }
   }

@@ -19,7 +19,7 @@ class SignUpAge extends StatefulWidget {
 
 class _SignUpAgeState extends State<SignUpAge> {
   int _age = 0;
-  final navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +54,6 @@ class _SignUpAgeState extends State<SignUpAge> {
 
   void _nextScreen(BuildContext context) {
     widget.person.setAge((_age + 10).toString());
-    navigator.navigate(context, SignUpLocal(widget.person));
+    _navigator.navigate(context, SignUpLocal(widget.person));
   }
 }

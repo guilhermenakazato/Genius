@@ -9,7 +9,7 @@ import '../../utils/application_typography.dart';
 
 class SignUpType extends StatelessWidget {
   final User person;
-  final navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
 
   SignUpType(this.person);
 
@@ -46,7 +46,7 @@ class SignUpType extends StatelessWidget {
                 text: 'Cidadão',
                 onClick: () {
                   person.setType('Cidadão');
-                  navigator.navigate(context, SignUpFormation(person));
+                  _navigator.navigate(context, SignUpFormation(person));
                 },
               ),
             ),

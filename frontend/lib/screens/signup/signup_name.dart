@@ -15,7 +15,7 @@ class SignUpName extends StatefulWidget {
 }
 
 class _SignUpNameState extends State<SignUpName> {
-  final _nomeController = TextEditingController();
+  final _nameController = TextEditingController();
   final _navigator = NavigatorUtil();
   final person = User();
 
@@ -54,7 +54,7 @@ class _SignUpNameState extends State<SignUpName> {
                   _verifyInput(context);
                 },
                 hint: 'Nome + sobrenome',
-                controller: _nomeController,
+                controller: _nameController,
                 type: TextInputType.name,
               ),
             ],
@@ -65,12 +65,12 @@ class _SignUpNameState extends State<SignUpName> {
   }
 
   void _verifyInput(BuildContext context) {
-    final _name = _nomeController.text.trimLeft();
+    final name = _nameController.text.trimLeft();
 
-    if (_name.isEmpty) {
+    if (name.isEmpty) {
       GeniusToast.showToast('Preencha o campo nome!');
     } else {
-      person.setName(_name.trimRight());
+      person.setName(name.trimRight());
       _navigator.navigate(context, SignUpEmail(person));
     }
   }

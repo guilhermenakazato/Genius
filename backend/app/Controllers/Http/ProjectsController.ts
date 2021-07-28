@@ -29,9 +29,9 @@ export default class ProjectsController {
     }
 
     const { creatorId } = params
-    const { allExists, username } = await this.allParticipantsExist(participants)
+    const { allParticipantsExist, username } = await this.verifyIfAllParticipantsExist(participants)
 
-    if (allExists) {
+    if (allParticipantsExist) {
       const project = new Project()
       project.name = name
       project.main_teacher = main_teacher
@@ -47,7 +47,7 @@ export default class ProjectsController {
       await project.save()
 
       await this.createProjectParticipantRelationship(participants, project)
-      if (!(tags == null)) {
+      if (tags != null) {
         await this.createProjectTagRelationship(tags, project)
       }
 
@@ -90,8 +90,8 @@ export default class ProjectsController {
       participants.push(second_teacher)
     }
 
-    const { allExists, username } = await this.allParticipantsExist(participants)
-    if (allExists) {
+    const { allParticipantsExist, username } = await this.verifyIfAllParticipantsExist(participants)
+    if (allParticipantsExist) {
       const project = await Project.findOrFail(id)
       await project.load("deleteRequests")
 
@@ -110,7 +110,7 @@ export default class ProjectsController {
       
       await this.removeAllDeleteRequestsFromAProjectIfNumberOfParticipantsIsLesserOrEqualThanNumberOfRequests(participants, project)
       await this.updateProjectParticipantRelationship(participants, project)
-      if (!(tags == null)) {
+      if (tags != null) {
         await this.updateProjectTagRelationship(tags, project)
       }
 
@@ -193,16 +193,16 @@ export default class ProjectsController {
     return project
   }
 
-  async allParticipantsExist(participants: string[]) {
+  async verifyIfAllParticipantsExist(participants: string[]) {
     for (let i = 0; i < participants.length; i++) {
       const user = await User.findBy('username', participants[i])
 
       if (user == null) {
-        return { allExists: false, username: participants[i] }
+        return { allParticipantsExist: false, username: participants[i] }
       }
     }
 
-    return { allExists: true, username: null }
+    return { allParticipantsExist: true, username: null }
   }
 
   async createProjectTagRelationship(tags: string[], project: Project) {

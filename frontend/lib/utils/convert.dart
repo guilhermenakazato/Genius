@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import '../models/achievement.dart';
 import '../models/tag.dart';
 import '../models/survey.dart';
@@ -7,16 +5,6 @@ import '../models/user.dart';
 import '../models/project.dart';
 
 class Convert {
-  static List<Project> convertStringToListofTypeProject(String text) {
-    final List<dynamic> decodedJson = jsonDecode(text);
-
-    final projects = decodedJson.map((dynamic json) {
-      return Project.fromJson(json);
-    }).toList();
-
-    return projects;
-  }
-
   static List<User> convertToListOfUsers(List list) {
     if (list == null) {
       return null;

@@ -51,12 +51,12 @@ class SignUpInstitution extends StatelessWidget {
   }
 
   void _verifyInput(BuildContext context) {
-    final _institution = _institutionController.text.trimLeft();
+    final institution = _institutionController.text.trimLeft();
 
-    if (_institution.isEmpty) {
+    if (institution.isEmpty) {
       GeniusToast.showToast('Preencha o campo de instituição!');
     } else {
-      person.setInstitution(_institution);
+      person.setInstitution(institution);
       _navigator.navigate(context, SignUpAge(person));
     }
   }

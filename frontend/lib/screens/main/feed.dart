@@ -59,7 +59,7 @@ class _FeedState extends State<_FeedContent> {
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           var projects =
-              Convert.convertStringToListofTypeProject(snapshot.data[0]);
+              Convert.convertToListOfProjects(jsonDecode(snapshot.data[0]));
           final user = snapshot.data[1];
 
           return Center(

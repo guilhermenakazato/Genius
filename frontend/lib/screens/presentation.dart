@@ -7,13 +7,13 @@ import '../utils/navigator_util.dart';
 import '../utils/application_typography.dart';
 
 class Presentation extends StatelessWidget {
-  final navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigator.navigate(context, QuestionScience());
+        _navigator.navigate(context, QuestionScience());
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -29,7 +29,7 @@ class Presentation extends StatelessWidget {
                   alignment: FractionalOffset.topLeft,
                   child: TypewriterAnimatedTextKit(
                     onTap: () {
-                      navigator.navigate(context, QuestionScience());
+                      _navigator.navigate(context, QuestionScience());
                     },
                     speed: Duration(milliseconds: 70),
                     text: [

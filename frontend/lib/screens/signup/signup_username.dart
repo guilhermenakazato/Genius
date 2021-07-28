@@ -78,34 +78,34 @@ class _SignUpUsernameState extends State<SignUpUsername> {
   }
 
   void _verifyInput(BuildContext context) async {
-    var _username = _usernameController.text.trimLeft();
+    var username = _usernameController.text.trimLeft();
     final progress = ProgressHUD.of(context);
     progress.show();
 
-    if (_username.isEmpty) {
+    if (username.isEmpty) {
       progress.dismiss();
       GeniusToast.showToast('Insira um nome de usuário!');
-    } else if (_username == '@') {
+    } else if (username == '@') {
       progress.dismiss();
       GeniusToast.showToast('Insira um nome de usuário!');
-    } else if (_username.contains(' ')) {
+    } else if (username.contains(' ')) {
       progress.dismiss();
       GeniusToast.showToast('Remova os espaços em branco!');
     } else {
-      if (!_username.startsWith('@')) {
-        _username = '@' + _username;
+      if (!username.startsWith('@')) {
+        username = '@' + username;
       }
 
-      final _webClient = SignUpWebClient();
+      final signupWebClient = SignUpWebClient();
       var usernameAlreadyExists =
-          await _webClient.verifyIfUsernameAlreadyExists(_username);
+          await signupWebClient.verifyIfUsernameAlreadyExists(username);
 
       if (usernameAlreadyExists) {
         progress.dismiss();
         GeniusToast.showToast('Ops! Esse nome de usuário já está cadastrado no Genius.');
       } else {
         progress.dismiss();
-        widget.person.setUsername(_username.trimRight());
+        widget.person.setUsername(username.trimRight());
         _navigator.navigate(context, SignUpPassword(widget.person));
       }
     }

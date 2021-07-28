@@ -94,7 +94,7 @@ class __LoginStateContentState extends State<_LoginStateContent> {
                         width: 200 - MediaQuery.of(context).size.shortestSide * 0.11,
                         height: 50,
                         onClick: () {
-                          handleLogin(context);
+                          _verifyInput(context);
                         },
                       ),
                     )
@@ -137,30 +137,26 @@ class __LoginStateContentState extends State<_LoginStateContent> {
     );
   }
 
-  void handleLogin(BuildContext context) {
-    verifyInput(context);
-  }
-
-  void verifyInput(BuildContext context) {
+  void _verifyInput(BuildContext context) {
     final email = _emailController.text;
-    final senha = _passwordController.text;
+    final password = _passwordController.text;
 
-    if (email.contains(' ') || senha.contains(' ')) {
+    if (email.contains(' ') || password.contains(' ')) {
       GeniusToast.showToast('Preencha os campos acima sem espaços em branco!');
-    } else if (email.isEmpty || senha.isEmpty) {
+    } else if (email.isEmpty || password.isEmpty) {
       GeniusToast.showToast('Preencha os campos acima!');
     } else {
-      authenticate(email, senha, context);
+      _authenticate(email, password, context);
     }
   }
 
-  void authenticate(String email, String senha, BuildContext context) async {
-    final _webClient = LoginWebClient();
+  void _authenticate(String email, String senha, BuildContext context) async {
+    final loginWebClient = LoginWebClient();
     final progress = ProgressHUD.of(context);
 
     progress.show();
 
-    var token = await _webClient.login(Auth(email, senha)).catchError((error) {
+    var token = await loginWebClient.login(Auth(email, senha)).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
@@ -172,13 +168,13 @@ class __LoginStateContentState extends State<_LoginStateContent> {
       GeniusToast.showToast('Erro desconhecido.');
     });
 
-    var logged = await _webClient.userIsLogged(token.token) ?? false;
+    var logged = await loginWebClient.userIsLogged(token.token) ?? false;
     progress.dismiss();
 
-    enterMainScreen(logged, context);
+    _enterMainScreen(logged, context);
   }
 
-  void enterMainScreen(bool logged, BuildContext context) {
+  void _enterMainScreen(bool logged, BuildContext context) {
     if (logged) {
       _navigator.navigateAndRemove(context, MainScreen());
     }

@@ -94,27 +94,27 @@ class _SignUpLocalContent extends StatelessWidget {
   }
 
   void _verifyInput(BuildContext context) {
-    final _local = _localController.text.trimLeft();
+    final local = _localController.text.trimLeft();
 
-    if (_local.isEmpty) {
+    if (local.isEmpty) {
       GeniusToast.showToast('Preencha o campo de local!');
     } else {
-      person.setLocal(_local.trimRight());
+      person.setLocal(local.trimRight());
       _realizeSignUp(person, context);
     }
   }
 
   void _realizeSignUp(User person, BuildContext context) async {
-    final _webClient = SignUpWebClient();
-    final _progress = ProgressHUD.of(context);
-    final _navigator = NavigatorUtil();
-    var _signed = false;
+    final signupWebClient = SignUpWebClient();
+    final progress = ProgressHUD.of(context);
+    final navigator = NavigatorUtil();
+    var signed = false;
 
-    _progress.show();
+    progress.show();
     final deviceToken = await FirebaseMessaging.instance.getToken();
     person.setDeviceToken(deviceToken);
 
-    _signed = await _webClient.signup(person).catchError((error) {
+    signed = await signupWebClient.signup(person).catchError((error) {
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
       GeniusToast.showToast(
@@ -126,9 +126,9 @@ class _SignUpLocalContent extends StatelessWidget {
       );
     }, test: (error) => error is Exception);
 
-    _progress.dismiss();
-    if (_signed) {
-      _navigator.navigateAndReplace(context, Login());
+    progress.dismiss();
+    if (signed) {
+      navigator.navigateAndReplace(context, Login());
     }
   }
 }

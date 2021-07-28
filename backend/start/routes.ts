@@ -48,8 +48,8 @@ Route.put("/device-token/:userId", 'UsersController.setDeviceToken').middleware(
 Route.post("/login", 'AuthController.login');
 Route.get("/token", 'AuthController.authenticateWithToken');
 Route.get("/logout", 'AuthController.logout');
-Route.get("/get-data", 'AuthController.getUserData');
-Route.get("/check", 'AuthController.checkTokenIsValid');
+Route.get("/get-data", 'AuthController.getUserDataWithJwtToken');
+Route.get("/check", 'AuthController.checkIfTokenIsValid');
 
 Route.post("/project/:creatorId", 'ProjectsController.createProject').middleware("auth")
 Route.get("/projects", 'ProjectsController.listAllProjects').middleware("auth")
