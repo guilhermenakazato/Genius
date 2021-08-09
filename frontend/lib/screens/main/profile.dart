@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:genius/http/webclients/notification_webclient.dart';
 
+import '../../http/webclients/notification_webclient.dart';
 import '../../utils/genius_toast.dart';
 import '../../models/tag.dart';
 import '../../screens/main/user_info/achievements_tab.dart';
@@ -55,7 +55,7 @@ class _ProfileState extends State<_ProfileContent> {
   Future<List<dynamic>> _profileData;
   bool alreadyFollowing = false;
 
-  final founderColors = [
+  final _founderColors = [
     ApplicationColors.profileNameColor,
     Colors.blue,
     Colors.yellow,
@@ -86,18 +86,18 @@ class _ProfileState extends State<_ProfileContent> {
   }
 
   Future<String> _getDataByToken() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    final userWebClient = UserWebClient();
+    final token = await _tokenObject.getToken();
+    final user = await userWebClient.getUserData(token);
+    return user;
   }
 
   Future<String> _getDataById() async {
-    final _webClient = UserWebClient();
+    final userWebClient = UserWebClient();
     final token = await _tokenObject.getToken();
 
-    final _user = await _webClient.getUserById(widget.id, token);
-    return _user;
+    final user = await userWebClient.getUserById(widget.id, token);
+    return user;
   }
 
   @override
@@ -121,22 +121,24 @@ class _ProfileState extends State<_ProfileContent> {
               }
 
               return Scaffold(
-                body: Stack(children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(height: 50),
-                      _nameAndCity(user),
-                      _followersEditProfileAndFollowing(
-                          user, context, follower),
-                      _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
-                        user.tags,
-                      ),
-                    ],
-                  ),
-                  _draggableSheet(user, context),
-                ]),
+                body: Stack(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(height: 50),
+                        _nameAndCity(user),
+                        _followersEditProfileAndFollowing(
+                            user, context, follower),
+                        _checkWhichWidgetShouldBeDisplayedBetweenTagsAndNotFoundText(
+                          user.tags,
+                        ),
+                      ],
+                    ),
+                    _draggableSheet(user, context),
+                  ],
+                ),
               );
             } else {
               return SpinKitFadingCube(color: ApplicationColors.primary);
@@ -148,7 +150,10 @@ class _ProfileState extends State<_ProfileContent> {
   }
 
   void _verifyIfUserIsAlreadyBeingFollowed(User user, User follower) {
-    if (follower.following.map((item) => item.id).contains(user.id)) {
+    var userIsAlreadyFollowing =
+        follower.following.map((item) => item.id).contains(user.id);
+
+    if (userIsAlreadyFollowing) {
       alreadyFollowing = true;
     } else {
       alreadyFollowing = false;
@@ -165,7 +170,7 @@ class _ProfileState extends State<_ProfileContent> {
       },
       child: DraggableScrollableSheet(
         initialChildSize: 0.62,
-        minChildSize: 0.62,  
+        minChildSize: 0.62,
         builder: (context, scrollController) {
           return Container(
             width: double.infinity,
@@ -448,7 +453,10 @@ class _ProfileState extends State<_ProfileContent> {
   }
 
   void _determineFunctionToExecuteOnButton(
-      User user, BuildContext context, User follower) {
+    User user,
+    BuildContext context,
+    User follower,
+  ) {
     if (widget.type == 'edit') {
       _navigator.navigateAndReload(
           context,
@@ -461,16 +469,16 @@ class _ProfileState extends State<_ProfileContent> {
       });
     } else {
       if (alreadyFollowing) {
-        unfollow(user, follower, context);
+        _unfollow(user, follower, context);
       } else {
-        follow(user, follower, context);
+        _follow(user, follower, context);
       }
     }
   }
 
-  void follow(User user, User follower, BuildContext context) async {
-    final _webClient = UserWebClient();
-    final _notificationWebClient = NotificationWebClient();
+  void _follow(User user, User follower, BuildContext context) async {
+    final userWebClient = UserWebClient();
+    final notificationWebClient = NotificationWebClient();
     var followed = true;
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
@@ -478,7 +486,7 @@ class _ProfileState extends State<_ProfileContent> {
 
     progress.show();
 
-    await _webClient.follow(user.id, follower.id, token).catchError((error) {
+    await userWebClient.follow(user.id, follower.id, token).catchError((error) {
       followed = false;
       progress.dismiss();
       GeniusToast.showToast('Não foi possível seguir o usuário.');
@@ -493,7 +501,7 @@ class _ProfileState extends State<_ProfileContent> {
       });
 
       if (deviceToken != null) {
-        await _notificationWebClient.sendFollowNotification(
+        await notificationWebClient.sendFollowNotification(
           deviceToken,
           follower.username,
         );
@@ -501,15 +509,15 @@ class _ProfileState extends State<_ProfileContent> {
     }
   }
 
-  void unfollow(User user, User follower, BuildContext context) async {
-    final _webClient = UserWebClient();
+  void _unfollow(User user, User follower, BuildContext context) async {
+    final userWebClient = UserWebClient();
     var unfollowed = true;
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.unfollow(user.id, follower.id, false, token).catchError(
+    await userWebClient.unfollow(user.id, follower.id, false, token).catchError(
         (error) {
       unfollowed = false;
       progress.dismiss();
@@ -535,7 +543,7 @@ class _ProfileState extends State<_ProfileContent> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              _determineStyle(user),
+              _determineUsernameStyle(user),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Row(
@@ -559,7 +567,7 @@ class _ProfileState extends State<_ProfileContent> {
     );
   }
 
-  Widget _determineStyle(User user) {
+  Widget _determineUsernameStyle(User user) {
     if (user.verified == 'founder') {
       return Container(
         width: 250,
@@ -569,7 +577,7 @@ class _ProfileState extends State<_ProfileContent> {
               user.username,
               speed: Duration(milliseconds: 500),
               textStyle: ApplicationTypography.profileName,
-              colors: founderColors,
+              colors: _founderColors,
               textAlign: TextAlign.center,
             ),
           ],

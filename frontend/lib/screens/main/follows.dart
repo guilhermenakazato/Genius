@@ -71,83 +71,84 @@ class _FollowsState extends State<Follows> with TickerProviderStateMixin {
         highlightColor: Colors.transparent,
       ),
       child: FutureBuilder(
-          future: _userData,
-          builder: (context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.hasData) {
-              final user = User.fromJson(jsonDecode(snapshot.data));
+        future: _userData,
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.hasData) {
+            final user = User.fromJson(jsonDecode(snapshot.data));
 
-              return Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Colors.transparent,
-                  automaticallyImplyLeading: false,
-                  elevation: 0,
-                  title: Center(
-                    child: Text(
-                      user.username,
-                      style: ApplicationTypography.tabUsername,
-                    ),
-                  ),
-                  bottom: TabBar(
-                    controller: _tabController,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: ApplicationColors.tabBarIndicatorColor,
-                    ),
-                    tabs: <Widget>[
-                      Tab(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '${user.followers.length} seguidores',
-                              style: ApplicationTypography.tabBarText,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Tab(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '${user.following.length} seguindo',
-                              style: ApplicationTypography.tabBarText,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                automaticallyImplyLeading: false,
+                elevation: 0,
+                title: Center(
+                  child: Text(
+                    user.username,
+                    style: ApplicationTypography.tabUsername,
                   ),
                 ),
-                body: TabBarView(
+                bottom: TabBar(
                   controller: _tabController,
-                  children: <Widget>[
-                    Followers(
-                      type: widget.type,
-                      id: widget.id,
-                      onChangedState: () {
-                        setState(() {
-                          _userData = _defineHowToGetData();
-                        });
-                      },
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: ApplicationColors.tabBarIndicatorColor,
+                  ),
+                  tabs: <Widget>[
+                    Tab(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            '${user.followers.length} seguidores',
+                            style: ApplicationTypography.tabBarText,
+                          ),
+                        ],
+                      ),
                     ),
-                    Following(
-                      type: widget.type,
-                      id: widget.id,
-                      onChangedState: () {
-                        setState(() {
-                          _userData = _defineHowToGetData();
-                        });
-                      },
+                    Tab(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            '${user.following.length} seguindo',
+                            style: ApplicationTypography.tabBarText,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              );
-            } else {
-              return SpinKitFadingCube(color: ApplicationColors.primary);
-            }
-          }),
+              ),
+              body: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  Followers(
+                    type: widget.type,
+                    id: widget.id,
+                    onChangedState: () {
+                      setState(() {
+                        _userData = _defineHowToGetData();
+                      });
+                    },
+                  ),
+                  Following(
+                    type: widget.type,
+                    id: widget.id,
+                    onChangedState: () {
+                      setState(() {
+                        _userData = _defineHowToGetData();
+                      });
+                    },
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return SpinKitFadingCube(color: ApplicationColors.primary);
+          }
+        },
+      ),
     );
   }
 }

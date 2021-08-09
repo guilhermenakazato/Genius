@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../components/team_description.dart';
 import '../../utils/application_typography.dart';
 
 class About extends StatelessWidget {
@@ -53,23 +54,23 @@ class About extends StatelessWidget {
                   spacing: 84,
                   runSpacing: 10,
                   children: <Widget>[
-                    _Team(
+                    TeamDescription(
                       name: 'Gabriela\nPrado',
                       photoPath: 'assets/gabi.jpeg',
                     ),
-                    _Team(
+                    TeamDescription(
                       name: 'Guilherme\nNakazato',
                       photoPath: 'assets/sem-foto.png',
                     ),
-                    _Team(
+                    TeamDescription(
                       name: 'Sidney\nSousa',
                       photoPath: 'assets/sidney.jpeg',
                     ),
-                    _Team(
+                    TeamDescription(
                       name: 'NUDES',
                       photoPath: 'assets/nudes.jpeg',
                     ),
-                    _Team(
+                    TeamDescription(
                       name: 'IFMS\nCampus\nAquidauana',
                       photoPath: 'assets/ifms.png',
                     )
@@ -84,32 +85,3 @@ class About extends StatelessWidget {
   }
 }
 
-class _Team extends StatelessWidget {
-  final String name;
-  final String photoPath;
-  const _Team({
-    Key key,
-    @required this.name,
-    @required this.photoPath,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(photoPath),
-          ),
-        ),
-        Text(
-          name,
-          style: ApplicationTypography.aboutTeam,
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
-  }
-}

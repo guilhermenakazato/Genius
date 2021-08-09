@@ -21,13 +21,13 @@ import 'forms/achievement_form.dart';
 
 class EditConquistas extends StatefulWidget {
   @override
-  _EditConquistasState createState() => _EditConquistasState();
+  _EditAchievementsState createState() => _EditAchievementsState();
 }
 
-class _EditConquistasState extends State<EditConquistas> {
+class _EditAchievementsState extends State<EditConquistas> {
   Future<String> _userData;
   final _tokenObject = Token();
-  final navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
 
   @override
   void initState() {
@@ -36,10 +36,10 @@ class _EditConquistasState extends State<EditConquistas> {
   }
 
   Future<String> getData() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    final userWebClient = UserWebClient();
+    final token = await _tokenObject.getToken();
+    final user = await userWebClient.getUserData(token);
+    return user;
   }
 
   @override
@@ -60,7 +60,7 @@ class _EditConquistasState extends State<EditConquistas> {
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: FloatingButton(
                 onPressed: () {
-                  navigator.navigateAndReload(
+                  _navigator.navigateAndReload(
                     context,
                     AchievementForm(
                       userId: user.id,
@@ -125,7 +125,7 @@ class _EditConquistasState extends State<EditConquistas> {
                       );
                     },
                     cancelFunction: () {
-                      navigator.goBack(
+                      _navigator.goBack(
                         context,
                       );
                     },
@@ -140,7 +140,7 @@ class _EditConquistasState extends State<EditConquistas> {
             );
           },
           onEdit: () {
-            navigator.navigateAndReload(
+            _navigator.navigateAndReload(
               context,
               AchievementForm(
                 type: 'edit',
@@ -161,13 +161,13 @@ class _EditConquistasState extends State<EditConquistas> {
   }
 
   void _deleteAchievement(int achievementId, BuildContext context) async {
-    final _webClient = AchievementWebClient();
+    final achievementWebClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.deleteAchievement(achievementId, token).catchError((error) {
+    await achievementWebClient.deleteAchievement(achievementId, token).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
@@ -180,6 +180,6 @@ class _EditConquistasState extends State<EditConquistas> {
 
     progress.dismiss();
     GeniusToast.showToast('Questionário deletado com sucesso.');
-    navigator.goBack(context);
+    _navigator.goBack(context);
   }
 }

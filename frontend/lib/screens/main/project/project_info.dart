@@ -1,14 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/http/webclients/notification_webclient.dart';
-import 'package:genius/http/webclients/project_webclient.dart';
-import 'package:genius/http/webclients/user_webclient.dart';
-import 'package:genius/models/project.dart';
-import 'package:genius/models/token.dart';
-import 'package:genius/models/user.dart';
 
+import '../../../http/webclients/notification_webclient.dart';
+import '../../../http/webclients/project_webclient.dart';
+import '../../../http/webclients/user_webclient.dart';
+import '../../../models/project.dart';
+import '../../../models/token.dart';
+import '../../../models/user.dart';
 import '../../../utils/application_colors.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../utils/application_typography.dart';

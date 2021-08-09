@@ -3,13 +3,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:genius/http/webclients/notification_webclient.dart';
-import 'package:genius/http/webclients/user_webclient.dart';
-import 'package:genius/models/token.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/utils/genius_toast.dart';
-import 'package:genius/utils/notifications.dart';
 
+import '../../http/webclients/notification_webclient.dart';
+import '../../http/webclients/user_webclient.dart';
+import '../../models/token.dart';
+import '../../models/user.dart';
+import '../../utils/genius_toast.dart';
+import '../../utils/notifications.dart';
 import '../../models/project.dart';
 import '../../utils/convert.dart';
 import '../../screens/main/send_mail.dart';
@@ -37,7 +37,7 @@ class _FeedContent extends StatefulWidget {
 class _FeedState extends State<_FeedContent> {
   final _tokenObject = Token();
   Future<List<dynamic>> _feedData;
-  final navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
   final _userWebClient = UserWebClient();
   final _notificationWebClient = NotificationWebClient();
 
@@ -99,10 +99,27 @@ class _FeedState extends State<_FeedContent> {
       itemCount: projects.length,
       layout: SwiperLayout.STACK,
       builder: (BuildContext context, int index) {
+        var projectIsAlreadyLikedByUser = projects[index]
+            .likedBy
+            .map(
+              (item) => item.id,
+            )
+            .contains(
+              user.id,
+            );
+        var projectIsAlreadySavedByUser = projects[index]
+            .savedBy
+            .map(
+              (item) => item.id,
+            )
+            .contains(
+              user.id,
+            );
+
         return GeniusCard(
           textHeight: MediaQuery.of(context).size.height * 0.8 - 300,
           onTap: () {
-            navigator.navigateAndReload(
+            _navigator.navigateAndReload(
               context,
               ProjectInfo(
                 projectId: projects[index].id,
@@ -120,7 +137,7 @@ class _FeedState extends State<_FeedContent> {
           type: 'feed',
           projectParticipants: projects[index].participants,
           onParticipantsClick: (int id) {
-            navigator.navigate(
+            _navigator.navigate(
               context,
               Profile(
                 type: 'user',
@@ -129,7 +146,7 @@ class _FeedState extends State<_FeedContent> {
             );
           },
           onClickedConversationIcon: () {
-            navigator.navigate(
+            _navigator.navigate(
               context,
               SendMail(
                 email: projects[index].email,
@@ -138,29 +155,12 @@ class _FeedState extends State<_FeedContent> {
             );
           },
           likes: projects[index].likedBy.length,
-          liked: projects[index]
-              .likedBy
-              .map(
-                (item) => item.id,
-              )
-              .contains(
-                user.id,
-              ),
-          saved: projects[index]
-              .savedBy
-              .map(
-                (item) => item.id,
-              )
-              .contains(
-                user.id,
-              ),
+          liked: projectIsAlreadyLikedByUser,
+          saved: projectIsAlreadySavedByUser,
           onLiked: () async {
             final token = await _tokenObject.getToken();
 
-            if (projects[index]
-                .likedBy
-                .map((item) => item.id)
-                .contains(user.id)) {
+            if (projectIsAlreadyLikedByUser) {
               await _userWebClient.dislikeProject(
                 projects[index].id,
                 user.id,
@@ -190,10 +190,7 @@ class _FeedState extends State<_FeedContent> {
           onSaved: () async {
             final token = await _tokenObject.getToken();
 
-            if (projects[index]
-                .savedBy
-                .map((item) => item.id)
-                .contains(user.id)) {
+            if (projectIsAlreadySavedByUser) {
               await _userWebClient.removeSavedProject(
                 projects[index].id,
                 user.id,

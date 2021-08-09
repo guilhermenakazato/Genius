@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/http/webclients/notification_webclient.dart';
-import 'package:genius/http/webclients/user_webclient.dart';
-import 'package:genius/models/token.dart';
-import 'package:genius/models/user.dart';
 
+import '../../../http/webclients/notification_webclient.dart';
+import '../../../http/webclients/user_webclient.dart';
+import '../../../models/token.dart';
+import '../../../models/user.dart';
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
 import '../../../components/data_not_found_card.dart';

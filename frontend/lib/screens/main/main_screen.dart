@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenContentState extends State<MainScreen> {
-  int _pageNumber = 2;
+  int _screenNumber = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +23,16 @@ class _MainScreenContentState extends State<MainScreen> {
       bottomNavigationBar: BottomNavBar(
         onChange: (index) {
           setState(() {
-            _pageNumber = index;
+            _screenNumber = index;
           });
         },
-        value: _pageNumber,
+        value: _screenNumber,
       ),
-      body: _showPage(_pageNumber),
+      body: _showScreen(_screenNumber),
     );
   }
 
-  Widget _showPage(int index) {
+  Widget _showScreen(int index) {
     final _widgetList = <Widget>[
       About(),
       Profile(type: 'edit', id: null),

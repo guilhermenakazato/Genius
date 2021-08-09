@@ -100,7 +100,8 @@ class _SearchState extends State<Search> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 40.0, left: 10, right: 10),
+                  padding:
+                      const EdgeInsets.only(top: 40.0, left: 10, right: 10),
                   child: SearchBar(
                     onChange: (String value) {
                       setState(() {
@@ -196,7 +197,10 @@ class _SearchState extends State<Search> {
   }
 
   Widget _foundResults(
-      List<User> users, List<Project> projects, User follower) {
+    List<User> users,
+    List<Project> projects,
+    User follower,
+  ) {
     var newList = <dynamic>{...users, ...projects}.toList();
 
     return Column(
@@ -225,7 +229,11 @@ class _SearchState extends State<Search> {
               );
             } else {
               return _projectResult(
-                  newList[index], index, newList.length, follower);
+                newList[index],
+                index,
+                newList.length,
+                follower,
+              );
             }
           },
         ),

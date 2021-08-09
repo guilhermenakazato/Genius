@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/models/token.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
+import '../../../../models/token.dart';
 import '../../../../utils/genius_toast.dart';
 import '../../../../http/webclients/user_webclient.dart';
 import '../../../../http/exceptions/http_exception.dart';
@@ -55,7 +55,7 @@ class _ProjectFormState extends State<ProjectForm> {
   final _participantsKey = GlobalKey<FlutterMentionsState>();
   final _tokenObject = Token();
 
-  final navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
 
   @override
   void initState() {
@@ -70,20 +70,20 @@ class _ProjectFormState extends State<ProjectForm> {
   }
 
   Future<List<User>> _getUsersData() async {
-    final webClient = UserWebClient();
+    final userWebClient = UserWebClient();
     final token = await _tokenObject.getToken();
 
-    final users = await webClient.getAllUsers(token);
+    final users = await userWebClient.getAllUsers(token);
     final usersList = Convert.convertToListOfUsers(jsonDecode(users));
 
     return usersList;
   }
 
   Future<List<Tag>> _getTagsData() async {
-    final webClient = TagsWebClient();
+    final tagsWebClient = TagsWebClient();
     final token = await _tokenObject.getToken();
 
-    final tags = await webClient.getAllTags(token);
+    final tags = await tagsWebClient.getAllTags(token);
     final tagsList = Convert.convertToListOfTags(jsonDecode(tags));
 
     return tagsList;
@@ -110,25 +110,25 @@ class _ProjectFormState extends State<ProjectForm> {
   }
 
   String _transformListOfUsersIntoStringOfUsernames(List<User> users) {
-    var _stringOfUsers = '';
+    var stringOfUsers = '';
 
     users.forEach((user) {
-      _stringOfUsers += user.username;
-      _stringOfUsers += ' ';
+      stringOfUsers += user.username;
+      stringOfUsers += ' ';
     });
 
-    return _stringOfUsers;
+    return stringOfUsers;
   }
 
   String _transformListOfTagsIntoStringOfTags(List<Tag> tags) {
-    var _stringOfTags = '';
+    var stringOfTags = '';
 
     tags.forEach((tag) {
-      _stringOfTags += tag.name;
-      _stringOfTags += ' ';
+      stringOfTags += tag.name;
+      stringOfTags += ' ';
     });
 
-    return _stringOfTags;
+    return stringOfTags;
   }
 
   @override
@@ -422,10 +422,10 @@ class _ProjectFormState extends State<ProjectForm> {
 
   Future<bool> _projectEmailAlreadyBeingUsed(String email) async {
     var projectEmailAlreadyExists = false;
-    var _webClientToVerifyData = ProjectWebClient();
+    var projectWebClient = ProjectWebClient();
 
-    projectEmailAlreadyExists = await _webClientToVerifyData
-        .verifyIfProjectEmailIsAlreadyBeingUsed(email);
+    projectEmailAlreadyExists =
+        await projectWebClient.verifyIfProjectEmailIsAlreadyBeingUsed(email);
 
     return projectEmailAlreadyExists;
   }
@@ -464,18 +464,18 @@ class _ProjectFormState extends State<ProjectForm> {
     Project oldProjectData,
   ) async {
     var projectTitleAlreadyExists = false;
-    var _webClientToVerifyData = ProjectWebClient();
+    var projectWebClient = ProjectWebClient();
 
     if (widget.type == 'edit') {
       if (oldProjectData.name != title) {
         projectTitleAlreadyExists =
-            await _webClientToVerifyData.verifyIfProjectTitleAlreadyExists(
+            await projectWebClient.verifyIfProjectTitleAlreadyExists(
           title,
         );
       }
     } else {
       projectTitleAlreadyExists =
-          await _webClientToVerifyData.verifyIfProjectTitleAlreadyExists(
+          await projectWebClient.verifyIfProjectTitleAlreadyExists(
         title,
       );
     }
@@ -484,8 +484,10 @@ class _ProjectFormState extends State<ProjectForm> {
   }
 
   bool _participantsStructureIsCorrect(
-      List<String> participants, BuildContext context) {
-    var verification = true;
+    List<String> participants,
+    BuildContext context,
+  ) {
+    var verificationPassed = true;
     final progress = ProgressHUD.of(context);
 
     if (participants.length == 1 &&
@@ -495,22 +497,23 @@ class _ProjectFormState extends State<ProjectForm> {
 
     if (participants.isEmpty) {
       GeniusToast.showToast(
-          'Seu projeto tem que ter pelo menos um participante!');
-      verification = false;
+        'Seu projeto tem que ter pelo menos um participante!',
+      );
+      verificationPassed = false;
     } else {
       participants.forEach((participant) {
         if (!participant.startsWith('@')) {
           GeniusToast.showToast('O participante $participant está sem @!');
-          verification = false;
+          verificationPassed = false;
         }
       });
     }
 
-    if (!verification) {
+    if (!verificationPassed) {
       progress.dismiss();
     }
 
-    return verification;
+    return verificationPassed;
   }
 
   bool _tagsStructureIsCorrect(List<String> tags, BuildContext context) {
@@ -538,12 +541,16 @@ class _ProjectFormState extends State<ProjectForm> {
   }
 
   void _createProject(Project project, BuildContext context) async {
-    final _webClient = ProjectWebClient();
+    final projectWebClient = ProjectWebClient();
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
 
-    var creationTestsPassed = await _webClient
-            .createProject(project, widget.user.id, token,)
+    var creationTestsPassed = await projectWebClient
+            .createProject(
+          project,
+          widget.user.id,
+          token,
+        )
             .catchError((error) {
           progress.dismiss();
           GeniusToast.showToast(error.message);
@@ -560,7 +567,7 @@ class _ProjectFormState extends State<ProjectForm> {
     if (creationTestsPassed) {
       progress.dismiss();
       GeniusToast.showToast('Projeto criado com sucesso.');
-      navigator.goBack(context);
+      _navigator.goBack(context);
     }
   }
 
@@ -569,11 +576,11 @@ class _ProjectFormState extends State<ProjectForm> {
     int oldProjectId,
     BuildContext context,
   ) async {
-    final _webClient = ProjectWebClient();
+    final projectWebClient = ProjectWebClient();
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
 
-    var updateTestsPassed = await _webClient
+    var updateTestsPassed = await projectWebClient
             .updateProject(project, oldProjectId, token)
             .catchError((error) {
           progress.dismiss();
@@ -591,7 +598,7 @@ class _ProjectFormState extends State<ProjectForm> {
     if (updateTestsPassed) {
       progress.dismiss();
       GeniusToast.showToast('Projeto atualizado com sucesso.');
-      navigator.goBack(context);
+      _navigator.goBack(context);
     }
   }
 

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/models/token.dart';
 
+import '../../../../models/token.dart';
 import '../../../../utils/genius_toast.dart';
 import '../../../../http/exceptions/http_exception.dart';
 import '../../../../http/webclients/achievement_webclient.dart';
@@ -243,12 +243,12 @@ class _AchievementFormState extends State<AchievementForm> {
   }
 
   void _createAchievement(Achievement achievement, BuildContext context) async {
-    final _webClient = AchievementWebClient();
+    final achievementWebClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
     progress.show();
 
-    await _webClient
+    await achievementWebClient
         .createAchievement(achievement, widget.userId, token)
         .catchError((error) {
       progress.dismiss();
@@ -272,13 +272,13 @@ class _AchievementFormState extends State<AchievementForm> {
     int oldSurveyId,
     BuildContext context,
   ) async {
-    final _webClient = AchievementWebClient();
+    final achievementWebClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.updateAchievement(achievement, oldSurveyId, token).catchError(
+    await achievementWebClient.updateAchievement(achievement, oldSurveyId, token).catchError(
         (error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);

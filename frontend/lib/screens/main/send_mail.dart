@@ -68,7 +68,7 @@ class SendMail extends StatelessWidget {
     );
   }
 
-  String encodeQueryParameters(Map<String, String> params) {
+  String _encodeQueryParameters(Map<String, String> params) {
     return params.entries
         .map((e) =>
             '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
@@ -82,7 +82,7 @@ class SendMail extends StatelessWidget {
     final url = Uri(
       scheme: 'mailto',
       path: email,
-      query: encodeQueryParameters(<String, String>{
+      query: _encodeQueryParameters(<String, String>{
         'subject': subject,
         'body': message,
       }),

@@ -17,14 +17,6 @@ class SurveysTab extends StatefulWidget {
 }
 
 class _SurveysTabState extends State<SurveysTab> {
-  List<bool> isOpen;
-
-  @override
-  void initState() {
-    isOpen = List.filled(widget.surveys.length, false);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

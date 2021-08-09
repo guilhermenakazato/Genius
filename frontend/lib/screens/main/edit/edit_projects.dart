@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/components/warning_dialog.dart';
-import 'package:genius/http/webclients/project_webclient.dart';
+import '../../../components/warning_dialog.dart';
+import '../../../http/webclients/project_webclient.dart';
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
 import '../../../screens/main/project/project_info.dart';

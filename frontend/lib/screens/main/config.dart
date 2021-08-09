@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/components/switch_tile.dart';
-import 'package:genius/screens/main/change_password.dart';
-import 'package:genius/utils/notifications.dart';
+import '../../components/switch_tile.dart';
+import '../../screens/main/change_password.dart';
+import '../../utils/notifications.dart';
 
 import '../../components/warning_dialog.dart';
 import 'send_mail.dart';
@@ -38,10 +38,10 @@ class _ConfigState extends State<Config> {
   }
 
   Future<String> _getDataByToken() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    final userWebClient = UserWebClient();
+    final token = await _tokenObject.getToken();
+    final user = await userWebClient.getUserData(token);
+    return user;
   }
 
   @override
@@ -132,7 +132,7 @@ class _ConfigState extends State<Config> {
                           icon: Icons.login,
                           position: 'bottom',
                           onClick: () {
-                            logoutUser(context);
+                            _logoutUser(context);
                           },
                         ),
                       ],
@@ -149,7 +149,7 @@ class _ConfigState extends State<Config> {
     );
   }
 
-  void logout(BuildContext context) async {
+  Future<void> _logout(BuildContext context) async {
     final progress = ProgressHUD.of(context);
     progress.show();
 
@@ -160,7 +160,7 @@ class _ConfigState extends State<Config> {
     _navigator.navigateAndRemove(context, Welcome());
   }
 
-  Future<void> deleteUser(BuildContext context, int id) async {
+  Future<void> _deleteUser(BuildContext context, int id) async {
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
     progress.show();
@@ -186,7 +186,7 @@ class _ConfigState extends State<Config> {
                 'Caso exclua, não poderá recuperar seus dados. Além disso, se tiver um projeto com apenas um participante, ele será deletado também.',
             title: 'Excluir conta?',
             acceptFunction: () {
-              deleteUser(context, id);
+              _deleteUser(context, id);
               _navigator.navigateAndRemove(context, Welcome());
             },
             cancelFunction: () {
@@ -199,7 +199,7 @@ class _ConfigState extends State<Config> {
     );
   }
 
-  Future<dynamic> logoutUser(BuildContext context) async {
+  Future<dynamic> _logoutUser(BuildContext context) async {
     return showDialog(
       context: context,
       builder: (
@@ -215,7 +215,7 @@ class _ConfigState extends State<Config> {
             content: 'Deseja realmente sair? Sentiremos sua falta!',
             title: 'Sair da conta',
             acceptFunction: () {
-              logout(context);
+              _logout(context);
             },
             cancelFunction: () {
               _navigator.goBack(context);
@@ -233,7 +233,9 @@ class _ConfigState extends State<Config> {
   ) async {
     final progress = ProgressHUD.of(context);
     progress.show();
+
     await Notifications.setNotificationPreference(notificationIsOn);
+
     progress.dismiss();
   }
 }

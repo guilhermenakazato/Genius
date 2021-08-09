@@ -1,13 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/models/token.dart';
+
+import '../../../../models/token.dart';
 import '../../../../utils/genius_toast.dart';
 import '../../../../utils/navigator_util.dart';
 import '../../../../http/exceptions/http_exception.dart';
-
 import '../../../../http/webclients/survey_webclient.dart';
 import '../../../../models/survey.dart';
 import '../../../../utils/application_colors.dart';
@@ -29,7 +28,7 @@ class SurveyForm extends StatefulWidget {
 class _SurveyFormState extends State<SurveyForm> {
   final _titleController = TextEditingController();
   final _urlController = TextEditingController();
-  final navigator = NavigatorUtil();
+  final _navigator = NavigatorUtil();
   final _tokenObject = Token();
 
   @override
@@ -115,13 +114,13 @@ class _SurveyFormState extends State<SurveyForm> {
   }
 
   void _createSurvey(Survey survey, BuildContext context) async {
-    final _webClient = SurveyWebClient();
+    final surveyWebClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.createSurvey(survey, widget.userId, token).catchError(
+    await surveyWebClient.createSurvey(survey, widget.userId, token).catchError(
         (error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
@@ -136,18 +135,22 @@ class _SurveyFormState extends State<SurveyForm> {
 
     progress.dismiss();
     GeniusToast.showToast('Questionário criado com sucesso.');
-    navigator.goBack(context);
+    _navigator.goBack(context);
   }
 
   void _updateSurvey(
-      Survey survey, int oldSurveyId, BuildContext context) async {
-    final _webClient = SurveyWebClient();
+    Survey survey,
+    int oldSurveyId,
+    BuildContext context,
+  ) async {
+    final surveyWebClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
     final token = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.updateSurvey(survey, oldSurveyId, token).catchError((error) {
+    await surveyWebClient.updateSurvey(survey, oldSurveyId, token).catchError(
+        (error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
@@ -161,7 +164,7 @@ class _SurveyFormState extends State<SurveyForm> {
 
     progress.dismiss();
     GeniusToast.showToast('Questionário atualizado com sucesso.');
-    navigator.goBack(context);
+    _navigator.goBack(context);
   }
 
   String _determineTitleText() {

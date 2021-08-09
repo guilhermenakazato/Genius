@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:genius/utils/application_typography.dart';
+
+import '../../../utils/application_typography.dart';
 
 class DataNotFoundCard extends StatelessWidget {
   final String text;

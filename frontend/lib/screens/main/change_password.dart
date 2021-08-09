@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:genius/components/gradient_button.dart';
-import 'package:genius/components/input_with_animation.dart';
-import 'package:genius/components/warning_dialog.dart';
-import 'package:genius/http/exceptions/http_exception.dart';
-import 'package:genius/http/webclients/login_webclient.dart';
-import 'package:genius/http/webclients/user_webclient.dart';
-import 'package:genius/models/token.dart';
-import 'package:genius/utils/application_colors.dart';
-import 'package:genius/utils/genius_toast.dart';
-import 'package:genius/utils/navigator_util.dart';
-
+import '../../components/gradient_button.dart';
+import '../../components/input_with_animation.dart';
+import '../../components/warning_dialog.dart';
+import '../../http/exceptions/http_exception.dart';
+import '../../http/webclients/login_webclient.dart';
+import '../../http/webclients/user_webclient.dart';
+import '../../models/token.dart';
+import '../../utils/application_colors.dart';
+import '../../utils/genius_toast.dart';
+import '../../utils/navigator_util.dart';
 import '../welcome.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -69,7 +69,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 padding: const EdgeInsets.all(8.0),
                 child: GradientButton(
                   onPressed: () {
-                    _verifyPasswordIsValid(context);
+                    _verifyIfPasswordIsValid(context);
                   },
                   text: 'Enviar',
                   width: 270,
@@ -83,7 +83,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  void _verifyPasswordIsValid(BuildContext context) {
+  void _verifyIfPasswordIsValid(BuildContext context) {
     final password = _passwordController.text.trim();
 
     if (password.isEmpty) {
@@ -99,9 +99,9 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   Future<dynamic> _changePassword(BuildContext context, String password) async {
     final password = _passwordController.text;
-    final _tokenObject = Token();
-    final _userWebClient = UserWebClient();
-    final _loginWebClient = LoginWebClient();
+    final tokenObject = Token();
+    final userWebClient = UserWebClient();
+    final loginWebClient = LoginWebClient();
 
     return showDialog(
       context: context,
@@ -120,10 +120,10 @@ class _ChangePasswordState extends State<ChangePassword> {
             title: 'Trocar senha',
             acceptFunction: () async {
               final progress = ProgressHUD.of(context);
-              final token = await _tokenObject.getToken();
+              final token = await tokenObject.getToken();
               progress.show();
 
-              await _userWebClient
+              await userWebClient
                   .changePassword(
                     password,
                     token,
@@ -131,8 +131,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                   )
                   .catchError((error) => {debugPrint(error.toString())},
                       test: (e) => e is HttpException);
-              await _loginWebClient.logout(token);
-              await _tokenObject.removeToken();
+              await loginWebClient.logout(token);
+              await tokenObject.removeToken();
 
               progress.dismiss();
               _navigator.navigateAndRemove(context, Welcome());
