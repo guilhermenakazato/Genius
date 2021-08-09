@@ -1,11 +1,10 @@
 /**
- * Config source: https://git.io/JvyKy
+ * Config source: https://git.io/JY0mp
  *
  * Feel free to let us know via PR, if you find something broken in this config
  * file.
  */
 
-import Usuario from 'App/Models/Usuario'
 import { AuthConfig } from '@ioc:Adonis/Addons/Auth'
 
 /*
@@ -19,8 +18,7 @@ import { AuthConfig } from '@ioc:Adonis/Addons/Auth'
 */
 const authConfig: AuthConfig = {
   guard: 'api',
-  list: {
-    
+  guards: {
     /*
     |--------------------------------------------------------------------------
     | OAT Guard
@@ -42,12 +40,19 @@ const authConfig: AuthConfig = {
       | Tokens provider
       |--------------------------------------------------------------------------
       |
-      | Uses SQL database for managing tokens.
+      | Uses SQL database for managing tokens. Use the "database" driver, when
+      | tokens are the secondary mode of authentication.
+      | For example: The Github personal tokens
+      |
+      | The foreignKey column is used to make the relationship between the user
+      | and the token. You are free to use any column name here.
       |
       */
       tokenProvider: {
+        type: 'api',
         driver: 'database',
         table: 'api_tokens',
+        foreignKey: 'user_id',
       },
 
       provider: {
@@ -89,10 +94,13 @@ const authConfig: AuthConfig = {
         | Model
         |--------------------------------------------------------------------------
         |
-        | The model to use for fetching or finding users
+        | The model to use for fetching or finding users. The model is imported
+        | lazily since the config files are read way earlier in the lifecycle
+        | of booting the app and the models may not be in a usable state at
+        | that time.
         |
         */
-        model: Usuario,
+        model: () => import('App/Models/User'),
       },
     },
   },

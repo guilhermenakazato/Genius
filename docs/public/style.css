@@ -4,7 +4,7 @@
 }
 
 :root {
-  --principal: #eee5d6;
+  --principal: #9c99d6;
   --secundaria: #101010;
   --terciaria: #181818;
   --scrollcolor: #505050;
@@ -142,14 +142,14 @@ div + div h2 {
 }
 
 .glow:hover {
-  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--principal),
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px var(--principal),
     0 0 40px var(--principal), 0 0 50px var(--principal),
     0 0 60px var(--principal), 0 0 70px var(--principal);
 }
 
 /*glow-text é usado no script*/
 .glow-text {
-  text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--principal),
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px var(--principal),
     0 0 40px var(--principal), 0 0 50px var(--principal),
     0 0 60px var(--principal), 0 0 70px var(--principal);
 }
@@ -295,4 +295,8 @@ p.legenda::first-letter {
 
 p.legenda {
   text-align: center;
+}
+
+li {
+  margin-bottom: 2px;
 }

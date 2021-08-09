@@ -3,10 +3,9 @@ import 'package:http_interceptor/http_interceptor.dart';
 
 import 'interceptors/logging_interceptors.dart';
 
-final Client client = HttpClientWithInterceptor.build(
+final Client client = InterceptedClient.build(
   interceptors: [LoggingInterceptor()],
-  requestTimeout: Duration(seconds: 10),
+  requestTimeout: Duration(seconds: 30),
 );
 
-// No lugar de 192.168.1.13, vai o IPv4 da máquina
-final String baseUrl = "http://192.168.0.104:3333";
+final String baseUrl = 'https://genius-server.herokuapp.com';

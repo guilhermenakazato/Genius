@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../utils/application_typography.dart';
+
 class BorderlessButton extends StatelessWidget {
   final Function onPressed;
   final String text;
+  final Color color;
 
   const BorderlessButton({
     Key key,
     @required this.onPressed,
-    @required this.text,
+    @required this.text, @required this.color,
   }) : super(key: key);
 
   @override
@@ -16,17 +19,13 @@ class BorderlessButton extends StatelessWidget {
       onPressed: () {
         onPressed();
       },
+      style: TextButton.styleFrom(
+        primary: Theme.of(context).primaryColor,
+      ),
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Theme.of(context).primaryColor,
-          fontWeight: FontWeight.w900,
-          fontSize: 16,
-        ),
-      ),
-      style: TextButton.styleFrom(
-        primary: Theme.of(context).primaryColor,
+        style: ApplicationTypography.borderlessButton(color),
       ),
     );
   }

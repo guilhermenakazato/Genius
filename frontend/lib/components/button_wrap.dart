@@ -1,52 +1,66 @@
-import "package:genius/components/button.dart";
-import 'package:genius/utils/navigator_util.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'button.dart';
+import '../utils/navigator_util.dart';
 
 class ButtonWrap extends StatelessWidget {
-  final Widget simScreen, naoScreen;
-  final String textSim, textNao;
+  final Widget yesScreen, noScreen;
+  final String textYes, textNo;
   final Function addYesFunction, addNoFunction;
   final double width;
+  final Widget additionalWidget;
 
   const ButtonWrap({
     Key key,
-    @required this.simScreen,
-    @required this.naoScreen,
-    this.textSim = "Sim",
-    this.textNao = "Não",
+    @required this.yesScreen,
+    @required this.noScreen,
+    this.textYes = 'Sim',
+    this.textNo = 'Não',
     this.addYesFunction,
     this.addNoFunction,
     this.width = 95,
+    this.additionalWidget,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final NavigatorUtil navigator = NavigatorUtil();
+    final navigator = NavigatorUtil();
 
     return Wrap(
       alignment: WrapAlignment.center,
       spacing: 20,
       runSpacing: 10,
-      children: [
+      children: <Widget>[
         Button(
           width: width,
-          text: textSim,
+          text: textYes,
           onClick: () {
-            addYesFunction == null
-                ? debugPrint("Sem função")
-                : addYesFunction();
-            navigator.navigate(context, simScreen);
+            if (addYesFunction != null) {
+              addYesFunction();
+            }
+            navigator.navigate(context, yesScreen);
           },
         ),
         Button(
           width: width,
-          text: textNao,
+          text: textNo,
           onClick: () {
-            addNoFunction == null ? debugPrint("Sem função") : addNoFunction();
-            navigator.navigate(context, naoScreen);
+            if (addNoFunction != null) {
+              addNoFunction();
+            }
+            navigator.navigate(context, noScreen);
           },
         ),
+        _shouldShowAdditionalWidget(),
       ],
     );
+  }
+
+  Widget _shouldShowAdditionalWidget() {
+    if (additionalWidget != null) {
+      return additionalWidget;
+    } else {
+      return Container();
+    }
   }
 }

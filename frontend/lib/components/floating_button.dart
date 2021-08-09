@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../utils/application_colors.dart';
+
 class FloatingButton extends StatelessWidget {
   final Function onPressed;
+  final IconData icon;
+  final String text;
 
-  const FloatingButton({Key key, @required this.onPressed}) : super(key: key);
+  const FloatingButton({Key key, @required this.onPressed, @required this.icon, @required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: Colors.black,
+      elevation: 0,
+      backgroundColor: ApplicationColors.floatingButtonColor,
       shape: OutlineInputBorder(
         borderSide: BorderSide(
           color: Theme.of(context).primaryColor,
@@ -19,9 +25,9 @@ class FloatingButton extends StatelessWidget {
       onPressed: () {
         onPressed();
       },
-      tooltip: "Prosseguir",
+      tooltip: text,
       child: Icon(
-        Icons.arrow_forward_ios,
+        icon,
         color: Theme.of(context).primaryColor,
       ),
     );

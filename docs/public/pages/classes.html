@@ -27,20 +27,23 @@
             <p>
                 A organização do projeto Genius é feito em duas pastas: <a onclick="glowStyle(this)" href="#backend"><span class="glow">backend</span></a> 
                 e <a onclick="glowStyle(this)" href="#frontend"><span class="glow">frontend</span></a>. 
-                Na frontend, as pastas mais importantes são a <span class="glow">lib</span> (onde todas as classes Flutter ficam) 
-                e a <span class="glow">assets</span> (onde todas as fotos são configuradas),
+                Na frontend, as pastas mais importantes são a <span class="glow">lib</span> (onde todas as classes Flutter ficam), 
+                a <span class="glow">assets</span> (onde todas as fotos são configuradas) e a <span class="glow">fonts</span> (onde todas as fontes ficam),
                 enquanto que na backend as pastas mais importantes são <span class="glow">start</span> 
-                (onde as rotas são configuradas), <span class="glow">database</span> (onde o banco de dados SQL é configurado) 
+                (onde as rotas de acesso ao BD são configuradas), <span class="glow">database</span> (onde o banco de dados é configurado) 
                 e <span class="glow">app</span> (onde as ações executadas em cada rota são configuradas).
             </p>
             <p>É importante ressaltar
                 que dentro da pasta lib há 5 pastas importantes: components, http, models, screens e utils. Na components, são 
-                armazenados componentes reutilizáveis; na http, são colocados códigos referentes às requisições HTTP dentro do app Flutter;
+                armazenados componentes reutilizáveis; na http, são colocados códigos referentes à configuração de requisições HTTP dentro do app Flutter;
                 na models, são guardados os models, classes que representam uma tabela de dados; na screens, estão todos os códigos referentes às
                 telas do Genius e, por fim, na utils, são colocados métodos que podem vir a ser úteis durante o desenvolvimento. Dentro da pasta screens, 
                 há 2 sub-pastas importantes: signup e main. Na signup, está todo o código referente ao cadastro do usuário, enquanto que na main está todo o código
-                relacionado a tela principal do Genius, onde se situa o Feed. E, por fim, dentro da pasta main, há a sub-pasta project, onde é armazenado o código referente
-                à criação de projetos dentro do app, além do código de mostrar as informações do app ao clicar no Card do Feed.</p>
+                relacionado à tela principal do Genius, onde se situa o Feed. Dentro da pasta main, há 4 sub-pastas: project, follows, edit e user_info.
+                Na edit, fica todo o código referente à edição de perfil do usuário, ou seja, informações do usuário, questionários do usuário, projetos do usuário e conquistas do usuário.
+                Na follows, fica o código que constrói todo o layout das telas de seguidores.  Na project, é armazenado o código referente
+                à criação de projetos dentro do app, além do código de mostrar as informações do app ao clicar no Card do Feed. 
+                E, por, fim, na pasta user_info, fica todo o código que constrói o layout das informações que aparecem no perfil, como o "Sobre mim" e "Meus projetos".</p>
         </div>
 
         <div class="classes">
@@ -49,18 +52,31 @@
                 <p>Na pasta backend, temos as seguintes classes:</p>
                 <ul>
                     <div class="divisao-um">
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievements-controller">AchievementsController</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#auth-controller">AuthController</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#projetos-controller">ProjetosController</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#usuarios-controller">UsuariosController</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#projeto">Projeto</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#usuario">Usuario</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#projeto-view">ProjetoView</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-controller">ProjectsController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#search-controller">SearchController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#surveys-controller">SurveysController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tags-controller">TagsController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#users-controller">UsersController</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-bd-model">Achievement</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-bd-model">Project</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#survey-bd-model">Survey</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tag-bd-model">Tag</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#user-bd-model">User</a></li>
                     </div>
                     <div class="divisao-dois">
-                        <li class="glow"><a onclick="glowStyle(this)" href="#usuario-view">UsuarioView</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#usuarios-schema">UsuariosSchema</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#api-tokens">ApiTokens</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#projetos">Projetos</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#users-schema">UsersSchema</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#api-tokens-schema">ApiTokens</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-schema">Projects</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievements-schema">Achievements</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#surveys-schema">Surveys</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tags-schema">Tags</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-users-schema">ProjectsUsers</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#saved-projects-schema">SavedProjects</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-tags-schema">ProjectsTags</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#delete-requests-schema">DeleteRequests</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#users-tags-schema">UsersTags</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#routes">Routes</a></li>
                     </div>
                 </ul>
@@ -69,47 +85,103 @@
                 <p>Já na pasta frontend, temos as seguintes classes:</p>
                 <ul>
                     <div class="divisao-um">
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-card">AchievementCard</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#autocomplete-input">AutoCompleteInput</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#borderless-button">BorderlessButton</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#borderless-input">BorderlessInput</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#bottom-navbar">BottomNavBar</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#button-wrap">ButtonWrap</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#button">Button</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#checkbox-tile">CheckboxTile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#circle-tab-indicator">CircleTabIndicator</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#config-title">ConfigTitle</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#data-notfound-card">DataNotFoundCard</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#data-notfound">DataNotFound</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#dropdown-button">DropDownButton</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#floating-button">FloatingButton</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#genius-card-config">GeniusCardConfig</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#genius-card">GeniusCard</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#gradient-button">GradientButton</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#input-with-animation">InputWithAnimation</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#input">Input</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#list-tile-title">ListTileTitle</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#mod-list-tile">ModListTile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#picker">Picker</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#search-bar">SearchBar</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#switch-tile">SwitchTile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tag-bar">TagBar</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tag">Tag</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#team-description">TeamDescription</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#warning-dialog">WarningDialog</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#http-exception">HttpException</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#logging-interceptors">LoggingInterceptors</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-web-client">CadastroWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-web-client">AchievementWebClient</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#login-web-client">LoginWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#notification-web-client">NotificationWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-web-client">ProjectWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#search-web-client">SearchWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-web-client">SignUpWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#survey-web-client">SurveyWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tags-web-client">TagsWebClient</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#user-web-client">UserWebClient</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#web-client">WebClient</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#auth">Auth</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#token">Token</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#user">User</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#create-project">CreateProject</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#project-info">ProjectInfo</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#config">Config</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#feed">Feed</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-app-model">Achievement</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#auth-app-model">Auth</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-app-model">Project</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#survey-app-model">Survey</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#tag-app-model">Tag</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#token-app-model">Token</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#user-app-model">User</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievement-form">AchievementForm</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-form">ProjectForm</a></li>
                     </div>
                     <div class="divisao-dois">
-                        <li class="glow"><a onclick="glowStyle(this)" href="#perfil">Perfil</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#pesquisa">Pesquisa</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#sobre">Sobre</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#tela-principal">TelaPrincipal</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-age">CadastroAge</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-email">CadastroEmail</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-intro">CadastroIntro</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-nome">CadastroNome</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-senha">CadastroSenha</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#cadastro-type">CadastroType</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#bem-vindo">BemVindo</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#iniciacao-cientifica">IniciacaoCientifica</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#survey-form">SurveyForm</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-achievements">EditAchievements</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-profile">EditProfile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-projects">EditProjects</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-surveys">EditSurveys</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#followers">Followers</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#following">Following</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#project-info">ProjectInfo</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#about-me-tab">AboutMeTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#achievements-tab">AchievementsTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#projects-surveys">ProjectsTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#saved-tab">SavedTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#surveys-tab">SurveysTab</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#about">About</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#change-password">ChangePassword</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#config">Config</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#edit-options">EditOptions</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#feed">Feed</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#follows">Follows</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#feed">MainScreen</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#profile">Profile</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#search">Search</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#send-mail">SendMail</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-age">SignUpAge</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-email">SignUpEmail</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-formation">SignUpFormation</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-institution">SignUpInstitution</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-intro">SignUpIntro</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-local">SignUpLocal</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-name">SignUpName</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-password">SignUpPassword</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-type">SignUpType</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#signup-username">SignUpUsername</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#ask-user">AskUser</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#determine-first-screen">DetermineFirstScreen</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#intro-science">IntroScience</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#login">Login</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#pergunta-usuario">PerguntaUsuario</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#prazer-genius">PrazerGenius</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#sabe-iniciacao">SabeIniciacao</a></li>
-                        <li class="glow"><a onclick="glowStyle(this)" href="#local-store">LocalStore</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#presentation">Presentation</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#question-science">QuestionScience</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#welcome">Welcome</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#application-colors">ApplicationColors</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#application-themes">ApplicationThemes</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#application-typography">ApplicationTypography</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#convert">Convert</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#genius-toast">GeniusToast</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#navigator-util">NavigatorUtil</a></li>
+                        <li class="glow"><a onclick="glowStyle(this)" href="#notifications">Notifications</a></li>
                         <li class="glow"><a onclick="glowStyle(this)" href="#genius">Genius</a></li>
                     </div>
                 </ul>
@@ -119,6 +191,21 @@
         <div class="descricao-classes">
             <div class="backend">
                 <h2 id="backend">Backend</h3>
+                
+                    <div>
+                        <h3 id="achievements-controller">Classe: AchievementsController</h3>
+                        <h4>Caminho: backend\app\Controllers\Http\AchievementsController.ts</h4> 
+                        <p>Classe responsável por receber as requisições referentes às conquistas.</p>
+    
+                        <h3>Métodos da classe:</h3>
+                        <ul>
+                            <li>createAchievement: recebe uma conquista pelo método POST e a cria. Para mais informações sobre os dados de uma conquista, olhe o model Achievement.</li>
+                            <li>listAllAchievements: lista todas as conquistas existentes no BD.</li>
+                            <li>getAchievementById: recebe o id de uma conquista. Se ela existir no BD, retorna seus dados.</li>
+                            <li>updateAchievement: recebe o id de uma conquista e os dados a serem atualizados. Se a conquista existir no BD, retorna os dados já atualizados.</li>
+                            <li>deleteAchievement: recebe o id de uma conquista. Se a conquista existir no BD, será excluída.</li>
+                        </ul>
+                    </div>
 
                 <div>
                     <h3 id="auth-controller">Classe: AuthController</h3>
@@ -128,121 +215,189 @@
                     <h3>Métodos da classe:</h3>
                     <ul>
                         <li>login: recebe o email e a senha do usuário. Se os dados estiverem corretos, retorna um token de autenticação.</li>
-                        <li>token: recebe o token de autenticação disponibilizado pelo método login e verifica se está correto. Se estiver, autentica o usuário com sucesso.</li>
+                        <li>authenticateWithToken: recebe o token de autenticação disponibilizado pelo método login e verifica se está correto. Se estiver, autentica o usuário com sucesso.</li>
                         <li>logout: desloga o usuário e desvalida o token da sessão.</li>
-                        <li>getData: verifica se o token é válido. Se for válido, retorna os dados do usuário logado.</li>
+                        <li>getUserData: verifica se o token é válido. Se for válido, retorna os dados do usuário logado.</li>
+                        <li>checkTokenIsValid: recebe um token e verifica se ele é válido ou não, retornando um bool de acordo com o resultado.</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 id="projetos-controller">Classe: ProjetosController</h3>
-                    <h4>Caminho: backend\app\Controllers\Http\ProjetosController.ts</h4> 
+                    <h3 id="projects-controller">Classe: ProjectsController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\ProjectsController.ts</h4> 
                     <p>Classe responsável por receber as requisições referentes aos projetos.</p>
 
                     <h3>Métodos da classe:</h3>
                     <ul>
-                        <li>create: recebe um projeto e o cria. Para mais informações sobre os dados de um projeto, olhar o model Projeto.</li>
-                        <li>index: lista todos os projetos existentes na tabela de dados.</li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 id="usuarios-controller">Classe: UsuariosController</h3>
-                    <h4>Caminho: backend\app\Controllers\Http\UsuariosController.ts</h4> 
-                    <p>Classe responsável por receber as requisições referentes aos usuários.</p>
-                    
-                    <h3>Métodos da classe:</h3>
-                    <ul>
-                        <li>index: lista todos os usuários existentes na tabela de dados.</li>
-                        <li>create: recebe um usuário e o cria. Para mais informações sobre os dados de um usuário, olhar o model Usuário.</li>
-                        <li>get: recebe o id de um usuário. Se o mesmo existir na tabela de dados, retorna seus dados.</li>
-                        <li>getId: recebe o email de um usuário. Se o mesmo existir na tabela de dados, retorna o id do usuário.</li>
+                        <li>createProject: recebe um projeto e o cria. Para mais informações sobre os dados de um projeto, olhar o model Projeto.</li>
+                        <li>updateProject: recebe o id de um projeto e os dados a serem atualizados. Se o projeto existir no BD, retorna os dados já atualizados.</li>
+                        <li>updateDeleteRequests: recebe o id de um usuário e o id de um projeto. Serve para verificar se um projeto deve ser deletado ou não, sendo isso feito quando as requisições de exclusão de projeto são iguais à quantidade de participantes do mesmo. Ex: 3 votos e 3 participantes = exclusão.</li>
+                        <li>listAllProjects: lista todos os projetos existentes na tabela de dados.</li>
+                        <li>getProjectById: recebe o id de um projeto através de parâmetros HTTP. Caso o projeto exista, é retornado como dado.</li>
+                        <li>verifyIfProjectTitleAlreadyExists: recebe o nome de um projeto através de uma requisição POST e o retorna caso exista.</li>
+                        <li>allParticipantsExist: verifica se todos os participantes de um array passado na função existem, sendo usado na atualização e criação de projetos.</li>
+                        <li>createProjectTagRelationship: responsável por associar as tags passadas pela requisição POST a um projeto.</li>
+                        <li>createProjectParticipantRelationship: responsável por associar os participantes passadas pela requisição POST a um projeto.</li>
+                        <li>updateProjectTagRelationship: responsável por atualizar as tags de um projeto, excluindo-as ou adicionando-as.</li>
+                        <li>updateProjectParticipantRelationship: responsável por atualizar os participantes de um projeto, excluindo-os ou adicionando-as.</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 id="projeto">Classe: Projeto</h3>
-                    <h4>Caminho: backend\app\Models\Projeto.ts</h4> 
+                    <h3 id="surveys-controller">Classe: SurveysController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\SurveysController.ts</h4> 
+                    <p>Classe responsável por receber as requisições referentes aos questionários.</p>
+
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createSurvey: recebe um questionário pelo método POST e o cria. Para mais informações sobre os dados de um questionário, olhe o model Survey.</li>
+                        <li>listAllSurveys: lista todos os questionários existentes no BD.</li>
+                        <li>getSurveyById: recebe o id de um questionário. Se ele existir no BD, retorna seus dados.</li>
+                        <li>updateSurvey: recebe o id de um questionário e os dados a serem atualizados. Se o questionário existir no BD, retorna os dados já atualizados.</li>
+                        <li>deleteSurvey: recebe o id de um questionário. Se o questionário existir no BD, será excluído.</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 id="tags-controller">Classe: TagsController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\TagsController.ts</h4> 
+                    <p>Classe responsável por receber as requisições referentes às tags.</p>
+
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>createTag: recebe uma tag pelo método POST e o cria. Para mais informações sobre os dados de um questionário, olhe o model Tag.</li>
+                        <li>getAllTags: lista todas as tags existentes no BD, juntamente dos projetos que as possuem.</li>
+                        <li>getTagById: recebe o id de uma tag. Se ela existir no BD, retorna seus dados.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="users-controller">Classe: UsersController</h3>
+                    <h4>Caminho: backend\app\Controllers\Http\UsersController.ts</h4> 
+                    <p>Classe responsável por receber as requisições referentes aos usuários.</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>listAllUsers: lista todos os usuários existentes na tabela de dados.</li>
+                        <li>createUser: recebe um usuário e o cria. Para mais informações sobre os dados de um usuário, olhar o model Usuário.</li>
+                        <li>getUserById: recebe o id de um usuário. Se o mesmo existir na tabela de dados, retorna seus dados.</li>
+                        <li>deleteUser: recebe o id de um usuário. Se o mesmo existir na tabela de dados, deleta-o.</li>
+                        <li>updateUser: recebe o id de um usuário e os dados a serem atualizados. Se o usuário existir no BD, retorna os dados já atualizados.</li>
+                        <li>saveProject: recebe o id de um projeto e o id de um usuário através de uma requisição POST. Caso ambos existam, o projeto fica salvo nos dados do usuário como sendo um de seus favoritos.</li>
+                        <li>verifyIfUsernameAlreadyExists: recebe o nome do usuário e verifica se o mesmo já existe, sendo isso utilizado na criação e atualização de usuários.</li>
+                        <li>verifyIfEmailAlreadyExists: recebe o email de um usuário e verifica se o mesmo já está em uso, sendo isso utilizado na criação e atualização de usuários.</li>
+                        <li>updateUserTagRelationship: responsável por atualizar as tags favoritas de um usuário, excluindo-as ou adicionando-as.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="achievement-bd-model">Classe: Achievement</h3>
+                    <h4>Caminho: backend\app\Models\Achievement.ts</h4> 
+                    <p>Classe responsável por representar os campos do banco de dados referentes à tabela de conquistas.</p>
+                    
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>id: variável númerica e única que serve para identificar qual é o projeto.</li>
+                        <li>user_id: variável númerica que serve para identificar a quem pertence a conquista.</li>
+                        <li>institution: variável do tipo texto que serve para indicar aonde a conquista foi realizada.</li>
+                        <li>name: variável do tipo texto que serve para dar um nome à conquista.</li>
+                        <li>position: variável opcional do tipo texto que serve para mostrar a posição conquistada.</li>
+                        <li>type: variável do tipo texto que serve para indicar se a conquista é uma medalha, honra ao mérito, certificado ou outro tipo.</li>
+                        <li>customizedType: variável opcional do tipo texto que serve para indicar qual seria o outro tipo, caso o tipo selecionado no campo "type" seja "Outro".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="project-bd-model">Classe: Project</h3>
+                    <h4>Caminho: backend\app\Models\Project.ts</h4> 
                     <p>Classe responsável por representar os campos do banco de dados referentes à tabela de projetos.</p>
                     
                     <h3>Variáveis da classe:</h3>
                     <ul>
                         <li>id: variável númerica e única que serve para identificar qual é o projeto.</li>
                         <li>name: variável do tipo texto que serve para armazenar o nome do projeto. </li>
-                        <li>tag: variável do tipo texto que serve para armazenar o tipo do projeto (tecnologia, ciências da natureza, etc).</li>
-                        <li>orientador: variável do tipo texto que serve para armazenar o nome do orientador do projeto.</li>
-                        <li>coorientador: variável não obrigatória do tipo texto que serve para armazenar o nome do coorientador. </li>
-                        <li>qtde_orientandos: variável númerica que serve para armazenar quantos integrantes têm no projeto. </li>
-                        <li>instituicao: variável do tipo texto que serve para armazenar aonde os integrantes trabalham no projeto.</li>
-                        <li>data_inicio: variável do tipo texto que serve para armazenar quando que o projeto se iniciou.</li>
+                        <li>abstractText: variável do tipo texto que serve para armazenar o resumo do projeto.</li>
+                        <li>main_teacher: variável do tipo texto que serve para armazenar o nome do orientador do projeto, caso seja um @.</li>
+                        <li>second_teacher: variável não obrigatória do tipo texto que serve para armazenar o nome do coorientador, caso seja um @. </li>
+                        <li>main_teacher_name: variável não obrigatória do tipo texto que serve para armazenar o nome completo do orientador, caso não tenha um @.</li>
+                        <li>second_teacher_name: variável não obrigatória do tipo texto que serve para armazenar o nome completo do coorientador, caso não tenha um @.</li>
+                        <li>institution: variável do tipo texto que serve para armazenar aonde os integrantes trabalham no projeto.</li>
+                        <li>start_date: variável do tipo texto que serve para armazenar quando que o projeto se iniciou.</li>
+                        <li>participants: variável do tipo lista que serve para indicar os participantes do projeto, incluindo orientador e coorientador.</li>
+                        <li>savedBy: variável do tipo lista que serve para indicar quem salvou o projetos nos favoritos.</li>
+                        <li>tags: variável do tipo lista que serve para indicar as tags associadas a um projeto.</li>
+                        <li>deleteRequests: variável do tipo lista que serve para indicar quantas pessoas votaram para deletar o projeto.</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 id="survey-bd-model">Classe: Survey</h3>
+                    <h4>Caminho: backend\app\Models\Survey.ts</h4> 
+                    <p>Classe responsável por representar os campos do banco de dados referentes à tabela de questionários.</p>
+                    
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>id: variável númerica e única que serve para identificar qual é o usuário.</li>
+                        <li>user_id: variável númerica que serve para mostrar a quem o questionário pertence.</li>
+                        <li>name: variável do tipo texto que serve para dar um nome ao questionário.</li>
+                        <li>link: variável do tipo texto que serve para armazenar o link do questionário.</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 id="usuario">Classe: Usuario</h3>
-                    <h4>Caminho: backend\app\Models\Usuario.ts</h4> 
+                    <h3 id="tag-bd-model">Classe: Tag</h3>
+                    <h4>Caminho: backend\app\Models\Tag.ts</h4> 
+                    <p>Classe responsável por representar os campos do banco de dados referentes à tabela de tags.</p>
+                    
+                    <h3>Variáveis da classe:</h3>
+                    <ul>
+                        <li>id: variável númerica e única que serve para identificar qual é o usuário.</li>
+                        <li>name: variável númerica que serve para armazenar o texto da tag.</li>
+                        <li>projects: variável do tipo lista que serve para armazenar todos os projetos com a tag.</li>
+                        <li>users: variável do tipo lista que serve para armazenar todos os usuários com a tag.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="user-bd-model">Classe: User</h3>
+                    <h4>Caminho: backend\app\Models\user.ts</h4> 
                     <p>Classe responsável por representar os campos do banco de dados referentes à tabela de usuários.</p>
                     
                     <h3>Variáveis da classe:</h3>
                     <ul>
                         <li>id: variável númerica e única que serve para identificar qual é o usuário.</li>
-                        <li>username: variável do tipo texto que serve para armazenar o nome do usuário.</li>
+                        <li>name: variável do tipo texto que serve para armazenar o nome completo do usuário.</li>
+                        <li>username: variável do tipo texto que serve para armazenar o @ do usuário.</li>
                         <li>email: variável do tipo texto que serve para armazenar o email do usuário.</li>
                         <li>password: variável do tipo texto que serve para armazenar a senha do usuário.</li>
-                        <li>type: variável do tipo texto que serve para armazenar o tipo do usuário (estudante, professor ou comunidade externa).</li>
+                        <li>type: variável do tipo texto que serve para armazenar o tipo do usuário (estudante ou professor).</li>
                         <li>age: variável do tipo texto que serve para armazenar a idade do usuário.</li>
                         <li>local: variável do tipo texto que serve para armazenar aonde o usuário mora.</li>
+                        <li>institution: variável do tipo texto que serve para armazenar aonde o usuário estuda/trabalha.</li>
+                        <li>formation: variável do tipo texto que serve para armazenar a formação do usuário.</li>
+                        <li>bio: variável do tipo texto que serve para armazenar a biografia do usuário.</li>
+                        <li>projects: variável do tipo lista que serve para armazenar os projetos do usuário.</li>
+                        <li>achievements: variável do tipo lista que serve para armazenar as conquistas de um usuário.</li>
+                        <li>surveys: variável do tipo lista que serve para armazenar os questionários de um usuário.</li>
+                        <li>saved: variável do tipo lista que serve para armazenar os projetos salvos como favoritos de um usuário.</li>
+                        <li>tags: variável do tipo lista que serve para armazenar as tags favoritas de um usuário.</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 id="projeto-view">Classe: ProjetoView</h3>
-                    <h4>Caminho: backend\app\Views\ProjetoView.ts</h4> 
-                    <p>Classe responsável por definir quais dados da tabela de projetos serão retornados.</p>
-                    
-                    <h3>O que a classe retorna:</h3>
-                    <ul>
-                        <li>id</li>
-                        <li>name</li>
-                        <li>tag</li>
-                        <li>orientador</li>
-                        <li>coorientador</li>
-                        <li>qtde_orientandos</li>
-                        <li>instituicao</li>
-                        <li>data_inicio</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 id="usuario-view">Classe: UsuarioView</h3>
-                    <h4>Caminho: backend\app\Views\UsuarioView.ts</h4> 
-                    <p>Classe responsável por definir quais dados da tabela de usuários serão retornados.</p>
-                    
-                    <h3>O que a classe retorna:</h3>
-                    <ul>
-                        <li>id</li>
-                        <li>username</li>
-                        <li>email</li>
-                        <li>type</li>
-                        <li>age</li>
-                        <li>local</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 id="usuarios-schema">Classe: UsuariosSchema</h3>
-                    <h4>Caminho: backend\database\migrations\1587988332388_usuarios.ts</h4> 
-                    <p>Classe responsável por criar a tabela de dados "usuarios".</p>
+                    <h3 id="users-schema">Classe: UsersSchema</h3>
+                    <h4>Caminho: backend\database\migrations\1587988332388_users.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "users".</p>
                     
                     <h3>Métodos da classe:</h3>
                     <ul>
-                        <li>up: cria a tabela de dados "usuários" com os dados mencionados no model Usuario.</li>
-                        <li>down: desfaz a tabela de dados "usuários".</li>
+                        <li>up: cria a tabela de dados "users" com os dados mencionados no model User.</li>
+                        <li>down: desfaz a tabela de dados "users".</li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 id="api-tokens">Classe: ApiTokens</h3>
+                    <h3 id="api-tokens-schema">Classe: ApiTokens</h3>
                     <h4>Caminho: backend\database\migrations\1592489784670_api_tokens.ts</h4> 
                     <p>Classe responsável por criar a tabela de dados "api_tokens".</p>
                     
@@ -254,14 +409,110 @@
                 </div>
 
                 <div>
-                    <h3 id="projetos">Classe: Projetos</h3>
-                    <h4>Caminho: backend\database\migrations\1603330401993_projetos.ts</h4> 
-                    <p>Classe responsável por criar a tabela de dados "projetos".</p>
+                    <h3 id="projects-schema">Classe: Projects</h3>
+                    <h4>Caminho: backend\database\migrations\1617157956919_projects.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "projects".</p>
                     
                     <h3>Métodos da classe:</h3>
                     <ul>
-                        <li>up: cria a tabela de dados "projetos" com os dados mencionados no model Projeto.</li>
-                        <li>down: desfaz a tabela de dados "projetos".</li>
+                        <li>up: cria a tabela de dados "projects" com os dados mencionados no model Project.</li>
+                        <li>down: desfaz a tabela de dados "projects".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="achievements-schema">Classe: Achievements</h3>
+                    <h4>Caminho: backend\database\migrations\1617756807270_achievements.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "achievements".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>up: cria a tabela de dados "achievements" com os dados mencionados no model Achievement.</li>
+                        <li>down: desfaz a tabela de dados "achievements".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="surveys-schema">Classe: Surveys</h3>
+                    <h4>Caminho: backend\database\migrations\1617756965638_surveys.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "surveys".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>up: cria a tabela de dados "surveys" com os dados mencionados no model Survey.</li>
+                        <li>down: desfaz a tabela de dados "surveys".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="tags-schema">Classe: Tags</h3>
+                    <h4>Caminho: backend\database\migrations\1619379785147_tags.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "tags".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>up: cria a tabela de dados "tags" com os dados mencionados no model Tag.</li>
+                        <li>down: desfaz a tabela de dados "tags".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="projects-users-schema">Classe: ProjectsUsers</h3>
+                    <h4>Caminho: backend\database\migrations\1619380774911_user_projects.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "user_projects".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>up: cria uma tabela de dados, nomeada "user_projects", para fazer relacionamento entre as tabelas "projects" e "users".</li>
+                        <li>down: desfaz a tabela de dados "user_projects".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="projects-tags-schema">Classe: SavedProjects</h3>
+                    <h4>Caminho: backend\database\migrations\1619380808692_saved_projects.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "saved_projects".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>up: cria uma tabela de dados, nomeada "saved_projects", para fazer relacionamento entre as tabelas "projects" e "users".</li>
+                        <li>down: desfaz a tabela de dados "saved_projects".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="saved-projects-schema">Classe: ProjectsTags</h3>
+                    <h4>Caminho: backend\database\migrations\1619380847434_project_tag.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "project_tag".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>up: cria uma tabela de dados, nomeada "project_tag", para fazer relacionamento entre as tabelas "projects" e "tags".</li>
+                        <li>down: desfaz a tabela de dados "project_tag".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="delete-requests-schema">Classe: DeleteRequests</h3>
+                    <h4>Caminho: backend\database\migrations\1623708858849_delete_requests.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "delete_requests".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>up: cria uma tabela de dados, nomeada "delete_requests", para fazer relacionamento entre as tabelas "projects" e "users".</li>
+                        <li>down: desfaz a tabela de dados "delete_requests".</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 id="users-tags-schema">Classe: UsersTags</h3>
+                    <h4>Caminho: backend\database\migrations\1623740336991_users_tags.ts</h4> 
+                    <p>Classe responsável por criar a tabela de dados "users_tags".</p>
+                    
+                    <h3>Métodos da classe:</h3>
+                    <ul>
+                        <li>up: cria uma tabela de dados, nomeada "users_tags", para fazer relacionamento entre as tabelas "tags" e "users".</li>
+                        <li>down: desfaz a tabela de dados "users_tags".</li>
                     </ul>
                 </div>
 
@@ -272,16 +523,43 @@
                     
                     <h3>Rotas:</h3>
                     <ul>
-                        <li>"/usuarios": chama a classe UsuariosController e o método index.</li>
-                        <li>"/usuarios/:id": chama a classe UsuariosController e o método get.</li>
-                        <li>"/usuarios/id/:email": chama a classe UsuariosController e o método getId.</li>
-                        <li>"/usuario": chama a classe UsuariosController e o método create.:</li>
-                        <li>"/login": chama a classe AuthController e o método login.</li>
-                        <li>"/token": chama a classe AuthController e o método token.</li>
-                        <li>"/logout": chama a classe AuthController e o método logout.</li>
-                        <li>"/getData": chama a classe AuthController e o método getData.</li>
-                        <li>"/projeto": chama a classe ProjetosController e o método create.</li>
-                        <li>"/projetos": chama a classe ProjetosController e o método index.</li>
+                        <li>(get) "/users": chama a classe UsersControllers e o método listAllUsers.</li>
+                        <li>(get) "/user/:id": chama a classe UsersControllers e o método getUserById.</li>
+                        <li>(get) "/user-email/:email": chama a classe UsersControllers e o método verifyIfEmailAlreadyExists.</li>
+                        <li>(get) "/user-username/:username": chama a classe UsersControllers e o método verifyIfUsernameAlreadyExists.</li>
+                        <li>(post) "/user": chama a classe UsersControllers e o método createUser.</li>
+                        <li>(delete) "/user/:id": chama a classe UsersControllers e o método deleteUser.</li>
+                        <li>(put) "/user/:id": chama a classe UsersControllers e o método updateUser.</li>
+                        <li>(post) "/save-project": chama a classe UsersControllers e o método saveProject.</li>
+                        <br/>
+                        <li>(post) "/login": chama a classe AuthController e o método login.</li>
+                        <li>(get) "/token": chama a classe AuthController e o método authenticateWithToken.</li>
+                        <li>(get) "/logout": chama a classe AuthController e o método logout</li>
+                        <li>(get) "/get-data": chama a classe AuthController e o método getUserData.</li>
+                        <li>(get) "/check": chama a classe AuthController e o método checkTokenIsValid</li>
+                        <br/>
+                        <li>(post) "/project/:creatorId": chama a classe ProjectsController e o método createProject.</li>
+                        <li>(get) "/projects": chama a classe ProjectsController e o método listAllProjects.</li>
+                        <li>(get) "/project/:id": chama a classe ProjectsController e o método getProjectById.</li>
+                        <li>(put) "/project/:id": chama a classe ProjectsController e o método updateProject.</li>
+                        <li>(put) "/project/:projectId/:userId": chama a classe ProjectsController e o método updateDeleteRequests.</li>
+                        <li>(post) "/verify": chama a classe ProjectsController e o método verifyIfProjectTitleAlreadyExists.</li>
+                        <br/>
+                        <li>(post) "/achievement/:userId": chama a classe AchievementsController e o método createAchievement.</li>
+                        <li>(get) "/achievements": chama a classe AchievementsController e o método listAllAchievements.</li>
+                        <li>(get) "/achievement/:id": chama a classe AchievementsController e o método getAchievementById.</li>
+                        <li>(put) "/achievement/:id": chama a classe AchievementsController e o método updateAchievement.</li>
+                        <li>(delete) "/achievement/:id": chama a classe AchievementsController e o método deleteAchievement.</li>
+                        <br/>
+                        <li>(post) "/survey/:userId": chama a classe SurveysController e o método createSurvey.</li>
+                        <li>(get) "/surveys": chama a classe SurveysController e o método listAllSurveys.</li>
+                        <li>(get) "/survey/:id": chama a classe SurveysController e o método getSurveyById.</li>
+                        <li>(put) "/survey/:id": chama a classe SurveysController e o método updateSurvey.</li>
+                        <li>(delete) "/survey/:id": chama a classe SurveysController e o método deleteSurvey.</li>
+                        <br/>
+                        <li>(post) "/tag": chama a classe TagsController e o método createTag.</li>
+                        <li>(get) "/tags": chama a classe TagsController e o método getAllTags.</li>
+                        <li>(get) "/tag/:id": chama a classe TagsController e o método getTagById.</li>
                     </ul>
                 </div>
             </div>

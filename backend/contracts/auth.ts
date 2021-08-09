@@ -1,11 +1,11 @@
 /**
- * Contract source: https://git.io/JvyKD
+ * Contract source: https://git.io/JOdz5
  *
  * Feel free to let us know via PR, if you find something broken in this
  * file.
  */
 
-import Usuario from 'App/Models/Usuario'
+import User from 'App/Models/User'
 
 declare module '@ioc:Adonis/Addons/Auth' {
   /*
@@ -34,8 +34,8 @@ declare module '@ioc:Adonis/Addons/Auth' {
     |
     */
     user: {
-      implementation: LucidProviderContract<typeof Usuario>,
-      config: LucidProviderConfig<typeof Usuario>,
+      implementation: LucidProviderContract<typeof User>,
+      config: LucidProviderConfig<typeof User>,
     },
   }
 
@@ -45,11 +45,10 @@ declare module '@ioc:Adonis/Addons/Auth' {
   |--------------------------------------------------------------------------
   |
   | The guards are used for authenticating users using different drivers.
-  | The auth module comes with 4 different guards.
+  | The auth module comes with 3 different guards.
   |
   | - SessionGuardContract
   | - BasicAuthGuardContract
-  | - JwtGuardContract
   | - OATGuardContract ( Opaque access token )
   |
   | Every guard needs a provider for looking up users from the database.

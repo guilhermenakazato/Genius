@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+import '../utils/application_typography.dart';
 
 class Input extends StatefulWidget {
   final String hint;
@@ -27,7 +28,7 @@ class InputState extends State<Input> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      width: _selected ? 370 : 250,
+      width: _determineSize(),
       duration: Duration(milliseconds: 250),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16.0, 16, 16, 4),
@@ -47,10 +48,7 @@ class InputState extends State<Input> {
               decoration: InputDecoration(
                 hintText: widget.hint,
                 border: InputBorder.none,
-                hintStyle: TextStyle(
-                  color: Color.fromARGB(200, 171, 132, 229),
-                  fontWeight: FontWeight.w900,
-                ),
+                hintStyle: ApplicationTypography.inputHint,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: Theme.of(context).primaryColor,
@@ -66,16 +64,19 @@ class InputState extends State<Input> {
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: "Gotham",
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.2,
-              ),
+              style: ApplicationTypography.input
             ),
           ),
         ),
       ),
     );
+  }
+
+  double _determineSize() {
+    if (_selected) {
+      return 370;
+    } else {
+      return 250;
+    }
   }
 }

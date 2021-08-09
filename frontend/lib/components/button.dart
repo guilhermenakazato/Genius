@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/application_typography.dart';
+
 class Button extends StatelessWidget {
   final String text;
   final Function onClick;
@@ -35,11 +37,7 @@ class Button extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
-            color: Theme.of(context).primaryColor,
-            fontWeight: FontWeight.w900,
-            fontSize: 18,
-          ),
+          style: ApplicationTypography.button,
         ),
       ),
     );

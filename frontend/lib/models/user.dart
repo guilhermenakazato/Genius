@@ -1,18 +1,46 @@
-// TODO: documentar
+import '../utils/convert.dart';
+import 'project.dart';
+import 'achievement.dart';
+import 'survey.dart';
 
 class User {
-  String username, email, password, type, age, local, instituicao, formacao;
+  String name,
+      username,
+      email,
+      password,
+      type,
+      age,
+      local,
+      institution,
+      formation,
+      bio,
+      verified,
+      deviceToken;
+  int id;
+  List<Project> projects;
+  List<Achievement> achievements;
+  List<Project> saved;
+  List<Survey> surveys;
+  final tags;
+  List<User> followers, following;
 
   User({
+    this.name,
     this.username,
     this.email,
     this.password,
     this.type,
     this.age,
     this.local,
-    this.instituicao, 
-    this.formacao
+    this.institution,
+    this.formation,
+    this.bio,
+    this.tags,
   });
+
+  void setName(String name) {
+    this.name = name;
+  }
 
   void setUsername(String username) {
     this.username = username;
@@ -38,40 +66,69 @@ class User {
     this.local = local;
   }
 
-  void setInstituicao(String instituicao) {
-    this.instituicao = instituicao;
+  void setInstitution(String institution) {
+    this.institution = institution;
   }
 
-  void setFormacao(String formacao) {
-    this.formacao = formacao;
+  void setFormation(String formation) {
+    this.formation = formation;
   }
 
+  void setDeviceToken(String deviceToken) {
+    this.deviceToken = deviceToken;
+  }
 
   User.fromJson(Map<String, dynamic> json)
-      : username = json["username"],
-        email = json["email"],
-        password = json["password"],
-        type = json["type"],
-        age = json["age"],
-        local = json["local"],
-        instituicao = json["instituicao"],
-        formacao = json["formacao"];
+      : id = json['id'],
+        name = json['name'],
+        username = json['username'],
+        email = json['email'],
+        type = json['type'],
+        age = json['age'],
+        local = json['local'],
+        institution = json['institution'],
+        formation = json['formation'],
+        bio = json['bio'],
+        projects = Convert.convertToListOfProjects(json['projects']),
+        achievements =
+            Convert.convertToListOfAchievements(json['achievements']),
+        saved = Convert.convertToListOfSavedProjects(json['saved']),
+        surveys = Convert.convertToListOfSurveys(json['surveys']),
+        tags = Convert.convertToListOfTags(json['tags']),
+        verified = json['verified'],
+        followers = Convert.convertToListOfUsers(json['followers']),
+        following = Convert.convertToListOfUsers(json['following']),
+        deviceToken = json['device_token'];
 
   Map<String, dynamic> toJson() => {
-        "username": username,
-        "email": email,
-        "password": password,
-        "type": type,
-        "age": age,
-        "local": local,
-        "instituicao": instituicao,
-        "formacao": formacao,
+        'name': name,
+        'username': username,
+        'email': email,
+        'type': type,
+        'age': age,
+        'local': local,
+        'institution': institution,
+        'formation': formation,
+        'bio': bio,
+        'tags': tags,
+      };
+
+  Map<String, dynamic> toJsonCreateUser() => {
+        'name': name,
+        'username': username,
+        'email': email,
+        'type': type,
+        'age': age,
+        'local': local,
+        'institution': institution,
+        'formation': formation,
+        'bio': bio,
+        'tags': tags,
+        'password': password
       };
 
   @override
   String toString() {
-    return "User: {username: $username, email: $email,"+ 
-    "password: $password, type: $type, age: $age," + 
-    "local: $local, instituicao: $instituicao, formação: $formacao}";
+    return 'User: {username: $username, email: $email, type: $type, age: $age, local: $local, institution: $institution, formação: $formation, bio: $bio, projects: $projects, deviceToken: $deviceToken}';
   }
 }

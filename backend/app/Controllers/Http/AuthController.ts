@@ -1,36 +1,51 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-// consultar: https://preview.adonisjs.com/guides/auth/api-guard
-// TODO: documentar
-export default {
-    // Pega email e senha e gera um token pra ser usado 
-    async login ({ request, auth }: HttpContextContract) {
-        const email = request.input('email')
-        const password = request.input('password')
-    
-        const token = await auth.use('api').attempt(email, password)
-        return token.toJSON()
-    },
-    // Usa token gerado para autenticar
-    async token({auth}: HttpContextContract){
-        await auth.authenticate()
-        console.log(auth.user)
+export default class AuthController {
+  async login({ request, auth }: HttpContextContract) {
+    const email = request.input('email')
+    const password = request.input('password')
 
-        return {
-            message: "Login realizado com sucesso!"
-        }
-    },
-    // desvalida o token e desloga o usuário
-    async logout({auth}: HttpContextContract){
-        await auth.use("api").logout();
-    }, 
-    // retorna os dados do usuário se ele estiver logado
-    async getData({auth}: HttpContextContract){
-        await auth.authenticate();
-        return auth.user?.$attributes;
-    },
-    // checa se o token é válido
-    async check({auth}: HttpContextContract){
-        return await auth.check();
+    const token = await auth.use('api').attempt(email, password)
+    return token.toJSON()
+  }
+
+  async authenticateWithToken({ auth }: HttpContextContract) {
+    await auth.authenticate()
+
+    return {
+      message: 'Login realizado com sucesso!',
     }
+  }
+
+  async logout({ auth }: HttpContextContract) {
+    await auth.use('api').logout()
+  }
+
+  async getUserDataWithJwtToken({ auth }: HttpContextContract) {
+    await auth.authenticate()
+    await auth.user?.load('achievements')
+    await auth.user?.load('projects', (project) => {
+      project.preload('participants')
+      project.preload('tags')
+      project.preload("deleteRequests")
+      project.preload('likedBy')
+      project.preload('savedBy')
+    })
+    await auth.user?.load('saved', (saved) => {
+      saved.preload('participants')
+      saved.preload('tags')
+      saved.preload('likedBy')
+      saved.preload('savedBy')
+    })
+    await auth.user?.load('surveys')
+    await auth.user?.load("tags")
+    await auth.user?.load("followers")
+    await auth.user?.load("following")
+
+    return auth.user
+  }
+
+  async checkIfTokenIsValid({ auth }: HttpContextContract) {
+    return await auth.check()
+  }
 }
