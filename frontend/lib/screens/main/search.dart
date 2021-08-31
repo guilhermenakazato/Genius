@@ -95,36 +95,33 @@ class _SearchState extends State<Search> {
 
           listOfTags = _listOfTagsFromBackendWithInitialTags(tagsFromBackend);
 
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 40.0, left: 10, right: 10),
-                  child: SearchBar(
-                    onChange: (String value) {
-                      setState(() {
-                        _searchText = value.trim();
-                        _searchData = _getSearchData();
-                        searched = true;
-                      });
-                    },
-                  ),
-                ),
-                TagBar(
-                  tags: listOfTags,
-                  onChangedState: (int position, bool value) {
-                    _handleTagSelected(listOfTags, position, value);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 40.0, left: 10, right: 10),
+                child: SearchBar(
+                  onChange: (String value) {
+                    setState(() {
+                      _searchText = value.trim();
+                      _searchData = _getSearchData();
+                      searched = true;
+                    });
                   },
-                  tagsCount: listOfTags.length,
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.745,
-                  child: _determineSearchOutput(user),
-                ),
-              ],
-            ),
+              ),
+              TagBar(
+                tags: listOfTags,
+                onChangedState: (int position, bool value) {
+                  _handleTagSelected(listOfTags, position, value);
+                },
+                tagsCount: listOfTags.length,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.745,
+                child: _determineSearchOutput(user),
+              ),
+            ],
           );
         } else {
           return SpinKitFadingCube(color: ApplicationColors.primary);
@@ -215,115 +212,114 @@ class _SearchState extends State<Search> {
             ),
           ),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          itemCount: newList.length,
-          itemBuilder: (BuildContext context, int index) {
-            if (newList[index] is User) {
-              return _userResult(
-                newList[index],
-                follower,
-                index,
-                newList.length,
-              );
-            } else {
-              return _projectResult(
-                newList[index],
-                index,
-                newList.length,
-                follower,
-              );
-            }
-          },
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 5.0, right: 5, bottom: 16),
+            child: Container(
+              decoration: BoxDecoration(
+                color: ApplicationColors.searchResultColor,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.zero,
+                itemCount: newList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  if (newList[index] is User) {
+                    return _userResult(
+                      newList[index],
+                      follower,
+                      index,
+                      newList.length,
+                    );
+                  } else {
+                    return _projectResult(
+                      newList[index],
+                      index,
+                      newList.length,
+                      follower,
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
         ),
       ],
     );
   }
 
   Widget _userResult(User user, User follower, int position, int listSize) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0, right: 5),
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: _determineRadius(position, listSize),
-          color: ApplicationColors.searchResultColor,
-        ),
-        child: InkWell(
-          borderRadius: _determineRadius(position, listSize),
-          onTap: () {
-            _navigator.navigate(
-              context,
-              Profile(
-                type: 'search',
-                id: user.id,
-              ),
-            );
-          },
-          child: Padding(
-            padding:
-                const EdgeInsets.only(top: 8.0, bottom: 8, right: 16, left: 16),
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  child: Text(
-                    user.username,
-                    style: ApplicationTypography.mentionStyle,
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  child: Text(
-                    user.name,
-                    style: ApplicationTypography.mentionFullNameStyle,
-                  ),
-                ),
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+        _navigator.navigate(
+          context,
+          Profile(
+            type: 'search',
+            id: user.id,
           ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 8.0,
+          bottom: 8,
+          right: 16,
+          left: 16,
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Text(
+                user.username,
+                style: ApplicationTypography.mentionStyle,
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              child: Text(
+                user.name,
+                style: ApplicationTypography.mentionFullNameStyle,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _projectResult(
-      Project project, int position, int listSize, User follower) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0, right: 5),
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: _determineRadius(position, listSize),
-          color: ApplicationColors.searchResultColor,
-        ),
-        child: InkWell(
-          borderRadius: _determineRadius(position, listSize),
-          onTap: () {
-            _navigator.navigate(
-              context,
-              ProjectInfo(
-                projectId: project.id,
-              ),
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
-              right: 16,
-              top: 16,
-              bottom: 16,
-            ),
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  child: Text(
-                    project.name,
-                  ),
-                ),
-              ],
-            ),
+    Project project,
+    int position,
+    int listSize,
+    User follower,
+  ) {
+    return InkWell(
+      onTap: () {
+        _navigator.navigate(
+          context,
+          ProjectInfo(
+            projectId: project.id,
           ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 16.0,
+          right: 16,
+          top: 16,
+          bottom: 16,
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Text(
+                project.name,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -386,29 +382,6 @@ class _SearchState extends State<Search> {
     }
 
     return listOfTags;
-  }
-
-  BorderRadius _determineRadius(int index, int listSize) {
-    if (listSize == 1) {
-      return BorderRadius.only(
-        topLeft: Radius.circular(16),
-        topRight: Radius.circular(16),
-        bottomLeft: Radius.circular(16),
-        bottomRight: Radius.circular(16),
-      );
-    } else if (index == 0) {
-      return BorderRadius.only(
-        topLeft: Radius.circular(16),
-        topRight: Radius.circular(16),
-      );
-    } else if (index == listSize - 1) {
-      return BorderRadius.only(
-        bottomLeft: Radius.circular(16),
-        bottomRight: Radius.circular(16),
-      );
-    } else {
-      return BorderRadius.circular(0);
-    }
   }
 
   String _shouldDisplayResultadoOrResultados(int listSize) {

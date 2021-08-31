@@ -175,7 +175,6 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                               BorderRadius.circular(24),
                                         ),
                                       ),
-                                      child: _defineLikeIcon(project, user),
                                       onPressed: () async {
                                         final token =
                                             await _tokenObject.getToken();
@@ -219,6 +218,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                           likeIsLoading = false;
                                         });
                                       },
+                                      child: _defineLikeIcon(project, user),
                                     ),
                                   ),
                                 ),
@@ -238,7 +238,6 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                               BorderRadius.circular(24),
                                         ),
                                       ),
-                                      child: _defineSaveIcon(project, user),
                                       onPressed: () async {
                                         final token =
                                             await _tokenObject.getToken();
@@ -270,6 +269,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                           saveIsLoading = false;
                                         });
                                       },
+                                      child: _defineSaveIcon(project, user),
                                     ),
                                   ),
                                 ),
@@ -289,10 +289,6 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                               BorderRadius.circular(24),
                                         ),
                                       ),
-                                      child: const Icon(
-                                        Icons.question_answer_outlined,
-                                        color: Colors.white,
-                                      ),
                                       onPressed: () {
                                         _navigator.navigate(
                                           context,
@@ -302,6 +298,10 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                           ),
                                         );
                                       },
+                                      child: const Icon(
+                                        Icons.question_answer_outlined,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
