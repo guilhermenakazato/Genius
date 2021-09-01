@@ -15,7 +15,7 @@ class Picker extends StatefulWidget {
 
 class _PickerState extends State<Picker> {
   int _age;
-  final _ages = [for (var i = 10; i <= 50; i++) i];
+  final _ages = [for (var i = 10; i <= 70; i++) i];
 
   @override
   Widget build(BuildContext context) {

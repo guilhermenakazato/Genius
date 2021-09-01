@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:genius/screens/signup/signup_confirm_password.dart';
-import '../../utils/genius_toast.dart';
+import 'package:genius/components/borderless_button.dart';
+import 'package:genius/components/borderless_input.dart';
+import 'package:genius/components/floating_button.dart';
+import 'package:genius/models/user.dart';
+import 'package:genius/screens/signup/signup_type.dart';
+import 'package:genius/utils/application_typography.dart';
+import 'package:genius/utils/genius_toast.dart';
+import 'package:genius/utils/navigator_util.dart';
 
-import '../../components/borderless_button.dart';
-import '../../components/borderless_input.dart';
-import '../../components/floating_button.dart';
-import '../../models/user.dart';
-import '../../utils/navigator_util.dart';
-import '../../utils/application_typography.dart';
-
-class SignUpPassword extends StatefulWidget {
+class SignUpConfirmPassword extends StatefulWidget {
   final User person;
 
-  SignUpPassword(this.person);
+  SignUpConfirmPassword(this.person);
 
   @override
-  _SignUpPasswordState createState() => _SignUpPasswordState();
+  _SignUpConfirmPasswordState createState() => _SignUpConfirmPasswordState();
 }
 
-class _SignUpPasswordState extends State<SignUpPassword> {
+class _SignUpConfirmPasswordState extends State<SignUpConfirmPassword> {
   final _passwordController = TextEditingController();
   final _navigator = NavigatorUtil();
   bool _obscure = true;
@@ -42,7 +40,7 @@ class _SignUpPasswordState extends State<SignUpPassword> {
             Transform.translate(
               offset: Offset(0, -20),
               child: Text(
-                'Ótimo! Agora insira uma senha.',
+                'Por favor, confirme sua senha.',
                 textAlign: TextAlign.center,
                 style: ApplicationTypography.primarySignUpText,
               ),
@@ -87,15 +85,12 @@ class _SignUpPasswordState extends State<SignUpPassword> {
 
     if (password.isEmpty) {
       GeniusToast.showToast('Preencha o campo de senha!');
-    } else if (password.length <= 7) {
-      GeniusToast.showToast('Insira uma senha de pelo menos 8 caracteres!');
-    } else if (password.contains(' ')) {
+    } else if (password != widget.person.password) {
       GeniusToast.showToast(
-        'A sua senha não pode conter um espaço em branco!',
+        'Você inseriu sua senha incorretamente! Tente de novo.',
       );
     } else {
-      widget.person.setPassword(password);
-      _navigator.navigate(context, SignUpConfirmPassword(widget.person));
+      _navigator.navigate(context, SignUpType(widget.person));
     }
   }
 }

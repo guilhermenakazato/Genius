@@ -97,6 +97,8 @@ class _FeedState extends State<_FeedContent> {
   Widget _carouselOfCards(User user, List<Project> projects) {
     return GeniusCardConfig(
       itemCount: projects.length,
+      width: MediaQuery.of(context).size.width * 0.875,
+      height: MediaQuery.of(context).size.height * 0.7,
       layout: SwiperLayout.STACK,
       builder: (BuildContext context, int index) {
         var projectIsAlreadyLikedByUser = projects[index]
@@ -117,7 +119,7 @@ class _FeedState extends State<_FeedContent> {
             );
 
         return GeniusCard(
-          textHeight: MediaQuery.of(context).size.height * 0.8 - 300,
+          textHeight: MediaQuery.of(context).size.height * 0.7 - 230,
           onTap: () {
             _navigator.navigateAndReload(
               context,

@@ -6,13 +6,14 @@ class GeniusCardConfig extends StatelessWidget {
   final SwiperLayout layout;
   final Axis cardDirection;
   final Widget Function(BuildContext context, int index) builder;
+  final double width, height;
 
   const GeniusCardConfig({
     Key key,
     @required this.itemCount,
     this.layout = SwiperLayout.DEFAULT,
     this.cardDirection = Axis.horizontal,
-    @required this.builder,
+    @required this.builder, this.width = 300, this.height = 500,
   }) : super(key: key);
 
   @override
@@ -21,8 +22,8 @@ class GeniusCardConfig extends StatelessWidget {
       scrollDirection: cardDirection,
       itemCount: itemCount,
       layout: layout,
-      itemWidth: 300,
-      itemHeight: 500,
+      itemWidth: width,
+      itemHeight: height,
       itemBuilder: builder,
     );
   }

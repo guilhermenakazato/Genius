@@ -95,33 +95,35 @@ class _SearchState extends State<Search> {
 
           listOfTags = _listOfTagsFromBackendWithInitialTags(tagsFromBackend);
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 40.0, left: 10, right: 10),
-                child: SearchBar(
-                  onChange: (String value) {
-                    setState(() {
-                      _searchText = value.trim();
-                      _searchData = _getSearchData();
-                      searched = true;
-                    });
-                  },
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 40.0, left: 10, right: 10),
+                  child: SearchBar(
+                    onChange: (String value) {
+                      setState(() {
+                        _searchText = value.trim();
+                        _searchData = _getSearchData();
+                        searched = true;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              TagBar(
-                tags: listOfTags,
-                onChangedState: (int position, bool value) {
-                  _handleTagSelected(listOfTags, position, value);
-                },
-                tagsCount: listOfTags.length,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.745,
-                child: _determineSearchOutput(user),
-              ),
-            ],
+                TagBar(
+                  tags: listOfTags,
+                  onChangedState: (int position, bool value) {
+                    _handleTagSelected(listOfTags, position, value);
+                  },
+                  tagsCount: listOfTags.length,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.745,
+                  child: _determineSearchOutput(user),
+                ),
+              ],
+            ),
           );
         } else {
           return SpinKitFadingCube(color: ApplicationColors.primary);
@@ -222,6 +224,7 @@ class _SearchState extends State<Search> {
               ),
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
+                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                 padding: EdgeInsets.zero,
                 itemCount: newList.length,
                 itemBuilder: (BuildContext context, int index) {
