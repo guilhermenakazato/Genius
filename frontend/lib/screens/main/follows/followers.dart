@@ -6,7 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../components/gradient_button.dart';
 import '../../../http/webclients/user_webclient.dart';
-import '../../../models/token.dart';
+import '../../../models/jwt_token.dart';
 import '../../../models/user.dart';
 import '../../../utils/application_colors.dart';
 import '../../../utils/genius_toast.dart';
@@ -30,7 +30,7 @@ class Followers extends StatefulWidget {
 
 class _FollowersState extends State<Followers> {
   Future<String> _userData;
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   final _navigator = NavigatorUtil();
 
   @override
@@ -48,18 +48,18 @@ class _FollowersState extends State<Followers> {
   }
 
   Future<String> _getDataById() async {
-    final _webClient = UserWebClient();
-    final token = await _tokenObject.getToken();
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
 
-    final _user = await _webClient.getUserById(widget.id, token);
-    return _user;
+    final user = await webClient.getUserById(widget.id, jwtToken);
+    return user;
   }
 
   Future<String> _getDataByToken() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
+    final user = await webClient.getUserData(jwtToken);
+    return user;
   }
 
   @override
@@ -205,7 +205,10 @@ class _FollowersState extends State<Followers> {
   }
 
   Widget _verifyIfButtonShouldAppear(
-      User user, int position, BuildContext context) {
+    User user,
+    int position,
+    BuildContext context,
+  ) {
     if (widget.type == 'edit') {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),
@@ -229,14 +232,15 @@ class _FollowersState extends State<Followers> {
   }
 
   void removeFollower(User user, User follower, BuildContext context) async {
-    final _webClient = UserWebClient();
+    final webClient = UserWebClient();
     var unfollowed = true;
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.unfollow(user.id, follower.id, true, token).catchError((error) {
+    await webClient.unfollow(user.id, follower.id, true, jwtToken).catchError(
+        (error) {
       unfollowed = false;
       progress.dismiss();
       GeniusToast.showToast('Não foi possível remover o usuário.');

@@ -15,7 +15,7 @@ import '../../../components/autocomplete_input.dart';
 import '../../../models/tag.dart';
 import '../../../http/webclients/signup_webclient.dart';
 import '../../../http/exceptions/http_exception.dart';
-import '../../../models/token.dart';
+import '../../../models/jwt_token.dart';
 import '../../../http/webclients/user_webclient.dart';
 import '../../../models/user.dart';
 import '../../../utils/application_colors.dart';
@@ -43,7 +43,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController _residencyController = TextEditingController();
   final TextEditingController _institutionController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-  final _typeOptions = <String>[
+  final _userTypeOptions = <String>[
     'Estudante',
     'Professor',
     'Cidadão',
@@ -68,7 +68,7 @@ class _EditProfileState extends State<EditProfile> {
   String _typeController;
   String _formationController;
   int _ageController;
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   final _key = GlobalKey<FormState>();
   final _tagsKey = GlobalKey<FlutterMentionsState>();
 
@@ -88,19 +88,19 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<User> _getUserData() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _userJson = await _webClient.getUserData(_token);
-    final _user = User.fromJson(jsonDecode(_userJson));
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
+    final userJson = await webClient.getUserData(jwtToken);
+    final user = User.fromJson(jsonDecode(userJson));
 
-    return _user;
+    return user;
   }
 
   Future<List<Tag>> _getTagsData() async {
     final webClient = TagsWebClient();
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
-    final tags = await webClient.getAllTags(token);
+    final tags = await webClient.getAllTags(jwtToken);
     final tagsList = Convert.convertToListOfTags(jsonDecode(tags));
 
     return tagsList;
@@ -251,7 +251,7 @@ class _EditProfileState extends State<EditProfile> {
                             padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
                             child: DropDownButton(
                               hint: user.type,
-                              items: _typeOptions,
+                              items: _userTypeOptions,
                               onValueChanged: (String value) {
                                 _typeController = value;
                               },
@@ -419,7 +419,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void updateUserData(User newUserData, User oldUserData, int userId,
       BuildContext context) async {
-    final _webClientToVerifyData = SignUpWebClient();
+    final webClientToVerifyData = SignUpWebClient();
     final progress = ProgressHUD.of(context);
 
     progress.show();
@@ -428,10 +428,10 @@ class _EditProfileState extends State<EditProfile> {
     var emailAlreadyExists = false;
 
     if (oldUserData.username != newUserData.username) {
-      usernameAlreadyExists = await _webClientToVerifyData
+      usernameAlreadyExists = await webClientToVerifyData
           .verifyIfUsernameAlreadyExists(newUserData.username);
     } else if (oldUserData.email != newUserData.email) {
-      emailAlreadyExists = await _webClientToVerifyData
+      emailAlreadyExists = await webClientToVerifyData
           .verifyIfEmailAlreadyExists(newUserData.email);
     }
 
@@ -451,11 +451,11 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void updateUser(User newUserData, int userId, BuildContext context) async {
-    final _webClient = UserWebClient();
+    final webClient = UserWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
-    await _webClient.updateUser(newUserData, userId, token).catchError((error) {
+    await webClient.updateUser(newUserData, userId, jwtToken).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {

@@ -14,7 +14,7 @@ import '../../../components/data_not_found.dart';
 import '../../../models/achievement.dart';
 import '../../../models/user.dart';
 import '../../../http/webclients/user_webclient.dart';
-import '../../../models/token.dart';
+import '../../../models/jwt_token.dart';
 import '../../../utils/application_colors.dart';
 import '../../../components/floating_button.dart';
 import 'forms/achievement_form.dart';
@@ -26,7 +26,7 @@ class EditConquistas extends StatefulWidget {
 
 class _EditAchievementsState extends State<EditConquistas> {
   Future<String> _userData;
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   final _navigator = NavigatorUtil();
 
   @override
@@ -37,8 +37,8 @@ class _EditAchievementsState extends State<EditConquistas> {
 
   Future<String> getData() async {
     final userWebClient = UserWebClient();
-    final token = await _tokenObject.getToken();
-    final user = await userWebClient.getUserData(token);
+    final jwtToken = await _tokenObject.getToken();
+    final user = await userWebClient.getUserData(jwtToken);
     return user;
   }
 
@@ -163,11 +163,11 @@ class _EditAchievementsState extends State<EditConquistas> {
   void _deleteAchievement(int achievementId, BuildContext context) async {
     final achievementWebClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     progress.show();
 
-    await achievementWebClient.deleteAchievement(achievementId, token).catchError((error) {
+    await achievementWebClient.deleteAchievement(achievementId, jwtToken).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {

@@ -6,7 +6,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pattern_formatter/pattern_formatter.dart';
 
-import '../../../../models/token.dart';
+import '../../../../models/jwt_token.dart';
 import '../../../../utils/genius_toast.dart';
 import '../../../../http/webclients/user_webclient.dart';
 import '../../../../http/exceptions/http_exception.dart';
@@ -53,14 +53,14 @@ class _ProjectFormState extends State<ProjectForm> {
   final _mainTeacherKey = GlobalKey<FlutterMentionsState>();
   final _secondTeacherKey = GlobalKey<FlutterMentionsState>();
   final _participantsKey = GlobalKey<FlutterMentionsState>();
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
 
   final _navigator = NavigatorUtil();
 
   @override
   void initState() {
     super.initState();
-    _verifyIfShouldFillFormOrNot();
+    _verifyIfShouldFillFormWithInitialDataOrNot();
   }
 
   Future<List<dynamic>> _getProjectFormData() {
@@ -71,9 +71,9 @@ class _ProjectFormState extends State<ProjectForm> {
 
   Future<List<User>> _getUsersData() async {
     final userWebClient = UserWebClient();
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
-    final users = await userWebClient.getAllUsers(token);
+    final users = await userWebClient.getAllUsers(jwtToken);
     final usersList = Convert.convertToListOfUsers(jsonDecode(users));
 
     return usersList;
@@ -81,21 +81,21 @@ class _ProjectFormState extends State<ProjectForm> {
 
   Future<List<Tag>> _getTagsData() async {
     final tagsWebClient = TagsWebClient();
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
-    final tags = await tagsWebClient.getAllTags(token);
+    final tags = await tagsWebClient.getAllTags(jwtToken);
     final tagsList = Convert.convertToListOfTags(jsonDecode(tags));
 
     return tagsList;
   }
 
-  void _verifyIfShouldFillFormOrNot() {
+  void _verifyIfShouldFillFormWithInitialDataOrNot() {
     if (widget.type == 'edit') {
       _tagsInitState = _transformListOfTagsIntoStringOfTags(
         widget.project.tags,
       );
 
-      _usernamesInitState = _transformListOfUsersIntoStringOfUsernames(
+      _usernamesInitState = _transformListOfUsernamesIntoStringOfUsernames(
         widget.project.participants,
       );
 
@@ -109,7 +109,7 @@ class _ProjectFormState extends State<ProjectForm> {
     }
   }
 
-  String _transformListOfUsersIntoStringOfUsernames(List<User> users) {
+  String _transformListOfUsernamesIntoStringOfUsernames(List<User> users) {
     var stringOfUsers = '';
 
     users.forEach((user) {
@@ -337,7 +337,7 @@ class _ProjectFormState extends State<ProjectForm> {
     var participants = participantsText.trim().split(' ');
     participants = participants.toSet().toList();
 
-    var projectTitleExists =
+    var projectTitleAlreadyExists =
         await _projectTitleAlreadyExists(name, widget.project);
 
     var projectEmailAlreadyBeingUsed = false;
@@ -365,7 +365,7 @@ class _ProjectFormState extends State<ProjectForm> {
       GeniusToast.showToast(
         'Ops! Parece que alguém já está usando o email de projeto que você tentou colocar.',
       );
-    } else if (projectTitleExists) {
+    } else if (projectTitleAlreadyExists) {
       progress.dismiss();
       GeniusToast.showToast(
         'Ops! Parece que alguém já está usando o título de projeto que você tentou colocar.',
@@ -543,13 +543,13 @@ class _ProjectFormState extends State<ProjectForm> {
   void _createProject(Project project, BuildContext context) async {
     final projectWebClient = ProjectWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     var creationTestsPassed = await projectWebClient
             .createProject(
           project,
           widget.user.id,
-          token,
+          jwtToken,
         )
             .catchError((error) {
           progress.dismiss();
@@ -578,10 +578,10 @@ class _ProjectFormState extends State<ProjectForm> {
   ) async {
     final projectWebClient = ProjectWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     var updateTestsPassed = await projectWebClient
-            .updateProject(project, oldProjectId, token)
+            .updateProject(project, oldProjectId, jwtToken)
             .catchError((error) {
           progress.dismiss();
           GeniusToast.showToast(error.message);

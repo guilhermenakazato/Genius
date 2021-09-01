@@ -6,7 +6,7 @@ import '../../../http/webclients/notification_webclient.dart';
 import '../../../http/webclients/project_webclient.dart';
 import '../../../http/webclients/user_webclient.dart';
 import '../../../models/project.dart';
-import '../../../models/token.dart';
+import '../../../models/jwt_token.dart';
 import '../../../models/user.dart';
 import '../../../utils/application_colors.dart';
 import '../../../utils/navigator_util.dart';
@@ -25,7 +25,7 @@ class ProjectInfo extends StatefulWidget {
 
 class _ProjectInfoState extends State<ProjectInfo> {
   final _navigator = NavigatorUtil();
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   Future<List<dynamic>> _projectInfoScreenData;
   final _userWebClient = UserWebClient();
   final _notificationWebClient = NotificationWebClient();
@@ -239,7 +239,7 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                         ),
                                       ),
                                       onPressed: () async {
-                                        final token =
+                                        final jwtToken =
                                             await _tokenObject.getToken();
 
                                         setState(() {
@@ -253,13 +253,13 @@ class _ProjectInfoState extends State<ProjectInfo> {
                                               .removeSavedProject(
                                             project.id,
                                             user.id,
-                                            token,
+                                            jwtToken,
                                           );
                                         } else {
                                           await _userWebClient.saveProject(
                                             project.id,
                                             user.id,
-                                            token,
+                                            jwtToken,
                                           );
                                         }
 
@@ -410,18 +410,18 @@ class _ProjectInfoState extends State<ProjectInfo> {
   }
 
   Future<String> _getProjectById() async {
-    final _webClient = ProjectWebClient();
-    final token = await _tokenObject.getToken();
+    final webClient = ProjectWebClient();
+    final jwtToken = await _tokenObject.getToken();
 
-    final _project = await _webClient.getProjectById(widget.projectId, token);
+    final _project = await webClient.getProjectById(widget.projectId, jwtToken);
     return _project;
   }
 
   Future<String> _getUserData() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
+    final user = await webClient.getUserData(jwtToken);
+    return user;
   }
 
   Widget _defineLikeIcon(Project project, User user) {

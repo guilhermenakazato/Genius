@@ -8,7 +8,7 @@ import '../../components/warning_dialog.dart';
 import '../../http/exceptions/http_exception.dart';
 import '../../http/webclients/login_webclient.dart';
 import '../../http/webclients/user_webclient.dart';
-import '../../models/token.dart';
+import '../../models/jwt_token.dart';
 import '../../utils/application_colors.dart';
 import '../../utils/genius_toast.dart';
 import '../../utils/navigator_util.dart';
@@ -99,7 +99,7 @@ class _ChangePasswordState extends State<ChangePassword> {
 
   Future<dynamic> _changePassword(BuildContext context, String password) async {
     final password = _passwordController.text;
-    final tokenObject = Token();
+    final tokenObject = JwtToken();
     final userWebClient = UserWebClient();
     final loginWebClient = LoginWebClient();
 
@@ -132,7 +132,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   .catchError((error) => {debugPrint(error.toString())},
                       test: (e) => e is HttpException);
               await loginWebClient.logout(token);
-              await tokenObject.removeToken();
+              await tokenObject.eraseToken();
 
               progress.dismiss();
               _navigator.navigateAndRemove(context, Welcome());

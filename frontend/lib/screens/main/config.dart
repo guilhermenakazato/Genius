@@ -11,7 +11,7 @@ import 'send_mail.dart';
 import '../../models/user.dart';
 import '../../utils/application_colors.dart';
 import '../../http/webclients/user_webclient.dart';
-import '../../models/token.dart';
+import '../../models/jwt_token.dart';
 import '../../components/config_title.dart';
 import '../../components/mod_list_tile.dart';
 import '../../http/webclients/login_webclient.dart';
@@ -24,7 +24,7 @@ class Config extends StatefulWidget {
 }
 
 class _ConfigState extends State<Config> {
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   final _navigator = NavigatorUtil();
   final _loginWebClient = LoginWebClient();
   final _userWebClient = UserWebClient();
@@ -154,7 +154,7 @@ class _ConfigState extends State<Config> {
     progress.show();
 
     await _loginWebClient.logout(await _tokenObject.getToken());
-    await _tokenObject.removeToken();
+    await _tokenObject.eraseToken();
 
     progress.dismiss();
     _navigator.navigateAndRemove(context, Welcome());

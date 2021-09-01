@@ -14,7 +14,7 @@ import '../../../models/user.dart';
 import '../../../components/data_not_found.dart';
 import '../../../models/project.dart';
 import '../../../http/webclients/user_webclient.dart';
-import '../../../models/token.dart';
+import '../../../models/jwt_token.dart';
 import '../../../components/floating_button.dart';
 import '../../../utils/application_colors.dart';
 import 'forms/project_form.dart';
@@ -26,8 +26,8 @@ class EditProjects extends StatefulWidget {
 
 class _EditProjectsState extends State<EditProjects> {
   Future<String> _userData;
-  final _tokenObject = Token();
-  final navigator = NavigatorUtil();
+  final _tokenObject = JwtToken();
+  final _navigator = NavigatorUtil();
   bool card = true;
 
   @override
@@ -37,10 +37,10 @@ class _EditProjectsState extends State<EditProjects> {
   }
 
   Future<String> getData() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
+    final user = await webClient.getUserData(jwtToken);
+    return user;
   }
 
   @override
@@ -67,7 +67,7 @@ class _EditProjectsState extends State<EditProjects> {
                       FloatingActionButtonLocation.centerFloat,
                   floatingActionButton: FloatingButton(
                     onPressed: () {
-                      navigator.navigateAndReload(
+                      _navigator.navigateAndReload(
                           context,
                           ProjectForm(
                             user: user,
@@ -144,7 +144,7 @@ class _EditProjectsState extends State<EditProjects> {
                     color: ApplicationColors.secondCardColor,
                     child: InkWell(
                       onTap: () {
-                        navigator.navigate(
+                        _navigator.navigate(
                           context,
                           ProjectInfo(
                             projectId: projects[index].id,
@@ -212,7 +212,7 @@ class _EditProjectsState extends State<EditProjects> {
             type: 'edit',
             projectParticipants: projects[index].participants,
             onTap: () {
-              navigator.navigate(
+              _navigator.navigate(
                 context,
                 ProjectInfo(
                   projectId: projects[index].id,
@@ -221,7 +221,7 @@ class _EditProjectsState extends State<EditProjects> {
             },
             cardColor: ApplicationColors.secondCardColor,
             onEdit: () {
-              navigator.navigateAndReload(
+              _navigator.navigateAndReload(
                 context,
                 ProjectForm(
                   type: 'edit',
@@ -300,10 +300,10 @@ class _EditProjectsState extends State<EditProjects> {
       );
     } else {
       final progress = ProgressHUD.of(context);
-      final token = await _tokenObject.getToken();
+      final jwtToken = await _tokenObject.getToken();
 
       progress.show();
-      await projectWebClient.updateDeleteRequest(project.id, user.id, token);
+      await projectWebClient.updateDeleteRequest(project.id, user.id, jwtToken);
       progress.dismiss();
     }
   }

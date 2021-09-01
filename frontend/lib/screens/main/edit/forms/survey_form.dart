@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../../../../models/token.dart';
+import '../../../../models/jwt_token.dart';
 import '../../../../utils/genius_toast.dart';
 import '../../../../utils/navigator_util.dart';
 import '../../../../http/exceptions/http_exception.dart';
@@ -14,11 +14,11 @@ import '../../../../components/gradient_button.dart';
 import '../../../../components/input_with_animation.dart';
 
 class SurveyForm extends StatefulWidget {
-  final String type;
+  final String formType;
   final Survey survey;
   final int userId;
 
-  SurveyForm({Key key, this.type = 'normal', this.survey, this.userId})
+  SurveyForm({Key key, this.formType = 'normal', this.survey, this.userId})
       : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class _SurveyFormState extends State<SurveyForm> {
   final _titleController = TextEditingController();
   final _urlController = TextEditingController();
   final _navigator = NavigatorUtil();
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _SurveyFormState extends State<SurveyForm> {
   }
 
   void _verifyIfFieldsShouldBeFilled() {
-    if (widget.type == 'edit') {
+    if (widget.formType == 'edit') {
       _titleController.text = widget.survey.name;
       _urlController.text = widget.survey.link;
     }
@@ -106,7 +106,7 @@ class _SurveyFormState extends State<SurveyForm> {
       title,
     );
 
-    if (widget.type == 'edit') {
+    if (widget.formType == 'edit') {
       _updateSurvey(survey, oldData.id, context);
     } else {
       _createSurvey(survey, context);
@@ -116,11 +116,11 @@ class _SurveyFormState extends State<SurveyForm> {
   void _createSurvey(Survey survey, BuildContext context) async {
     final surveyWebClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     progress.show();
 
-    await surveyWebClient.createSurvey(survey, widget.userId, token).catchError(
+    await surveyWebClient.createSurvey(survey, widget.userId, jwtToken).catchError(
         (error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
@@ -145,11 +145,11 @@ class _SurveyFormState extends State<SurveyForm> {
   ) async {
     final surveyWebClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     progress.show();
 
-    await surveyWebClient.updateSurvey(survey, oldSurveyId, token).catchError(
+    await surveyWebClient.updateSurvey(survey, oldSurveyId, jwtToken).catchError(
         (error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
@@ -168,7 +168,7 @@ class _SurveyFormState extends State<SurveyForm> {
   }
 
   String _determineTitleText() {
-    if (widget.type == 'edit') {
+    if (widget.formType == 'edit') {
       return 'Edite o questionário';
     } else {
       return 'Crie um questionário';

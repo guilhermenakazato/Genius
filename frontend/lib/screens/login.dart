@@ -168,7 +168,7 @@ class __LoginStateContentState extends State<_LoginStateContent> {
       GeniusToast.showToast('Erro desconhecido.');
     });
 
-    var logged = await loginWebClient.userIsLogged(token.token) ?? false;
+    var logged = await loginWebClient.userIsLogged(token.jwtToken) ?? false;
     progress.dismiss();
 
     _enterMainScreen(logged, context);

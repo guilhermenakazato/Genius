@@ -13,7 +13,7 @@ import '../../../utils/navigator_util.dart';
 import '../../../components/data_not_found.dart';
 import '../../../models/survey.dart';
 import '../../../models/user.dart';
-import '../../../models/token.dart';
+import '../../../models/jwt_token.dart';
 import '../../../http/webclients/user_webclient.dart';
 import '../../../utils/application_colors.dart';
 import '../../../components/floating_button.dart';
@@ -26,8 +26,8 @@ class EditSurveys extends StatefulWidget {
 
 class _EditSurveysState extends State<EditSurveys> {
   Future<User> _userData;
-  final _tokenObject = Token();
-  final navigator = NavigatorUtil();
+  final _tokenObject = JwtToken();
+  final _navigator = NavigatorUtil();
 
   @override
   void initState() {
@@ -36,13 +36,13 @@ class _EditSurveysState extends State<EditSurveys> {
   }
 
   Future<User> getData() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
 
-    dynamic _user = await _webClient.getUserData(_token);
-    _user = User.fromJson(jsonDecode(_user));
+    dynamic user = await webClient.getUserData(jwtToken);
+    user = User.fromJson(jsonDecode(user));
 
-    return _user;
+    return user;
   }
 
   @override
@@ -63,7 +63,7 @@ class _EditSurveysState extends State<EditSurveys> {
                   FloatingActionButtonLocation.centerFloat,
               floatingActionButton: FloatingButton(
                 onPressed: () {
-                  navigator.navigateAndReload(
+                  _navigator.navigateAndReload(
                     context,
                     SurveyForm(userId: user.id),
                     () {
@@ -110,10 +110,10 @@ class _EditSurveysState extends State<EditSurveys> {
             surveys: surveys,
             type: 'edit',
             onEdit: (survey) {
-              navigator.navigateAndReload(
+              _navigator.navigateAndReload(
                 context,
                 SurveyForm(
-                  type: 'edit',
+                  formType: 'edit',
                   survey: survey,
                 ),
                 () {
@@ -145,7 +145,7 @@ class _EditSurveysState extends State<EditSurveys> {
                         );
                       },
                       cancelFunction: () {
-                        navigator.goBack(
+                        _navigator.goBack(
                           context,
                         );
                       },
@@ -166,13 +166,13 @@ class _EditSurveysState extends State<EditSurveys> {
   }
 
   void _deleteSurvey(int surveyId, BuildContext context) async {
-    final _webClient = SurveyWebClient();
+    final webClient = SurveyWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.deleteSurvey(surveyId, token).catchError((error) {
+    await webClient.deleteSurvey(surveyId, jwtToken).catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
     }, test: (error) => error is HttpException).catchError((error) {
@@ -185,6 +185,6 @@ class _EditSurveysState extends State<EditSurveys> {
 
     progress.dismiss();
     GeniusToast.showToast('Questionário deletado com sucesso.');
-    navigator.goBack(context);
+    _navigator.goBack(context);
   }
 }

@@ -90,7 +90,11 @@ class UserWebClient {
   }
 
   Future<void> unfollow(
-      int userId, int followerId, bool removingFollower, String token) async {
+    int userId,
+    int followerId,
+    bool removingFollower,
+    String token,
+  ) async {
     final data = <String, dynamic>{};
     data['user_id'] = userId;
     data['follower_id'] = followerId;

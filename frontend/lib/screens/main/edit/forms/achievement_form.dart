@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../../../../models/token.dart';
+import '../../../../models/jwt_token.dart';
 import '../../../../utils/genius_toast.dart';
 import '../../../../http/exceptions/http_exception.dart';
 import '../../../../http/webclients/achievement_webclient.dart';
@@ -38,16 +38,16 @@ class _AchievementFormState extends State<AchievementForm> {
   final _positionController = TextEditingController();
   final _customizedTypeController = TextEditingController();
   bool showPositionField = false;
-  final navigator = NavigatorUtil();
-  final _tokenObject = Token();
+  final _navigator = NavigatorUtil();
+  final _tokenObject = JwtToken();
 
   @override
   void initState() {
-    _verifyIfShouldFillFormOrNot();
+    _verifyIfShouldFillFormWithInitialDataOrNot();
     super.initState();
   }
 
-  void _verifyIfShouldFillFormOrNot() {
+  void _verifyIfShouldFillFormWithInitialDataOrNot() {
     if (widget.type == 'edit') {
       _institutionController.text = widget.achievement.institution;
       _nameController.text = widget.achievement.name;
@@ -76,7 +76,7 @@ class _AchievementFormState extends State<AchievementForm> {
     }
   }
 
-  final _typeOptions = <String>[
+  final _achievementTypeOptions = <String>[
     'Medalha',
     'Certificado',
     'Honra ao mérito',
@@ -105,7 +105,7 @@ class _AchievementFormState extends State<AchievementForm> {
                   padding: const EdgeInsets.fromLTRB(16, 20, 16, 5),
                   child: DropDownButton(
                     hint: _typeController,
-                    items: _typeOptions,
+                    items: _achievementTypeOptions,
                     onValueChanged: (String value) {
                       _typeController = value;
 
@@ -205,7 +205,7 @@ class _AchievementFormState extends State<AchievementForm> {
     }
   }
 
-  void _handleFormSubmit(Achievement oldData, BuildContext context) {
+  void _handleFormSubmit(Achievement oldAchievementData, BuildContext context) {
     var institution = _institutionController.text;
     var name = _nameController.text;
     var position = _positionController.text;
@@ -236,7 +236,7 @@ class _AchievementFormState extends State<AchievementForm> {
     );
 
     if (widget.type == 'edit') {
-      _updateAchievement(achievement, oldData.id, context);
+      _updateAchievement(achievement, oldAchievementData.id, context);
     } else {
       _createAchievement(achievement, context);
     }
@@ -245,11 +245,11 @@ class _AchievementFormState extends State<AchievementForm> {
   void _createAchievement(Achievement achievement, BuildContext context) async {
     final achievementWebClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
     progress.show();
 
     await achievementWebClient
-        .createAchievement(achievement, widget.userId, token)
+        .createAchievement(achievement, widget.userId, jwtToken)
         .catchError((error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
@@ -264,7 +264,7 @@ class _AchievementFormState extends State<AchievementForm> {
 
     progress.dismiss();
     GeniusToast.showToast('Conquista criada com sucesso.');
-    navigator.goBack(context);
+    _navigator.goBack(context);
   }
 
   void _updateAchievement(
@@ -274,11 +274,11 @@ class _AchievementFormState extends State<AchievementForm> {
   ) async {
     final achievementWebClient = AchievementWebClient();
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     progress.show();
 
-    await achievementWebClient.updateAchievement(achievement, oldSurveyId, token).catchError(
+    await achievementWebClient.updateAchievement(achievement, oldSurveyId, jwtToken).catchError(
         (error) {
       progress.dismiss();
       GeniusToast.showToast(error.message);
@@ -293,7 +293,7 @@ class _AchievementFormState extends State<AchievementForm> {
 
     progress.dismiss();
     GeniusToast.showToast('Conquista atualizada com sucesso.');
-    navigator.goBack(context);
+    _navigator.goBack(context);
   }
 
   String _determineTitleText() {

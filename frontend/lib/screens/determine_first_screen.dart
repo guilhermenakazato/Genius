@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../utils/application_colors.dart';
-import '../models/token.dart';
+import '../models/jwt_token.dart';
 import '../http/webclients/login_webclient.dart';
 import 'main/main_screen.dart';
 import '../screens/welcome.dart';
 
 class DetermineFirstScreen extends StatelessWidget {
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class DetermineFirstScreen extends StatelessWidget {
       if (isValid) {
         return token;
       } else {
-        await _tokenObject.removeToken();
+        await _tokenObject.eraseToken();
         final token = await _tokenObject.getToken();
         return token;
       }

@@ -6,7 +6,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 import '../../http/webclients/notification_webclient.dart';
 import '../../http/webclients/user_webclient.dart';
-import '../../models/token.dart';
+import '../../models/jwt_token.dart';
 import '../../models/user.dart';
 import '../../utils/genius_toast.dart';
 import '../../utils/notifications.dart';
@@ -35,7 +35,7 @@ class _FeedContent extends StatefulWidget {
 }
 
 class _FeedState extends State<_FeedContent> {
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   Future<List<dynamic>> _feedData;
   final _navigator = NavigatorUtil();
   final _userWebClient = UserWebClient();

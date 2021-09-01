@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:genius/screens/signup/signup_confirm_password.dart';
+import '../../screens/signup/signup_confirm_password.dart';
 import '../../utils/genius_toast.dart';
 
 import '../../components/borderless_button.dart';

@@ -12,7 +12,7 @@ import '../../screens/main/user_info/achievements_tab.dart';
 import '../../screens/main/user_info/projects_tab.dart';
 import '../../screens/main/user_info/about_me_tab.dart';
 import '../../http/webclients/user_webclient.dart';
-import '../../models/token.dart';
+import '../../models/jwt_token.dart';
 import '../../utils/application_colors.dart';
 import '../../utils/navigator_util.dart';
 import '../../components/gradient_button.dart';
@@ -51,7 +51,7 @@ class _ProfileContent extends StatefulWidget {
 class _ProfileState extends State<_ProfileContent> {
   final _navigator = NavigatorUtil();
   double _myMindPosition = 0.65;
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   Future<List<dynamic>> _profileData;
   bool alreadyFollowing = false;
 

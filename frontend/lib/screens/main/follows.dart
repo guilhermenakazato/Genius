@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../http/webclients/user_webclient.dart';
-import '../../models/token.dart';
+import '../../models/jwt_token.dart';
 import '../../utils/application_typography.dart';
 import '../../utils/application_colors.dart';
 import 'follows/followers.dart';
@@ -29,7 +29,7 @@ class Follows extends StatefulWidget {
 
 class _FollowsState extends State<Follows> with TickerProviderStateMixin {
   TabController _tabController;
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   Future<String> _userData;
 
   Future<String> _defineHowToGetData() {

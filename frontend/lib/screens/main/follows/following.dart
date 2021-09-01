@@ -11,7 +11,7 @@ import '../../../models/user.dart';
 import '../../../utils/navigator_util.dart';
 import '../../../utils/application_colors.dart';
 import '../../../http/webclients/user_webclient.dart';
-import '../../../models/token.dart';
+import '../../../models/jwt_token.dart';
 import '../../../utils/application_typography.dart';
 import '../profile.dart';
 
@@ -30,7 +30,7 @@ class Following extends StatefulWidget {
 
 class _FollowingState extends State<Following> {
   Future<String> _userData;
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   final _navigator = NavigatorUtil();
 
   @override
@@ -48,18 +48,18 @@ class _FollowingState extends State<Following> {
   }
 
   Future<String> _getDataByToken() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
+    final user = await webClient.getUserData(jwtToken);
+    return user;
   }
 
   Future<String> _getDataById() async {
-    final _webClient = UserWebClient();
-    final token = await _tokenObject.getToken();
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
 
-    final _user = await _webClient.getUserById(widget.id, token);
-    return _user;
+    final user = await webClient.getUserById(widget.id, jwtToken);
+    return user;
   }
 
   @override
@@ -208,14 +208,15 @@ class _FollowingState extends State<Following> {
   }
 
   void unfollow(User user, User follower, BuildContext context) async {
-    final _webClient = UserWebClient();
+    final webClient = UserWebClient();
     var unfollowed = true;
     final progress = ProgressHUD.of(context);
-    final token = await _tokenObject.getToken();
+    final jwtToken = await _tokenObject.getToken();
 
     progress.show();
 
-    await _webClient.unfollow(user.id, follower.id, false, token).catchError((error) {
+    await webClient.unfollow(user.id, follower.id, false, jwtToken).catchError(
+        (error) {
       unfollowed = false;
       progress.dismiss();
       GeniusToast.showToast('Não foi possível deixar de seguir o usuário.');
@@ -230,7 +231,10 @@ class _FollowingState extends State<Following> {
   }
 
   Widget _verifyIfButtonShouldAppear(
-      User user, int position, BuildContext context) {
+    User user,
+    int position,
+    BuildContext context,
+  ) {
     if (widget.type == 'edit') {
       return Padding(
         padding: const EdgeInsets.only(right: 8.0),

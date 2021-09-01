@@ -1,18 +1,18 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Token {
-  final String token;
+class JwtToken {
+  final String jwtToken;
 
-  Token({this.token});
+  JwtToken({this.jwtToken});
 
-  Token.fromJson(Map<String, dynamic> json) : token = json['token'];
+  JwtToken.fromJson(Map<String, dynamic> json) : jwtToken = json['token'];
 
-  void setToken(String token) async {
+  void setToken(String jwtToken) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
+    await prefs.setString('token', jwtToken);
   }
 
-  Future<void> removeToken() async {
+  Future<void> eraseToken() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
   }

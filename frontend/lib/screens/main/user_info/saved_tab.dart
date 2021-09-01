@@ -4,7 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../http/webclients/notification_webclient.dart';
 import '../../../http/webclients/user_webclient.dart';
-import '../../../models/token.dart';
+import '../../../models/jwt_token.dart';
 import '../../../models/user.dart';
 import '../../../components/genius_card.dart';
 import '../../../components/genius_card_config.dart';
@@ -30,17 +30,17 @@ class SavedTab extends StatefulWidget {
 }
 
 class _SavedTabState extends State<SavedTab> {
-  final _tokenObject = Token();
-  final navigator = NavigatorUtil();
+  final _tokenObject = JwtToken();
+  final _navigator = NavigatorUtil();
   bool card = true;
   final _userWebClient = UserWebClient();
   final _notificationWebClient = NotificationWebClient();
 
   Future<String> _getUserData() async {
-    final _webClient = UserWebClient();
-    final _token = await _tokenObject.getToken();
-    final _user = await _webClient.getUserData(_token);
-    return _user;
+    final webClient = UserWebClient();
+    final jwtToken = await _tokenObject.getToken();
+    final user = await webClient.getUserData(jwtToken);
+    return user;
   }
 
   @override
@@ -145,7 +145,7 @@ class _SavedTabState extends State<SavedTab> {
                     color: ApplicationColors.secondCardColor,
                     child: InkWell(
                       onTap: () {
-                        navigator.navigateAndReload(
+                        _navigator.navigateAndReload(
                           context,
                           ProjectInfo(
                             projectId: widget.savedProjects[index].id,
@@ -181,7 +181,7 @@ class _SavedTabState extends State<SavedTab> {
           return GeniusCard(
             textHeight: MediaQuery.of(context).size.height * 0.625 - 230,
             onTap: () {
-              navigator.navigateAndReload(
+              _navigator.navigateAndReload(
                 context,
                 ProjectInfo(
                   projectId: widget.savedProjects[index].id,
@@ -192,7 +192,7 @@ class _SavedTabState extends State<SavedTab> {
               );
             },
             onParticipantsClick: (int id) {
-              navigator.navigateAndReload(
+              _navigator.navigateAndReload(
                 context,
                 Profile(
                   type: 'user',
@@ -220,7 +220,7 @@ class _SavedTabState extends State<SavedTab> {
                 )
                 .contains(user.id),
             onLiked: () async {
-              final token = await _tokenObject.getToken();
+              final jwtToken = await _tokenObject.getToken();
 
               if (widget.savedProjects[index].likedBy
                   .map((item) => item.id)
@@ -228,13 +228,13 @@ class _SavedTabState extends State<SavedTab> {
                 await _userWebClient.dislikeProject(
                   widget.savedProjects[index].id,
                   user.id,
-                  token,
+                  jwtToken,
                 );
               } else {
                 await _userWebClient.likeProject(
                   widget.savedProjects[index].id,
                   user.id,
-                  token,
+                  jwtToken,
                 );
 
                 widget.savedProjects[index].participants
@@ -251,7 +251,7 @@ class _SavedTabState extends State<SavedTab> {
               widget.onChangedState();
             },
             onSaved: () async {
-              final token = await _tokenObject.getToken();
+              final jwtToken = await _tokenObject.getToken();
 
               if (widget.savedProjects[index].savedBy
                   .map((item) => item.id)
@@ -259,13 +259,13 @@ class _SavedTabState extends State<SavedTab> {
                 await _userWebClient.removeSavedProject(
                   widget.savedProjects[index].id,
                   user.id,
-                  token,
+                  jwtToken,
                 );
               } else {
                 await _userWebClient.saveProject(
                   widget.savedProjects[index].id,
                   user.id,
-                  token,
+                  jwtToken,
                 );
               }
 

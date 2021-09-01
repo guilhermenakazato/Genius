@@ -3,10 +3,10 @@ import 'dart:convert';
 import '../exceptions/http_exception.dart';
 import '../webclient.dart';
 import '../../models/auth.dart';
-import '../../models/token.dart';
+import '../../models/jwt_token.dart';
 
 class LoginWebClient {
-  Future<Token> login(Auth auth) async {
+  Future<JwtToken> login(Auth auth) async {
     final authJson = jsonEncode(auth.toJson());
 
     final response = await client.post(
@@ -16,8 +16,8 @@ class LoginWebClient {
     );
 
     if (response.statusCode == 200) {
-      var token = Token.fromJson(jsonDecode(response.body));
-      token.setToken(token.token);
+      var token = JwtToken.fromJson(jsonDecode(response.body));
+      token.setToken(token.jwtToken);
 
       return token;
     }

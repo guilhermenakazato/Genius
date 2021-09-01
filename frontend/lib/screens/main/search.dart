@@ -12,7 +12,7 @@ import '../../models/tag.dart';
 import '../../models/user.dart';
 import '../../utils/convert.dart';
 import '../../utils/application_colors.dart';
-import '../../models/token.dart';
+import '../../models/jwt_token.dart';
 import '../../http/webclients/user_webclient.dart';
 import '../../components/search_bar.dart';
 import '../../components/tag_bar.dart';
@@ -26,7 +26,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   var initialTags = <String>['Mostrar projetos', 'Mostrar usuários'];
   final _selectedTags = <String>[];
-  final _tokenObject = Token();
+  final _tokenObject = JwtToken();
   String _searchText = '';
   var listOfTags;
   bool showUsers = false;

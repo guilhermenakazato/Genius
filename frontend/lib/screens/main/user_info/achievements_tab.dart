@@ -9,7 +9,8 @@ class AchievementsTab extends StatelessWidget {
   final List<Achievement> achievements;
   final String notFoundText;
 
-  const AchievementsTab({Key key, @required this.achievements, this.notFoundText})
+  const AchievementsTab(
+      {Key key, @required this.achievements, this.notFoundText})
       : super(key: key);
 
   @override
@@ -37,13 +38,14 @@ class AchievementsTab extends StatelessWidget {
           removeTop: true,
           context: context,
           child: ListView.builder(
-              itemCount: achievements.length,
-              itemBuilder: (context, index) {
-                return AchievementCard(
-                  color: ApplicationColors.secondCardColor,
-                  achievement: achievements[index],
-                );
-              }),
+            itemCount: achievements.length,
+            itemBuilder: (context, index) {
+              return AchievementCard(
+                color: ApplicationColors.secondCardColor,
+                achievement: achievements[index],
+              );
+            },
+          ),
         ),
       );
     }

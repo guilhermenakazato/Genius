@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:genius/components/borderless_button.dart';
-import 'package:genius/components/borderless_input.dart';
-import 'package:genius/components/floating_button.dart';
-import 'package:genius/models/user.dart';
-import 'package:genius/screens/signup/signup_type.dart';
-import 'package:genius/utils/application_typography.dart';
-import 'package:genius/utils/genius_toast.dart';
-import 'package:genius/utils/navigator_util.dart';
+import '../../components/borderless_button.dart';
+import '../../components/borderless_input.dart';
+import '../../components/floating_button.dart';
+import '../../models/user.dart';
+import '../../screens/signup/signup_type.dart';
+import '../../utils/application_typography.dart';
+import '../../utils/genius_toast.dart';
+import '../../utils/navigator_util.dart';
 
 class SignUpConfirmPassword extends StatefulWidget {
   final User person;
